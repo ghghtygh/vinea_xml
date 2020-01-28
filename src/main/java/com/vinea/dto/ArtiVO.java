@@ -6,7 +6,6 @@ public class ArtiVO {
 	private String uid;
 	private String arti_title;
 	private String jrnl_title;
-	private String jrnl_id;
 	private String arti_auth;
 	private String pub_year;
 	private String pub_date;
@@ -46,12 +45,6 @@ public class ArtiVO {
 	}
 	public void setJrnl_title(String jrnl_title) {
 		this.jrnl_title = jrnl_title;
-	}
-	public String getJrnl_id() {
-		return jrnl_id;
-	}
-	public void setJrnl_id(String jrnl_id) {
-		this.jrnl_id = jrnl_id;
 	}
 	public String getArti_auth() {
 		return arti_auth;
