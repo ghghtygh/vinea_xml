@@ -1,10 +1,6 @@
 package com.vinea.dto;
 
 
-
-
-
-
 public class XmlVO {
 	
 	private int id;
