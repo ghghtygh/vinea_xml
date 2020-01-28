@@ -6,6 +6,7 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
 
 import com.vinea.dto.ArtiVO;
 import com.vinea.dto.XmlVO;
@@ -26,6 +27,11 @@ public class ArtiParser {
 				.parse(filePath);
 		
 		xpath = XPathFactory.newInstance().newXPath();
+		
+		NodeList cols2 = (NodeList) xpath.evaluate("//records", document, XPathConstants.NODESET);
+		for (int idx = 0; idx < cols2.getLength(); idx++) {
+		}		
+		
 		
 		/* 논문 UID */
 		String uid = (String) xpath.evaluate("//UID/text()", document, XPathConstants.STRING);
@@ -67,7 +73,7 @@ public class ArtiParser {
 		String arti_ep = (String) xpath.evaluate("//page", document, XPathConstants.STRING);
 		System.out.println("[종료페이지]\n" + arti_ep);
 		/* DOI */
-		String doi = (String) xpath.evaluate("//identifier[@type='doi']/@value", document, XPathConstants.STRING);
+		String doi = (String) xpath.evaluate("//identifier[@type='']/@value", document, XPathConstants.STRING);
 		// String doi = (String) xpath.evaluate("//identifier[@type='xref_doi']/@value",
 		// document, XPathConstants.STRING);
 		System.out.println("[DOI]\n" + doi);
