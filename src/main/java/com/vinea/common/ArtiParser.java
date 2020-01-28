@@ -6,7 +6,6 @@ import org.w3c.dom.Document;
 
 import com.vinea.dto.ArtiVO;
 import com.vinea.dto.XmlVO;
-import com.vinea.dto.artiVO;
 
 public class ArtiParser {
 	
