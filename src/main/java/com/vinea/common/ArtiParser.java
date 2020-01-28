@@ -18,6 +18,8 @@ public class ArtiParser {
 	
 	public ArtiParser(String filePath) throws Exception {
 		
+		//논문 정보 파싱 vo 객체에 담기
+		
 		vo = new ArtiVO();
 		
 		document = DocumentBuilderFactory.newInstance().newDocumentBuilder()
