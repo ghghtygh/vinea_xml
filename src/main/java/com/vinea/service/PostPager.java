@@ -39,7 +39,9 @@ public class PostPager {
     // 다음 페이지
     private int nextPage;
 
-    public PostPager(int cnt,int now) {
+    public PostPager(int cnt,int now,int size) {
+    	
+    	setPageSize(size);
     	
     	// 현재 페이지 설정
     	setNowPage(now);

@@ -1,4 +1,4 @@
-package com.vinea.myapp;
+package com.vinea.web;
 
 
 

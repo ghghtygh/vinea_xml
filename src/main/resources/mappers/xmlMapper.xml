@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.vinea.mapper.xmlMapper">
+
+	<resultMap id="xmlMap" type="com.vinea.dto.XmlVO">
+	
+		<result property="id"				column="ID"/>
+		<result property="title"			column="TITLE"/>
+		<result property="abstr"			column="ABSTR"/>
+		<result property="org"				column="ORG"/>
+		<result property="authors"			column="AUTHORS"/>
+		<result property="category"			column="CATEGORY"/>
+		<result property="subject"			column="SUBJECT"/>
+		<result property="publisher"		column="PUBLISHER"/>
+	
+	
+	</resultMap>
+	
+	<select id="countXml" resultType="java.lang.Integer">
+	<!-- xmlMapper.xml - countXml : 페이징 전 xml 건수 반환 -->
+	
+		SELECT
+			COUNT(ID)
+		FROM
+			TB_XML
+			
+	</select>
+
+	<insert id="insertXml" parameterType="com.vinea.dto.XmlVO">
+	<!--  xmlMapper.xml - insertXml : 파싱한 xml 저장 -->
+	
+		INSERT INTO
+		
+		TB_XML(
+		
+			TITLE,
+			ABSTR,
+			ORG,
+			AUTHORS,
+			CATEGORY,
+			SUBJECT,
+			PUBLISHER
+		
+		)
+		
+		VALUES(
+			
+			#{title},
+			#{abstr},
+			#{org},
+			#{authors},
+			#{category},
+			#{subject},
+			#{publisher}
+		
+		)
+		
+	</insert>
+	
+	
+	<select id="readXml" parameterType="java.lang.Integer" resultMap="xmlMap">
+	<!--  xmlMapper.xml - readXml : ID에 따른 XML 상세보기 -->
+		SELECT
+			ID,
+			TITLE,
+			ABSTR,
+			ORG,
+			AUTHORS,
+			CATEGORY,
+			SUBJECT,
+			PUBLISHER
+		FROM
+			TB_XML
+	
+		WHERE
+			ID = #{id}
+	
+	</select>
+	
+	
+	<select id="selectXmlList" parameterType="hashmap" resultMap="xmlMap">
+	<!--  xmlMapper.xml - selectXmlList : 해당 페이지 xml list 반환 -->
+	
+		SELECT
+			ID,
+			TITLE,
+			ABSTR,
+			ORG,
+			AUTHORS,
+			CATEGORY,
+			SUBJECT,
+			PUBLISHER
+		FROM
+			TB_XML
+	
+		ORDER BY
+			ID
+		DESC
+		
+		LIMIT
+			#{startIndex}
+		,	#{pageSize}
+	</select>
+	
+	<select id="selectXml" resultMap="xmlMap">
+	<!--  xmlMapper.xml - selectXml : 전체 xml 반환 -->
+	
+		SELECT
+		
+			ID,
+			TITLE,
+			ABSTR,
+			ORG,
+			AUTHORS,
+			CATEGORY,
+			SUBJECT,
+			PUBLISHER
+			
+		FROM
+			TB_XML
+	
+		ORDER BY
+			ID
+		DESC
+		
+	</select>
+
+</mapper>

@@ -5,8 +5,6 @@
     <configuration>
     
         <typeAliases>
-            <typeAlias type="com.vinea.dto.PostVO" alias="postVO"/>
-            <typeAlias type="com.vinea.dto.UserVO" alias="userVO"/>
         </typeAliases>
         
     </configuration>
