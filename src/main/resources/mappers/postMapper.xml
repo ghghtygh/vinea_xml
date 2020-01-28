@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.vinea.mapper.postMapper">
+	<!-- 
+
+	postNum 	: 글 번호 (기본키)
+	title 		: 글 제목
+	content 	: 글 내용
+	writer 		: 작성 회원 번호 (외래키)
+	wrtDt 		: 작성일자
+	reDt 		: 수정일자
+	fileName 	: 첨부파일명
+	fileDir 	: 첨부파일 경로
+	viewCnt 	: 조회수
+	wrtId 		: 작성 회원 아이디
+	
+	-->
+	<resultMap id="postMap" type="postVO">
+
+		<result property="postNum"		column="POST_NO_PK" />
+		<result property="title" 		column="TITLE" />
+		<result property="content" 		column="CONTENT" />
+		<result property="writer"		column="WRT_NO" />
+		<result property="wrtDt" 		column="WRT_DATE"/>
+		<result property="reDt" 		column="WRT_RE_DATE"/>
+		<result property="viewCnt" 		column="VIEW_CNT" />
+		<result property="wrtId" 		column="USER_ID"/>
+		
+	</resultMap>
+
+
+	<select id="countPost" parameterType="hashmap" resultType="java.lang.Integer">
+	<!-- 게시글 건수 -->
+		
+		SELECT
+			COUNT(POST_NO_PK)
+		FROM
+    		POST_TB	AS a
+    	 
+    	JOIN
+			USER_TB	AS b
+		ON
+			a.WRT_NO = b.USER_NO_PK
+
+		<include refid="search"></include>
+			 
+	</select>
+
+
+	<select id="selectPost" resultMap="postMap">
+	<!-- 전체 게시글 리턴 -->
+
+		SELECT *
+		FROM
+    		POST_TB	AS a
+    	JOIN
+			USER_TB	AS b
+		ON
+			a.WRT_NO = b.USER_NO_PK
+	
+		ORDER BY
+			POST_NO_PK
+	
+		DESC
+
+	</select>
+
+	<select id="listPost" parameterType="hashmap" resultMap="postMap">
+	<!-- 해당 페이지 게시글 리턴 -->
+		
+		SELECT *
+		FROM
+    		POST_TB	AS a
+    	JOIN
+			USER_TB	AS b
+		ON
+			a.WRT_NO = b.USER_NO_PK
+
+		<include refid="search"></include>
+         
+		ORDER BY
+			POST_NO_PK
+		DESC
+         
+		LIMIT
+				#{start}
+			,	#{pageSize}
+         
+    </select>
+    
+	 <sql id ="search">
+	 <!-- 검색결과를 위한 쿼리문 -->
+		WHERE
+    		DEL_FL= 'N'
+    			
+    		AND
+    		(
+		    	<choose>
+		    	
+		    		
+		    		<when test="searchOption=='all'">
+		    		<!-- 검색옵션 : 전체(디폴트값) -->
+		    		
+		    			
+		    			USER_ID like CONCAT('%',#{keyword},'%')
+		    			OR
+		    			CONTENT like CONCAT('%',#{keyword},'%')
+		    			OR
+		    			TITLE like CONCAT('%',#{keyword},'%')
+		    			
+		    		</when>
+		    		
+		    		<when test="searchOption=='userId'">
+		    		<!-- 검색옵션 : 작성자 아이디 -->
+		    	
+		    			 USER_ID like CONCAT('%',#{keyword},'%')
+		    			
+		    		</when>
+		    		<when test="searchOption=='content'">
+		    		<!-- 검색옵션 : 내용 -->
+		    		
+		    			 CONTENT like CONCAT('%',#{keyword},'%')
+		    			
+		    		</when>
+		    		<when test="searchOption=='title'">
+		    		<!-- 검색옵션 : 제목 -->
+		    		
+		    			 TITLE like CONCAT('%',#{keyword},'%')
+		    			
+		    		</when>
+		    		
+		    		<otherwise>
+		    		<!-- 검색옵션 : 오류 -->
+		    		
+		    			 TITLE like CONCAT('%','404','%')
+		    		
+		    		</otherwise>
+		    	</choose>
+		    )
+
+	</sql>
+    
+    <select id="fileCheck" parameterType="java.lang.Integer"  resultType="java.lang.Integer">
+    <!-- 첨부파일 개수 리턴 -->
+    	/* /src/main/resources/mappers/postMapper.xml - fileCheck */
+		SELECT
+			COUNT(FILE_NO_PK)
+		FROM
+			FILE_TB
+		WHERE
+			DEL_FL = "N"
+		AND
+		(
+			POST_NO = #{postNo}
+		)
+    
+    
+    </select>
+    
+    
+	<update id="viewCntPost">
+	<!-- 조회수 증가 -->	
+	    /* /src/main/resources/mappers/postMapper.xml - viewCntPost */
+	    
+		UPDATE
+			POST_TB
+		SET
+			VIEW_CNT = VIEW_CNT+1
+		WHERE
+			POST_NO_PK = #{postNo}
+	
+	</update>
+    
+
+    <update id="modifyPost">
+    <!-- 게시글 수정 -->
+    
+    	UPDATE
+    		POST_TB
+    	SET
+    		TITLE		=	#{title}
+    	,	CONTENT		=	#{content}
+    	,	WRT_RE_DATE	=	NOW()
+    	WHERE
+    		POST_NO_PK 	= 	#{postNum}
+    	 
+    </update>
+    
+    <update id ="deletePost">
+    <!-- 게시글 삭제 -->
+    
+    	UPDATE
+    		POST_TB
+    	SET
+    		DEL_FL = "Y"
+    	WHERE
+    		POST_NO_PK = #{postNo}
+    	 
+    </update>
+    
+    
+    <select id="read" resultType="postVO" resultMap="postMap">
+    <!-- 게시글 읽기   -->
+    
+    	SELECT *
+    	   
+    	FROM
+    		POST_TB	AS a
+    	 
+    	JOIN
+			USER_TB	AS b
+        ON
+			a.WRT_NO = b.USER_NO_PK
+          
+    	WHERE
+    		POST_NO_PK = #{postNo}
+    	 
+    </select>
+    
+    <insert id="create" useGeneratedKeys="true" keyProperty="postNum">
+    <!-- 게시글 작성 -->
+    
+	    INSERT INTO POST_TB
+	    (
+	    		TITLE
+	    	,	CONTENT
+	    	,	WRT_NO
+	    	,	WRT_DATE
+	    	,	WRT_RE_DATE
+	    )
+	     
+	    VALUES
+	     
+	    (
+	    		#{title}
+	    	,	#{content}
+	    	,	#{writer}
+	    	,	NOW()
+	    	,	NOW()
+	    )
+	     
+    </insert>
+    
+    <insert id="insertFile" parameterType="hashmap">
+    <!-- 첨부파일 저장 -->
+    
+    	INSERT INTO FILE_TB
+    	(
+    			POST_NO
+    		,	ORIGINAL_NAME
+    		,	STORED_NAME
+    		,	FILE_SIZE
+    	
+    	)
+    	VALUES
+    	(
+    			#{postNum}
+    		,	#{originalFileName}
+    		,	#{storedFileName}
+    		,	#{fileSize}
+    		
+    	
+    	)
+    	
+    </insert>
+    
+    <select id="selectFileList" resultType="hashmap">
+    <!-- 첨부파일 리스트 불러오기 -->
+    
+    <![CDATA[
+    	
+    	SELECT
+    		  FILE_NO_PK
+    		, ORIGINAL_NAME
+    		, ROUND(FILE_SIZE/1024,1)	AS FILE_SIZE
+    	FROM
+    		  FILE_TB
+    	WHERE
+    		DEL_FL = "N"
+    		  
+    	AND
+    	(
+    		POST_NO = #{postNo}
+    	)
+    ]]>
+    
+    </select>
+    
+    <select id ="selectFile" resultType="hashmap">
+
+	<!-- 첨부파일 조회 -->
+
+
+		SELECT
+
+			STORED_NAME
+		,	ORIGINAL_NAME
+
+		FROM
+			FILE_TB
+
+		WHERE
+			FILE_NO_PK = #{fileNo}
+			
+			
+			
+    </select>
+    
+    <update id ="deleteFiles">
+    <!-- 파일 삭제 -->
+    
+    	UPDATE
+    		FILE_TB
+    	
+    	SET
+    		DEL_FL = "Y"	
+    	 
+    	WHERE
+    		POST_NO = #{postNo}
+    	 
+    </update>
+    
+    <update id ="deleteFile">
+    <!-- 파일 삭제 -->
+    
+    	UPDATE
+    		FILE_TB
+    	
+    	SET
+    		DEL_FL = "Y"	
+    	 
+    	WHERE
+    		FILE_NO_PK = #{fileNo}
+    	 
+    </update>
+    
+</mapper>
+
+
