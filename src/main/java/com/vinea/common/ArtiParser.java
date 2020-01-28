@@ -16,7 +16,7 @@ public class ArtiParser {
 	
 	public ArtiParser(String filePath) throws Exception {
 		
-		//vo//
+		//vo////
 	}
 
 }
