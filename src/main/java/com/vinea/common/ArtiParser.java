@@ -8,7 +8,7 @@ import javax.xml.xpath.XPathFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
-import com.vinea.model.ArtiVO;
+import com.vinea.dto.ArtiVO;
 
 public class ArtiParser {
 	
@@ -77,7 +77,7 @@ public class ArtiParser {
 		/** 자료 열람 여부 **/
 		String arti_oa = (String) xpath.evaluate("//pub_info/@journal_oas_gold", document, XPathConstants.STRING);
 	
-		vo.setArti_no(Integer.parseInt(arti_no));
+		vo.setArti_no(arti_no);
 		vo.setArti_uid(arti_uid);
 		
 		vo.setArti_title(arti_title);
@@ -86,7 +86,7 @@ public class ArtiParser {
 		vo.setArti_year(arti_year);
 		vo.setArti_date(arti_date);
 		
-		vo.setArti_volume(arti_volume);
+		vo.setArti_vol(arti_volume);
 		vo.setArti_issue(arti_issue);
 		vo.setArti_sup(arti_sup);
 		

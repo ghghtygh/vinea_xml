@@ -8,10 +8,14 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.vinea.common.NjhParser;
+import com.vinea.dto.ArtiVO;
 import com.vinea.dto.XmlVO;
 
 @Service
 public class XmlServiceImpl implements XmlService{
+	
+	private NjhParser parser;
 	
 	@Inject
 	private XmlDAO dao;
@@ -51,6 +55,21 @@ public class XmlServiceImpl implements XmlService{
 	public void insertVO(XmlVO vo) throws Exception{
 		
 		dao.insertVO(vo);
+	}
+	
+	/** 파싱된 XML(논문)List 데이터 DB에 저장 **/
+	@Override
+	public void createListVO(String filePath) throws Exception{
+		
+		parser = new NjhParser(filePath);
+		
+		List<ArtiVO> list = parser.returnList();
+		
+		for(ArtiVO vo : list){
+			
+			dao.insertAVO(vo);
+		}
+		
 	}
 	
 	/* 전체 XML 목록 리턴 */

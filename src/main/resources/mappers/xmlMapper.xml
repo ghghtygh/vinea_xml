@@ -16,6 +16,28 @@
 		<result property="subject"			column="SUBJECT"/>
 		<result property="publisher"		column="PUBLISHER"/>
 	
+	</resultMap>
+	
+	<resultMap id="artiMap" type="com.vinea.dto.ArtiVO">
+
+	<result property="arti_no"				column="ARTI_NO"/>
+	<result property="arti_uid"     		column="ARTI_UID"/>
+	<result property="arti_title"   		column="ARTI_TITLE"/>
+	<result property="arti_source_title"    column="ARTI_SOURCE_TITLE"/>
+	<result property="arti_year"   		    column="ARTI_YEAR"/>
+	<result property="arti_date"   			column="ARTI_DATE"/>
+	<result property="arti_vol"   			column="ARTI_VOL"/>
+	<result property="arti_issue"   		column="ARTI_ISSUE"/>
+	<result property="arti_sup"   			column="ARTI_SUP"/>		
+	<result property="arti_doi"   			column="ARTI_DOI"/>
+	<result property="arti_ab"   			column="ARTI_AB"/>
+	<result property="arti_issn"   			column="ARTI_ISSN"/>
+	<result property="arti_eissn"   		column="ARTI_EISSN"/>
+	<result property="arti_cite_cnt"   		column="ARTI_CITE_CNT"/>
+	<result property="arti_page_cnt"   		column="ARTI_PAGE_CNT"/>
+	<result property="arti_bp"   			column="ARTI_BP"/>
+	<result property="arti_ep"   			column="ARTI_EP"/>
+	<result property="arti_oa"   			column="ARTI_OA"/>
 	
 	</resultMap>
 	
@@ -28,7 +50,57 @@
 			TB_XML
 			
 	</select>
+	<insert id="insertAVO" parameterType="com.vinea.dto.ArtiVO">
+	
+	INSERT 
+		INTO TB_ARTI
+		(
+			 ARTI_NO
+			,ARTI_UID
+			,ARTI_TITLE
+			,ARTI_SOURCE_TITLE
+			,ARTI_YEAR
+			,ARTI_DATE
+			,ARTI_VOL
+			,ARTI_ISSUE
+			,ARTI_SUP
+			,ARTI_DOI
+			,ARTI_AB
+			,ARTI_ISSN
+			,ARTI_EISSN
+			,ARTI_CITE_CNT
+			,ARTI_PAGE_CNT
+			,ARTI_BP
+			,ARTI_EP
+			,ARTI_OA 
+		)
+		VALUES
+		(
+		     #{arti_no}
+		    ,#{arti_uid}
+		    ,#{arti_title}
+		    ,#{arti_source_title}
+		    ,#{arti_year}
+		    ,#{arti_date}
+		    ,#{arti_vol}
+		    ,#{arti_issue}
+		    ,#{arti_sup}
+		    ,#{arti_doi}
+		    ,#{arti_ab}
+		    ,#{arti_issn}
+		    ,#{arti_eissn}
+		    ,#{arti_cite_cnt}
+		    ,#{arti_page_cnt}
+		    ,#{arti_bp}
+		    ,#{arti_ep}
+		    ,#{arti_oa}		
+		)		
 
+	
+	
+	</insert>
+	
+	
 	<insert id="insertXml" parameterType="com.vinea.dto.XmlVO">
 	<!--  xmlMapper.xml - insertXml : 파싱한 xml 저장 -->
 	

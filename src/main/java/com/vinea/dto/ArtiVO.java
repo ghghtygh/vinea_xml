@@ -4,150 +4,173 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class ArtiVO {
-	
-	private int arti_no;
-	private String uid;
+
+	private String arti_no;
+	private String arti_uid;
 	private String arti_title;
-	private String jrnl_title;
-	private String arti_auth;
-	private String pub_year;
-	private String pub_date;
-	private String pub_type;
-	private String volume;
-	private String issue;
+	private String arti_source_title;
+	private String arti_year;
+	private String arti_date;
+	private String arti_vol;
+	private String arti_issue;
 	private String arti_sup;
-	private String doi;
+	private String arti_doi;
 	private String arti_ab;
-	private String issn;
-	private String eissn;
-	private int cite_cnt;
-	private int page_cnt;
+	private String arti_issn;
+	private String arti_eissn;
+	private int arti_cite_cnt;
+	private int arti_page_cnt;
 	private String arti_bp;
 	private String arti_ep;
-	private String OA;
-	
-	public int getArti_no() {
+	private String arti_oa;
+
+	public String getArti_no() {
 		return arti_no;
 	}
-	public void setArti_no(int arti_no) {
+
+	public void setArti_no(String arti_no) {
 		this.arti_no = arti_no;
 	}
-	public String getUid() {
-		return uid;
+
+	
+	public String getArti_uid() {
+		return arti_uid;
 	}
-	public void setUid(String uid) {
-		this.uid = uid;
+
+	public void setArti_uid(String arti_uid) {
+		this.arti_uid = arti_uid;
 	}
+
 	public String getArti_title() {
 		return arti_title;
 	}
+
 	public void setArti_title(String arti_title) {
 		this.arti_title = arti_title;
 	}
-	public String getJrnl_title() {
-		return jrnl_title;
+
+	public String getArti_source_title() {
+		return arti_source_title;
 	}
-	public void setJrnl_title(String jrnl_title) {
-		this.jrnl_title = jrnl_title;
+
+	public void setArti_source_title(String arti_source_title) {
+		this.arti_source_title = arti_source_title;
 	}
-	public String getArti_auth() {
-		return arti_auth;
+
+	public String getArti_year() {
+		return arti_year;
 	}
-	public void setArti_auth(String arti_auth) {
-		this.arti_auth = arti_auth;
+
+	public void setArti_year(String arti_year) {
+		this.arti_year = arti_year;
 	}
-	public String getPub_year() {
-		return pub_year;
+
+	public String getArti_date() {
+		return arti_date;
 	}
-	public void setPub_year(String pub_year) {
-		this.pub_year = pub_year;
+
+	public void setArti_date(String arti_date) {
+		this.arti_date = arti_date;
 	}
-	public String getPub_date() {
-		return pub_date;
+
+	public String getArti_vol() {
+		return arti_vol;
 	}
-	public void setPub_date(String pub_date) {
-		this.pub_date = pub_date;
+
+	public void setArti_vol(String arti_vol) {
+		this.arti_vol = arti_vol;
 	}
-	public String getPub_type() {
-		return pub_type;
+
+	public String getArti_issue() {
+		return arti_issue;
 	}
-	public void setPub_type(String pub_type) {
-		this.pub_type = pub_type;
+
+	public void setArti_issue(String arti_issue) {
+		this.arti_issue = arti_issue;
 	}
-	public String getVolume() {
-		return volume;
-	}
-	public void setVolume(String volume) {
-		this.volume = volume;
-	}
-	public String getIssue() {
-		return issue;
-	}
-	public void setIssue(String issue) {
-		this.issue = issue;
-	}
+
 	public String getArti_sup() {
 		return arti_sup;
 	}
+
 	public void setArti_sup(String arti_sup) {
 		this.arti_sup = arti_sup;
 	}
-	public String getDoi() {
-		return doi;
+
+	public String getArti_doi() {
+		return arti_doi;
 	}
-	public void setDoi(String doi) {
-		this.doi = doi;
+
+	public void setArti_doi(String arti_doi) {
+		this.arti_doi = arti_doi;
 	}
+
 	public String getArti_ab() {
 		return arti_ab;
 	}
+
 	public void setArti_ab(String arti_ab) {
 		this.arti_ab = arti_ab;
 	}
-	public String getIssn() {
-		return issn;
+
+	public String getArti_issn() {
+		return arti_issn;
 	}
-	public void setIssn(String issn) {
-		this.issn = issn;
+
+	public void setArti_issn(String arti_issn) {
+		this.arti_issn = arti_issn;
 	}
-	public String getEissn() {
-		return eissn;
+
+	public String getArti_eissn() {
+		return arti_eissn;
 	}
-	public void setEissn(String eissn) {
-		this.eissn = eissn;
+
+	public void setArti_eissn(String arti_eissn) {
+		this.arti_eissn = arti_eissn;
 	}
-	public int getCite_cnt() {
-		return cite_cnt;
+
+	public int getArti_cite_cnt() {
+		return arti_cite_cnt;
 	}
-	public void setCite_cnt(int cite_cnt) {
-		this.cite_cnt = cite_cnt;
+
+	public void setArti_cite_cnt(int arti_cite_cnt) {
+		this.arti_cite_cnt = arti_cite_cnt;
 	}
-	public int getPage_cnt() {
-		return page_cnt;
+
+	public int getArti_page_cnt() {
+		return arti_page_cnt;
 	}
-	public void setPage_cnt(int page_cnt) {
-		this.page_cnt = page_cnt;
+
+	public void setArti_page_cnt(int arti_page_cnt) {
+		this.arti_page_cnt = arti_page_cnt;
 	}
+
 	public String getArti_bp() {
 		return arti_bp;
 	}
+
 	public void setArti_bp(String arti_bp) {
 		this.arti_bp = arti_bp;
 	}
+
 	public String getArti_ep() {
 		return arti_ep;
 	}
+
 	public void setArti_ep(String arti_ep) {
 		this.arti_ep = arti_ep;
 	}
-	public String getOA() {
-		return OA;
+
+	public String getArti_oa() {
+		return arti_oa;
 	}
-	public void setOA(String oA) {
-		OA = oA;
+
+	public void setArti_oa(String arti_oa) {
+		this.arti_oa = arti_oa;
 	}
+
 	public String toStringMultiline() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-    }
-	
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+	}
+
 }

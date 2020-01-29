@@ -5,7 +5,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class ArtiVO {
 
-	private int arti_no;
+	private String arti_no;
 	private String arti_uid;
 	private String arti_title;
 	private String arti_source_title;
@@ -24,11 +24,11 @@ public class ArtiVO {
 	private String arti_ep;
 	private String arti_oa;
 
-	public int getArti_no() {
+	public String getArti_no() {
 		return arti_no;
 	}
 
-	public void setArti_no(int arti_no) {
+	public void setArti_no(String arti_no) {
 		this.arti_no = arti_no;
 	}
 

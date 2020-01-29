@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.vinea.dto.ArtiVO;
 import com.vinea.dto.XmlVO;
 
 @Repository
@@ -30,6 +31,12 @@ public class XmlDAO {
 	public void insertVO(XmlVO vo){
 		
 		sqlSession.insert(Namespace+".insertXml", vo);
+	}
+	
+	/* ArtiVO DB 저장*/
+	public void insertAVO(ArtiVO vo){
+		
+		sqlSession.insert(Namespace+".insertAVO", vo);
 	}
 	
 	/* XML 상세보기 */

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.vinea.dto.XmlVO;
 import com.vinea.persistence.XmlService;
+import com.vinea.service.ArtiService;
 import com.vinea.service.PostPager;
 
 @Controller
@@ -22,8 +23,9 @@ public class XmlController {
 
 	@Inject
 	private XmlService service;
-
-
+	
+	@Inject
+	private ArtiService service2;
 	
 	/* 메인 화면 - 페이징 처리*/
 	@RequestMapping(value = "/xml")
@@ -53,6 +55,16 @@ public class XmlController {
 		return "xml/xml_home";
 	}
 
+	
+	@RequestMapping(value = "/xml/test")
+	public void testtest() throws Exception {
+
+		String filepath = "C:\\Users\\vinea\\Desktop\\sample\\api_xml\\test.xml";
+		service2.createListVO(filepath);
+	}
+
+	
+	
 	/* 관리자 페이지 GET */
 	@RequestMapping(value = "/xml/admin", method = RequestMethod.GET)
 	public String xmlAdminGet() {

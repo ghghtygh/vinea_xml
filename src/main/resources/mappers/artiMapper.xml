@@ -6,7 +6,7 @@
    
 <mapper namespace="com.vinea.mapper.artiMapper">
 
-	<resultMap id="artiMap" type="com.vinea.model.ArtiVO">
+	<resultMap id="artiMap" type="com.vinea.dto.ArtiVO">
 	
 		<result property="arti_no"				column="ARTI_NO"/>
 		<result property="arti_uid"     		column="ARTI_UID"/>
@@ -14,7 +14,7 @@
 		<result property="arti_source_title"    column="ARTI_SOURCE_TITLE"/>
 		<result property="arti_year"   		    column="ARTI_YEAR"/>
 		<result property="arti_date"   			column="ARTI_DATE"/>
-		<result property="arti_volume"   		column="ARTI_VOLUME"/>
+		<result property="arti_vol"   			column="ARTI_VOL"/>
 		<result property="arti_issue"   		column="ARTI_ISSUE"/>
 		<result property="arti_sup"   			column="ARTI_SUP"/>		
 		<result property="arti_doi"   			column="ARTI_DOI"/>
@@ -39,7 +39,7 @@
 			TB_ARTI		
 	</select>
 	
-	<insert id="insertXml" parameterType="com.vinea.model.ArtiVO">
+	<insert id="insertXml" parameterType="com.vinea.dto.ArtiVO">
 	<!--  artiMapper.xml / id: insertXml / description: 파싱한 XML(논문) 데이터 DB 저장 -->
 	
 		INSERT 
@@ -51,7 +51,7 @@
 			,ARTI_SOURCE_TITLE
 			,ARTI_YEAR
 			,ARTI_DATE
-			,ARTI_VOLUME
+			,ARTI_VOL
 			,ARTI_ISSUE
 			,ARTI_SUP
 			,ARTI_DOI
@@ -72,7 +72,7 @@
 		    ,#{arti_source_title}
 		    ,#{arti_year}
 		    ,#{arti_date}
-		    ,#{arti_volume}
+		    ,#{arti_vol}
 		    ,#{arti_issue}
 		    ,#{arti_sup}
 		    ,#{arti_doi}
@@ -83,7 +83,7 @@
 		    ,#{arti_page_cnt}
 		    ,#{arti_bp}
 		    ,#{arti_ep}
-		    ,#{arto_oa}		
+		    ,#{arti_oa}		
 		)		
 	</insert>
 	

@@ -20,4 +20,6 @@ public interface XmlService {
 
 	public XmlVO readVO(int id);
 	
+	public void createListVO(String filePath) throws Exception;
+	
 }

@@ -8,11 +8,15 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.vinea.common.ArtiParser;
+import com.vinea.common.NjhParser;
 import com.vinea.dao.ArtiDAO;
-import com.vinea.model.ArtiVO;
+
+import com.vinea.dto.ArtiVO;
 
 @Service
 public class ArtiServiceImpl implements ArtiService{
+	
+	private NjhParser parser;
 	
 	@Inject
 	private ArtiDAO dao;
@@ -53,6 +57,20 @@ public class ArtiServiceImpl implements ArtiService{
 	public void insertVO(ArtiVO article) throws Exception{
 		
 		dao.insertVO(article);
+	}
+	
+	/** 파싱된 XML(논문)List 데이터 DB에 저장 **/
+	@Override
+	public void createListVO(String filePath) throws Exception{
+		
+		parser = new NjhParser(filePath);
+		
+		List<ArtiVO> list = parser.returnList();
+		
+		for(ArtiVO vo : list){
+			dao.insertVO(vo);
+		}
+		
 	}
 	
 	/** 전체 XML(논문) 목록 보기 **/

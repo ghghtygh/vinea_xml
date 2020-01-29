@@ -3,7 +3,7 @@ package com.vinea.service;
 import java.util.List;
 import java.util.Map;
 
-import com.vinea.model.ArtiVO;
+import com.vinea.dto.ArtiVO;
 
 public interface ArtiService {
 	
@@ -18,6 +18,8 @@ public interface ArtiService {
 	public List<ArtiVO> selectXmlList(Map<String, Object> map);
 
 	public ArtiVO readVO(int arti_no);
+
+	public void createListVO(String filePath) throws Exception;
 	
 
 }
