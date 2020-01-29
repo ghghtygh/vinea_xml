@@ -1,5 +1,8 @@
 package com.vinea.dto;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class ArtiVO {
 	
 	private int arti_no;
@@ -142,5 +145,9 @@ public class ArtiVO {
 	public void setOA(String oA) {
 		OA = oA;
 	}
+	
+	public String toStringMultiline() {
+	   return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+	 }
 
 }

@@ -115,7 +115,8 @@ public class ArtiParser {
 		vo.setEissn(eissn);
 		
 		vo.setCite_cnt(Integer.parseInt(cite_cnt));
-			
+		
+		//System.out.println(vo.toStringMultiline());
 
 	}
 	
