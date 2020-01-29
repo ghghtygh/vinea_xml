@@ -30,9 +30,7 @@ public class ArtiParser {
 		
 		NodeList cols2 = (NodeList) xpath.evaluate("//records", document, XPathConstants.NODESET);
 		for (int idx = 0; idx < cols2.getLength(); idx++) {
-		}		
-		
-		
+		}				
 		/* 논문 UID */
 		String uid = (String) xpath.evaluate("//UID/text()", document, XPathConstants.STRING);
 		System.out.println("[UID]\n" + uid);
@@ -73,7 +71,7 @@ public class ArtiParser {
 		String arti_ep = (String) xpath.evaluate("//page", document, XPathConstants.STRING);
 		System.out.println("[종료페이지]\n" + arti_ep);
 		/* DOI */
-		String doi = (String) xpath.evaluate("//identifier[@type='']/@value", document, XPathConstants.STRING);
+		String doi = (String) xpath.evaluate("//identifier[contains(@type, 'doi')]/@value", document, XPathConstants.STRING);
 		// String doi = (String) xpath.evaluate("//identifier[@type='xref_doi']/@value",
 		// document, XPathConstants.STRING);
 		System.out.println("[DOI]\n" + doi);
