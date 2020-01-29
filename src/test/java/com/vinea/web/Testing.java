@@ -9,10 +9,10 @@ public class Testing {
 		// TODO Auto-generated method stub
 
 		String filePath = "C:\\Users\\vinea\\Desktop\\sample.xml";
+		
 		ParseXml px = new ParseXml(filePath);
 		XmlVO vo = px.returnVO();
 		
-		System.out.println(vo.getTitle());
 	}
 
 }
