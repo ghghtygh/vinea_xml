@@ -22,6 +22,7 @@ public class ArtiVO {
 	private String arti_bp;
 	private String arti_ep;
 	private String OA;
+	
 	public int getArti_no() {
 		return arti_no;
 	}
