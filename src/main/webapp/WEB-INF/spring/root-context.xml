@@ -24,19 +24,17 @@
 
     <bean id="dataSource"
         class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
-        <property name="url"
-            value="jdbc:log4jdbc:mysql://192.168.0.196:3306/db_xml?useSSL=false&amp;serverTimezone=UTC">
-        </property>
-        <property name="username" value="jupo"></property>
-        <property name="password" value="qwe123"></property>
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/vinea?serverTimezone=Asia/Seoul"/>
+        <property name="username" value="janee"/>
+        <property name="password" value="duddns0702"/>
     </bean>
 
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"></property>
-        <property name="configLocation" value="classpath:/mybatis-config.xml"></property>
-        <property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"></property>
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:/mybatis-config.xml"/>
+        <property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"/>
         
     </bean>
     
@@ -44,13 +42,15 @@
     <!-- mybatis      -->
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate"
         destroy-method="clearCache">
-        <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+        <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
     </bean>
     
-    <context:component-scan base-package="com.vinea.dto"></context:component-scan>
-    <context:component-scan base-package="com.vinea.common"></context:component-scan>
-    <context:component-scan base-package="com.vinea.dao"></context:component-scan>
- 	<context:component-scan base-package="com.vinea.service"></context:component-scan>
+    <context:component-scan base-package="com.vinea.dto"/> 
+    <context:component-scan base-package="com.vinea.persistence"/>
+    <context:component-scan base-package="com.vinea.common"/>
+    <context:component-scan base-package="com.vinea.model"/>
+    <context:component-scan base-package="com.vinea.dao"/>
+ 	<context:component-scan base-package="com.vinea.service"/>
 
 
 </beans>

@@ -1,7 +1,7 @@
 package com.vinea.web;
 
-import com.vinea.common.ParseXml;
 import com.vinea.dto.XmlVO;
+import com.vinea.persistence.ParseXml;
 
 public class Testing {
 

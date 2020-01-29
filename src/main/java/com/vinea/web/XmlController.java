@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.vinea.dto.XmlVO;
+import com.vinea.persistence.XmlService;
 import com.vinea.service.PostPager;
-import com.vinea.service.XmlService;
 
 @Controller
 public class XmlController {

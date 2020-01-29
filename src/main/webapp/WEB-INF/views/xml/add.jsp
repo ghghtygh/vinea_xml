@@ -94,7 +94,7 @@
 <body>
 
 
-	<div>
+	<!--  <div>
 		경로입력 <input type="text" id="filePath" name="filePath">
 		<button id="chk">확인</button>
 	</div>
@@ -132,6 +132,6 @@
 	<input type="hidden" name="category" value="">
 	<input type="hidden" name="subject" value="">
 	<input type="hidden" name="publisher" value="">
-</form>
+</form>-->
 </body>
 </html>
