@@ -142,5 +142,5 @@ public class ArtiVO {
 	public void setOA(String oA) {
 		OA = oA;
 	}
-
+	
 }
