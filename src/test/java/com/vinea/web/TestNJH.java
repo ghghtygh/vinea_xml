@@ -32,7 +32,7 @@ public class TestNJH {
 		list = np.returnList();
 		
 		for (ArtiVO vo : list){
-			logger.info(vo.toStringMultiline());
+			//logger.info(vo.toStringMultiline());
 		}
 		
 		

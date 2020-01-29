@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?> <!-- Copyright (c) 2018 Clarivate Analytics Web of Science  -->
+<records xmlns="http://clarivate.com/schema/wok5.27/public/FullRecord">
+
+<REC r_id_disclaimer="ResearcherID data provided by Clarivate Analytics">
+<UID>WOS:000381484600003</UID>
+<static_data>
+	<summary>
+		<EWUID>
+			<WUID coll_id="WOS"></WUID>
+			<edition value="WOS.SCI"></edition>
+			<edition value="WOS.ISTP"></edition>
+		</EWUID>
+		<pub_info sortdate="2016-07-28" pubyear="2016" has_abstract="Y" coverdate="JUL 28 2016" pubmonth="JUL 28" vol="17" supplement="6" pubtype="Journal" journal_oas_gold="Y">
+			<page page_count="8"></page>
+		</pub_info>
+		<titles count="6">
+			<title type="source">BMC BIOINFORMATICS</title>
+			<title type="source_abbrev">BMC BIOINFORMATICS</title>
+			<title type="abbrev_iso">BMC Bioinformatics</title>
+			<title type="abbrev_11">BMC BIOINFO</title>
+			<title type="abbrev_29">BMC BIOINFORMATICS</title>
+			<title type="item">Context-specific functional module based drug efficacy prediction</title>
+		</titles>
+		<names count="4">
+			<name seq_no="1" role="author" addr_no="1 2" daisng_id="2821359">
+				<display_name>Hwang, Woochang</display_name>
+				<full_name>Hwang, Woochang</full_name>
+				<wos_standard>Hwang, W</wos_standard>
+				<first_name>Woochang</first_name>
+				<last_name>Hwang</last_name>
+			</name>
+			<name seq_no="2" role="author" addr_no="1" daisng_id="4027549">
+				<display_name>Choi, Jaejoon</display_name><full_name>Choi, Jaejoon</full_name><wos_standard>Choi, J</wos_standard><first_name>Jaejoon</first_name><last_name>Choi</last_name>
+			</name>
+			<name seq_no="3" role="author" addr_no="1" daisng_id="4145710">
+				<display_name>Kwon, Mijin</display_name><full_name>Kwon, Mijin</full_name><wos_standard>Kwon, M</wos_standard><first_name>Mijin</first_name><last_name>Kwon</last_name>
+			</name>
+			<name seq_no="4" role="author" reprint="Y" addr_no="1 2" daisng_id="248587">
+				<display_name>Lee, Doheon</display_name><full_name>Lee, Doheon</full_name><wos_standard>Lee, D</wos_standard><first_name>Doheon</first_name><last_name>Lee</last_name><email_addr>dhlee@kaist.ac.kr</email_addr>
+			</name>
+		</names>
+		<doctypes count="2">
+			<doctype>Article</doctype>
+			<doctype>Proceedings Paper</doctype>
+		</doctypes>
+		<conferences count="1">
+			<conference conf_id="301786">
+				<conf_infos count="1">
+					<conf_info>ACM 9th International Workshop on Data and Text Mining in Biomedical Informatics, OCT23, 2015, Melbourne, AUSTRALIA</conf_info>
+				</conf_infos>
+				<conf_titles count="1">
+					<conf_title>ACM 9th International Workshop on Data and Text Mining in Biomedical Informatics</conf_title>
+				</conf_titles>
+				<conf_dates count="1">
+					<conf_date conf_start="20151023">OCT 23, 2015</conf_date>
+				</conf_dates>
+				<conf_locations count="1">
+					<conf_location>
+						<conf_city>Melbourne</conf_city>
+						<conf_state>AUSTRALIA</conf_state>
+					</conf_location>
+				</conf_locations>
+				<sponsors count="1"><sponsor>ACM</sponsor></sponsors>
+			</conference>
+		</conferences>
+		<publishers>
+			<publisher>
+				<address_spec addr_no="1">
+					<full_address>CAMPUS, 4 CRINAN ST, LONDON N1 9XW, ENGLAND</full_address>
+					<city>LONDON</city>
+				</address_spec>
+				<names count="1">
+					<name role="publisher" seq_no="1" addr_no="1"><display_name>BMC</display_name><full_name>BMC</full_name></name></names>
+			</publisher>
+		</publishers>
+	</summary>
+	<fullrecord_metadata>
+		<languages count="1">
+			<language type="primary">English</language>
+		</languages>
+		<normalized_languages count="1">
+			<language type="primary">English</language>
+		</normalized_languages>
+		<normalized_doctypes count="2">
+			<doctype>Article</doctype>
+			<doctype>Meeting</doctype>
+		</normalized_doctypes>
+		<refs count="29"></refs>
+		<addresses count="2">
+			<address_name><address_spec addr_no="1"><full_address>Dept Bio &amp; Brain Engn, 291 Daehak Ro, Daejeon, South Korea</full_address><organizations count="1"><organization>Dept Bio &amp; Brain Engn</organization></organizations><street>291 Daehak Ro</street><city>Daejeon</city><country>South Korea</country></address_spec><names count="4"><name seq_no="1" role="author" addr_no="1" daisng_id="2821359"><display_name>Hwang, Woochang</display_name><full_name>Hwang, Woochang</full_name><wos_standard>Hwang, W</wos_standard><first_name>Woochang</first_name><last_name>Hwang</last_name></name><name seq_no="2" role="author" addr_no="1" daisng_id="4027549"><display_name>Choi, Jaejoon</display_name><full_name>Choi, Jaejoon</full_name><wos_standard>Choi, J</wos_standard><first_name>Jaejoon</first_name><last_name>Choi</last_name></name><name seq_no="3" role="author" addr_no="1" daisng_id="4145710"><display_name>Kwon, Mijin</display_name><full_name>Kwon, Mijin</full_name><wos_standard>Kwon, M</wos_standard><first_name>Mijin</first_name><last_name>Kwon</last_name></name><name seq_no="4" role="author" reprint="Y" addr_no="1" daisng_id="248587"><display_name>Lee, Doheon</display_name><full_name>Lee, Doheon</full_name><wos_standard>Lee, D</wos_standard><first_name>Doheon</first_name><last_name>Lee</last_name><email_addr>dhlee@kaist.ac.kr</email_addr></name></names></address_name><address_name><address_spec addr_no="2"><full_address>Biosynergy Res Ctr, 291 Daehak Ro, Daejeon, South Korea</full_address><organizations count="1"><organization>Biosynergy Res Ctr</organization></organizations><street>291 Daehak Ro</street><city>Daejeon</city><country>South Korea</country></address_spec><names count="2"><name seq_no="1" role="author" addr_no="2" daisng_id="2821359"><display_name>Hwang, Woochang</display_name><full_name>Hwang, Woochang</full_name><wos_standard>Hwang, W</wos_standard><first_name>Woochang</first_name><last_name>Hwang</last_name></name><name seq_no="4" role="author" reprint="Y" addr_no="2" daisng_id="248587"><display_name>Lee, Doheon</display_name><full_name>Lee, Doheon</full_name><wos_standard>Lee, D</wos_standard><first_name>Doheon</first_name><last_name>Lee</last_name><email_addr>dhlee@kaist.ac.kr</email_addr></name></names></address_name>
+		</addresses>
+		<reprint_addresses count="2">
+			<address_name>
+				<address_spec addr_no="1">
+					<full_address>Dept Bio &amp; Brain Engn, 291 Daehak Ro, Daejeon, South Korea</full_address>
+					<organizations count="1">
+						<organization>Dept Bio &amp; Brain Engn</organization>
+					</organizations>
+					<street>291 Daehak Ro</street>
+					<city>Daejeon</city>
+					<country>South Korea</country>
+				</address_spec>
+				<names count="1">
+					<name seq_no="1" role="author" reprint="Y" addr_no="1"><display_name>Lee, Doheon</display_name><full_name>Lee, Doheon</full_name><wos_standard>Lee, D</wos_standard><first_name>Doheon</first_name><last_name>Lee</last_name><email_addr>dhlee@kaist.ac.kr</email_addr></name>
+				</names>
+			</address_name>
+			<address_name>
+				<address_spec addr_no="2">
+					<full_address>Biosynergy Res Ctr, 291 Daehak Ro, Daejeon, South Korea</full_address>
+					<organizations count="1">
+						<organization>Biosynergy Res Ctr</organization>
+					</organizations>
+					<street>291 Daehak Ro</street>
+					<city>Daejeon</city>
+					<country>South Korea</country>
+				</address_spec>
+				<names count="1"><name seq_no="1" role="author" reprint="Y" addr_no="2"><display_name>Lee, Doheon</display_name><full_name>Lee, Doheon</full_name><wos_standard>Lee, D</wos_standard><first_name>Doheon</first_name><last_name>Lee</last_name><email_addr>dhlee@kaist.ac.kr</email_addr></name>
+				</names>
+			</address_name>
+		</reprint_addresses>
+		<category_info>
+			<headings count="1">
+				<heading>Science &amp; Technology</heading>
+			</headings>
+			<subheadings count="1">
+				<subheading>Life Sciences &amp; Biomedicine</subheading>
+			</subheadings>
+			<subjects count="6">
+				<subject ascatype="traditional" code="CO">Biochemical Research Methods</subject><subject ascatype="traditional" code="DB">Biotechnology &amp; Applied Microbiology</subject><subject ascatype="traditional" code="MC">Mathematical &amp; Computational Biology</subject><subject ascatype="extended">Biochemistry &amp; Molecular Biology</subject><subject ascatype="extended">Biotechnology &amp; Applied Microbiology</subject><subject ascatype="extended">Mathematical &amp; Computational Biology</subject>
+			</subjects>
+		</category_info>
+		<abstracts count="1">
+			<abstract>
+				<abstract_text count="3"><p>Background: It is necessary to evaluate the efficacy of individual drugs on patients to realize personalized medicine. Testing drugs on patients in clinical trial is the only way to evaluate the efficacy of drugs. The approach is labour intensive and requires overwhelming costs and a number of experiments. Therefore, preclinical model system has been intensively investigated for predicting the efficacy of drugs. Current computational drug sensitivity prediction approaches use general biological network modules as their prediction features. Therefore, they miss indirect effectors or the effects from tissue-specific interactions.</p><p>Results: We developed cell line specific functional modules. Enriched scores of functional modules are utilized as cell line specific features to predict the efficacy of drugs. Cell line specific functional modules are clusters of genes, which have similar biological functions in cell line specific networks. We used linear regression for drug efficacy prediction. We assessed the prediction performance in leave-one-out cross-validation (LOOCV). Our method was compared with elastic net model, which is a popular model for drug efficacy prediction. In addition, we analysed drug sensitivity-associated functions of five drugs - lapatinib, erlotinib, raloxifene, tamoxifen and gefitinib-by our model.</p><p>Conclusions: Our model can provide cell line specific drug efficacy prediction and also provide functions which are associated with drug sensitivity. Therefore, we could utilize drug sensitivity associated functions for drug repositioning or for suggesting secondary drugs for overcoming drug resistance.</p>
+				</abstract_text>
+			</abstract>
+		</abstracts>
+	</fullrecord_metadata>
+	<item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="itemType_wos" coll_id="WOS">
+		<ids avail="Y">DT4XL</ids><bib_id>17: - Suppl. 6 JUL 28 2016</bib_id><bib_pagecount type="Journal">27</bib_pagecount><keywords_plus count="9"><keyword>BREAST-CANCER</keyword><keyword>LUNG-CANCER</keyword><keyword>SENSITIVITY</keyword><keyword>RESISTANCE</keyword><keyword>CELLS</keyword><keyword>ENCYCLOPEDIA</keyword><keyword>GEFITINIB</keyword><keyword>NETWORKS</keyword><keyword>TARGETS</keyword></keywords_plus>
+	</item>
+	<contributors count="2">
+		<contributor>
+			<name seq_no="1" role="researcher_id" r_id="B-7303-2011" orcid_id="0000-0001-9070-4316">
+				<display_name>Lee, Doheon</display_name>
+				<full_name>Lee, Doheon</full_name>
+				<first_name>Doheon</first_name>
+				<last_name>Lee</last_name>
+			</name>
+		</contributor>
+		<contributor>
+			<name seq_no="2" role="researcher_id" orcid_id="0000-0002-6695-2157">
+				<display_name>Choi, Jaejoon</display_name>
+				<full_name>Choi, Jaejoon</full_name>
+				<first_name>Jaejoon</first_name>
+				<last_name>Choi</last_name>
+			</name>
+		</contributor>
+	</contributors>
+</static_data>
+<dynamic_data>
+	<citation_related>
+		<tc_list>
+			<silo_tc coll_id="WOS" local_count="1"></silo_tc>
+		</tc_list>
+	</citation_related>
+	<cluster_related>
+		<identifiers>
+			<identifier type="issn" value="1471-2105"></identifier>
+			<identifier type="art_no" value="ARTN 275"></identifier>
+			<identifier type="doi" value="10.1186/s12859-016-1078-6"></identifier>
+		</identifiers>
+	</cluster_related>
+</dynamic_data>
+</REC>
+
+</records>

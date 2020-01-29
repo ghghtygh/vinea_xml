@@ -1,0 +1,570 @@
+<?xml version="1.0" encoding="UTF-8"?> <!-- Copyright (c) 2018 Clarivate Analytics Web of Science  -->
+<records xmlns="http://clarivate.com/schema/wok5.27/public/FullRecord">
+
+<REC r_id_disclaimer="ResearcherID data provided by Clarivate Analytics">
+	<UID>WOS:000453758700015</UID>
+	<static_data>
+		<summary>
+			<EWUID>
+				<WUID coll_id="WOS"/>
+				<edition value="WOS.ISTP"/>
+			</EWUID>
+			<pub_info sortdate="2018-01-01" pubyear="2018" has_abstract="Y" coverdate="2018" vol="10489" pubtype="Book in series">
+				<page page_count="8"/>
+			</pub_info>
+			<titles count="7">
+				<title type="source">OPTICAL BIOPSY XVI: TOWARD REAL-TIME SPECTROSCOPIC IMAGING AND DIAGNOSIS</title>
+				<title type="series">Proceedings of SPIE</title>
+				<title type="source_abbrev">PROC SPIE</title>
+				<title type="abbrev_11">P SPIE</title>
+				<title type="abbrev_29">PROC SPIE</title>
+				<title type="item">Near infrared spectroscopy of human muscles</title>
+				<title type="book_series" translated="N">Proceedings of SPIE</title>
+			</titles>
+			<names count="7">
+				<name seq_no="1" role="author" addr_no="1">
+					<display_name>Gasbarrone, R.</display_name>
+					<full_name>Gasbarrone, R.</full_name>
+					<wos_standard>Gasbarrone, R</wos_standard>
+					<first_name>R.</first_name>
+					<last_name>Gasbarrone</last_name>
+				</name>
+				<name seq_no="2" role="author" addr_no="2 3">
+					<display_name>Curra, A.</display_name>
+					<full_name>Curra, A.</full_name>
+					<wos_standard>Curra, A</wos_standard>
+					<first_name>A.</first_name>
+					<last_name>Curra</last_name>
+				</name>
+				<name seq_no="3" role="author" addr_no="2 3">
+					<display_name>Cardillo, A.</display_name>
+					<full_name>Cardillo, A.</full_name>
+					<wos_standard>Cardillo, A</wos_standard>
+					<first_name>A.</first_name>
+					<last_name>Cardillo</last_name>
+				</name>
+				<name seq_no="4" role="author" reprint="Y" addr_no="1">
+					<display_name>Bonifazi, G.</display_name>
+					<full_name>Bonifazi, G.</full_name>
+					<wos_standard>Bonifazi, G</wos_standard>
+					<first_name>G.</first_name>
+					<last_name>Bonifazi</last_name>
+					<email_addr>giuseppe.bonifazi@uniroma1.it</email_addr>
+				</name>
+				<name seq_no="5" role="author" addr_no="1">
+					<display_name>Serranti, S.</display_name>
+					<full_name>Serranti, S.</full_name>
+					<wos_standard>Serranti, S</wos_standard>
+					<first_name>S.</first_name>
+					<last_name>Serranti</last_name>
+				</name>
+				<name seq_no="6" role="book_editor">
+					<display_name>Alfano, RR</display_name>
+					<full_name>Alfano, RR</full_name>
+					<wos_standard>Alfano, RR</wos_standard>
+					<first_name>RR</first_name>
+					<last_name>Alfano</last_name>
+				</name>
+				<name seq_no="7" role="book_editor">
+					<display_name>Demos, SG</display_name>
+					<full_name>Demos, SG</full_name>
+					<wos_standard>Demos, SG</wos_standard>
+					<first_name>SG</first_name>
+					<last_name>Demos</last_name>
+				</name>
+			</names>
+			<doctypes count="1">
+				<doctype>Proceedings Paper</doctype>
+			</doctypes>
+			<conferences count="1">
+				<conference conf_id="323450">
+					<conf_infos count="1">
+						<conf_info>Conference on Optical Biopsy XVI - Toward Real-Time Spectroscopic Imaging and Diagnosis, JAN 30-31, 2018, San Francisco, CA</conf_info>
+					</conf_infos>
+					<conf_titles count="1">
+						<conf_title>Conference on Optical Biopsy XVI - Toward Real-Time Spectroscopic Imaging and Diagnosis</conf_title>
+					</conf_titles>
+					<conf_dates count="1">
+						<conf_date conf_start="20180130" conf_end="20180131">JAN 30-31, 2018</conf_date>
+					</conf_dates>
+					<conf_locations count="1">
+						<conf_location>
+							<conf_city>San Francisco</conf_city>
+							<conf_state>CA</conf_state>
+						</conf_location>
+					</conf_locations>
+					<sponsors count="6">
+						<sponsor>SPIE</sponsor>
+						<sponsor>Coherent Inc</sponsor>
+						<sponsor>Corning Inc</sponsor>
+						<sponsor>Hamamatsu Corp</sponsor>
+						<sponsor>Intuit Surg</sponsor>
+						<sponsor>Thorlabs</sponsor>
+					</sponsors>
+				</conference>
+			</conferences>
+			<publishers>
+				<publisher>
+					<address_spec addr_no="1">
+						<full_address>1000 20TH ST, PO BOX 10, BELLINGHAM, WA 98227-0010 USA</full_address>
+						<city>BELLINGHAM</city>
+					</address_spec>
+					<names count="1">
+						<name role="publisher" seq_no="1" addr_no="1">
+							<display_name>SPIE-INT SOC OPTICAL ENGINEERING</display_name>
+							<full_name>SPIE-INT SOC OPTICAL ENGINEERING</full_name>
+						</name>
+					</names>
+				</publisher>
+			</publishers>
+		</summary>
+		<fullrecord_metadata>
+			<languages count="1">
+				<language type="primary">English</language>
+			</languages>
+			<normalized_languages count="1">
+				<language type="primary">English</language>
+			</normalized_languages>
+			<normalized_doctypes count="1">
+				<doctype>Meeting</doctype>
+			</normalized_doctypes>
+			<references count="28">
+				<reference>
+					<uid>WOS:000326484700001</uid>
+					<citedAuthor>dos Santos, CAT</citedAuthor>
+					<year>2013</year>
+					<page>1215</page>
+					<volume>67</volume>
+					<citedTitle>A Review on the Applications of Portable Near-Infrared Spectrometers in the Agro-Food Industry</citedTitle>
+					<citedWork>APPLIED SPECTROSCOPY</citedWork>
+					<doi>10.1366/13-07228</doi>
+				</reference>
+				<reference>
+					<uid>WOS:000403107000002</uid>
+					<citedAuthor>Olumegbon, IA</citedAuthor>
+					<year>2017</year>
+					<page>541</page>
+					<volume>52</volume>
+					<citedTitle>Near-infrared (NIR) spectroscopic evaluation of articular cartilage: A review of current and future trends</citedTitle>
+					<citedWork>APPLIED SPECTROSCOPY REVIEWS</citedWork>
+					<doi>10.1080/05704928.2016.1250010</doi>
+				</reference>
+				<reference>
+					<uid>WOS:000237462800002</uid>
+					<citedAuthor>Fawcett, T</citedAuthor>
+					<year>2006</year>
+					<page>861</page>
+					<volume>27</volume>
+					<citedTitle>An introduction to ROC analysis</citedTitle>
+					<citedWork>PATTERN RECOGNITION LETTERS</citedWork>
+					<doi>10.1016/j.patrec.2005.10.010</doi>
+				</reference>
+				<reference>
+					<uid>000453758700015.25</uid>
+					<citedAuthor>Wise, B. M.</citedAuthor>
+					<year>2006</year>
+					<citedWork>Chemometrics Tutorial for PLS Toolbox and Solo</citedWork>
+				</reference>
+				<reference>
+					<uid>WOS:000388212700011</uid>
+					<citedAuthor>Sowa, MG</citedAuthor>
+					<year>2016</year>
+					<page>ARTN 091304</page>
+					<volume>21</volume>
+					<citedTitle>Review of near-infrared methods for wound assessment</citedTitle>
+					<citedWork>JOURNAL OF BIOMEDICAL OPTICS</citedWork>
+					<doi>10.1117/1.JBO.21.9.091304</doi>
+				</reference>
+				<reference>
+					<uid>000453758700015.4</uid>
+					<citedAuthor>Chrzanowski, S. M.</citedAuthor>
+					<year>2016</year>
+					<page>10</page>
+					<volume>186</volume>
+					<citedTitle>Near-Infrared Optical Imaging Noninvasively Detects Acutely Damaged Muscle,</citedTitle>
+					<citedWork>The Americam Journal of Pathology</citedWork>
+				</reference>
+				<reference>
+					<uid>000453758700015.13</uid>
+					<citedAuthor>Kumaravelu, C.</citedAuthor>
+					<year>2015</year>
+					<citedTitle>A Review on the applications of Near-Infrared Spectrometer and Chemometrics for the Agro-Food Processing Industries</citedTitle>
+					<citedWork>P 2015 IEEE INT C TE</citedWork>
+				</reference>
+				<reference>
+					<uid>WOS:000289021100002</uid>
+					<citedAuthor>Kamruzzaman, M</citedAuthor>
+					<year>2011</year>
+					<page>332</page>
+					<volume>104</volume>
+					<citedTitle>Application of NIR hyperspectral imaging for discrimination of lamb muscles</citedTitle>
+					<citedWork>JOURNAL OF FOOD ENGINEERING</citedWork>
+					<doi>10.1016/j.jfoodeng.2010.12.024</doi>
+				</reference>
+				<reference>
+					<uid>WOS:000341473500006</uid>
+					<citedAuthor>Pu, HB</citedAuthor>
+					<year>2014</year>
+					<page>44</page>
+					<volume>143</volume>
+					<citedTitle>Hierarchical variable selection for predicting chemical constituents in lamb meats using hyperspectral imaging</citedTitle>
+					<citedWork>JOURNAL OF FOOD ENGINEERING</citedWork>
+					<doi>10.1016/j.jfoodeng.2014.06.025</doi>
+				</reference>
+				<reference>
+					<uid>WOS:000182538300006</uid>
+					<citedAuthor>Pasquini, C</citedAuthor>
+					<year>2003</year>
+					<page>198</page>
+					<volume>14</volume>
+					<citedTitle>Near infrared spectroscopy: Fundamentals, practical aspects and analytical applications</citedTitle>
+					<citedWork>JOURNAL OF THE BRAZILIAN CHEMICAL SOCIETY</citedWork>
+				</reference>
+				<reference>
+					<uid>WOS:A1987K579400006</uid>
+					<citedAuthor>WOLD, S</citedAuthor>
+					<year>1987</year>
+					<page>37</page>
+					<volume>2</volume>
+					<citedTitle>PRINCIPAL COMPONENT ANALYSIS</citedTitle>
+					<citedWork>CHEMOMETRICS AND INTELLIGENT LABORATORY SYSTEMS</citedWork>
+				</reference>
+				<reference>
+					<uid>WOS:000355254600001</uid>
+					<citedAuthor>Tsuchikawa, S</citedAuthor>
+					<year>2015</year>
+					<page>213</page>
+					<volume>61</volume>
+					<citedTitle>A review of recent application of near infrared spectroscopy to wood science and technology</citedTitle>
+					<citedWork>JOURNAL OF WOOD SCIENCE</citedWork>
+					<doi>10.1007/s10086-015-1467-x</doi>
+				</reference>
+				<reference>
+					<uid>WOS:000373655100029</uid>
+					<citedAuthor>Sakudo, A</citedAuthor>
+					<year>2016</year>
+					<page>181</page>
+					<volume>455</volume>
+					<citedTitle>Near-infrared spectroscopy for medical applications: Current status and future perspectives</citedTitle>
+					<citedWork>CLINICA CHIMICA ACTA</citedWork>
+					<doi>10.1016/j.cca.2016.02.009</doi>
+				</reference>
+				<reference>
+					<uid>000453758700015.2</uid>
+					<citedAuthor>Abdi, H.</citedAuthor>
+					<year>2010</year>
+					<citedWork>Partial least squares regression and projection on latent structure regression (PLS Regression)</citedWork>
+				</reference>
+				<reference>
+					<uid>000453758700015.9</uid>
+					<citedAuthor>Gallagher, N. B.</citedAuthor>
+					<year>2006</year>
+					<citedTitle>Extended Multiplicative Scatter Correction Applied to Mid-Infrared Reflectance Measurements of Soil</citedTitle>
+					<citedWork>Eigenvector</citedWork>
+				</reference>
+				<reference>
+					<uid>000453758700015.28</uid>
+					<citedAuthor>Zaknich, A.</citedAuthor>
+					<year>2003</year>
+					<page>83</page>
+					<volume>4</volume>
+					<citedTitle>ANN performance evaluation</citedTitle>
+					<citedWork>Neural Network for Intelligent Signal Processing</citedWork>
+				</reference>
+				<reference>
+					<uid>WOS:000244734800013</uid>
+					<citedAuthor>ElMasry, G</citedAuthor>
+					<year>2007</year>
+					<page>98</page>
+					<volume>81</volume>
+					<citedTitle>Hyperspectral imaging for nondestructive determination of some quality attributes for strawberry</citedTitle>
+					<citedWork>JOURNAL OF FOOD ENGINEERING</citedWork>
+					<doi>10.1016/j.jfoodeng.2006.10.016</doi>
+				</reference>
+				<reference>
+					<uid>WOS:000325590700020</uid>
+					<citedAuthor>Everdell, NL</citedAuthor>
+					<year>2013</year>
+					<page>1692</page>
+					<volume>35</volume>
+					<citedTitle>A portable wireless near-infrared spatially resolved spectroscopy system for use on brain and muscle</citedTitle>
+					<citedWork>MEDICAL ENGINEERING &amp; PHYSICS</citedWork>
+					<doi>10.1016/j.medengphy.2013.04.011</doi>
+				</reference>
+				<reference>
+					<uid>WOS:000390921600005</uid>
+					<citedAuthor>Jones, S</citedAuthor>
+					<year>2016</year>
+					<page>25</page>
+					<volume>16</volume>
+					<citedTitle>Recent developments in near-infrared spectroscopy (NIRS) for the assessment of local skeletal muscle microvascular function and capacity to utilise oxygen</citedTitle>
+					<citedWork>ARTERY RESEARCH</citedWork>
+					<doi>10.1016/j.artres.2016.09.001</doi>
+				</reference>
+				<reference>
+					<uid>WOS:000248738200010</uid>
+					<citedAuthor>Roggo, Y</citedAuthor>
+					<year>2007</year>
+					<page>683</page>
+					<volume>44</volume>
+					<citedTitle>A review of near infrared spectroscopy and chemometrics in pharmaceutical technologies</citedTitle>
+					<citedWork>JOURNAL OF PHARMACEUTICAL AND BIOMEDICAL ANALYSIS</citedWork>
+					<doi>10.1016/j.jpba.2007.03.023</doi>
+				</reference>
+				<reference>
+					<uid>WOS:000370459500009</uid>
+					<citedAuthor>Olivier, N</citedAuthor>
+					<year>2016</year>
+					<page>47</page>
+					<volume>26</volume>
+					<citedTitle>Evaluation of muscle oxygenation by near infrared spectroscopy in patients with facioscapulohumeral muscular dystrophy</citedTitle>
+					<citedWork>NEUROMUSCULAR DISORDERS</citedWork>
+					<doi>10.1016/j.nmd.2015.10.004</doi>
+				</reference>
+				<reference>
+					<uid>000453758700015.26</uid>
+					<citedAuthor>Wise, B. M.</citedAuthor>
+					<year>2008</year>
+					<citedWork>PLS Toolbox 4. 2 Reference Manual for use with MATLAB T</citedWork>
+				</reference>
+				<reference>
+					<uid>000453758700015.10</uid>
+					<citedAuthor>Jamaludin, M. I.</citedAuthor>
+					<year>2015</year>
+					<citedWork>Application of NIR to Determine Effects of Hydrocarbon Microseepage in Oil Palm Vegetation Stress</citedWork>
+				</reference>
+				<reference>
+					<uid>WOS:000350091900003</uid>
+					<citedAuthor>Ma, J</citedAuthor>
+					<year>2015</year>
+					<page>10</page>
+					<volume>50</volume>
+					<citedTitle>Application of Vis-NIR hyperspectral imaging in classification between fresh and frozen-thawed pork Longissimus Dorsi muscles</citedTitle>
+					<citedWork>INTERNATIONAL JOURNAL OF REFRIGERATION-REVUE INTERNATIONALE DU FROID</citedWork>
+					<doi>10.1016/j.ijrefrig.2014.10.024</doi>
+				</reference>
+				<reference>
+					<uid>WOS:000345488100012</uid>
+					<citedAuthor>Pu, HB</citedAuthor>
+					<year>2015</year>
+					<page>81</page>
+					<volume>99</volume>
+					<citedTitle>Classification of fresh and frozen-thawed pork muscles using visible and near infrared hyperspectral imaging and textural analysis</citedTitle>
+					<citedWork>MEAT SCIENCE</citedWork>
+					<doi>10.1016/j.meatsci.2014.09.001</doi>
+				</reference>
+				<reference>
+					<uid>000453758700015.14</uid>
+					<citedAuthor>Larrechi, M. S.</citedAuthor>
+					<year>2003</year>
+					<page>10</page>
+					<volume>22</volume>
+					<citedTitle>Strategy for introducing NIR spectroscopy and multivariate calibration techniques in industry</citedTitle>
+					<citedWork>Trends in Analytical Chemistry</citedWork>
+				</reference>
+				<reference>
+					<uid>000453758700015.1</uid>
+					<citedAuthor>ASD Inc.</citedAuthor>
+					<year>2015</year>
+					<citedWork>FieldSpec 4 User Manual, ASD Document 600979, Rev. D</citedWork>
+				</reference>
+				<reference>
+					<uid>WOS:000323226800002</uid>
+					<citedAuthor>Ballabio, D</citedAuthor>
+					<year>2013</year>
+					<page>3790</page>
+					<volume>5</volume>
+					<citedTitle>Classification tools in chemistry. Part 1: linear models. PLS-DA</citedTitle>
+					<citedWork>ANALYTICAL METHODS</citedWork>
+					<doi>10.1039/c3ay40582f</doi>
+				</reference>
+			</references>
+			<addresses count="3">
+				<address_name>
+					<address_spec addr_no="1">
+						<full_address>Sapienza Univ Rome, Dept Chem Engn Mat Environm, Rome, Italy</full_address>
+						<organizations count="2">
+						<organization>Sapienza Univ Rome</organization>
+							<organization pref="Y">Sapienza University Rome</organization>
+						</organizations>
+						<suborganizations count="1">
+							<suborganization>Dept Chem Engn Mat Environm</suborganization>
+						</suborganizations>
+						<city>Rome</city>
+						<country>Italy</country>
+					</address_spec>
+					<names count="3">
+						<name seq_no="1" role="author" addr_no="1">
+							<display_name>Gasbarrone, R.</display_name>
+							<full_name>Gasbarrone, R.</full_name>
+							<wos_standard>Gasbarrone, R</wos_standard>
+							<first_name>R.</first_name>
+							<last_name>Gasbarrone</last_name>
+						</name>
+						<name seq_no="4" role="author" reprint="Y" addr_no="1">
+							<display_name>Bonifazi, G.</display_name>
+							<full_name>Bonifazi, G.</full_name>
+							<wos_standard>Bonifazi, G</wos_standard>
+							<first_name>G.</first_name>
+							<last_name>Bonifazi</last_name>
+							<email_addr>giuseppe.bonifazi@uniroma1.it</email_addr>
+						</name>
+						<name seq_no="5" role="author" addr_no="1">
+							<display_name>Serranti, S.</display_name>
+							<full_name>Serranti, S.</full_name>
+							<wos_standard>Serranti, S</wos_standard>
+							<first_name>S.</first_name>
+							<last_name>Serranti</last_name>
+						</name>
+					</names>
+				</address_name>
+				<address_name>
+					<address_spec addr_no="2">
+						<full_address>A Fiorini Hosp, Acad Neurol Unit, Terracina, LT, Italy</full_address>
+						<organizations count="1">
+							<organization>A Fiorini Hosp</organization>
+						</organizations>
+						<suborganizations count="1">
+							<suborganization>Acad Neurol Unit</suborganization>
+						</suborganizations>
+						<city>Terracina</city>
+						<state>LT</state>
+						<country>Italy</country>
+					</address_spec>
+					<names count="2">
+						<name seq_no="2" role="author" addr_no="2">
+							<display_name>Curra, A.</display_name>
+							<full_name>Curra, A.</full_name>
+							<wos_standard>Curra, A</wos_standard>
+							<first_name>A.</first_name>
+							<last_name>Curra</last_name>
+						</name>
+						<name seq_no="3" role="author" addr_no="2">
+							<display_name>Cardillo, A.</display_name>
+							<full_name>Cardillo, A.</full_name>
+							<wos_standard>Cardillo, A</wos_standard>
+							<first_name>A.</first_name>
+							<last_name>Cardillo</last_name>
+						</name>
+					</names>
+				</address_name>
+				<address_name>
+					<address_spec addr_no="3">
+						<full_address>Sapienza Univ Rome, Dept Med Surg Sci &amp; Biotechnol, Polo Pontino, Italy</full_address>
+						<organizations count="2">
+							<organization>Sapienza Univ Rome</organization>
+						<organization pref="Y">Sapienza University Rome</organization>
+						</organizations>
+						<suborganizations count="1">
+							<suborganization>Dept Med Surg Sci &amp; Biotechnol</suborganization>
+						</suborganizations>
+						<city>Polo Pontino</city>
+						<country>Italy</country>
+					</address_spec>
+					<names count="2">
+						<name seq_no="2" role="author" addr_no="3">
+							<display_name>Curra, A.</display_name>
+							<full_name>Curra, A.</full_name>
+							<wos_standard>Curra, A</wos_standard>
+							<first_name>A.</first_name>
+							<last_name>Curra</last_name>
+						</name>
+						<name seq_no="3" role="author" addr_no="3">
+							<display_name>Cardillo, A.</display_name>
+							<full_name>Cardillo, A.</full_name>
+							<wos_standard>Cardillo, A</wos_standard>
+							<first_name>A.</first_name>
+							<last_name>Cardillo</last_name>
+						</name>
+					</names>
+				</address_name>
+			</addresses>
+			<category_info>
+				<headings count="1">
+					<heading>Science &amp; Technology</heading>
+				</headings>
+				<subheadings count="2">
+					<subheading>Physical Sciences</subheading>
+					<subheading>Life Sciences &amp; Biomedicine</subheading>
+				</subheadings>
+				<subjects count="4">
+					<subject ascatype="traditional">Optics</subject>
+					<subject ascatype="traditional">Radiology, Nuclear Medicine &amp; Medical Imaging</subject>
+					<subject ascatype="extended">Optics</subject>
+					<subject ascatype="extended">Radiology, Nuclear Medicine &amp; Medical Imaging</subject>
+				</subjects>
+			</category_info>
+			<keywords count="5">
+				<keyword>Near Infrared Spectroscopy</keyword>
+				<keyword>muscles</keyword>
+				<keyword>human tissues</keyword>
+				<keyword>NIR</keyword>
+				<keyword>classification</keyword>
+			</keywords>
+			<abstracts count="1">
+				<abstract>
+					<abstract_text count="1">
+						<p>Optical spectroscopy is a powerful tool in research and industrial applications. Its properties of being rapid, non-invasive and not destructive make it a promising technique for qualitative as well as quantitative analysis in medicine. Recent advances in materials and fabrication techniques provided portable, performant, sensing spectrometers readily operated by user-friendly cabled or wireless systems. We used such a system to test whether infrared spectroscopy techniques, currently utilized in many areas as primary/secondary raw materials sector, cultural heritage, agricultural/food industry, environmental remote and proximal sensing, pharmaceutical industry, etc., could be applied in living humans to categorize muscles. We acquired muscles infrared spectra in the Vis-SWIR regions (350-2500 nm), utilizing an ASD FieldSpec 4 (TM) Standard-Res Spectroradiometer with a spectral sampling capability of 1.4 nm at 350-1000 nm and 1.1 nm at 1001-2500 nm. After a preliminary spectra pre-processing (i.e. signal scattering reduction), Principal Component Analysis (PCA) was applied to identify similar spectral features presence and to realize their further grouping. Partial Least-Squares Discriminant Analysis (PLS-DA) was utilized to implement discrimination/prediction models. We studied 22 healthy subjects (age 25-89 years, 11 females), by acquiring Vis-SWIR spectra from the upper limb muscles (i.e. biceps, a forearm flexor, and triceps, a forearm extensor). Spectroscopy was performed in fixed limb postures (elbow angle approximately 90 degrees). We found that optical spectroscopy can be applied to study human tissues in vivo. Vis-SWIR spectra acquired from the arm detect muscles, distinguish flexors from extensors.</p>
+					</abstract_text>
+				</abstract>
+			</abstracts>
+		</fullrecord_metadata>
+		<item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="itemType_wos">
+			<ids avail="N">BL6FE</ids>
+			<bib_id>10489: - 2018</bib_id>
+			<bib_pagecount type="Book">250</bib_pagecount>
+			<reprint_contact>
+				<address_spec addr_no="1">
+					<full_address>Sapienza Univ Rome, Dept Chem Engn Mat Environm, Rome, Italy</full_address>
+					<organizations count="2">
+						<organization>Sapienza Univ Rome</organization>
+						<organization pref="Y">Sapienza University Rome</organization>
+					</organizations>
+					<suborganizations count="1">
+						<suborganization>Dept Chem Engn Mat Environm</suborganization>
+					</suborganizations>
+					<city>Rome</city>
+					<country>Italy</country>
+				</address_spec>
+				<names count="1">
+					<name seq_no="1" role="author" reprint="Y" addr_no="1">
+						<display_name>Bonifazi, G.</display_name>
+						<full_name>Bonifazi, G.</full_name>
+						<wos_standard>Bonifazi, G</wos_standard>
+						<first_name>G.</first_name>
+						<last_name>Bonifazi</last_name>
+						<email_addr>giuseppe.bonifazi@uniroma1.it</email_addr>
+					</name>
+				</names>
+			</reprint_contact>
+			<keywords_plus count="2">
+				<keyword>CLASSIFICATION</keyword>
+				<keyword>FRESH</keyword>
+			</keywords_plus>
+			<book_pages>250</book_pages>
+			<book_notes count="3">
+				<book_note>Figures</book_note>
+				<book_note>Plates</book_note>
+				<book_note>Color plates</book_note>
+			</book_notes>
+			<book_desc>
+				<bk_binding>P</bk_binding>
+				<bk_publisher>SPIE-INT SOC OPTICAL ENGINEERING, PO BOX 10, BELLINGHAM, WA 98227-0010 USA</bk_publisher>
+				<bk_prepay>Y</bk_prepay>
+			</book_desc>
+		</item>
+	</static_data>
+	<dynamic_data>
+		<cluster_related>
+			<identifiers>
+				<identifier type="accession_no" value="BL6FE"/>
+				<identifier type="issn" value="0277-786X"/>
+				<identifier type="eissn" value="1996-756X"/>
+				<identifier type="eisbn" value="978-1-5106-1464-2"/>
+				<identifier type="doi" value="10.1117/12.2287814"/>
+				<identifier type="art_no" value="UNSP 1048914"/>
+			</identifiers>
+		</cluster_related>
+	</dynamic_data>
+	</REC>
+</records>

@@ -1,5 +1,7 @@
 package com.vinea.dto;
 
+import java.util.List;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -23,6 +25,89 @@ public class ArtiVO {
 	private String arti_bp;
 	private String arti_ep;
 	private String arti_oa;
+	
+	private List<AuthVO> list_auth;
+	private List<CoauthVO> list_coauth;
+	private List<ConfVO> list_conf;
+	private List<CtgrVO> list_ctgr;
+	private List<DtypeVO> list_dtype;
+	private List<GrntVO> list_grnt;
+	private List<ItemVO> list_item;
+	private List<KwrdVO> list_kwrd;
+	private List<RefrVO> list_refr;
+	
+	
+	public List<AuthVO> getList_auth() {
+		return list_auth;
+	}
+
+	public void setList_auth(List<AuthVO> list_auth) {
+		this.list_auth = list_auth;
+	}
+
+	public List<CoauthVO> getList_coauth() {
+		return list_coauth;
+	}
+
+	public void setList_coauth(List<CoauthVO> list_coauth) {
+		this.list_coauth = list_coauth;
+	}
+
+	public List<ConfVO> getList_conf() {
+		return list_conf;
+	}
+
+	public void setList_conf(List<ConfVO> list_conf) {
+		this.list_conf = list_conf;
+	}
+
+	public List<CtgrVO> getList_ctgr() {
+		return list_ctgr;
+	}
+
+	public void setList_ctgr(List<CtgrVO> list_ctgr) {
+		this.list_ctgr = list_ctgr;
+	}
+
+	public List<DtypeVO> getList_dtype() {
+		return list_dtype;
+	}
+
+	public void setList_dtype(List<DtypeVO> list_dtype) {
+		this.list_dtype = list_dtype;
+	}
+
+	public List<GrntVO> getList_grnt() {
+		return list_grnt;
+	}
+
+	public void setList_grnt(List<GrntVO> list_grnt) {
+		this.list_grnt = list_grnt;
+	}
+
+	public List<ItemVO> getList_item() {
+		return list_item;
+	}
+
+	public void setList_item(List<ItemVO> list_item) {
+		this.list_item = list_item;
+	}
+
+	public List<KwrdVO> getList_kwrd() {
+		return list_kwrd;
+	}
+
+	public void setList_kwrd(List<KwrdVO> list_kwrd) {
+		this.list_kwrd = list_kwrd;
+	}
+
+	public List<RefrVO> getList_refr() {
+		return list_refr;
+	}
+
+	public void setList_refr(List<RefrVO> list_refr) {
+		this.list_refr = list_refr;
+	}
 
 	public String getArti_no() {
 		return arti_no;

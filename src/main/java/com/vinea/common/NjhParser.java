@@ -16,6 +16,15 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.vinea.dto.ArtiVO;
+import com.vinea.dto.AuthVO;
+import com.vinea.dto.CoauthVO;
+import com.vinea.dto.ConfVO;
+import com.vinea.dto.CtgrVO;
+import com.vinea.dto.DtypeVO;
+import com.vinea.dto.GrntVO;
+import com.vinea.dto.ItemVO;
+import com.vinea.dto.KwrdVO;
+import com.vinea.dto.RefrVO;
 
 public class NjhParser {
 	
@@ -58,8 +67,20 @@ public class NjhParser {
 		
 		//logger.info(rec.getTextContent());
 		
-		
+
 		ArtiVO vo = new ArtiVO();
+		
+		List<AuthVO> list_auth = null;
+		List<CoauthVO> list_coauth = null;
+		List<ConfVO> list_conf = null;
+		List<CtgrVO> list_ctgr = null;
+		List<DtypeVO> list_dtype = null;
+		List<GrntVO> list_grnt = null;
+		List<ItemVO> list_item = null;
+		List<KwrdVO> list_kwrd = null;
+		List<RefrVO> list_refr = null;
+		
+		//TB_ARTI >> 시작 
 		
 		vo.setArti_no((String) xpath.evaluate(".//identifier[@type='art_no']/@value",
 				rec, XPathConstants.STRING));
@@ -114,6 +135,37 @@ public class NjhParser {
 		
 		vo.setArti_oa((String) xpath.evaluate(".//pub_info/@journal_oas_gold",
 				rec, XPathConstants.STRING));
+		
+
+		
+		// 끝 << TB_ARTI 
+		
+		// TB_ITEM >> 시작
+		
+			//ids : ./static_data/item/ids/text()
+		NodeList nodeList = (NodeList) xpath.evaluate("", rec, XPathConstants.NODESET);
+		
+		for (int i = 0, n = nodeList.getLength(); i < n; i++) {
+			
+			Node node = (Node) nodeList.item(i);
+			
+			logger.info("");
+			
+			// listvo.add(vo);
+		}
+		
+		
+		// 끝 << TB_ITEM
+		
+		String str = null;
+		NodeList nl = null;
+		
+		
+		
+		
+		logger.info("");
+		
+		
 		
 		
 		//logger.info(vo.toStringMultiline());

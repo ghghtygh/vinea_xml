@@ -172,6 +172,5 @@ public class PostPager {
 	public void setNextPage(int nextPage) {
 		this.nextPage = nextPage;
 	}
-    
-    
+
 }

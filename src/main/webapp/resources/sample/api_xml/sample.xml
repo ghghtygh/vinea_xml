@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<records xmlns="http://scientific.thomsonreuters.com/schema/wok5.4/public/FullRecord">
+  <REC r_id_disclaimer="ResearcherID data provided by Clarivate Analytics">
+    <UID>WOS:000369644200010</UID>
+    <static_data>
+      <summary>
+        <EWUID>
+          <WUID coll_id="WOS"></WUID>
+          <edition value="WOS.SSCI"></edition>
+        </EWUID>
+        <pub_info sortdate="2015-10-31" pubyear="2015" has_abstract="Y" coverdate="OCT 31 2015" pubmonth="OCT 31" vol="18" issue="4" pubtype="Journal" journal_oas_gold="Y">
+          <page page_count="32"></page>
+        </pub_info>
+        <titles count="6">
+          <title type="source">JASSS-THE JOURNAL OF ARTIFICIAL SOCIETIES AND SOCIAL SIMULATION</title>
+          <title type="source_abbrev">JASSS-J ARTIF SOC S</title>
+          <title type="abbrev_iso">JASSS</title>
+          <title type="abbrev_11">JASSS</title>
+          <title type="abbrev_29">JASSS</title>
+          <title type="item">Agent-Based Simulation of Time to Decide: Military Commands and Time Delays</title>
+        </titles>
+        <names count="3">
+          <name seq_no="1" role="author" reprint="Y" addr_no="1" daisng_id="10360618">
+            <display_name>Yun, Woo-Seop</display_name>
+            <full_name>Yun, Woo-Seop</full_name>
+            <wos_standard>Yun, WS</wos_standard>
+            <first_name>Woo-Seop</first_name>
+            <last_name>Yun</last_name>
+          </name>
+          <name seq_no="2" role="author" addr_no="1" daisng_id="1299227">
+            <display_name>Moon, Il-Chul</display_name>
+            <full_name>Moon, Il-Chul</full_name>
+            <wos_standard>Moon, IC</wos_standard>
+            <first_name>Il-Chul</first_name>
+            <last_name>Moon</last_name>
+          </name>
+          <name seq_no="3" role="author" addr_no="1" daisng_id="518394">
+            <display_name>Lee, Tae-Eog</display_name>
+            <full_name>Lee, Tae-Eog</full_name>
+            <wos_standard>Lee, TE</wos_standard>
+            <first_name>Tae-Eog</first_name>
+            <last_name>Lee</last_name>
+          </name>
+        </names>
+        <doctypes count="1">
+          <doctype>Article</doctype>
+        </doctypes>
+        <publishers>
+          <publisher>
+            <address_spec addr_no="1">
+              <full_address>UNIV SURREY, DEPT SOCIOLOGY, GUILDFORD GU2 7XH, SURREY, ENGLAND</full_address>
+              <city>GUILDFORD</city>
+            </address_spec>
+            <names count="1">
+              <name role="publisher" seq_no="1" addr_no="1">
+                <display_name>J A S S S</display_name>
+                <full_name>J A S S S</full_name>
+              </name>
+            </names>
+          </publisher>
+        </publishers>
+      </summary>
+      <fullrecord_metadata>
+        <languages count="1">
+          <language type="primary">English</language>
+        </languages>
+        <normalized_languages count="1">
+          <language type="primary">English</language>
+        </normalized_languages>
+        <normalized_doctypes count="1">
+          <doctype>Article</doctype>
+        </normalized_doctypes>
+        <refs count="78"></refs>
+        <addresses count="1">
+          <address_name>
+            <address_spec addr_no="1">
+              <full_address>Korea Adv Inst Sci &amp; Technol, Seoul, South Korea</full_address>
+              <organizations count="2">
+                <organization>Korea Adv Inst Sci &amp; Technol</organization>
+                <organization pref="Y">Korea Advanced Institute of Science &amp; Technology (KAIST)</organization>
+              </organizations>
+              <city>Seoul</city>
+              <country>South Korea</country>
+            </address_spec>
+            <names count="3">
+              <name seq_no="1" role="author" reprint="Y" addr_no="1" daisng_id="10360618">
+                <display_name>Yun, Woo-Seop</display_name>
+                <full_name>Yun, Woo-Seop</full_name>
+                <wos_standard>Yun, WS</wos_standard>
+                <first_name>Woo-Seop</first_name>
+                <last_name>Yun</last_name>
+              </name>
+              <name seq_no="2" role="author" addr_no="1" daisng_id="1299227">
+                <display_name>Moon, Il-Chul</display_name>
+                <full_name>Moon, Il-Chul</full_name>
+                <wos_standard>Moon, IC</wos_standard>
+                <first_name>Il-Chul</first_name>
+                <last_name>Moon</last_name>
+              </name>
+              <name seq_no="3" role="author" addr_no="1" daisng_id="518394">
+                <display_name>Lee, Tae-Eog</display_name>
+                <full_name>Lee, Tae-Eog</full_name>
+                <wos_standard>Lee, TE</wos_standard>
+                <first_name>Tae-Eog</first_name>
+                <last_name>Lee</last_name>
+              </name>
+            </names>
+          </address_name>
+        </addresses>
+        <reprint_addresses count="1">
+          <address_name>
+            <address_spec addr_no="1">
+              <full_address>Korea Adv Inst Sci &amp; Technol, Seoul, South Korea</full_address>
+              <organizations count="2">
+                <organization>Korea Adv Inst Sci &amp; Technol</organization>
+                <organization pref="Y">Korea Advanced Institute of Science &amp; Technology (KAIST)</organization>
+              </organizations>
+              <city>Seoul</city>
+              <country>South Korea</country>
+            </address_spec>
+            <names count="1">
+              <name seq_no="1" role="author" reprint="Y" addr_no="1">
+                <display_name>Yun, Woo-Seop</display_name>
+                <full_name>Yun, Woo-Seop</full_name>
+                <wos_standard>Yun, WS</wos_standard>
+                <first_name>Woo-Seop</first_name>
+                <last_name>Yun</last_name>
+              </name>
+            </names>
+          </address_name>
+        </reprint_addresses>
+        <category_info>
+          <headings count="1">
+            <heading>Social Sciences</heading>
+          </headings>
+          <subjects count="2">
+            <subject ascatype="traditional" code="WU">Social Sciences, Interdisciplinary</subject>
+            <subject ascatype="extended">Social Sciences - Other Topics</subject>
+          </subjects>
+        </category_info>
+        <fund_ack>
+          <fund_text>
+            <p>This research was supported by the Defence Acquisition Program Administration and the Agency for Defence Development, under contract UD140022PD, Korea.</p>
+          </fund_text>
+          <grants count="1">
+            <grant>
+              <grant_agency>Defence Acquisition Program Administration and the Agency for Defence Development, Korea
+						</grant_agency>
+              <grant_ids count="1">
+                <grant_id>UD140022PD</grant_id>
+              </grant_ids>
+            </grant>
+          </grants>
+        </fund_ack>
+        <keywords count="4">
+          <keyword>Command and Control (C2)</keyword>
+          <keyword>Combat Effectiveness</keyword>
+          <keyword>Infantry Company Engagement</keyword>
+          <keyword>Agent-Based Simulation</keyword>
+        </keywords>
+        <abstracts count="1">
+          <abstract>
+            <abstract_text count="1">
+              <p>Modelling command and control (C2) is regarded as a difficult task because of the complexity of the decision-making required by individuals in combat. Despite the difficulties, C2 modelling is frequently used for high echelon units, i.e. battalion, division and above. This paper extends these models to the lowest army unit: the infantry company. Previous studies have modelled this particular unit as either an abstract entity or a detailed behaviour model without C2. Our model includes C2 in the models to determine the most critical tasks at company level C2 because this information could direct company commanders to engage in more important operational tasks. Our analysis is based on agent-based modelling and the virtual experiment framework. The overall model includes operational details as discrete event models and soldier behaviour as behavioural models. Our analytical results enable us to identify the key C2 tasks of company commanders and the changes in the importance of various operational environments.</p>
+            </abstract_text>
+          </abstract>
+        </abstracts>
+      </fullrecord_metadata>
+      <item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="itemType_wos" coll_id="WOS">
+        <ids avail="Y">DD0XI</ids>
+        <bib_id>18 (4): - OCT 31 2015</bib_id>
+        <bib_pagecount type="Journal">318</bib_pagecount>
+        <keywords_plus count="1">
+          <keyword>DECISION-MAKING</keyword>
+        </keywords_plus>
+      </item>
+      <contributors count="3">
+        <contributor>
+          <name seq_no="1" role="researcher_id" r_id="C-2016-2011">
+            <display_name>Lee, Tae-Eog</display_name>
+            <full_name>Lee, Tae-Eog</full_name>
+            <first_name>Tae-Eog</first_name>
+            <last_name>Lee</last_name>
+          </name>
+        </contributor>
+        <contributor>
+          <name seq_no="2" role="researcher_id" r_id="G-2714-2011">
+            <display_name>Moon, Il-Chul</display_name>
+            <full_name>Moon, Il-Chul</full_name>
+            <first_name>Il-Chul</first_name>
+            <last_name>Moon</last_name>
+          </name>
+        </contributor>
+        <contributor>
+          <name seq_no="3" role="researcher_id" orcid_id="0000-0003-0885-6359">
+            <display_name>Lee, Tae-Eog</display_name>
+            <full_name>Lee, Tae-Eog</full_name>
+            <first_name>Tae-Eog</first_name>
+            <last_name>Lee</last_name>
+          </name>
+        </contributor>
+      </contributors>
+    </static_data>
+    <dynamic_data>
+      <citation_related>
+        <tc_list>
+          <silo_tc coll_id="WOS" local_count="1"></silo_tc>
+        </tc_list>
+      </citation_related>
+      <cluster_related>
+        <identifiers>
+          <identifier type="issn" value="1460-7425"></identifier>
+          <identifier type="art_no" value="ARTN 10"></identifier>
+          <identifier type="xref_doi" value="10.18564/jasss.2871"></identifier>
+        </identifiers>
+      </cluster_related>
+    </dynamic_data>
+  </REC>
+</records>

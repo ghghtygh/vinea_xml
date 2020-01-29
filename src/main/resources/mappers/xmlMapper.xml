@@ -20,24 +20,24 @@
 	
 	<resultMap id="artiMap" type="com.vinea.dto.ArtiVO">
 
-	<result property="arti_no"				column="ARTI_NO"/>
-	<result property="arti_uid"     		column="ARTI_UID"/>
-	<result property="arti_title"   		column="ARTI_TITLE"/>
-	<result property="arti_source_title"    column="ARTI_SOURCE_TITLE"/>
-	<result property="arti_year"   		    column="ARTI_YEAR"/>
-	<result property="arti_date"   			column="ARTI_DATE"/>
-	<result property="arti_vol"   			column="ARTI_VOL"/>
-	<result property="arti_issue"   		column="ARTI_ISSUE"/>
-	<result property="arti_sup"   			column="ARTI_SUP"/>		
-	<result property="arti_doi"   			column="ARTI_DOI"/>
-	<result property="arti_ab"   			column="ARTI_AB"/>
-	<result property="arti_issn"   			column="ARTI_ISSN"/>
-	<result property="arti_eissn"   		column="ARTI_EISSN"/>
-	<result property="arti_cite_cnt"   		column="ARTI_CITE_CNT"/>
-	<result property="arti_page_cnt"   		column="ARTI_PAGE_CNT"/>
-	<result property="arti_bp"   			column="ARTI_BP"/>
-	<result property="arti_ep"   			column="ARTI_EP"/>
-	<result property="arti_oa"   			column="ARTI_OA"/>
+		<result property="arti_no"				column="ARTI_NO"/>
+		<result property="arti_uid"     		column="ARTI_UID"/>
+		<result property="arti_title"   		column="ARTI_TITLE"/>
+		<result property="arti_source_title"    column="ARTI_SOURCE_TITLE"/>
+		<result property="arti_year"   		    column="ARTI_YEAR"/>
+		<result property="arti_date"   			column="ARTI_DATE"/>
+		<result property="arti_vol"   			column="ARTI_VOL"/>
+		<result property="arti_issue"   		column="ARTI_ISSUE"/>
+		<result property="arti_sup"   			column="ARTI_SUP"/>		
+		<result property="arti_doi"   			column="ARTI_DOI"/>
+		<result property="arti_ab"   			column="ARTI_AB"/>
+		<result property="arti_issn"   			column="ARTI_ISSN"/>
+		<result property="arti_eissn"   		column="ARTI_EISSN"/>
+		<result property="arti_cite_cnt"   		column="ARTI_CITE_CNT"/>
+		<result property="arti_page_cnt"   		column="ARTI_PAGE_CNT"/>
+		<result property="arti_bp"   			column="ARTI_BP"/>
+		<result property="arti_ep"   			column="ARTI_EP"/>
+		<result property="arti_oa"   			column="ARTI_OA"/>
 	
 	</resultMap>
 	
