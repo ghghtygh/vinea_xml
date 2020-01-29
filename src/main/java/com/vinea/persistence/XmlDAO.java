@@ -1,4 +1,4 @@
-package com.vinea.dao;
+package com.vinea.persistence;
 
 import java.util.List;
 import java.util.Map;

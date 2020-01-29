@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -220,42 +220,35 @@
 	z-index: 1030;
 	background-color: #333333;
 	opacity: 0.8;
-	
 }
 
-input:read-only{
-	
-	border:0px;
-	width:100%;
-	
-
+input:read-only {
+	border: 0px;
+	width: 100%;
 }
 
-textarea{
-
-	width:100%;
-	padding:10px;
-	border:0px;
-	resize:none;
-	overflow-y:auto;
+textarea {
+	width: 100%;
+	padding: 10px;
+	border: 0px;
+	resize: none;
+	overflow-y: auto;
 }
 
-textarea:disabled{
-	background:white;
+textarea:disabled {
+	background: white;
 }
 </style>
 </head>
 
 <body>
 	<form id="frm" enctype="multipart/form-data">
-		
-		<input type="hidden" name="title" 		value=""/>
-		<input type="hidden" name="abstr" 		value=""/>
-		<input type="hidden" name="org" 		value=""/>
-		<input type="hidden" name="authors" 	value=""/>
-		<input type="hidden" name="category"	value=""/>
-		<input type="hidden" name="subject" 	value=""/>
-		<input type="hidden" name="publisher"	value=""/>
+
+		<input type="hidden" name="title" value="" /> <input type="hidden"
+			name="abstr" value="" /> <input type="hidden" name="org" value="" />
+		<input type="hidden" name="authors" value="" /> <input type="hidden"
+			name="category" value="" /> <input type="hidden" name="subject"
+			value="" /> <input type="hidden" name="publisher" value="" />
 
 		<div id="wrap">
 
@@ -293,28 +286,22 @@ textarea:disabled{
 											<td>
 												<blockquote class="blockquote" style="font-size: 110%;">
 
-													<a href="#" class="mb-0" style="color: black;" onClick="fn_read('${xml.id }')">
-														${xml.title } </a>
+													<a href="#" class="mb-0" style="color: black;"
+														onClick="fn_read('${xml.id }')"> ${xml.title } </a>
 
 
-													<footer class="blockquote-footer"> 
-													
-														<c:set var="tmp_list" value="${fn:split(xml.authors,';') }"/>
-														
-														<c:forEach var="tmp" items="${tmp_list }" varStatus="g">
-															<c:if test="${g.count==1 }">${tmp }</c:if>
-														</c:forEach>
-														
-														<c:if test="${fn:length(tmp_list)>1}"><c:out value="(외  ${fn:length(tmp_list)}명)"></c:out></c:if>
-														<!-- 
+													<footer class="blockquote-footer"> <c:set
+														var="tmp_list" value="${fn:split(xml.authors,';') }" /> <c:forEach
+														var="tmp" items="${tmp_list }" varStatus="g">
+														<c:if test="${g.count==1 }">${tmp }</c:if>
+													</c:forEach> <c:if test="${fn:length(tmp_list)>1}">
+														<c:out value="(외  ${fn:length(tmp_list)}명)"></c:out>
+													</c:if> <!-- 
 														<c:forEach var="tmp" items="${tmp_list }" varStatus="g">
 															${tmp }
 															<c:if test="${g.count!=fn:length(tmp_list) }">,</c:if>
 														</c:forEach>
-														 -->
-													
-													 | ${xml.org }
-													</footer>
+														 --> | ${xml.org } </footer>
 												</blockquote>
 											</td>
 										</tr>
@@ -329,79 +316,87 @@ textarea:disabled{
 					<div align="right" style="position: relative;">
 						<div style="position: absolute; text-align: center; width: 100%;">
 							<div class="btn-group mr-2">
-						  		<c:choose>
-						  		
-								  	<c:when test="${pager.nowPage ne 1 }">
-								  	
-								  		<a href='#' class="btn btn-primary" onClick="fn_paging(1)">처음</a>
-										
-										
+								<c:choose>
+
+									<c:when test="${pager.nowPage ne 1 }">
+
+										<a href='#' class="btn btn-primary" onClick="fn_paging(1)">처음</a>
+
+
 									</c:when>
 									<c:otherwise>
-								  		<a class="btn btn-primary disabled">처음</a>
+										<a class="btn btn-primary disabled">처음</a>
 									</c:otherwise>
-							  	</c:choose>
-						  
-							  	<c:choose>
-								  	<c:when test="${pager.nowPage ne 1 }">
-									    <a href="#" class="btn btn-primary" onClick="fn_paging('${pager.prevPage}')">&laquo;</a>
+								</c:choose>
+
+								<c:choose>
+									<c:when test="${pager.nowPage ne 1 }">
+										<a href="#" class="btn btn-primary"
+											onClick="fn_paging('${pager.prevPage}')">&laquo;</a>
 									</c:when>
 									<c:otherwise>
-									    <a class="btn btn-primary disabled">&laquo;</a>
+										<a class="btn btn-primary disabled">&laquo;</a>
 									</c:otherwise>
-							  	</c:choose>
-						  	
-							  	<c:forEach begin="${pager.startPage}" end="${pager.endPage}" var="pageNum">
-									        	
-					        		<c:choose>
-					        		
-					        			<c:when test="${pageNum eq pager.nowPage}">
-					        				<a href="#" class="btn btn-primary active" onClick="fn_paging('${pageNum}')">${pageNum }</a>
-					        				
-					        			</c:when>
-					        			
-					        			<c:otherwise>
-					        				<a href="#" class="btn btn-primary" onClick="fn_paging('${pageNum}')">${pageNum}</a>
-											
+								</c:choose>
+
+								<c:forEach begin="${pager.startPage}" end="${pager.endPage}"
+									var="pageNum">
+
+									<c:choose>
+
+										<c:when test="${pageNum eq pager.nowPage}">
+											<a href="#" class="btn btn-primary active"
+												onClick="fn_paging('${pageNum}')">${pageNum }</a>
+
+										</c:when>
+
+										<c:otherwise>
+											<a href="#" class="btn btn-primary"
+												onClick="fn_paging('${pageNum}')">${pageNum}</a>
+
 										</c:otherwise>
-							 			
-									</c:choose>     
-									   	
+
+									</c:choose>
+
 								</c:forEach>
-					        	
-					        	
+
+
 								<c:choose>
-									<c:when test="${pager.nowPage ne pager.pageCnt && pager.pageCnt > 0 }">
-										
-										<a class="btn btn-primary" href="#" onClick="fn_paging('${pager.nextPage}')">&raquo;</a>
-										
-										
+									<c:when
+										test="${pager.nowPage ne pager.pageCnt && pager.pageCnt > 0 }">
+
+										<a class="btn btn-primary" href="#"
+											onClick="fn_paging('${pager.nextPage}')">&raquo;</a>
+
+
 									</c:when>
 									<c:otherwise>
-										
+
 										<a class="btn btn-primary disabled">&raquo;</a>
-										
+
 									</c:otherwise>
-							  	</c:choose>
+								</c:choose>
 								<c:choose>
-								  	<c:when test="${pager.nowPage ne pager.pageCnt }">
-								  		
-								  		<a class="btn btn-primary" href="#" onClick="fn_paging('${pager.pageCnt}')">끝</a>
-										
-										
+									<c:when test="${pager.nowPage ne pager.pageCnt }">
+
+										<a class="btn btn-primary" href="#"
+											onClick="fn_paging('${pager.pageCnt}')">끝</a>
+
+
 									</c:when>
 									<c:otherwise>
-										
+
 										<a class="btn btn-primary disabled">끝</a>
-										
+
 									</c:otherwise>
-							  	</c:choose>
-					  	
-					  		</div>
+								</c:choose>
+
+							</div>
 						</div>
 						<div>
 							<div style="position: relative; float: right; z-index: 10;">
-								<button id="btn_insertModal" class="btn btn-primary">XML파일 추가</button>
+								<button id="btn_insertModal" class="btn btn-primary">XML파일
+									추가</button>
 							</div>
 						</div>
 					</div>
@@ -425,25 +420,24 @@ textarea:disabled{
 						<div>
 							<p>XML 파일의 경로를 입력해주세요</p>
 						</div>
-						<div class="input-group mb-2" style="width:100%;">
-							<input type="text" id="filePath" name="filePath" class="form-control">
-							
+						<div class="input-group mb-2" style="width: 100%;">
+							<input type="text" id="filePath" name="filePath"
+								class="form-control">
+
 							<button id="btn_chk" class="btn btn-secondary">파싱</button>
 						</div>
-						<div id="div_alert" class="alert alert-dismissible alert-primary" style="display:none;">
-							<button type="button" class="close" id="btn_alert_hide" style="color:white;">&times;</button>
-							<strong id="alert_subject">경로 미입력!</strong><br> 
+						<div id="div_alert" class="alert alert-dismissible alert-primary"
+							style="display: none;">
+							<button type="button" class="close" id="btn_alert_hide"
+								style="color: white;">&times;</button>
+							<strong id="alert_subject">경로 미입력!</strong><br>
 							<p id="alert_content">XML 파일의 경로를 입력해주세요</p>
 						</div>
-						
-						<div id="title">
-						</div>
-						<div id="org">
-						</div>
-						<div id="authors">
-						</div>
-						<div id="publisher">
-						</div>
+
+						<div id="title"></div>
+						<div id="org"></div>
+						<div id="authors"></div>
+						<div id="publisher"></div>
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -454,7 +448,7 @@ textarea:disabled{
 			</div>
 		</div>
 	</div>
-	
+
 	<div id="readModal" class="modal">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -466,37 +460,37 @@ textarea:disabled{
 					</button>
 				</div>
 				<div class="modal-body">
-					<table style="width:100%;">
+					<table style="width: 100%;">
 						<thead>
-						
+
 						</thead>
 						<tbody>
-							
+
 							<tr>
 								<td>제목</td>
-								<td><textarea name="title" value="" disabled ></textarea></td>
+								<td><textarea name="title" value="" disabled></textarea></td>
 							</tr>
 							<tr>
 								<td>저자</td>
-								<td><textarea name="authors" value="" disabled ></textarea></td>
+								<td><textarea name="authors" value="" disabled></textarea></td>
 							</tr>
 							<tr>
 								<td>요약</td>
 								<td><textarea name="abstr" value="" disabled></textarea></td>
 							</tr>
-							
-							
+
+
 						</tbody>
 					</table>
 				</div>
 				<div class="modal-footer">
-				
+
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>
-	</div>	
-	
+	</div>
+
 </body>
 </html>

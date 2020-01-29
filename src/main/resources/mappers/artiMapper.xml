@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+   
+<mapper namespace="com.vinea.mapper.artiMapper">
+
+	<resultMap id="artiMap" type="com.vinea.model.ArtiVO">
+	
+		<result property="arti_no"				column="ARTI_NO"/>
+		<result property="arti_uid"     		column="ARTI_UID"/>
+		<result property="arti_title"   		column="ARTI_TITLE"/>
+		<result property="arti_source_title"    column="ARTI_SOURCE_TITLE"/>
+		<result property="arti_year"   		    column="ARTI_YEAR"/>
+		<result property="arti_date"   			column="ARTI_DATE"/>
+		<result property="arti_volume"   		column="ARTI_VOLUME"/>
+		<result property="arti_issue"   		column="ARTI_ISSUE"/>
+		<result property="arti_sup"   			column="ARTI_SUP"/>		
+		<result property="arti_doi"   			column="ARTI_DOI"/>
+		<result property="arti_ab"   			column="ARTI_AB"/>
+		<result property="arti_issn"   			column="ARTI_ISSN"/>
+		<result property="arti_eissn"   		column="ARTI_EISSN"/>
+		<result property="arti_cite_cnt"   		column="ARTI_CITE_CNT"/>
+		<result property="arti_page_cnt"   		column="ARTI_PAGE_CNT"/>
+		<result property="arti_bp"   			column="ARTI_BP"/>
+		<result property="arti_ep"   			column="ARTI_EP"/>
+		<result property="arti_oa"   			column="ARTI_OA"/>
+		
+	</resultMap>
+
+
+	<select id="countXml" resultType="java.lang.Integer">
+	<!--  artiMapper.xml / id: countXml / description: 페이징하기 전 파싱된 XML 건수 반환 -->
+	
+		SELECT
+			COUNT(ARTI_NO)
+		FROM
+			TB_ARTI		
+	</select>
+	
+	<insert id="insertXml" parameterType="com.vinea.model.ArtiVO">
+	<!--  artiMapper.xml / id: insertXml / description: 파싱한 XML(논문) 데이터 DB 저장 -->
+	
+		INSERT 
+		INTO TB_ARTI
+		(
+			 ARTI_NO
+			,ARTI_UID
+			,ARTI_TITLE
+			,ARTI_SOURCE_TITLE
+			,ARTI_YEAR
+			,ARTI_DATE
+			,ARTI_VOLUME
+			,ARTI_ISSUE
+			,ARTI_SUP
+			,ARTI_DOI
+			,ARTI_AB
+			,ARTI_ISSN
+			,ARTI_EISSN
+			,ARTI_CITE_CNT
+			,ARTI_PAGE_CNT
+			,ARTI_BP
+			,ARTI_EP
+			,ARTI_OA 
+		)
+		VALUES
+		(
+		     #{arti_no}
+		    ,#{arti_uid}
+		    ,#{arti_title}
+		    ,#{arti_source_title}
+		    ,#{arti_year}
+		    ,#{arti_date}
+		    ,#{arti_volume}
+		    ,#{arti_issue}
+		    ,#{arti_sup}
+		    ,#{arti_doi}
+		    ,#{arti_ab}
+		    ,#{arti_issn}
+		    ,#{arti_eissn}
+		    ,#{arti_cite_cnt}
+		    ,#{arti_page_cnt}
+		    ,#{arti_bp}
+		    ,#{arti_ep}
+		    ,#{arto_oa}		
+		)		
+	</insert>
+	
+	<select id="readXml" parameterType="java.lang.Integer" resultMap="artiMap">
+	<!--  artiMapper.xml / id: readXml / description: 파싱된 xml(논문) 데이터 상세보기 -->
+	
+		SELECT *
+		FROM
+			TB_ARTI
+	
+		WHERE
+			ARTI_NO = #{arti_no}
+	
+	</select>
+	
+	<select id="selectXmlList" parameterType="hashmap" resultMap="artiMap">
+	<!--  artiMapper.xml / id: selectXmlList / description : 해당하는 페이지의 파싱된 xml(논문) 목록 -->
+	
+		SELECT *
+		FROM
+			TB_ARTI	
+		ORDER BY
+			ARTI_NO
+		ASC
+		LIMIT
+			#{startIndex}
+		   ,#{pageSize}
+		   
+	</select>
+	
+	<select id="selectXml" parameterType="hashmap" resultMap="artiMap">
+	<!--  artiMapper.xml / id: selectXmlList / description : 해당하는 페이지의 파싱된 xml(논문) 목록 -->
+	
+		SELECT *
+		FROM
+			TB_ARTI	
+		ORDER BY
+			ARTI_NO
+		ASC
+		LIMIT
+			#{startIndex}
+		   ,#{pageSize}
+		   
+	</select>
+	
+	
+
+</mapper>

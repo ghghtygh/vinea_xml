@@ -1,4 +1,4 @@
-package com.vinea.service;
+package com.vinea.persistence;
 
 import java.util.HashMap;
 import java.util.List;
@@ -8,8 +8,6 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-import com.vinea.common.ParseXml;
-import com.vinea.dao.XmlDAO;
 import com.vinea.dto.XmlVO;
 
 @Service
