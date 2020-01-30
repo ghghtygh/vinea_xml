@@ -47,12 +47,14 @@
 		<result property="arti_book_bind"   	column="ARTI_BOOK_BIND"/>
 		<result property="arti_book_publ"   	column="ARTI_BOOK_PUBL"/>
 		<result property="arti_book_prepay"   	column="ARTI_BOOK_PREPAY"/>
-		
 		<result property="arti_ctgr_name"   	column="ARTI_CTGR_NAME"/>
 		<result property="arti_ctgr_subh"   	column="ARTI_CTGR_SUBH"/>
 		<result property="arti_ctgr_subj"   	column="ARTI_CTGR_SUBJ"/>
 		
+		
 	</resultMap>
+	
+	
 	
 	<resultMap id="authMap" type="com.vinea.dto.AuthVO">
 	
@@ -641,28 +643,151 @@
 	</select>
 	
 	
-	<select id="selectXmlList" parameterType="hashmap" resultMap="xmlMap">
-	<!--  xmlMapper.xml - selectXmlList : 해당 페이지 xml list 반환 -->
+	<select id="selectXmlList" parameterType="hashmap" resultMap="artiMap">
+	<!--  xmlMapper.xml - selectXmlList : 홈에서 사용 해당 페이지 xmllist 반환 -->
 	
 		SELECT
-			ID,
-			TITLE,
-			ABSTR,
-			ORG,
-			AUTHORS,
-			CATEGORY,
-			SUBJECT,
-			PUBLISHER
+			
+			ARTI_ID
+			,ARTI_TITLE
+			,ARTI_DATE
+			,ARTI_SOURCE_TITLE
+			,ARTI_VOL
+			,ARTI_ISSUE
+			,ARTI_YEAR
+			,ARTI_BP
+			,ARTI_EP
+			,ARTI_PAGE_CNT
+			
+			
 		FROM
-			TB_XML
-	
+			TB_ARTI
+			
 		ORDER BY
-			ID
-		DESC
-		
+			ARTI_ID
+		ASC
+		<!-- DESC -->
 		LIMIT
 			#{startIndex}
 		,	#{pageSize}
+		
+		
+	</select>
+	
+	<select id="countXml" resultType="java.lang.Integer">
+	
+		SELECT
+			COUNT(ARTI_ID)
+		FROM
+			TB_ARTI
+		
+			
+	
+	</select>
+	
+	<select id ="selectAuthList2" parameterType="java.lang.String" resultType="java.lang.String">
+	
+	
+		SELECT
+		
+			AUTH_FULL
+			
+		FROM
+			TB_AUTH
+			
+		WHERE
+			AUTH_UID = #{uid}
+			
+	</select>
+	
+	<!-- 키워드 -->
+	<select id ="selectKwrdList" parameterType="java.lang.String" resultMap="kwrdMap">
+	
+	
+		SELECT
+			KWRD_NAME
+		FROM
+			TB_KWRD		
+		WHERE
+			KWRD_UID = #{uid}
+			
+	</select>
+	
+	
+	<!-- 참고문헌 -->
+	<select id ="selectRefrList" parameterType="java.lang.String" resultMap="refrMap">
+	
+	
+		SELECT
+			 REFR_ID
+			,REFR_AUTH
+			,REFR_TITLE
+			,REFR_YEAR
+			,REFR_VOL
+			,REFR_ISSUE
+			,REFR_DOI
+			,REFR_PAGE
+			,REFR_ORGN
+		FROM
+			TB_REFR
+			
+		WHERE
+			REFR_UID = #{uid}
+		ORDER BY
+			REFR_ID
+		ASC
+			
+	</select>	
+	
+	
+	<!-- 저자 -->
+	<select id ="selectAuthList" parameterType="java.lang.String" resultMap="authMap">
+	
+	
+		SELECT
+			 AUTH_FULL 
+			,AUTH_LEAD
+			,AUTH_REPR
+		FROM
+			TB_AUTH
+			
+		WHERE
+			AUTH_UID = #{uid}
+		ORDER BY
+			AUTH_SEQ
+		ASC
+		
+	</select>	
+	
+	
+	<select id="selectOneXml" parameterType="java.lang.Integer" resultMap="artiMap">
+		
+		SELECT
+		
+			 ARTI_UID
+			,ARTI_TITLE
+			,ARTI_SOURCE_TITLE
+			,ARTI_VOL
+			,ARTI_ISSUE
+			,ARTI_YEAR
+			,ARTI_BP
+			,ARTI_EP
+			,ARTI_DOI
+			,ARTI_PAGE_CNT
+		    ,ARTI_AB
+		    ,ARTI_CITE_CNT
+		    ,ARTI_CTGR_NAME
+		    ,ARTI_CTGR_SUBH
+		    ,ARTI_CTGR_SUBJ
+	
+		FROM
+			TB_ARTI
+		
+		WHERE
+			ARTI_ID = #{arti_id}
+		
+	
+	
 	</select>
 	
 	<select id="selectXml" resultMap="xmlMap">

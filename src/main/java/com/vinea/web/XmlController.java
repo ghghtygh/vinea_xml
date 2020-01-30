@@ -46,8 +46,8 @@ public class XmlController {
 		map.put("startIndex", startIndex);
 		map.put("pageSize", pageSize);
 
-		List<XmlVO> xmlList = service.selectXmlList(map);
-
+		//List<XmlVO> xmlList = service.selectXmlList(map);
+		List<XmlVO> xmlList = null;
 		model.addAttribute("xmlList", xmlList);
 		model.addAttribute("pager", pager);
 		model.addAttribute("cnt", xmlCount);
@@ -58,9 +58,9 @@ public class XmlController {
 	
 	@RequestMapping(value = "/xml/test")
 	public void testtest() throws Exception {
-
-		String filepath = "C:\\Users\\vinea\\Desktop\\sample\\api_xml\\test.xml";
 		
+		String filepath = "C:\\Users\\vinea\\Desktop\\sample\\api_xml\\test.xml";
+		//String filepath = "C:\\Users\\vinea\\jupyter\\sample\\test.xml";
 		service.createListVO(filepath);
 	}
 

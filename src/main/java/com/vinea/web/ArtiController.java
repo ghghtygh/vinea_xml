@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.vinea.dto.ArtiVO;
-import com.vinea.service.ArtiService;
+import com.vinea.service.XmlService;
 import com.vinea.service.PostPager;
 
 @Controller
 public class ArtiController {
 	
 	@Inject
-	private ArtiService service;
+	private XmlService service;
 
 	/** 메인화면으로 이동 **/
 	@RequestMapping(value = "/article")
@@ -51,11 +51,11 @@ public class ArtiController {
 	
 	/** 파싱된 XML(논문) 내용 상세보기 **/
 	@RequestMapping(value="/article/article_detail", method=RequestMethod.GET)
-	public void article_detail(@RequestParam("arti_no")String arti_no, Model model){
+	public void article_detail(@RequestParam("arti_id")int arti_id, Model model) throws Exception{
 		
 		
-		//model.addAttribute("ArtiVO",service.article_detail(arti_no));
-		//ArtiVO article = service.readVO(arti_no);
+		model.addAttribute("ArtiVO",service.article_detail(arti_id));
+		//ArtiVO article = service.readVO(arti_id);
 		
 		//return article;
 	} 
@@ -65,7 +65,8 @@ public class ArtiController {
 	@ResponseBody
 	public ArtiVO xmlCheck(@RequestParam(defaultValue = "") String filePath) throws Exception {
 
-		ArtiVO article = service.createVO(filePath);
+		ArtiVO article=null;
+		//ArtiVO article = service.createVO(filePath);
 		
 		return article;
 	}
@@ -75,7 +76,7 @@ public class ArtiController {
 	public String xmlInsert(ArtiVO article) throws Exception {
 
 		
-		service.insertVO(article);
+		//service.insertVO(article);
 
 		return "redirect:/article";
 	}

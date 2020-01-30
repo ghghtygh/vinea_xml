@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import com.vinea.common.NjhParser;
 import com.vinea.dto.ArtiVO;
 import com.vinea.dto.AuthVO;
+import com.vinea.dto.DtypeVO;
 
 public class TestNJH {
 
@@ -31,11 +32,15 @@ public class TestNJH {
 		
 		for (ArtiVO vo : list){
 			
-			//logger.info(vo.toStringMultiline());
+			logger.info(vo.getArti_ctgr_name());
+			logger.info(vo.getArti_ctgr_subh());
+			logger.info(vo.getArti_ctgr_subj());
 			
-			for (AuthVO authVO : vo.getList_auth()){
-				//logger.info(authVO.toStringMultiline());
+			for (DtypeVO dvo : vo.getList_dtype()){
+				
+				logger.info(dvo.toStringMultiline());
 			}
+			
 		}
 		
 		

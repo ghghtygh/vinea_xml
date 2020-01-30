@@ -41,6 +41,10 @@ public class ArtiVO {
 	private String arti_ctgr_name;
 	private String arti_ctgr_subh;
 	private String arti_ctgr_subj;
+	///
+	private List<String> list_auth_full;
+	///
+
 	
 	private List<OrgnVO> list_orgn;
 	private List<AuthVO> list_auth;
@@ -53,6 +57,25 @@ public class ArtiVO {
 	private List<RefrVO> list_refr;
 	private List<KwrdplusVO> list_kwrdplus;
 	private List<PublVO> list_publ;
+	
+	
+	//////////
+	
+	
+	public List<String> getList_auth_full() {
+		return list_auth_full;
+	}
+
+
+
+
+	public void setList_auth_full(List<String> list_auth_full) {
+		this.list_auth_full = list_auth_full;
+	}
+
+	
+	
+	////////
 	
 	
 

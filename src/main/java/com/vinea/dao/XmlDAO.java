@@ -104,6 +104,31 @@ public class XmlDAO {
 		sqlSession.insert(Namespace + ".insertSpon", vo);
 	}
 
+	
+	/* 상세보기 */
+	public ArtiVO selectOneXml(int arti_id){
+		
+		return sqlSession.selectOne(Namespace+".selectOneXml",arti_id);
+	}
+	
+	/* 키워드 */
+	public List<KwrdVO> selectKwrdList(String uid){
+		
+		return sqlSession.selectList(Namespace +".selectKwrdList",uid);
+	}
+	
+	/* 참고문헌 */
+	public List<RefrVO> selectRefrList(String uid){
+		
+		return sqlSession.selectList(Namespace +".selectRefrList",uid);
+	}
+	
+	/* 저자 */
+	public List<AuthVO> selectAuthList(String uid){
+		
+		return sqlSession.selectList(Namespace +".selectAuthList",uid);
+	}
+	
 	/* XML 상세보기 */
 	public XmlVO readVO(int id) {
 
@@ -111,9 +136,14 @@ public class XmlDAO {
 	}
 
 	/* 페이징 처리된 XML 목록 리턴 */
-	public List<XmlVO> selectXmlList(Map<String, Object> map) {
+	public List<ArtiVO> selectXmlList(Map<String, Object> map) {
 
 		return sqlSession.selectList(Namespace + ".selectXmlList", map);
+	}
+	
+	public List<String> selectAuthList2(String uid){
+		
+		return sqlSession.selectList(Namespace +".selectAuthList2",uid);
 	}
 
 	/* 전체 XML 목록 리턴 */

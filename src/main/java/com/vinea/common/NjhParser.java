@@ -176,11 +176,42 @@ public class NjhParser {
 				rec, XPathConstants.STRING));
 		
 		
-		vo.setArti_ctgr_name("");
+		//logger.info((String) xpath.evaluate("./static_data/fullrecord_metadata/category_info/headings/heading", rec, XPathConstants.STRING));
+
+	      /** 카테고리 소제목 (구분자로 구분 바람) **/
+	      NodeList subList = (NodeList) xpath.evaluate("./static_data/fullrecord_metadata/category_info/subheadings/subheading", rec, XPathConstants.NODESET);
+
+	      String subhs = "";
+	      String subjs="";
+	      for (int i = 0, n = subList.getLength(); i < n; i++) {
+
+	         String subh = subList.item(i).getTextContent();
+	         
+	         subhs+=(subh+"|");
+	         
+	         //logger.info(subh);
+	      }
+
+	      /** 카테고리 주제 (구분자로 구분 바람) **/
+	      NodeList subjList = (NodeList) xpath.evaluate(
+	            "./static_data/fullrecord_metadata/category_info/subjects/subject[@ascatype='traditional']", rec, XPathConstants.NODESET);
+
+	      for (int i = 0, n = subjList.getLength(); i < n; i++) {
+
+	         String subj = subjList.item(i).getTextContent();
+	         subjs+=(subj+"|");
+	         //logger.info(subj);
+	      }
+
+		//logger.info(subhs);
+		//logger.info(subjs);
 		
-		vo.setArti_ctgr_subh("");
+		vo.setArti_ctgr_name((String) xpath.evaluate("./static_data/fullrecord_metadata/category_info/headings/heading",
+				rec, XPathConstants.STRING));
 		
-		vo.setArti_ctgr_subj("");
+		vo.setArti_ctgr_subh(subhs);
+		
+		vo.setArti_ctgr_subj(subjs);
 		
 		
 		
@@ -380,7 +411,26 @@ public class NjhParser {
 			dtypeVO.setDtype_uid(vo.getArti_uid());
 			
 			//구분자 아직 안함 
-			dtypeVO.setDtype_name("");
+			
+			String dtype_names="";
+			
+			NodeList doctypeList = (NodeList) xpath.evaluate("./doctype", node, XPathConstants.NODESET);
+			
+			for(int i1 = 0, n1 = doctypeList.getLength(); i1 < n1; i1++){
+				Node doctypeNode = doctypeList.item(i1);
+				
+				String dtype_name=(String) xpath.evaluate("./text()", doctypeNode,XPathConstants.STRING);
+				
+				dtype_names+=dtype_name;
+				dtype_names+="|";
+				//logger.info(vo.getArti_uid()+": "+dtype_name);
+				
+			}
+			
+			
+			//logger.info(vo.getArti_uid()+": "+dtype_names);
+			
+			dtypeVO.setDtype_name(dtype_names);
 			
 			list_dtype.add(dtypeVO);
 		}

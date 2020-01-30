@@ -1,5 +1,8 @@
 package com.vinea.dto;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class DtypeVO {
 
 	
@@ -27,6 +30,9 @@ public class DtypeVO {
 		this.dtype_name = dtype_name;
 	}
 
-	
+	public String toStringMultiline() {
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+	}
+
 	
 }

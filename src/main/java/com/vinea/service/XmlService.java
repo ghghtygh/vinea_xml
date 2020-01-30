@@ -3,6 +3,7 @@ package com.vinea.service;
 import java.util.List;
 import java.util.Map;
 
+import com.vinea.dto.ArtiVO;
 import com.vinea.dto.XmlVO;
 
 public interface XmlService {
@@ -16,10 +17,12 @@ public interface XmlService {
 	
 	public void insertVO(XmlVO vo) throws Exception;
 
-	public List<XmlVO> selectXmlList(Map<String, Object> map);
+	public List<ArtiVO> selectXmlList(Map<String, Object> map);
 
 	public XmlVO readVO(int id);
 	
 	public void createListVO(String filePath) throws Exception;
+
+	public ArtiVO article_detail(int arti_id) throws Exception;
 	
 }

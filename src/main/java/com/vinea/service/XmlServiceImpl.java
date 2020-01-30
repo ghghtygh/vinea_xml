@@ -1,5 +1,6 @@
 package com.vinea.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -56,10 +57,19 @@ public class XmlServiceImpl implements XmlService{
 	
 	/* 요청 페이지에 따른 XML 목록 리턴*/
 	@Override
-	public List<XmlVO> selectXmlList(Map<String,Object> map){
+	public List<ArtiVO> selectXmlList(Map<String,Object> map){
 	
+		List<ArtiVO> list_artiVO = new ArrayList<ArtiVO>();
 		
-		return dao.selectXmlList(map);
+		list_artiVO = dao.selectXmlList(map);
+		
+		for (ArtiVO vo : list_artiVO){
+			
+			vo.setList_auth_full(dao.selectAuthList2(vo.getArti_uid()));
+			
+		}
+		
+		return list_artiVO;
 	}
 	
 	/* XML DB에 저장 */
@@ -67,6 +77,25 @@ public class XmlServiceImpl implements XmlService{
 	public void insertVO(XmlVO vo) throws Exception{
 		
 		dao.insertVO(vo);
+	}
+	
+	@Override
+	public ArtiVO article_detail(int arti_id) throws Exception{
+		
+		ArtiVO vo = dao.selectOneXml(arti_id);
+		
+		//키워드
+		vo.setList_kwrd(dao.selectKwrdList(vo.getArti_uid()));
+		
+		//저자 (todo 교신표시 )
+		vo.setList_auth(dao.selectAuthList(vo.getArti_uid()));
+		
+		//참고문헌
+		vo.setList_refr(dao.selectRefrList(vo.getArti_uid()));
+		
+		
+		
+		return vo;
 	}
 	
 	/** 파싱된 XML(논문)List 데이터 DB에 저장 **/

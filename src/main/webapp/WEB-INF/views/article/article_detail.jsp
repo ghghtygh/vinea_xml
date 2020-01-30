@@ -120,7 +120,7 @@
 						</p>
 						<!-- 연구분야 추가 -->
 						<p style="font-size: 13px">
-							연구분야: <a href="#"> 기관 데이터 추가..</a>
+							연구분야: <a href="#"> 기관 데이터 추가..</a> <br> <a href="#"> ${ArtiVO.arti_ctgr_name}</a>
 						</p>
 						<hr style="border-bottom: 0.5px dotted #b4b4b4">
 						<!-- 저자 추가 -->
