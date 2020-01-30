@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.vinea.common.NjhParser;
 import com.vinea.dto.ArtiVO;
+import com.vinea.dto.KwrdplusVO;
 import com.vinea.service.ArtiService;
 
 public class TestNJH {
@@ -32,7 +33,12 @@ public class TestNJH {
 		list = np.returnList();
 		
 		for (ArtiVO vo : list){
+			
 			//logger.info(vo.toStringMultiline());
+			
+			for (KwrdplusVO kvo : vo.getList_kwrdplus()){
+				//logger.info(kvo.getKwrdp_name());
+			}
 		}
 		
 		

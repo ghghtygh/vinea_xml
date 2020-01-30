@@ -5,6 +5,7 @@ import java.util.List;
 public class AuthVO {
 
 	private int auth_dais;
+	private int auth_addr_no;
 	private String auth_uid;
 	private String auth_dply;
 	private String auth_full;
@@ -17,13 +18,12 @@ public class AuthVO {
 	private String auth_email;
 	private int auth_seq;
 	
-	private List<OrgnVO> list_orgn;
 	
-	public List<OrgnVO> getList_orgn() {
-		return list_orgn;
+	public int getAuth_addr_no() {
+		return auth_addr_no;
 	}
-	public void setList_orgn(List<OrgnVO> list_orgn) {
-		this.list_orgn = list_orgn;
+	public void setAuth_addr_no(int auth_addr_no) {
+		this.auth_addr_no = auth_addr_no;
 	}
 	public int getAuth_dais() {
 		return auth_dais;

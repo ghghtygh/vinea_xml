@@ -2,77 +2,77 @@ package com.vinea.dto;
 
 public class OrgnVO {
 
-	private int ORGN_ID;
-	private int ORGN_DAIS;
-	private String ORGN_UID;
-	private String ORGN_FULL;
-	private String ORGN_NAME;
-	private String ORGN_PREF;
-	private String ORGN_SUB;
-	private String ORGN_CITY;
-	private String ORGN_STATE;
-	private String ORGN_CTRY;
+	private int orgn_id;
+	private int orgn_addr_no;
+	private String orgn_uid;
+	private String orgn_full;
+	private String orgn_name;
+	private String orgn_pref;
+	private String orgn_sub;
+	private String orgn_city;
+	private String orgn_state;
+	private String orgn_ctry;
 	
 	
-	public int getORGN_ID() {
-		return ORGN_ID;
+	public int getOrgn_addr_no() {
+		return orgn_addr_no;
 	}
-	public void setORGN_ID(int oRGN_ID) {
-		ORGN_ID = oRGN_ID;
+	public void setOrgn_addr_no(int orgn_addr_no) {
+		this.orgn_addr_no = orgn_addr_no;
 	}
-	public int getORGN_DAIS() {
-		return ORGN_DAIS;
+	public int getOrgn_id() {
+		return orgn_id;
 	}
-	public void setORGN_DAIS(int oRGN_DAIS) {
-		ORGN_DAIS = oRGN_DAIS;
+	public void setOrgn_id(int orgn_id) {
+		orgn_id = orgn_id;
 	}
-	public String getORGN_UID() {
-		return ORGN_UID;
+	public String getOrgn_uid() {
+		return orgn_uid;
 	}
-	public void setORGN_UID(String oRGN_UID) {
-		ORGN_UID = oRGN_UID;
+	public void setOrgn_uid(String orgn_uid) {
+		orgn_uid = orgn_uid;
 	}
-	public String getORGN_FULL() {
-		return ORGN_FULL;
+	public String getOrgn_full() {
+		return orgn_full;
 	}
-	public void setORGN_FULL(String oRGN_FULL) {
-		ORGN_FULL = oRGN_FULL;
+	public void setOrgn_full(String orgn_full) {
+		orgn_full = orgn_full;
 	}
-	public String getORGN_NAME() {
-		return ORGN_NAME;
+	public String getOrgn_name() {
+		return orgn_name;
 	}
-	public void setORGN_NAME(String oRGN_NAME) {
-		ORGN_NAME = oRGN_NAME;
+	public void setOrgn_name(String orgn_name) {
+		orgn_name = orgn_name;
 	}
-	public String getORGN_PREF() {
-		return ORGN_PREF;
+	public String getOrgn_pref() {
+		return orgn_pref;
 	}
-	public void setORGN_PREF(String oRGN_PREF) {
-		ORGN_PREF = oRGN_PREF;
+	public void setOrgn_pref(String orgn_pref) {
+		orgn_pref = orgn_pref;
 	}
-	public String getORGN_SUB() {
-		return ORGN_SUB;
+	public String getOrgn_sub() {
+		return orgn_sub;
 	}
-	public void setORGN_SUB(String oRGN_SUB) {
-		ORGN_SUB = oRGN_SUB;
+	public void setOrgn_sub(String orgn_sub) {
+		orgn_sub = orgn_sub;
 	}
-	public String getORGN_CITY() {
-		return ORGN_CITY;
+	public String getOrgn_city() {
+		return orgn_city;
 	}
-	public void setORGN_CITY(String oRGN_CITY) {
-		ORGN_CITY = oRGN_CITY;
+	public void setOrgn_city(String orgn_city) {
+		orgn_city = orgn_city;
 	}
-	public String getORGN_STATE() {
-		return ORGN_STATE;
+	public String getOrgn_state() {
+		return orgn_state;
 	}
-	public void setORGN_STATE(String oRGN_STATE) {
-		ORGN_STATE = oRGN_STATE;
+	public void setOrgn_state(String orgn_state) {
+		orgn_state = orgn_state;
 	}
-	public String getORGN_CTRY() {
-		return ORGN_CTRY;
+	public String getOrgn_ctry() {
+		return orgn_ctry;
 	}
-	public void setORGN_CTRY(String oRGN_CTRY) {
-		ORGN_CTRY = oRGN_CTRY;
+	public void setOrgn_ctry(String orgn_ctry) {
+		orgn_ctry = orgn_ctry;
 	}
 
 	
