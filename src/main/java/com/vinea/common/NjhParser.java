@@ -7,6 +7,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -15,13 +16,15 @@ import org.w3c.dom.NodeList;
 
 import com.vinea.dto.ArtiVO;
 import com.vinea.dto.AuthVO;
+import com.vinea.dto.BooknoteVO;
 import com.vinea.dto.CoauthVO;
 import com.vinea.dto.ConfVO;
-import com.vinea.dto.CtgrVO;
 import com.vinea.dto.DtypeVO;
 import com.vinea.dto.GrntVO;
 import com.vinea.dto.KwrdVO;
 import com.vinea.dto.KwrdplusVO;
+import com.vinea.dto.OrgnVO;
+import com.vinea.dto.PublVO;
 import com.vinea.dto.RefrVO;
 import com.vinea.dto.SponVO;
 
@@ -114,21 +117,21 @@ public class NjhParser {
 		
 		
 		if (((String) xpath.evaluate(".//references/@count",
-				rec, XPathConstants.STRING)).equals(strpath)){
+				rec, XPathConstants.STRING)).equals("")){
 			
-			vo.setArti_cite_cnt(parseInt((String) xpath.evaluate(".//refs/@count",
-					rec, XPathConstants.STRING)));
+			vo.setArti_cite_cnt((String) xpath.evaluate(".//refs/@count",
+					rec, XPathConstants.STRING));
 			
 		}else{
 			
-			vo.setArti_cite_cnt(parseInt((String) xpath.evaluate(".//references/@count",
-					rec, XPathConstants.STRING)));
+			vo.setArti_cite_cnt((String) xpath.evaluate(".//references/@count",
+					rec, XPathConstants.STRING));
 			
 		}
 		
 		
-		vo.setArti_page_cnt(parseInt((String) xpath.evaluate(".//page/@page_count",
-				rec, XPathConstants.STRING)));
+		vo.setArti_page_cnt((String) xpath.evaluate(".//page/@page_count",
+				rec, XPathConstants.STRING));
 		
 		// 현재없음
 		vo.setArti_bp((String) xpath.evaluate(".//page",
@@ -153,12 +156,12 @@ public class NjhParser {
 				rec, XPathConstants.STRING));
 		
 		// PAGECOUNT
-		vo.setArti_item_page(parseInt((String) xpath.evaluate("./static_data/item/bib_pagecount/text()",
-				rec, XPathConstants.STRING)));
+		vo.setArti_item_page((String) xpath.evaluate("./static_data/item/bib_pagecount/text()",
+				rec, XPathConstants.STRING));
 		
 		// 책 페이지 수
-		vo.setArti_book_page(parseInt((String) xpath.evaluate("./static_data/item/book_pages/text()",
-				rec, XPathConstants.STRING)));
+		vo.setArti_book_page((String) xpath.evaluate("./static_data/item/book_pages/text()",
+				rec, XPathConstants.STRING));
 		
 		// 책 제본
 		vo.setArti_book_bind((String) xpath.evaluate("./static_data/item/book_desc/bk_binding/text()",
@@ -171,6 +174,14 @@ public class NjhParser {
 		// 책 주문 정보
 		vo.setArti_book_prepay((String) xpath.evaluate("./static_data/item/book_desc/bk_prepay/text()",
 				rec, XPathConstants.STRING));
+		
+		
+		vo.setArti_ctgr_name("");
+		
+		vo.setArti_ctgr_subh("");
+		
+		vo.setArti_ctgr_subj("");
+		
 		
 		
 	// 끝 << TB_ARTI 
@@ -211,7 +222,8 @@ public class NjhParser {
 		
 		List<AuthVO> list_auth = new ArrayList<AuthVO>();
 		
-		NodeList nameNodeList = (NodeList) xpath.evaluate(strpath, rec, XPathConstants.NODESET);
+		NodeList nameNodeList = (NodeList) xpath.evaluate("./static_data/summary/names/name",
+				rec, XPathConstants.NODESET);
 		
 		for (int i = 0, n = nameNodeList.getLength(); i < n; i++) {
 			
@@ -221,31 +233,33 @@ public class NjhParser {
 			
 			authVO.setAuth_uid(vo.getArti_uid());
 			
-			authVO.setAuth_dais(parseInt(strpath));
+			authVO.setAuth_dais((String) xpath.evaluate("./@daisng_id", node, XPathConstants.STRING));
 			
-			authVO.setAuth_addr_no(parseInt(strpath));
+			authVO.setAuth_addr_no((String) xpath.evaluate("./@addr_no", node, XPathConstants.STRING));
 			
-			authVO.setAuth_dply(strpath);
+			authVO.setAuth_dply((String) xpath.evaluate("./display_name", node, XPathConstants.STRING));
 			
-			authVO.setAuth_email(strpath);
+			authVO.setAuth_email((String) xpath.evaluate("./email_addr", node, XPathConstants.STRING));
 			
-			authVO.setAuth_first(strpath);
+			authVO.setAuth_first((String) xpath.evaluate("./first_name", node, XPathConstants.STRING));
 			
-			authVO.setAuth_full(strpath);
+			authVO.setAuth_full((String) xpath.evaluate("./full_name", node, XPathConstants.STRING));
 			
-			authVO.setAuth_last(strpath);
+			authVO.setAuth_last((String) xpath.evaluate("./last_name", node, XPathConstants.STRING));
 			
-			authVO.setAuth_lead(strpath);
+			if ((String) xpath.evaluate("../name[@seq_no = '1']", node, XPathConstants.STRING) != null) {
+				authVO.setAuth_lead("Y");
+			}
 			
-			authVO.setAuth_repr(strpath);
+			authVO.setAuth_repr((String) xpath.evaluate("./@reprint", node, XPathConstants.STRING));
 			
-			authVO.setAuth_role(strpath);
+			authVO.setAuth_role((String) xpath.evaluate("./@role", node, XPathConstants.STRING));
 			
 			
 			
-			authVO.setAuth_seq(parseInt(strpath));
+			authVO.setAuth_seq(parseInt((String) xpath.evaluate("./@seq_no", node, XPathConstants.STRING)));
 			
-			authVO.setAuth_wos(strpath);
+			authVO.setAuth_wos((String) xpath.evaluate("./wos_standard", node, XPathConstants.STRING));
 			
 			list_auth.add(authVO);
 			
@@ -260,7 +274,7 @@ public class NjhParser {
 		
 		List<CoauthVO> list_coauth = new ArrayList<CoauthVO>();
 		
-		NodeList nodelist1 = (NodeList) xpath.evaluate(strpath, rec, XPathConstants.NODESET);
+		NodeList nodelist1 = (NodeList) xpath.evaluate("./static_data/contributors/contributor/name", rec, XPathConstants.NODESET);
 		
 		for(int i = 0, n = nodelist1.getLength(); i < n; i++){
 			
@@ -270,22 +284,21 @@ public class NjhParser {
 			
 			coauthVO.setCoauth_uid(vo.getArti_uid());
 			
-			coauthVO.setCoauth_dply(strpath);
+			coauthVO.setCoauth_dply((String) xpath.evaluate("./display_name", node, XPathConstants.STRING));
 			
-			coauthVO.setCoauth_first(strpath);
+			coauthVO.setCoauth_first((String) xpath.evaluate("./first_name", node, XPathConstants.STRING));
 			
-			coauthVO.setCoauth_last(strpath);
+			coauthVO.setCoauth_last((String) xpath.evaluate("./last_name", node, XPathConstants.STRING));
 			
-			coauthVO.setCoauth_full(strpath);
+			coauthVO.setCoauth_full((String) xpath.evaluate("./full_name", node, XPathConstants.STRING));
 			
-			coauthVO.setCoauth_orcid(parseInt(strpath));
+			coauthVO.setCoauth_orcid((String) xpath.evaluate("./@orcid_id", node, XPathConstants.STRING));
 			
-			coauthVO.setCoauth_rid(strpath);
+			coauthVO.setCoauth_rid((String) xpath.evaluate("./@r_id", node, XPathConstants.STRING));
 			
-			coauthVO.setCoauth_role(strpath);
+			coauthVO.setCoauth_role((String) xpath.evaluate("./@role", node, XPathConstants.STRING));
 			
-			coauthVO.setCoauth_seq(parseInt(strpath));
-			
+			coauthVO.setCoauth_seq(parseInt((String) xpath.evaluate("./@seq_no", node, XPathConstants.STRING)));
 			
 			list_coauth.add(coauthVO);
 		}
@@ -299,7 +312,7 @@ public class NjhParser {
 		
 		List<ConfVO> list_conf = new ArrayList<ConfVO>();
 		
-		NodeList nodelist2 = (NodeList) xpath.evaluate(strpath, rec, XPathConstants.NODESET);
+		NodeList nodelist2 = (NodeList) xpath.evaluate("./static_data/summary/conferences/conference", rec, XPathConstants.NODESET);
 		
 		for(int i = 0, n = nodelist2.getLength(); i < n; i++){
 			
@@ -307,34 +320,44 @@ public class NjhParser {
 			
 			Node node = (Node) nodelist2.item(i);
 			
-			confVO.setConf_uid(strpath);
-			confVO.setConf_id(parseInt(strpath));
+			confVO.setConf_uid(vo.getArti_uid());
+			confVO.setConf_cid((String) xpath.evaluate("./@conf_id", node, XPathConstants.STRING));
 			
-			confVO.setConf_city(strpath);
-			confVO.setConf_state(strpath);
-			confVO.setConf_ctry(strpath);
-			confVO.setConf_date(strpath);
-			confVO.setConf_end(strpath);
+			confVO.setConf_city((String) xpath.evaluate("./conf_locations/conf_location/conf_city", node, XPathConstants.STRING));
+			confVO.setConf_state((String) xpath.evaluate("./conf_locations/conf_location/conf_state", node, XPathConstants.STRING));
+			confVO.setConf_ctry("");
+			confVO.setConf_date((String) xpath.evaluate("./conf_dates/conf_date", node, XPathConstants.STRING));
+			confVO.setConf_end((String) xpath.evaluate("./conf_dates/conf_date/@conf_end", node, XPathConstants.STRING));
 			
-			confVO.setConf_start(strpath);
+			confVO.setConf_start((String) xpath.evaluate("./conf_dates/conf_date/@conf_start", node, XPathConstants.STRING));
 			
-			confVO.setConf_title(strpath);
+			confVO.setConf_title((String) xpath.evaluate("./conf_titles/conf_title", node, XPathConstants.STRING));
 			
+			
+			// TB_SPON >> 시작
 			List<SponVO> list_spon = new ArrayList<SponVO>();
 			
-//			NodeList nodelist3 = (NodeList) xpath.evaluate(strpath, , XPathConstants.NODESET);
-//			
-//			for(int i1 = 0, n1 = nodelist3.getLength(); i1 < n1; i1++){
-//				
-//				SponVO sponVO = new SponVO();
-//				
-//				
-//				list_spon.add(sponVO);
-//			
-//			}
 			
+			NodeList nodelist3 = (NodeList) xpath.evaluate("./sponsors/sponsor", node, XPathConstants.NODESET);
 			
+			for(int i1 = 0, n1 = nodelist3.getLength(); i1 < n1; i1++){
+				
+				SponVO sponVO = new SponVO();
+				
+				Node node2 = (Node) nodelist3.item(i);
+				
+				sponVO.setSpon_conf_id(confVO.getConf_cid());
+				
+				sponVO.setSpon_name((String) xpath.evaluate("./text()", node2, XPathConstants.STRING));
+				
+				list_spon.add(sponVO);
+			
+			}
+			
+			// 끝 << TB_SPON
 			confVO.setList_spon(list_spon);
+			
+			
 		}
 		
 		vo.setList_conf(list_conf);
@@ -342,38 +365,11 @@ public class NjhParser {
 	// 끝 << TB_CONF	
 		
 		
-	// TB_CTGR >> 시작
-		
-		List<CtgrVO> list_ctgr = new ArrayList<CtgrVO>();
-		
-		NodeList nodelist4 = (NodeList) xpath.evaluate(strpath, rec, XPathConstants.NODESET);
-		
-		for(int i = 0, n = nodelist4.getLength(); i < n; i++){
-			
-			CtgrVO ctgrVO = new CtgrVO();
-			
-			Node node = (Node) nodelist4.item(i);
-			
-			ctgrVO.setCtgr_uid(vo.getArti_uid());
-			
-			ctgrVO.setCtgr_name(strpath);
-			ctgrVO.setCtgr_sub(strpath);
-			ctgrVO.setCtgr_subj(strpath);
-			
-			list_ctgr.add(ctgrVO);
-		}
-		
-		
-		
-		vo.setList_ctgr(list_ctgr);
-		
-	// 끝 << TB_CTGR
-		
 	// TB_DTYPE >> 시작
 		
 		List<DtypeVO> list_dtype = new ArrayList<DtypeVO>();
 		
-		NodeList nodelist5 = (NodeList) xpath.evaluate(strpath, rec, XPathConstants.NODESET);
+		NodeList nodelist5 = (NodeList) xpath.evaluate("./static_data/summary/doctypes", rec, XPathConstants.NODESET);
 		
 		for(int i = 0, n = nodelist5.getLength(); i < n; i++){
 			
@@ -383,7 +379,8 @@ public class NjhParser {
 			
 			dtypeVO.setDtype_uid(vo.getArti_uid());
 			
-			dtypeVO.setDtype_name(strpath);
+			//구분자 아직 안함 
+			dtypeVO.setDtype_name("");
 			
 			list_dtype.add(dtypeVO);
 		}
@@ -396,7 +393,7 @@ public class NjhParser {
 		
 		List<GrntVO> list_grnt = new ArrayList<GrntVO>();
 		
-		NodeList nodelist6 = (NodeList) xpath.evaluate(strpath, rec, XPathConstants.NODESET);
+		NodeList nodelist6 = (NodeList) xpath.evaluate("./static_data/fullrecord_metadata/fund_ack", rec, XPathConstants.NODESET);
 		
 		for(int i = 0, n = nodelist6.getLength(); i < n; i++){
 			
@@ -406,11 +403,11 @@ public class NjhParser {
 			
 			grntVO.setGrnt_uid(vo.getArti_uid());
 			
-			grntVO.setGrnt_agcy(strpath);
+			grntVO.setGrnt_agcy((String) xpath.evaluate("./grants/grant/grant_agency/text()", node, XPathConstants.STRING));
 			
-			grntVO.setGrnt_id(strpath);
+			grntVO.setGrnt_gid((String) xpath.evaluate("./grants/grant/grant_ids/grant_id", node, XPathConstants.STRING));
 			
-			grntVO.setGrnt_text(strpath);
+			grntVO.setGrnt_text((String) xpath.evaluate("./fund_text/p/text()", node, XPathConstants.STRING));
 			
 			list_grnt.add(grntVO);
 			
@@ -423,7 +420,7 @@ public class NjhParser {
 		
 		List<KwrdVO> list_kwrd = new ArrayList<KwrdVO>();
 		
-		NodeList nodelist7 = (NodeList) xpath.evaluate(strpath, rec, XPathConstants.NODESET);
+		NodeList nodelist7 = (NodeList) xpath.evaluate("./static_data/fullrecord_metadata/keywords/keyword", rec, XPathConstants.NODESET);
 		
 		for(int i = 0, n = nodelist7.getLength(); i < n; i++){
 			
@@ -433,7 +430,7 @@ public class NjhParser {
 			
 			kwrdVO.setKwrd_uid(vo.getArti_uid());
 			
-			kwrdVO.setKwrd_name(strpath);
+			kwrdVO.setKwrd_name((String) xpath.evaluate("./text()", node, XPathConstants.STRING));
 			
 			list_kwrd.add(kwrdVO);
 			
@@ -447,7 +444,7 @@ public class NjhParser {
 		
 		List<RefrVO> list_refr = new ArrayList<RefrVO>();
 		
-		NodeList nodelist8 = (NodeList) xpath.evaluate(strpath, rec, XPathConstants.NODESET);
+		NodeList nodelist8 = (NodeList) xpath.evaluate("./static_data/fullrecord_metadata/references/reference", rec, XPathConstants.NODESET);
 		
 		for(int i = 0, n = nodelist8.getLength(); i < n; i++){
 			
@@ -457,16 +454,15 @@ public class NjhParser {
 			
 			refrVO.setRefr_uid(vo.getArti_uid());
 			
-			refrVO.setRefr_auth(strpath);
-			refrVO.setRefr_doi(strpath);
-			refrVO.setRefr_issue(strpath);
-			refrVO.setRefr_no(strpath);
-			refrVO.setRefr_orgn(strpath);
-			refrVO.setRefr_page(strpath);
-			refrVO.setRefr_ruid(parseInt(strpath));
-			refrVO.setRefr_title(strpath);
-			refrVO.setRefr_vol(strpath);
-			refrVO.setRefr_year(strpath);
+			refrVO.setRefr_auth((String) xpath.evaluate("./citedAuthor", node, XPathConstants.STRING));
+			refrVO.setRefr_doi((String) xpath.evaluate("./doi", node, XPathConstants.STRING));
+			refrVO.setRefr_issue("");
+			refrVO.setRefr_orgn((String) xpath.evaluate("./citedWork", node, XPathConstants.STRING));
+			refrVO.setRefr_page((String) xpath.evaluate("./page", node, XPathConstants.STRING));
+			refrVO.setRefr_ruid((String) xpath.evaluate("./uid", node, XPathConstants.STRING));
+			refrVO.setRefr_title((String) xpath.evaluate("./citedTitle", node, XPathConstants.STRING));
+			refrVO.setRefr_vol((String) xpath.evaluate("./volume", node, XPathConstants.STRING));
+			refrVO.setRefr_year((String) xpath.evaluate("./year", node, XPathConstants.STRING));
 			
 			list_refr.add(refrVO);
 			
@@ -476,7 +472,96 @@ public class NjhParser {
 		
 	// 끝 << TB_REFR
 		
+	// TB_BOOKNOTE >> 시작
+		
+		List<BooknoteVO> list_booknote = new ArrayList<BooknoteVO>();
+		
+		NodeList nodelist9 = (NodeList) xpath.evaluate("./static_data/item/book_notes/book_note", rec, XPathConstants.NODESET);
+		
+		for(int i = 0, n = nodelist9.getLength(); i < n; i++){
+			
+			Node node = (Node) nodelist9.item(i);
+			
+			BooknoteVO booknoteVO = new BooknoteVO();
 
+			booknoteVO.setNote_uid(vo.getArti_uid());
+			
+			
+			// 구분자 아직 안함
+			booknoteVO.setNote_name("");
+			
+			list_booknote.add(booknoteVO);
+			
+		}
+		
+		vo.setList_booknote(list_booknote);
+		
+	// 끝 << TB_BOOKNOTE
+		
+	// TB_ORGN >> 시작
+		
+		List<OrgnVO> list_orgn = new ArrayList<OrgnVO>();
+		
+		NodeList nodelist10 = (NodeList) xpath.evaluate("./static_data/fullrecord_metadata/addresses/address_name/address_spec", rec, XPathConstants.NODESET);
+		
+		for(int i = 0, n = nodelist10.getLength(); i < n; i++){
+			
+			Node node = (Node) nodelist10.item(i);
+			
+			OrgnVO orgnVO = new OrgnVO();
+			
+			orgnVO.setOrgn_uid(vo.getArti_uid());
+			
+			
+			orgnVO.setOrgn_addr_no((String) xpath.evaluate("./@addr_no", node, XPathConstants.STRING));
+			orgnVO.setOrgn_city((String) xpath.evaluate("./city", node, XPathConstants.STRING));
+			orgnVO.setOrgn_ctry((String) xpath.evaluate("./country", node, XPathConstants.STRING));
+			orgnVO.setOrgn_full((String) xpath.evaluate("./full_address", node, XPathConstants.STRING));
+			orgnVO.setOrgn_name((String) xpath.evaluate("./organizations/organization[count(@*)=0]", node, XPathConstants.STRING));
+			orgnVO.setOrgn_pref((String) xpath.evaluate("./organizations/organization[@pref = 'Y']", node, XPathConstants.STRING));
+			orgnVO.setOrgn_state((String) xpath.evaluate("./state", node, XPathConstants.STRING));
+			orgnVO.setOrgn_street((String) xpath.evaluate("./street", node, XPathConstants.STRING));
+			orgnVO.setOrgn_sub((String) xpath.evaluate("./suborganizations/suborganization", node, XPathConstants.STRING));
+			
+			list_orgn.add(orgnVO);
+			
+		}
+		
+		vo.setList_orgn(list_orgn);
+		
+	// 끝 << TB_ORGN
+		
+	// TB_PUBL >> 시작
+		
+		List<PublVO> list_publ = new ArrayList<PublVO>();
+		
+		NodeList nodelist11 = (NodeList) xpath.evaluate("./static_data/summary/publishers/publisher", rec, XPathConstants.NODESET);
+		
+		for(int i = 0, n = nodelist11.getLength(); i < n; i++){
+			
+			Node node = (Node) nodelist11.item(i);
+			
+			PublVO publVO = new PublVO();
+			
+			publVO.setPubl_uid(vo.getArti_uid());
+			
+			publVO.setPubl_addr((String) xpath.evaluate("./address_spec/full_address", node, XPathConstants.STRING));
+			publVO.setPubl_city((String) xpath.evaluate("./address_spec/city", node, XPathConstants.STRING));
+			publVO.setPubl_ctry("");
+			publVO.setPubl_dply((String) xpath.evaluate("./names/name/display_name", node, XPathConstants.STRING));
+			publVO.setPubl_full((String) xpath.evaluate("./names/name/full_name", node, XPathConstants.STRING));
+			publVO.setPubl_state("");
+			
+			list_publ.add(publVO);
+			
+		}
+		
+		vo.setList_publ(list_publ);
+		
+	// 끝 << TB_PUBL
+		
+		
+		
 	//logger.info(vo.toStringMultiline());
 		
 		return vo;

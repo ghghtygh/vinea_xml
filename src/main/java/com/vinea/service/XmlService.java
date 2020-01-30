@@ -1,4 +1,4 @@
-package com.vinea.persistence;
+package com.vinea.service;
 
 import java.util.List;
 import java.util.Map;

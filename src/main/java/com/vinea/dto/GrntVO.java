@@ -2,17 +2,27 @@ package com.vinea.dto;
 
 public class GrntVO {
 
-	private String grnt_id;
+	private int grnt_id;
+	private String grnt_gid;
 	private String grnt_uid;
 	private String grnt_text;
 	private String grnt_agcy;
 	
 	
-	public String getGrnt_id() {
+	public int getGrnt_id() {
 		return grnt_id;
 	}
-	public void setGrnt_id(String grnt_id) {
+	public void setGrnt_id(int grnt_id) {
 		this.grnt_id = grnt_id;
+	}
+	public void setGrnt_gid(String grnt_gid) {
+		this.grnt_gid = grnt_gid;
+	}
+	public String getGrnt_gid() {
+		return grnt_gid;
+	}
+	public void setGrnt_id(String grnt_gid) {
+		this.grnt_gid = grnt_gid;
 	}
 	public String getGrnt_uid() {
 		return grnt_uid;

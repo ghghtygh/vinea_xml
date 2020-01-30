@@ -3,7 +3,9 @@ package com.vinea.dto;
 import java.util.List;
 
 public class ConfVO {
+	
 	private int conf_id;
+	private String conf_cid;
 	private String conf_uid;
 	private String conf_title;
 	private String conf_date;
@@ -15,6 +17,14 @@ public class ConfVO {
 	
 	private List<SponVO> list_spon;
 	
+	
+	
+	public String getConf_cid() {
+		return conf_cid;
+	}
+	public void setConf_cid(String conf_cid) {
+		this.conf_cid = conf_cid;
+	}
 	public List<SponVO> getList_spon() {
 		return list_spon;
 	}

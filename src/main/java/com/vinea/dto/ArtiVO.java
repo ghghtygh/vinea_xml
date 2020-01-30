@@ -7,6 +7,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class ArtiVO {
 
+	private int arti_id;
 	private String arti_no;
 	private String arti_uid;
 	private String arti_title;
@@ -20,8 +21,8 @@ public class ArtiVO {
 	private String arti_ab;
 	private String arti_issn;
 	private String arti_eissn;
-	private int arti_cite_cnt;
-	private int arti_page_cnt;
+	private String arti_cite_cnt;
+	private String arti_page_cnt;
 	private String arti_bp;
 	private String arti_ep;
 	private String arti_oa;
@@ -29,27 +30,101 @@ public class ArtiVO {
 	private String arti_item_id;
 	private String arti_item_avail;
 	private String arti_item_type;
-	private int arti_item_page;
+	private String arti_item_page;
 	
-	private int arti_book_page;
+	private String arti_book_page;
 	private String arti_book_bind;
 	private String arti_book_publ;
 	private String arti_book_prepay;
 
+	
+	private String arti_ctgr_name;
+	private String arti_ctgr_subh;
+	private String arti_ctgr_subj;
+	
 	private List<OrgnVO> list_orgn;
 	private List<AuthVO> list_auth;
 	private List<BooknoteVO> list_booknote;
 	private List<CoauthVO> list_coauth;
 	private List<ConfVO> list_conf;
-	private List<CtgrVO> list_ctgr;
 	private List<DtypeVO> list_dtype;
 	private List<GrntVO> list_grnt;
 	private List<KwrdVO> list_kwrd;
 	private List<RefrVO> list_refr;
 	private List<KwrdplusVO> list_kwrdplus;
+	private List<PublVO> list_publ;
 	
 	
-	
+
+	public int getArti_id() {
+		return arti_id;
+	}
+
+
+
+
+	public void setArti_id(int arti_id) {
+		this.arti_id = arti_id;
+	}
+
+
+
+
+	public String getArti_ctgr_name() {
+		return arti_ctgr_name;
+	}
+
+
+
+
+	public void setArti_ctgr_name(String arti_ctgr_name) {
+		this.arti_ctgr_name = arti_ctgr_name;
+	}
+
+
+
+
+	public String getArti_ctgr_subh() {
+		return arti_ctgr_subh;
+	}
+
+
+
+
+	public void setArti_ctgr_subh(String arti_ctgr_subh) {
+		this.arti_ctgr_subh = arti_ctgr_subh;
+	}
+
+
+
+
+	public String getArti_ctgr_subj() {
+		return arti_ctgr_subj;
+	}
+
+
+
+
+	public void setArti_ctgr_subj(String arti_ctgr_subj) {
+		this.arti_ctgr_subj = arti_ctgr_subj;
+	}
+
+
+
+
+	public List<PublVO> getList_publ() {
+		return list_publ;
+	}
+
+
+
+
+	public void setList_publ(List<PublVO> list_publ) {
+		this.list_publ = list_publ;
+	}
+
+
+
 
 	public List<OrgnVO> getList_orgn() {
 		return list_orgn;
@@ -247,28 +322,28 @@ public class ArtiVO {
 
 
 
-	public int getArti_cite_cnt() {
+	public String getArti_cite_cnt() {
 		return arti_cite_cnt;
 	}
 
 
 
 
-	public void setArti_cite_cnt(int arti_cite_cnt) {
+	public void setArti_cite_cnt(String arti_cite_cnt) {
 		this.arti_cite_cnt = arti_cite_cnt;
 	}
 
 
 
 
-	public int getArti_page_cnt() {
+	public String getArti_page_cnt() {
 		return arti_page_cnt;
 	}
 
 
 
 
-	public void setArti_page_cnt(int arti_page_cnt) {
+	public void setArti_page_cnt(String arti_page_cnt) {
 		this.arti_page_cnt = arti_page_cnt;
 	}
 
@@ -359,28 +434,28 @@ public class ArtiVO {
 
 
 
-	public int getArti_item_page() {
+	public String getArti_item_page() {
 		return arti_item_page;
 	}
 
 
 
 
-	public void setArti_item_page(int arti_item_page) {
+	public void setArti_item_page(String arti_item_page) {
 		this.arti_item_page = arti_item_page;
 	}
 
 
 
 
-	public int getArti_book_page() {
+	public String getArti_book_page() {
 		return arti_book_page;
 	}
 
 
 
 
-	public void setArti_book_page(int arti_book_page) {
+	public void setArti_book_page(String arti_book_page) {
 		this.arti_book_page = arti_book_page;
 	}
 
@@ -481,21 +556,6 @@ public class ArtiVO {
 	public void setList_conf(List<ConfVO> list_conf) {
 		this.list_conf = list_conf;
 	}
-
-
-
-
-	public List<CtgrVO> getList_ctgr() {
-		return list_ctgr;
-	}
-
-
-
-
-	public void setList_ctgr(List<CtgrVO> list_ctgr) {
-		this.list_ctgr = list_ctgr;
-	}
-
 
 
 

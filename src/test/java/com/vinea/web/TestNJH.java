@@ -3,15 +3,12 @@ package com.vinea.web;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.vinea.common.NjhParser;
 import com.vinea.dto.ArtiVO;
-import com.vinea.dto.KwrdplusVO;
-import com.vinea.service.ArtiService;
+import com.vinea.dto.AuthVO;
 
 public class TestNJH {
 
@@ -36,8 +33,8 @@ public class TestNJH {
 			
 			//logger.info(vo.toStringMultiline());
 			
-			for (KwrdplusVO kvo : vo.getList_kwrdplus()){
-				//logger.info(kvo.getKwrdp_name());
+			for (AuthVO authVO : vo.getList_auth()){
+				//logger.info(authVO.toStringMultiline());
 			}
 		}
 		

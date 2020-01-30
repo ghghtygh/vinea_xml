@@ -1,4 +1,4 @@
-package com.vinea.controller;
+package com.vinea.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

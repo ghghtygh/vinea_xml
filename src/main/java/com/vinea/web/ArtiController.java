@@ -1,4 +1,4 @@
-package com.vinea.controller;
+package com.vinea.web;
 
 import java.util.HashMap;
 import java.util.List;
@@ -49,16 +49,16 @@ public class ArtiController {
 		return "article/article_home";
 	}
 	
-	
-	/** 파싱된 XML(논문) 내용 상세보기  **/
-	@RequestMapping(value="/article/read", method=RequestMethod.POST)
-	@ResponseBody
-	public ArtiVO xmlRead(@RequestParam("arti_no")int arti_no, Model model){
+	/** 파싱된 XML(논문) 내용 상세보기 **/
+	@RequestMapping(value="/article/article_detail", method=RequestMethod.GET)
+	public void article_detail(@RequestParam("arti_no")String arti_no, Model model){
 		
-		ArtiVO article = service.readVO(arti_no);
 		
-		return article;
-	}
+		//model.addAttribute("ArtiVO",service.article_detail(arti_no));
+		//ArtiVO article = service.readVO(arti_no);
+		
+		//return article;
+	} 
 	
 	/** 메인 페이지(xml_home.jsp)에서 Ajax파싱 부분 불러오기 **/
 	@RequestMapping(value = "/article/check", method = RequestMethod.POST)

@@ -80,7 +80,8 @@
 													href='/article/read?arti_no=${article.arti_no}'> ${article.arti_title} </a>
 													
 												<footer class="blockquote text-center">
-													<!--   <c:set
+													
+															<!--   <c:set
 														var="authr_list" value="${fn:split(auth.auth_lead';') }" /> 
 														<c:forEach
 														var="tmp" items="${tmp_list}" varStatus="g">
@@ -89,7 +90,6 @@
 															<c:if test="${fn:length(tmp_list)>1}">
 																<c:out value="(외  ${fn:length(tmp_list)}명)"></c:out>
 															</c:if>	-->
-															
 													
 												</footer>
 												

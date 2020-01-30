@@ -1,4 +1,4 @@
-package com.vinea.persistence;
+package com.vinea.service;
 
 import java.io.StringReader;
 

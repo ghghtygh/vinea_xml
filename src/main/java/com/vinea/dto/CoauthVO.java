@@ -2,7 +2,8 @@ package com.vinea.dto;
 
 public class CoauthVO {
 
-	private int coauth_orcid;
+	private int coauth_id;
+	private String coauth_orcid;
 	private String coauth_uid;
 	private String coauth_role;
 	private String coauth_rid;
@@ -13,10 +14,16 @@ public class CoauthVO {
 	private int coauth_seq;
 	
 	
-	public int getCoauth_orcid() {
+	public int getCoauth_id() {
+		return coauth_id;
+	}
+	public void setCoauth_id(int coauth_id) {
+		this.coauth_id = coauth_id;
+	}
+	public String getCoauth_orcid() {
 		return coauth_orcid;
 	}
-	public void setCoauth_orcid(int coauth_orcid) {
+	public void setCoauth_orcid(String coauth_orcid) {
 		this.coauth_orcid = coauth_orcid;
 	}
 	public String getCoauth_uid() {

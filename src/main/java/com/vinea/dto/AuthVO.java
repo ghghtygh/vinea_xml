@@ -2,10 +2,14 @@ package com.vinea.dto;
 
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class AuthVO {
 
-	private int auth_dais;
-	private int auth_addr_no;
+	private int auth_id;
+	private String auth_dais;
+	private String auth_addr_no;
 	private String auth_uid;
 	private String auth_dply;
 	private String auth_full;
@@ -19,16 +23,22 @@ public class AuthVO {
 	private int auth_seq;
 	
 	
-	public int getAuth_addr_no() {
+	public int getAuth_id() {
+		return auth_id;
+	}
+	public void setAuth_id(int auth_id) {
+		this.auth_id = auth_id;
+	}
+	public String getAuth_addr_no() {
 		return auth_addr_no;
 	}
-	public void setAuth_addr_no(int auth_addr_no) {
+	public void setAuth_addr_no(String auth_addr_no) {
 		this.auth_addr_no = auth_addr_no;
 	}
-	public int getAuth_dais() {
+	public String getAuth_dais() {
 		return auth_dais;
 	}
-	public void setAuth_dais(int auth_dais) {
+	public void setAuth_dais(String auth_dais) {
 		this.auth_dais = auth_dais;
 	}
 	public String getAuth_uid() {
@@ -98,5 +108,7 @@ public class AuthVO {
 		this.auth_seq = auth_seq;
 	}
 	
-	
+	public String toStringMultiline() {
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+	}
 }
