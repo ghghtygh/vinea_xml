@@ -1,4 +1,4 @@
-package com.vinea.web;
+package com.vinea.notuse;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.vinea.dto.XmlVO;
-import com.vinea.service.ArtiService;
 import com.vinea.service.PostPager;
 import com.vinea.service.XmlService;
 

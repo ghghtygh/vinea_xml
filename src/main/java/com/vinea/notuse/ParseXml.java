@@ -1,4 +1,4 @@
-package com.vinea.service;
+package com.vinea.notuse;
 
 import java.io.StringReader;
 

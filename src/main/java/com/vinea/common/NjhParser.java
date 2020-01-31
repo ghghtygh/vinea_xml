@@ -6,6 +6,7 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.slf4j.Logger;
@@ -39,14 +40,19 @@ public class NjhParser {
 	
 	private String strpath = "";
 	
+	private String filePath ="";
+	
+	/*
 	public NjhParser(String filePath) throws Exception {
+		
+		this.filePath = filePath;
 		
 		logger = LoggerFactory.getLogger(NjhParser.class);
 		
 		listvo = new ArrayList<ArtiVO>();
 		
 		document = DocumentBuilderFactory.newInstance().newDocumentBuilder()
-				.parse(filePath);
+					.parse(filePath);
 		
 		xpath = XPathFactory.newInstance().newXPath();
 		
@@ -62,6 +68,54 @@ public class NjhParser {
 			listvo.add(vo);
 		}
 		
+		
+	}
+	*/
+	
+	public NjhParser(String filePath) throws Exception {
+		
+		this.filePath = filePath;
+		
+		logger = LoggerFactory.getLogger(NjhParser.class);
+		
+		listvo = new ArrayList<ArtiVO>();
+		
+		xpath = XPathFactory.newInstance().newXPath();
+		
+		
+		
+		
+	}
+	public boolean CanParse(){
+		
+		try{
+			
+			document = DocumentBuilderFactory.newInstance().newDocumentBuilder()
+					.parse(filePath);
+			
+			return true;
+			
+		}catch(Exception e){
+			
+			return false;
+			
+		}
+		
+		
+	}
+	public void DoParse() throws Exception{
+		
+		NodeList recs = (NodeList) xpath.evaluate("//REC", document, XPathConstants.NODESET);
+		
+		
+		for (int i = 0, n = recs.getLength(); i < n; i++) {
+			
+			//logger.info(Integer.toString(i));
+
+			ArtiVO vo = parseREC((Node)recs.item(i));
+			
+			listvo.add(vo);
+		}
 		
 	}
 	

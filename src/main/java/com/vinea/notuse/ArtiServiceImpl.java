@@ -1,4 +1,4 @@
-package com.vinea.service;
+package com.vinea.notuse;
 
 import java.util.List;
 import java.util.Map;
@@ -7,10 +7,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-import com.vinea.common.ArtiParser;
 import com.vinea.common.NjhParser;
-import com.vinea.dao.ArtiDAO;
-
 import com.vinea.dto.ArtiVO;
 
 @Service

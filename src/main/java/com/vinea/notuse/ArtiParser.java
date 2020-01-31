@@ -1,4 +1,4 @@
-package com.vinea.common;
+package com.vinea.notuse;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;

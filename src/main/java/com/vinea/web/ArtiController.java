@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +25,8 @@ public class ArtiController {
 	@Inject
 	private XmlService service;
 
+	Logger logger = LoggerFactory.getLogger(ArtiController.class);
+	
 	/** 메인화면으로 이동 **/
 	@RequestMapping(value = "/article")
 	public String xmlList(@RequestParam(defaultValue = "1") int page, Model model) throws Exception
@@ -41,7 +45,7 @@ public class ArtiController {
 		map.put("pageSize", pageSize);
 
 		List<ArtiVO> xmlList = service.selectXmlList(map);
-
+		
 		model.addAttribute("xmlList", xmlList);
 		model.addAttribute("pager", pager);
 		model.addAttribute("cnt", xmlCount);
@@ -63,21 +67,24 @@ public class ArtiController {
 	/** 메인 페이지(xml_home.jsp)에서 Ajax파싱 부분 불러오기 **/
 	@RequestMapping(value = "/article/check", method = RequestMethod.POST)
 	@ResponseBody
-	public ArtiVO xmlCheck(@RequestParam(defaultValue = "") String filePath) throws Exception {
+	public List<ArtiVO> xmlCheck(@RequestParam(defaultValue = "") String filePath) throws Exception {
 
-		ArtiVO article=null;
 		//ArtiVO article = service.createVO(filePath);
 		
-		return article;
+		List<ArtiVO> artiList = service.checkList(filePath);
+		
+		return artiList;
 	}
 	
 	/** 메인 페이지(xml_home.jsp)에서 파싱해온 결과 DB에 저장 **/
 	@RequestMapping(value = "/article/insert", method = RequestMethod.POST)
-	public String xmlInsert(ArtiVO article) throws Exception {
+	public String xmlInsert(@RequestParam(defaultValue = "") String filePath) throws Exception {
 
 		
+		//logger.info("filePath : "+filePath);
 		//service.insertVO(article);
-
+		service.createListVO(filePath);
+		
 		return "redirect:/article";
 	}
 	

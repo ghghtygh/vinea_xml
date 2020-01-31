@@ -24,6 +24,7 @@ import com.vinea.dto.PublVO;
 import com.vinea.dto.RefrVO;
 import com.vinea.dto.SponVO;
 import com.vinea.dto.XmlVO;
+import com.vinea.notuse.ParseXml;
 
 @Service
 public class XmlServiceImpl implements XmlService{
@@ -65,8 +66,7 @@ public class XmlServiceImpl implements XmlService{
 		
 		for (ArtiVO vo : list_artiVO){
 			
-			vo.setList_auth_full(dao.selectAuthList2(vo.getArti_uid()));
-			
+			vo.setList_auth(dao.selectAuthList(vo.getArti_uid()));
 		}
 		
 		return list_artiVO;
@@ -93,7 +93,11 @@ public class XmlServiceImpl implements XmlService{
 		//참고문헌
 		vo.setList_refr(dao.selectRefrList(vo.getArti_uid()));
 		
-		
+		//기관
+	    vo.setList_orgn(dao.selectOrgnList(vo.getArti_uid()));
+	    
+	    //발행기관
+	    vo.setList_publ(dao.selectPublList(vo.getArti_uid()));
 		
 		return vo;
 	}
@@ -103,6 +107,12 @@ public class XmlServiceImpl implements XmlService{
 	public void createListVO(String filePath) throws Exception{
 		
 		parser = new NjhParser(filePath);
+		
+		if(!parser.CanParse()){
+			return;
+		}
+		
+		parser.DoParse();
 		
 		List<ArtiVO> list = parser.returnList();
 		
@@ -160,6 +170,27 @@ public class XmlServiceImpl implements XmlService{
 				dao.insertRefr(refrVO);
 			}
 			
+		}
+		
+	}
+	
+	/** chk 동작 
+	 * @throws Exception **/
+	@Override
+	public List<ArtiVO> checkList(String filePath) throws Exception{
+		
+		//List<ArtiVO> artiList = new ArrayList<ArtiVO>();
+		
+		parser = new NjhParser(filePath);
+		
+		
+		if(parser.CanParse()){
+			parser.DoParse();
+			return parser.returnList();
+		}
+		else{
+			
+			return null;
 		}
 		
 	}

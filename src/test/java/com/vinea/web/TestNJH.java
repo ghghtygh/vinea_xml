@@ -25,23 +25,33 @@ public class TestNJH {
 		logger = LoggerFactory.getLogger(TestNJH.class);
 		
 		filepath = "C:\\Users\\vinea\\Desktop\\sample\\api_xml\\test.xml";
-		
+		//filepath="dsfsandlf";
 		np = new NjhParser(filepath);
 		
-		list = np.returnList();
-		
-		for (ArtiVO vo : list){
+		if(np.CanParse()){
 			
-			logger.info(vo.getArti_ctgr_name());
-			logger.info(vo.getArti_ctgr_subh());
-			logger.info(vo.getArti_ctgr_subj());
+			np.DoParse();
+			list = np.returnList();
 			
-			for (DtypeVO dvo : vo.getList_dtype()){
+			for (ArtiVO vo : list){
 				
-				logger.info(dvo.toStringMultiline());
+				logger.info(vo.getArti_ctgr_name());
+				logger.info(vo.getArti_ctgr_subh());
+				logger.info(vo.getArti_ctgr_subj());
+				
+				for (DtypeVO dvo : vo.getList_dtype()){
+					
+					logger.info(dvo.toStringMultiline());
+				}
+				
 			}
 			
+			logger.info("성공");
+		}else{
+		
+			logger.info("실패");
 		}
+		
 		
 		
 	}

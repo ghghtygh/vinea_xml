@@ -129,6 +129,18 @@ public class XmlDAO {
 		return sqlSession.selectList(Namespace +".selectAuthList",uid);
 	}
 	
+
+	public List<OrgnVO> selectOrgnList(String uid){
+		
+		return sqlSession.selectList(Namespace +".selectOrgnList",uid);
+	}
+	
+	
+	public List<PublVO> selectPublList(String uid){
+		
+		return sqlSession.selectList(Namespace +".selectPublList",uid);
+	}
+	
 	/* XML 상세보기 */
 	public XmlVO readVO(int id) {
 

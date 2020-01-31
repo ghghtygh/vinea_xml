@@ -1,4 +1,4 @@
-package com.vinea.service;
+package com.vinea.notuse;
 
 import java.util.List;
 import java.util.Map;

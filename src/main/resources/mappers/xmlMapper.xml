@@ -649,6 +649,7 @@
 		SELECT
 			
 			ARTI_ID
+			,ARTI_UID
 			,ARTI_TITLE
 			,ARTI_DATE
 			,ARTI_SOURCE_TITLE
@@ -688,7 +689,7 @@
 	<select id ="selectAuthList2" parameterType="java.lang.String" resultType="java.lang.String">
 	
 	
-		SELECT
+		SELECT DISTINCT
 		
 			AUTH_FULL
 			
@@ -704,7 +705,7 @@
 	<select id ="selectKwrdList" parameterType="java.lang.String" resultMap="kwrdMap">
 	
 	
-		SELECT
+		SELECT DISTINCT
 			KWRD_NAME
 		FROM
 			TB_KWRD		
@@ -718,9 +719,8 @@
 	<select id ="selectRefrList" parameterType="java.lang.String" resultMap="refrMap">
 	
 	
-		SELECT
-			 REFR_ID
-			,REFR_AUTH
+		SELECT DISTINCT
+			REFR_AUTH
 			,REFR_TITLE
 			,REFR_YEAR
 			,REFR_VOL
@@ -744,7 +744,7 @@
 	<select id ="selectAuthList" parameterType="java.lang.String" resultMap="authMap">
 	
 	
-		SELECT
+		SELECT DISTINCT
 			 AUTH_FULL 
 			,AUTH_LEAD
 			,AUTH_REPR
@@ -758,6 +758,34 @@
 		ASC
 		
 	</select>	
+	
+	<!-- 기관 -->
+   <select id ="selectOrgnList" parameterType="java.lang.String" resultMap="orgnMap">
+   
+   
+      SELECT DISTINCT
+          ORGN_ADDR_NO 
+         ,ORGN_NAME
+      FROM
+         TB_ORGN         
+      WHERE
+         ORGN_UID = #{uid}   
+   </select>   
+   
+   <!-- 발행 기관 -->
+   <select id ="selectPublList" parameterType="java.lang.String" resultMap="publMap">
+   
+   
+      SELECT DISTINCT
+          PUBL_DPLY 
+         ,PUBL_FULL
+         ,PUBL_ADDR
+      FROM
+         TB_PUBL         
+      WHERE
+         PUBL_UID = #{uid}   
+   </select>   
+   
 	
 	
 	<select id="selectOneXml" parameterType="java.lang.Integer" resultMap="artiMap">
@@ -786,7 +814,7 @@
 		WHERE
 			ARTI_ID = #{arti_id}
 		
-	
+		
 	
 	</select>
 	
