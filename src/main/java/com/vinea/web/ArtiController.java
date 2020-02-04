@@ -85,5 +85,11 @@ public class ArtiController {
 		return "redirect:/article";
 	}
 	
+	@RequestMapping(value = "/article/test")
+	public void articleTest() throws Exception{
+		
+		service.articleTest();
+	}
+	
 
 }

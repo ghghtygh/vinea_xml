@@ -1,11 +1,16 @@
 package com.vinea.service;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.vinea.common.NjhParser;
@@ -23,7 +28,7 @@ import com.vinea.dto.OrgnVO;
 import com.vinea.dto.PublVO;
 import com.vinea.dto.RefrVO;
 import com.vinea.dto.SponVO;
-import com.vinea.dto.XmlVO;
+import com.vinea.dto.XmlFileVO;
 import com.vinea.notuse.ParseXml;
 
 @Service
@@ -31,32 +36,24 @@ public class XmlServiceImpl implements XmlService{
 	
 	private NjhParser parser;
 	
+	private FileReader fr;
+	private BufferedReader br;
+	
+	Logger logger = LoggerFactory.getLogger(XmlServiceImpl.class);
+	
+	
 	@Inject
 	private XmlDAO dao;
 	
-	/* 해당 경로의 XML파일 VO객체로 파싱 */
-	@Override
-	public XmlVO createVO(String filePath) throws Exception{
-		
-		ParseXml px = new ParseXml(filePath);
-		
-		return px.returnVO();
-	}
 	
-	@Override
-	public XmlVO readVO(int id){
-		
-		return dao.readVO(id);
-	}
-	
-	/* XML 개수 리턴 */
+	/** XML 개수 리턴 **/
 	@Override
 	public int countXml() throws Exception{
 		
 		return dao.countXml();
 	}
 	
-	/* 요청 페이지에 따른 XML 목록 리턴*/
+	/** 요청 페이지에 따른 XML 목록 리턴 **/
 	@Override
 	public List<ArtiVO> selectXmlList(Map<String,Object> map){
 	
@@ -72,13 +69,7 @@ public class XmlServiceImpl implements XmlService{
 		return list_artiVO;
 	}
 	
-	/* XML DB에 저장 */
-	@Override
-	public void insertVO(XmlVO vo) throws Exception{
-		
-		dao.insertVO(vo);
-	}
-	
+	/** 논문 상세보기 페이지 **/
 	@Override
 	public ArtiVO article_detail(int arti_id) throws Exception{
 		
@@ -118,61 +109,73 @@ public class XmlServiceImpl implements XmlService{
 		
 		for(ArtiVO vo : list){
 			
-			dao.insertArti(vo);
-			
-			for(AuthVO authVO : vo.getList_auth()){
-				dao.insertAuth(authVO);
-			}
-			
-			for(BooknoteVO booknoteVO : vo.getList_booknote()){
-				dao.insertBooknote(booknoteVO);
-			}
-			
-			for(CoauthVO coauthVO : vo.getList_coauth()){
-				dao.insertCoauth(coauthVO);
-			}
-			
-			for(ConfVO confVO : vo.getList_conf()){
-				dao.insertConf(confVO);
-				
-				for (SponVO sponVO : confVO.getList_spon()){
-					dao.insertSpon(sponVO);
-				}
-			}
-			
-			for(DtypeVO dtypeVO : vo.getList_dtype()){
-				dao.insertDtype(dtypeVO);
-			}
-			
-			
-			for(GrntVO grntVO : vo.getList_grnt()){
-				dao.insertGrnt(grntVO);
-			}
-			
-			for(KwrdVO kwrdVO : vo.getList_kwrd()){
-				dao.insertKwrd(kwrdVO);
-			}
-			
-			for(KwrdplusVO kwrdplusVO : vo.getList_kwrdplus()){
-				dao.insertKwrdp(kwrdplusVO);
-			}
-			
-			for(OrgnVO orgnVO : vo.getList_orgn()){
-				
-				dao.insertOrgn(orgnVO);
-			}
-			
-			for(PublVO publVO : vo.getList_publ()){
-				dao.insertPubl(publVO);
-			}
-			
-			for(RefrVO refrVO : vo.getList_refr()){
-				dao.insertRefr(refrVO);
-			}
+			createVO(vo);
 			
 		}
 		
 	}
+	
+	/** ArtiVO DB에 저장 **/
+	@Override
+	public void createVO(ArtiVO vo) throws Exception{
+		
+		dao.insertArti(vo);
+		
+		for(AuthVO authVO : vo.getList_auth()){
+			dao.insertAuth(authVO);
+		}
+		
+		for(BooknoteVO booknoteVO : vo.getList_booknote()){
+			dao.insertBooknote(booknoteVO);
+		}
+		
+		for(CoauthVO coauthVO : vo.getList_coauth()){
+			dao.insertCoauth(coauthVO);
+		}
+		
+		for(ConfVO confVO : vo.getList_conf()){
+			dao.insertConf(confVO);
+			
+			for (SponVO sponVO : confVO.getList_spon()){
+				dao.insertSpon(sponVO);
+			}
+		}
+		
+		for(DtypeVO dtypeVO : vo.getList_dtype()){
+			dao.insertDtype(dtypeVO);
+		}
+		
+		
+		for(GrntVO grntVO : vo.getList_grnt()){
+			dao.insertGrnt(grntVO);
+		}
+		
+		for(KwrdVO kwrdVO : vo.getList_kwrd()){
+			dao.insertKwrd(kwrdVO);
+		}
+		
+		for(KwrdplusVO kwrdplusVO : vo.getList_kwrdplus()){
+			dao.insertKwrdp(kwrdplusVO);
+		}
+		
+		for(OrgnVO orgnVO : vo.getList_orgn()){
+			
+			dao.insertOrgn(orgnVO);
+		}
+		
+		for(PublVO publVO : vo.getList_publ()){
+			dao.insertPubl(publVO);
+		}
+		
+		for(RefrVO refrVO : vo.getList_refr()){
+			dao.insertRefr(refrVO);
+		}
+		
+		
+		
+		
+	}
+	
 	
 	/** chk 동작 
 	 * @throws Exception **/
@@ -195,9 +198,127 @@ public class XmlServiceImpl implements XmlService{
 		
 	}
 	
-	/* 전체 XML 목록 리턴 */
+	
+	/** article/test
+	 *   **/
+	
 	@Override
-	public List<XmlVO> selectXml(){
-		return dao.selectXml();
+	public void articleTest() throws Exception{
+		
+		String filePath = "C:\\Users\\vinea\\Desktop\\2017_CORE\\WR_2017_20180509131811_CORE_0001.xml";
+		
+		/* 파일 이름 세팅 */
+		String fileName = null;
+		String[] array = filePath.split("\\\\");
+		for (int i=0;i<array.length;i++){
+			if(array[i].contains(".xml")){
+				fileName=array[i];
+			}
+		}
+		
+		parser = new NjhParser();
+		
+		try{
+			
+			fr = new FileReader(filePath);
+			br = new BufferedReader(fr);
+			
+			/* 라인 수*/
+			int lineCnt = 0;
+			
+			/* REC 태그 개수 */
+			int recCnt = 0;
+			
+			/* xml 읽어올 문자열 */
+			String str = null;
+			
+			/* REC 태그 사이에 있는지 여부 */
+			Boolean m_rec = false;
+			
+			/* UID 저장*/
+			String uidStr = "";
+			
+			/* REC 태그 문자열 저장*/
+			String recStr = "";
+			
+			/* 시작 시간 체크 */
+			Date date = null;
+			date = new Date();
+			long start = date.getTime();
+			
+			/* vo 저장 */
+			XmlFileVO vo = null;
+			
+			while((str=br.readLine())!=null){
+				
+				/* REC 태그 종료*/
+				if(str.contains("</REC>")){
+					recCnt++;
+					
+					recStr+=str;
+					
+					vo.setContent(recStr);
+					vo.setFile_name(fileName);
+					
+					/* VO 확인*/
+					logger.info(vo.toStringMultiline());
+					
+					/* VO 데이터베이스에 저장 */
+					dao.insertXmlFile(vo);
+					
+					recStr = "";
+					m_rec = false;
+					vo = null;
+					
+					break;
+				}
+				
+				/* REC 태그 시작*/
+				if(str.contains("<REC r_id_")){
+					m_rec = true;
+					vo = new XmlFileVO();
+				}
+				
+				if(m_rec){
+					
+					recStr+=str;
+					/* UID 세팅 */
+					if(str.contains("</UID>")){
+						
+						int beginIndex = str.indexOf("WOS");
+						
+						uidStr = str.substring(beginIndex, (str.substring(beginIndex).indexOf("</UID>")+beginIndex));
+						
+						vo.setUid(uidStr+Long.toString(start));
+					}
+				}
+			}
+			/* 끝난 시간 체크 */
+			date = new Date();
+			long end = date.getTime();
+			
+			logger.info("REC 태그 개수 : " + Integer.toString(recCnt));
+			logger.info("걸린시간 :" + Long.toString(((end - start) / 1000)));
+			
+			
+			
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+		} finally {
+
+			if (fr != null)
+				fr.close();
+
+			if (br != null)
+				br.close();
+
+		}
+		
+		
+		
 	}
+	
+	
 }

@@ -5,19 +5,6 @@
  
 <mapper namespace="com.vinea.mapper.xmlMapper">
 
-	<resultMap id="xmlMap" type="com.vinea.dto.XmlVO">
-	
-		<result property="id"				column="ID"/>
-		<result property="title"			column="TITLE"/>
-		<result property="abstr"			column="ABSTR"/>
-		<result property="org"				column="ORG"/>
-		<result property="authors"			column="AUTHORS"/>
-		<result property="category"			column="CATEGORY"/>
-		<result property="subject"			column="SUBJECT"/>
-		<result property="publisher"		column="PUBLISHER"/>
-	
-	</resultMap>
-	
 	<resultMap id="artiMap" type="com.vinea.dto.ArtiVO">
 
 		<result property="arti_id"				column="ARTI_ID"/>
@@ -586,61 +573,29 @@
 		    ,#{arti_oa}		
 		)		
 
-	
-	
 	</insert>
 	
+	<insert id="insertXmlFile" parameterType="com.vinea.dto.XmlFileVO">
 	
-	<insert id="insertXml" parameterType="com.vinea.dto.XmlVO">
-	<!--  xmlMapper.xml - insertXml : 파싱한 xml 저장 -->
-	
-		INSERT INTO
-		
-		TB_XML(
-		
-			TITLE,
-			ABSTR,
-			ORG,
-			AUTHORS,
-			CATEGORY,
-			SUBJECT,
-			PUBLISHER
-		
+	INSERT
+		INTO TB_XML_FILE
+		(
+			 UID
+			,CONTENT
+			,REGIST_DATE
+			,FILE_NAME
 		)
-		
-		VALUES(
-			
-			#{title},
-			#{abstr},
-			#{org},
-			#{authors},
-			#{category},
-			#{subject},
-			#{publisher}
-		
+		VALUES
+		(
+			 #{uid}
+			,#{content}
+			,NOW()
+			,#{file_name}
 		)
 		
 	</insert>
 	
 	
-	<select id="readXml" parameterType="java.lang.Integer" resultMap="xmlMap">
-	<!--  xmlMapper.xml - readXml : ID에 따른 XML 상세보기 -->
-		SELECT
-			ID,
-			TITLE,
-			ABSTR,
-			ORG,
-			AUTHORS,
-			CATEGORY,
-			SUBJECT,
-			PUBLISHER
-		FROM
-			TB_XML
-	
-		WHERE
-			ID = #{id}
-	
-	</select>
 	
 	
 	<select id="selectXmlList" parameterType="hashmap" resultMap="artiMap">
@@ -803,27 +758,5 @@
 	
 	</select>
 	
-	<select id="selectXml" resultMap="xmlMap">
-	<!--  xmlMapper.xml - selectXml : 전체 xml 반환 -->
-	
-		SELECT
-		
-			ID,
-			TITLE,
-			ABSTR,
-			ORG,
-			AUTHORS,
-			CATEGORY,
-			SUBJECT,
-			PUBLISHER
-			
-		FROM
-			TB_XML
-	
-		ORDER BY
-			ID
-		DESC
-		
-	</select>
 
 </mapper>

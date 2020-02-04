@@ -35,111 +35,33 @@ import com.vinea.dto.SponVO;
 
 public class NjhParser {
 
-	Logger logger;
+	Logger logger = LoggerFactory.getLogger(NjhParser.class);
 
 	private List<ArtiVO> listvo;
 
 	private XPath xpath;
 	private Document document;
 
+	private FileReader fr;
+	private BufferedReader br;
+	
 	private String strpath = "";
-
 	private String filePath = "";
 
 	public NjhParser(String filePath) throws Exception {
 
 		this.filePath = filePath;
-
-		logger = LoggerFactory.getLogger(NjhParser.class);
-
 		listvo = new ArrayList<ArtiVO>();
-
 		xpath = XPathFactory.newInstance().newXPath();
 
 	}
-
+	public NjhParser(){
+		
+		xpath = XPathFactory.newInstance().newXPath();
+	}
+	
 	public void Test1() throws Exception {
 
-		FileReader fr = null;
-
-		BufferedReader br = null;
-
-		try {
-
-			fr = new FileReader(filePath);
-			br = new BufferedReader(fr);
-
-			int count = 0;
-			int rec_count = 0;
-			int tmp_rec = 0;
-			String str = null;
-			Date date = null;
-			date = new Date();
-			long start = date.getTime();
-
-			Boolean m_rec = false;
-
-			String recTag = "";
-			while ((str = br.readLine()) != null) {
-
-				if (str.contains("<REC")) {
-					m_rec = true;
-
-				}
-
-				if (m_rec) {
-					recTag += str;
-				}
-
-				if (str.contains("</REC>")) {
-
-					// rec 태그 개수 증가
-					rec_count++;
-
-					// str에 그만추가
-					m_rec = false;
-				}
-
-				if (rec_count > tmp_rec) {
-					tmp_rec = rec_count;
-					// REC 태그 완성
-
-					
-					System.out.println(recTag);
-					
-					//String -> dom 객체
-					Node node = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new ByteArrayInputStream(recTag.getBytes())).getDocumentElement();
-									
-					ArtiVO vo = parseREC(node);
-					
-					logger.info(vo.toStringMultiline());
-					
-					recTag = "";
-					break;
-				}
-
-				count++;
-			}
-			date = new Date();
-			long end = date.getTime();
-
-			logger.info("REC 태그 : " + Integer.toString(rec_count));
-			logger.info("전체 라인 : " + Integer.toString(count));
-			logger.info("걸린시간 :" + Long.toString(((end - start) / 1000)));
-
-		} catch (Exception e) {
-
-			e.printStackTrace();
-
-		} finally {
-
-			if (fr != null)
-				fr.close();
-
-			if (br != null)
-				br.close();
-
-		}
 
 	}
 	
@@ -170,14 +92,16 @@ public class NjhParser {
 
 			ArtiVO vo = parseREC((Node) recs.item(i));
 			
-			
-
 			listvo.add(vo);
 		}
 
 	}
-
-
+	
+	public ArtiVO parseRecStr(String str) throws Exception{
+		
+		return parseREC((Node)DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new ByteArrayInputStream(str.getBytes())).getDocumentElement());
+	}
+	
 	public ArtiVO parseREC(Node rec) throws Exception {
 
 		ArtiVO vo = new ArtiVO();
