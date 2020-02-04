@@ -23,7 +23,7 @@ public class TestNJH {
 	
 	public TestNJH() throws Exception{
 		
-		
+		//
 		
 		filepath = "C:\\Users\\vinea\\Desktop\\2017_CORE\\WR_2017_20180509131811_CORE_0001.xml";
 
