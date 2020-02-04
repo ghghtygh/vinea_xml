@@ -96,8 +96,8 @@ public class ArtiParser {
 		vo.setArti_issn(arti_issn);
 		vo.setArti_eissn(arti_eissn);
 		
-		vo.setArti_cite_cnt(Integer.parseInt(arti_cite_cnt));
-		vo.setArti_page_cnt(Integer.parseInt(arti_page_cnt));
+		vo.setArti_cite_cnt(arti_cite_cnt);
+		vo.setArti_page_cnt(arti_page_cnt);
 		
 		vo.setArti_bp(arti_bp);
 		vo.setArti_ep(arti_ep);

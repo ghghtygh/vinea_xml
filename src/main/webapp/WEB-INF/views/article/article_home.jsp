@@ -239,7 +239,7 @@ a{
 									<!--  논문 목록이 비어있을때, 없을때를 구분하여 화면에 출력을 다르게 한다 -->
 									<c:choose>
 										<c:when test="${not empty xmlList}">
-											<c:forEach items="${xmlList}" var="ArtiVO">
+											<c:forEach items="${xmlList}" var="ArtiVO" varStatus="g">
 												<tr>
 													<td>
 														<p class="mb-0" style="margin-top:5px;">${ArtiVO.arti_id}</p>
@@ -266,7 +266,7 @@ a{
 																
 																</c:forEach>
 																
-																<c:if test="${fn:length(ArtiVO.list_auth)>1}"><c:out value="(외  ${fn:length(ArtiVO.list_auth)-1}명) | "></c:out></c:if>
+																<c:if test="${fn:length(ArtiVO.list_auth)>1}"><c:out value="  외  ${fn:length(ArtiVO.list_auth)-1}명 | "></c:out></c:if>
 																
 																	
 																	${ArtiVO.arti_source_title} |

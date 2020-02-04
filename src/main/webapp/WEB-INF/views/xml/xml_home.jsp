@@ -278,10 +278,10 @@ textarea:disabled {
 						<div>
 							<table class="table table-hover">
 								<tbody>
-									<c:forEach items="${xmlList}" var="xml">
+									<c:forEach items="${xmlList}" var="xml" varStatus="g">
 										<tr>
 											<td>
-												<p>${xml.id }</p>
+												<p>${xml.id}</p>
 											</td>
 											<td>
 												<blockquote class="blockquote" style="font-size: 110%;">

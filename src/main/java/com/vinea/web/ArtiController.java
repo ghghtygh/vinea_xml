@@ -59,9 +59,6 @@ public class ArtiController {
 		
 		
 		model.addAttribute("ArtiVO",service.article_detail(arti_id));
-		//ArtiVO article = service.readVO(arti_id);
-		
-		//return article;
 	} 
 	
 	/** 메인 페이지(xml_home.jsp)에서 Ajax파싱 부분 불러오기 **/

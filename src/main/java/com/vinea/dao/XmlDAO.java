@@ -129,13 +129,13 @@ public class XmlDAO {
 		return sqlSession.selectList(Namespace +".selectAuthList",uid);
 	}
 	
-
+    /* 기관 */
 	public List<OrgnVO> selectOrgnList(String uid){
 		
 		return sqlSession.selectList(Namespace +".selectOrgnList",uid);
 	}
 	
-	
+	/* 발행기관 */
 	public List<PublVO> selectPublList(String uid){
 		
 		return sqlSession.selectList(Namespace +".selectPublList",uid);
@@ -153,10 +153,6 @@ public class XmlDAO {
 		return sqlSession.selectList(Namespace + ".selectXmlList", map);
 	}
 	
-	public List<String> selectAuthList2(String uid){
-		
-		return sqlSession.selectList(Namespace +".selectAuthList2",uid);
-	}
 
 	/* 전체 XML 목록 리턴 */
 	public List<XmlVO> selectXml() {

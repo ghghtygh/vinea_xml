@@ -194,7 +194,7 @@
 	<resultMap id="sponMap" type="com.vinea.dto.SponVO">
 	
 		<result property="spon_id"				column="SPON_ID"/>
-		<result property="spon_conf_id"			column="SPON_CONF_ID"/>
+		<result property="spon_conf_cid"		column="SPON_CONF_CID"/>
 		<result property="spon_name"			column="SPON_NAME"/>
 		
 	</resultMap>
@@ -525,12 +525,12 @@
 	INSERT
 		INTO TB_SPON
 		(
-			SPON_CONF_ID
+			SPON_CONF_CID
 		,	SPON_NAME	
 		)
 		VALUES
 		(
-			#{spon_conf_id}
+			#{spon_conf_cid}
 		,	#{spon_name}	
 		)
 	    
@@ -666,8 +666,8 @@
 			
 		ORDER BY
 			ARTI_ID
-		ASC
-		<!-- DESC -->
+		ASC 
+		<!--  DESC -->
 		LIMIT
 			#{startIndex}
 		,	#{pageSize}
@@ -684,21 +684,6 @@
 		
 			
 	
-	</select>
-	
-	<select id ="selectAuthList2" parameterType="java.lang.String" resultType="java.lang.String">
-	
-	
-		SELECT DISTINCT
-		
-			AUTH_FULL
-			
-		FROM
-			TB_AUTH
-			
-		WHERE
-			AUTH_UID = #{uid}
-			
 	</select>
 	
 	<!-- 키워드 -->
