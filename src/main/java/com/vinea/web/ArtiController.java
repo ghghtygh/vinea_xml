@@ -88,7 +88,8 @@ public class ArtiController {
 	@RequestMapping(value = "/article/test")
 	public void articleTest() throws Exception{
 		
-		service.articleTest();
+		String filePath = "";
+		service.articleTest(filePath);
 	}
 	
 

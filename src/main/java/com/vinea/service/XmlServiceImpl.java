@@ -203,9 +203,9 @@ public class XmlServiceImpl implements XmlService{
 	 *   **/
 	
 	@Override
-	public void articleTest() throws Exception{
+	public void articleTest(String filePath) throws Exception{
 		
-		String filePath = "C:\\Users\\vinea\\Desktop\\2017_CORE\\WR_2017_20180509131811_CORE_0001.xml";
+		filePath = "C:\\Users\\vinea\\iCloudDrive\\2017_CORE\\WR_2017_20180509131811_CORE_0001.xml";
 		
 		/* 파일 이름 세팅 */
 		String fileName = null;
@@ -235,6 +235,9 @@ public class XmlServiceImpl implements XmlService{
 			/* REC 태그 사이에 있는지 여부 */
 			Boolean m_rec = false;
 			
+			/* 원하는 열을 찾기위해서 */
+			int recLineCnt = 0;
+			
 			/* UID 저장*/
 			String uidStr = "";
 			
@@ -252,26 +255,7 @@ public class XmlServiceImpl implements XmlService{
 			while((str=br.readLine())!=null){
 				
 				/* REC 태그 종료*/
-				if(str.contains("</REC>")){
-					recCnt++;
-					
-					recStr+=str;
-					
-					vo.setContent(recStr);
-					vo.setFile_name(fileName);
-					
-					/* VO 확인*/
-					logger.info(vo.toStringMultiline());
-					
-					/* VO 데이터베이스에 저장 */
-					dao.insertXmlFile(vo);
-					
-					recStr = "";
-					m_rec = false;
-					vo = null;
-					
-					break;
-				}
+				
 				
 				/* REC 태그 시작*/
 				if(str.contains("<REC r_id_")){
@@ -281,15 +265,39 @@ public class XmlServiceImpl implements XmlService{
 				
 				if(m_rec){
 					
+					recLineCnt++;
+					
 					recStr+=str;
+					
 					/* UID 세팅 */
-					if(str.contains("</UID>")){
-						
+					//if(str.contains("</UID>")){
+					if(recLineCnt==2){	
 						int beginIndex = str.indexOf("WOS");
 						
 						uidStr = str.substring(beginIndex, (str.substring(beginIndex).indexOf("</UID>")+beginIndex));
 						
-						vo.setUid(uidStr+Long.toString(start));
+						vo.setUid(uidStr);
+					}
+					
+					/*REC 태그 종료*/
+					if(str.contains("</REC>")){
+						recCnt+=1;
+						
+						vo.setContent(recStr);
+						vo.setFile_name(fileName);
+						
+						/* VO 확인*/
+						//logger.info(vo.toStringMultiline());
+						
+						/* VO 데이터베이스에 저장 */
+						dao.insertXmlFile(vo);
+						
+						recStr = "";
+						m_rec = false;
+						vo = null;
+						
+						recLineCnt = 0;
+						//break;
 					}
 				}
 			}

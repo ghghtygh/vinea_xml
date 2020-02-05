@@ -18,7 +18,7 @@ public interface XmlService {
 
 	public List<ArtiVO> checkList(String filePath) throws Exception;
 
-	public void articleTest() throws Exception;
+	public void articleTest(String filePath) throws Exception;
 
 	public void createVO(ArtiVO vo) throws Exception;
 	

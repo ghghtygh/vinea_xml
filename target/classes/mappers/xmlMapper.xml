@@ -577,17 +577,17 @@
 	
 	<insert id="insertXmlFile" parameterType="com.vinea.dto.XmlFileVO">
 	
-	INSERT
+	INSERT IGNORE
 		INTO TB_XML_FILE
 		(
-			 UID
+			UID
 			,CONTENT
 			,REGIST_DATE
 			,FILE_NAME
 		)
 		VALUES
 		(
-			 #{uid}
+			#{uid}
 			,#{content}
 			,NOW()
 			,#{file_name}

@@ -45,6 +45,20 @@ public class TestNJH {
 		logger.info(Long.toString(start));
 		logger.info(fileName);
 		
+		String uid1 = "<UID>dfdff</UID>";
+		String uid2 = "<uid>dfasdf</uid>";
+		if(uid1.contains("<UID>")){
+			System.out.println("1ㅇㅇ");
+		}else{
+			System.out.println("1ㄴㄴ");
+		}
+		
+		if(uid2.contains("<UID>")){
+			System.out.println("2ㅇㅇ");
+		}else{
+			System.out.println("2ㄴㄴ");
+		}
+		
 //		if(np.CanParse()){
 //			
 //			np.DoParse();
