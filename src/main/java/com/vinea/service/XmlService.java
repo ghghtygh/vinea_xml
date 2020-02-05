@@ -23,6 +23,7 @@ public interface XmlService {
 	public List<ArtiVO> checkList(String filePath) throws Exception;
 	/** 원본 데이터 파싱 테스트 **/	
 	public void articleTest(String filePath) throws Exception;
+
 	/** 논문 정보 VO 객체 DB 에 저장**/
 	public void createVO(ArtiVO vo) throws Exception;
 	
