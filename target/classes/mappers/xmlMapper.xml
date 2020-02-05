@@ -257,7 +257,7 @@
 		)
 	</insert>
 	
-	<insert id="insertAuth"   parameterType="com.vinea.dto.AuthVO">
+		<insert id="insertAuth"   parameterType="com.vinea.dto.AuthVO">
 	INSERT
 	    INTO TB_AUTH
 	    (
@@ -279,7 +279,7 @@
 	    VALUES
 	    (
 			#{auth_dais}
-		,	#{auth_addr_no}
+		,	#{a	uth_addr_no}
 		,	#{auth_uid}    
 		,	#{auth_dply}  
 		,	#{auth_full}   
@@ -730,8 +730,7 @@
 	
 	<select id="selectOneXml" parameterType="java.lang.Integer" resultMap="artiMap">
 		
-		SELECT
-		
+		SELECT		
 			 ARTI_UID
 			,ARTI_TITLE
 			,ARTI_SOURCE_TITLE
