@@ -29,7 +29,6 @@ import com.vinea.dto.PublVO;
 import com.vinea.dto.RefrVO;
 import com.vinea.dto.SponVO;
 import com.vinea.dto.XmlFileVO;
-import com.vinea.notuse.ParseXml;
 
 @Service
 public class XmlServiceImpl implements XmlService{
@@ -46,14 +45,14 @@ public class XmlServiceImpl implements XmlService{
 	private XmlDAO dao;
 	
 	
-	/** XML 개수 리턴 **/
+	/** 파싱된 논문 건수 반환 **/
 	@Override
 	public int countXml() throws Exception{
 		
 		return dao.countXml();
 	}
 	
-	/** 요청 페이지에 따른 XML 목록 리턴 **/
+	/** 요청 페이지에 따른 논문 목록 조회 **/
 	@Override
 	public List<ArtiVO> selectXmlList(Map<String,Object> map){
 	
@@ -69,31 +68,47 @@ public class XmlServiceImpl implements XmlService{
 		return list_artiVO;
 	}
 	
-	/** 논문 상세보기 페이지 **/
+	/** 논문 상세보기  **/
 	@Override
 	public ArtiVO article_detail(int arti_id) throws Exception{
 		
 		ArtiVO vo = dao.selectOneXml(arti_id);
 		
-		//키워드
-		vo.setList_kwrd(dao.selectKwrdList(vo.getArti_uid()));
-		
-		//저자 (todo 교신표시 )
-		vo.setList_auth(dao.selectAuthList(vo.getArti_uid()));
-		
-		//참고문헌
-		vo.setList_refr(dao.selectRefrList(vo.getArti_uid()));
-		
-		//기관
-	    vo.setList_orgn(dao.selectOrgnList(vo.getArti_uid()));
-	    
-	    //발행기관
+		/* 키워드 정보 */
+		vo.setList_kwrd(dao.selectKwrdList(vo.getArti_uid()));		
+		/* 저자 정보 */
+		vo.setList_auth(dao.selectAuthList(vo.getArti_uid()));		
+		/* 참고문헌 정보 */
+		vo.setList_refr(dao.selectRefrList(vo.getArti_uid()));		
+		/* 저자 연구기관 정보 */
+	    vo.setList_orgn(dao.selectOrgnList(vo.getArti_uid()));	    
+	    /* 발행기관 정보 */
 	    vo.setList_publ(dao.selectPublList(vo.getArti_uid()));
 		
 		return vo;
 	}
 	
-	/** 파싱된 XML(논문)List 데이터 DB에 저장 **/
+	/** 논문 상세보기  
+	@Override
+	public ArtiVO article_detail(String arti_no) throws Exception{
+		
+		ArtiVO vo = dao.selectOneXml(arti_no);
+		
+		/* 키워드 정보 
+		vo.setList_kwrd(dao.selectKwrdList(vo.getArti_uid()));		
+		/* 저자 정보 
+		vo.setList_auth(dao.selectAuthList(vo.getArti_uid()));		
+		/* 참고문헌 정보 
+		vo.setList_refr(dao.selectRefrList(vo.getArti_uid()));		
+		/* 저자 연구기관 정보 
+	    vo.setList_orgn(dao.selectOrgnList(vo.getArti_uid()));	    
+	    /* 발행기관 정보 
+	    vo.setList_publ(dao.selectPublList(vo.getArti_uid()));
+		
+		return vo;
+	}**/
+	
+	/** 파싱된 논문 데이터 DB에 저장 **/
 	@Override
 	public void createListVO(String filePath) throws Exception{
 		
@@ -115,74 +130,79 @@ public class XmlServiceImpl implements XmlService{
 		
 	}
 	
-	/** ArtiVO DB에 저장 **/
+	/** 논문 정보 VO 객체 DB 에 저장 **/
 	@Override
 	public void createVO(ArtiVO vo) throws Exception{
 		
 		dao.insertArti(vo);
 		
+		/* 저자 정보 리스트 */
 		for(AuthVO authVO : vo.getList_auth()){
 			dao.insertAuth(authVO);
 		}
 		
+		/* 도서기록 정보 리스트 */
 		for(BooknoteVO booknoteVO : vo.getList_booknote()){
 			dao.insertBooknote(booknoteVO);
-		}
+		}	
 		
-		for(CoauthVO coauthVO : vo.getList_coauth()){
+		/* 공저자 정보 리스트(사용안함)
+		 * for(CoauthVO coauthVO : vo.getList_coauth()){
 			dao.insertCoauth(coauthVO);
-		}
+		}*/
 		
+		/* 학회 정보 리스트 */
 		for(ConfVO confVO : vo.getList_conf()){
 			dao.insertConf(confVO);
 			
-			for (SponVO sponVO : confVO.getList_spon()){
-				dao.insertSpon(sponVO);
-			}
+		/* 후원기관 정보 리스트(사용안함)
+		 * for (SponVO sponVO : confVO.getList_spon()){
+			dao.insertSpon(sponVO);
+		}*/			
 		}
 		
+		/* 문서유형 정보 리스트 */
 		for(DtypeVO dtypeVO : vo.getList_dtype()){
 			dao.insertDtype(dtypeVO);
 		}
 		
-		
+		/* 보조금 정보 리스트 */
 		for(GrntVO grntVO : vo.getList_grnt()){
 			dao.insertGrnt(grntVO);
 		}
 		
+		/* 키워드 정보 리스트 */
 		for(KwrdVO kwrdVO : vo.getList_kwrd()){
 			dao.insertKwrd(kwrdVO);
 		}
 		
-		for(KwrdplusVO kwrdplusVO : vo.getList_kwrdplus()){
+		/* 간행물 키워드 정보 리스트(사용안함)
+		 * for(KwrdplusVO kwrdplusVO : vo.getList_kwrdplus()){
 			dao.insertKwrdp(kwrdplusVO);
-		}
+		}*/
 		
+		/* 저자 연구기관 정보 리스트 */
 		for(OrgnVO orgnVO : vo.getList_orgn()){
 			
 			dao.insertOrgn(orgnVO);
 		}
 		
+		/* 발행기관 정보 리스트 */
 		for(PublVO publVO : vo.getList_publ()){
 			dao.insertPubl(publVO);
 		}
 		
+		/* 참고문헌 정보 리스트 */
 		for(RefrVO refrVO : vo.getList_refr()){
 			dao.insertRefr(refrVO);
 		}
-		
-		
-		
-		
+				
 	}
+		
 	
-	
-	/** chk 동작 
-	 * @throws Exception **/
+	/** chk 동작 부분 **/
 	@Override
 	public List<ArtiVO> checkList(String filePath) throws Exception{
-		
-		//List<ArtiVO> artiList = new ArrayList<ArtiVO>();
 		
 		parser = new NjhParser(filePath);
 		
@@ -198,14 +218,11 @@ public class XmlServiceImpl implements XmlService{
 		
 	}
 	
-	
-	/** article/test
-	 *   **/
-	
+	/** 원본 데이터 파싱 테스트 **/	
 	@Override
 	public void articleTest() throws Exception{
 		
-		String filePath = "C:\\Users\\vinea\\Desktop\\2017_CORE\\WR_2017_20180509131811_CORE_0001.xml";
+		String filePath = "D:\\2017_CORE\\WR_2017_20180509131811_CORE_0001.xml";
 		
 		/* 파일 이름 세팅 */
 		String fileName = null;
@@ -246,7 +263,7 @@ public class XmlServiceImpl implements XmlService{
 			date = new Date();
 			long start = date.getTime();
 			
-			/* vo 저장 */
+			/* 원본 데이터 VO 객체에 저장 */
 			XmlFileVO vo = null;
 			
 			while((str=br.readLine())!=null){
@@ -260,17 +277,17 @@ public class XmlServiceImpl implements XmlService{
 					vo.setContent(recStr);
 					vo.setFile_name(fileName);
 					
-					/* VO 확인*/
+					/* VO객체에 저장되었는지 확인*/
 					logger.info(vo.toStringMultiline());
 					
-					/* VO 데이터베이스에 저장 */
+					/* VO객체 DB에 저장 */
 					dao.insertXmlFile(vo);
 					
 					recStr = "";
 					m_rec = false;
 					vo = null;
 					
-					break;
+					//break;
 				}
 				
 				/* REC 태그 시작*/

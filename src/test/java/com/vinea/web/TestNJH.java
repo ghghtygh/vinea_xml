@@ -25,11 +25,11 @@ public class TestNJH {
 		
 		//
 		
-		filepath = "C:\\Users\\vinea\\Desktop\\2017_CORE\\WR_2017_20180509131811_CORE_0001.xml";
+		filepath = "D:\\2017_CORE\\WR_2017_20180509131811_CORE_0001.xml";
 
 		np = new NjhParser(filepath);
 		
-		String filePath = "C:\\Users\\vinea\\Desktop\\2017_CORE\\WR_2017_20180509131811_CORE_0001.xml";
+		String filePath = "D:\\2017_CORE\\WR_2017_20180509131811_CORE_0001.xml";
 		
 		/* 파일 이름 */
 		String fileName = null;

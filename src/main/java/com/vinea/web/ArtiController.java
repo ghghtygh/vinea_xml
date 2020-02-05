@@ -27,11 +27,13 @@ public class ArtiController {
 
 	Logger logger = LoggerFactory.getLogger(ArtiController.class);
 	
-	/** 메인화면으로 이동 **/
+	/** 메인화면으로 이동_논문 목록 페이지 **/
 	@RequestMapping(value = "/article")
 	public String xmlList(@RequestParam(defaultValue = "1") int page, Model model) throws Exception
 	{
+		/* 논문 목록의 건수 */
 		int xmlCount = service.countXml();
+		/* 한페이지에 보여질 페이지 수 */
 		int pageSize = 7;
 		int startIndex = -1;
 		
@@ -56,35 +58,39 @@ public class ArtiController {
 	/** 파싱된 XML(논문) 내용 상세보기 **/
 	@RequestMapping(value="/article/article_detail", method=RequestMethod.GET)
 	public void article_detail(@RequestParam("arti_id")int arti_id, Model model) throws Exception{
-		
-		
+				
 		model.addAttribute("ArtiVO",service.article_detail(arti_id));
 	} 
 	
-	/** 메인 페이지(xml_home.jsp)에서 Ajax파싱 부분 불러오기 **/
+	/** 파싱된 XML(논문) 내용 상세보기 
+	@RequestMapping(value="/article/article_detail", method=RequestMethod.GET)
+	public void article_detail(@RequestParam("arti_no")String arti_no, Model model) throws Exception{
+		
+		
+		model.addAttribute("ArtiVO",service.article_detail(arti_no));
+	} **/
+	
+	
+	/** 메인 페이지(article_home.jsp)에서 Ajax파싱 부분 불러오기 **/
 	@RequestMapping(value = "/article/check", method = RequestMethod.POST)
 	@ResponseBody
 	public List<ArtiVO> xmlCheck(@RequestParam(defaultValue = "") String filePath) throws Exception {
 
-		//ArtiVO article = service.createVO(filePath);
-		
 		List<ArtiVO> artiList = service.checkList(filePath);
 		
 		return artiList;
 	}
 	
-	/** 메인 페이지(xml_home.jsp)에서 파싱해온 결과 DB에 저장 **/
+	/** 메인 페이지(article_home.jsp)에서 파싱해온 결과 DB에 저장 **/
 	@RequestMapping(value = "/article/insert", method = RequestMethod.POST)
 	public String xmlInsert(@RequestParam(defaultValue = "") String filePath) throws Exception {
 
-		
-		//logger.info("filePath : "+filePath);
-		//service.insertVO(article);
 		service.createListVO(filePath);
 		
 		return "redirect:/article";
 	}
 	
+	/** 원본 논문 데이터 파싱 테스트(DB 저장) **/
 	@RequestMapping(value = "/article/test")
 	public void articleTest() throws Exception{
 		
