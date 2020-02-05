@@ -24,11 +24,13 @@
 	rel="stylesheet">
 
 <script>
-
-var m_chk = false;
+	var m_chk = false;
 
 	$(document).ready(function() {
-			
+
+		$("#loading").hide();
+		//$("#progress").hide();
+
 		/** 알림창 닫기 **/
 		$("#btn_alert_hide").on("click", function(e) {
 
@@ -54,13 +56,12 @@ var m_chk = false;
 
 			e.preventDefault();
 
-			
 			var filePath = $("#filePath").val();
 
 			//console.log(m_chk);
 
 			if (!m_chk) {
-				
+
 				$("#alert_subject").html("XML 파일경로 미확인");
 				$("#alert_content").html("XML 파일이 확인되지 않았습니다<br>파싱 버튼을 눌러주세요");
 				$("#div_alert").show();
@@ -81,14 +82,15 @@ var m_chk = false;
 
 		/** insertXml: ArtiParser.java에서 파싱코드 가져와서 xml(논문)데이터 파싱 **/
 		$("#btn_chk").click(function(e) {
-			
-			e.preventDefault();
-			
-			clear_input();
-			
-			var filePath = $("#filePath").val();
 
-			
+			$("#loading").show();
+			//$("#progress").show();
+
+			e.preventDefault();
+
+			clear_input();
+
+			var filePath = $("#filePath").val();
 
 			if (filePath == "") {
 
@@ -108,65 +110,78 @@ var m_chk = false;
 					"filePath" : filePath
 				},
 				dataType : "json",
-
 				success : function(data) {
 
-					
-					
 					if (data == null) {
-						
+
 						$("#alert_subject").html("XML 파싱 실패");
 						$("#alert_content").html("올바른 XML파일 경로를 입력하세요");
 						$("#div_alert").show();
 						m_chk = false;
 						return;
 					}
-					
+
 					var item_html = "";
-					
-					$.each(data,function(index,item){
-						
-						//console.log(item['arti_uid']);
-						//uid title auth
-						
-						
-						item_html+= "<div>WOS_UID : "+item['arti_uid']+"</div>";
-						item_html+= "<div>논문제목 : "+item['arti_title']+"</div>";
-						item_html+= "<div>학술지명 : "+item['arti_source_title'];
-						
-						if((item['arti_issue']!=null)&&(item['arti_vol']!=null)){
-							item_html+="&nbsp;"+item['arti_vol']+"("+item['arti_issue']+")";
-						}
-						
-						item_html+="</div>";
-						//item_html+= "<div>WOS_UID : "+item['arti_uid']+"</div>";
-						//item_html+= "<div>WOS_UID : "+item['arti_uid']+"</div>";
-						
-						
-						item_html+="<hr>";
-						
+
+					$.each(data, function(index, item) {
+
 					});
-					
-					
+
 					m_chk = true;
-					
+
 					$("#div_parse").html(item_html);
-					
+
+					$("#loading").hide();
+					//$("#progress").hide();
+
 				},
+				/*beforeSubmit: function()
+				{
+					 $("#progressDivId").css("display", "block");
+	    	            var percentValue = '0%';
+	 
+	    	            $('#progressBar').width(percentValue);
+	    	            $('#percent').html(percentValue);
+				},
+				uploadProgress: function (event, position, total, percentComplete) {
+					 
+    	            var percentValue = percentComplete + '%';
+    	            $("#progressBar").animate({
+    	                width: '' + percentValue + ''
+    	            }, {
+    	                duration: 5000,
+    	                easing: "linear",
+    	                step: function (x) {
+                        percentText = Math.round(x * 100 / percentComplete);
+    	                    $("#percent").text(percentText + "%");
+                        if(percentText == "100") {
+                        }
+    	                }
+    	            });
+    	        },*/
 				error : function(request, error) {
-					
+
 					$("#alert_subject").html("XML 파싱 실패");
 					$("#alert_content").html("올바른 XML파일 경로를 입력하세요");
 					$("#div_alert").show();
 					m_chk = false;
 					return;
-				}
+				},
+				/*complete: function (xhr) {
+    	            if (xhr.responseText && xhr.responseText != "error")
+    	            {
+    	            	
+    	            }
+    	            else{  
+        	            	$("#progressBar").stop();
+    	            }
+    	        }*/
 			});
+
 		});
 
 	});
 
-	
 	/** 페이지 이동  **/
 	function fn_paging(nowPage) {
 
@@ -175,18 +190,19 @@ var m_chk = false;
 		location.href = url;
 
 	}
-	function input_chk(){
+	function input_chk() {
 
 		clear_input();
-		
-		m_chk=false;
-		
+
+		m_chk = false;
+
 	}
 	function clear_input() {
 		$("#div_parse").html("");
-		
+
 	}
 </script>
+
 
 <style>
 .modal-backdrop {
@@ -205,7 +221,7 @@ input:read-only {
 	width: 100%;
 }
 
-a{
+a {
 	
 }
 </style>
@@ -242,7 +258,7 @@ a{
 											<c:forEach items="${xmlList}" var="ArtiVO" varStatus="g">
 												<tr>
 													<td>
-														<p class="mb-0" style="margin-top:5px;">${ArtiVO.arti_id}</p>
+														<p class="mb-0" style="margin-top: 5px;">${ArtiVO.arti_id}</p>
 													</td>
 													<td>
 														<blockquote class="" style="font-size: 130%;">
@@ -253,27 +269,32 @@ a{
 																${ArtiVO.arti_title} </a>
 
 															<footer class=""
-																style="font-size: 70%;vertical-align:bottom;">
-																
+																style="font-size: 70%; vertical-align: bottom;">
+
 																<!--  저자정보 추가예정, 학회정보 추가예정, 권(호), 시작~끝페이지, 발행일자, 연구분야 추가예정 -->
-																
-																
-																<div align="left" class="text-secondary" style="margin-top:10px;">
+
+
+																<div align="left" class="text-secondary"
+																	style="margin-top: 10px;">
 																	&nbsp;
-																	<c:forEach var="auth" items="${ArtiVO.list_auth}" varStatus="a">
-																
-																<c:if test="${a.count==1 }">${auth.auth_full }</c:if>
-																
-																</c:forEach>
-																
-																<c:if test="${fn:length(ArtiVO.list_auth)>1}"><c:out value="  외  ${fn:length(ArtiVO.list_auth)-1}명 | "></c:out></c:if>
-																
-																	
+																	<c:forEach var="auth" items="${ArtiVO.list_auth}"
+																		varStatus="a">
+
+																		<c:if test="${a.count==1 }">${auth.auth_full }</c:if>
+
+																	</c:forEach>
+
+																	<c:if test="${fn:length(ArtiVO.list_auth)>1}">
+																		<c:out
+																			value="  외  ${fn:length(ArtiVO.list_auth)-1}명 | "></c:out>
+																	</c:if>
+
+
 																	${ArtiVO.arti_source_title} |
 																	<c:if test="${ArtiVO.arti_issue != ''}">
 																	 ${ArtiVO.arti_vol}(${ArtiVO.arti_issue}) 
 																	</c:if>
-																	
+
 																	<c:if test="${ArtiVO.arti_issue == ''}">
 																	${ArtiVO.arti_vol} 
 																	</c:if>
@@ -286,7 +307,7 @@ a{
 																	|
 																	<c:set var="tmp_list"
 																		value="${fn:split(ArtiVO.arti_date,'-')}" />
-																		
+
 																	<c:forEach var="tmp" items="${tmp_list}" varStatus="g">
 																		<c:if test="${g.count == 2}">${ArtiVO.arti_year}.${tmp}</c:if>
 																	</c:forEach>
@@ -392,25 +413,27 @@ a{
 						</div>
 						<div>
 							<div style="position: relative; float: right; z-index: 10;">
-								<button id="btn_insertXML" class="btn btn-primary">XML 추가</button>
+								<button id="btn_insertXML" class="btn btn-primary">XML
+									추가</button>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	
+
 
 		<div id="insertXML" class="modal">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title">XML 데이터 추가</h5>
+						<h5 class="modal-title">XML 데이터추가</h5>
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
+					
 					<div class="modal-body">
 						<div class="container">
 							<div>
@@ -419,9 +442,19 @@ a{
 							<div class="input-group mb-2" style="width: 100%;">
 								<input type="text" id="filePath" name="filePath"
 									class="form-control" onkeyup="input_chk();">
-	
+
 								<button id="btn_chk" class="btn btn-secondary">파싱</button>
 							</div>
+							<div id="loading" class="text-center">
+								<div class="spinner-border" role="status">
+									<span class="sr-only">Loading...</span>
+								</div>
+							</div>
+							<!--  추가
+							<div class='progress' id="progressDivId">
+								<div class='progress-bar' id='progressBar'></div>
+								<div class='percent' id='percent'>0%</div>
+							</div>-->
 							<div id="div_alert" class="alert alert-dismissible alert-primary"
 								style="display: none;">
 								<button type="button" class="close" id="btn_alert_hide"
@@ -430,8 +463,7 @@ a{
 								<p id="alert_content">XML 파일의 경로를 입력해주세요</p>
 							</div>
 							<div>
-								<div id="div_parse">
-								</div>
+								<div id="div_parse"></div>
 							</div>
 						</div>
 					</div>
