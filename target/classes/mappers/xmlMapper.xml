@@ -1,0 +1,762 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.vinea.mapper.xmlMapper">
+
+	<resultMap id="artiMap" type="com.vinea.dto.ArtiVO">
+
+		<result property="arti_id"				column="ARTI_ID"/>
+		<result property="arti_no"				column="ARTI_NO"/>
+		<result property="arti_uid"     		column="ARTI_UID"/>
+		<result property="arti_title"   		column="ARTI_TITLE"/>
+		<result property="arti_source_title"    column="ARTI_SOURCE_TITLE"/>
+		<result property="arti_year"   		    column="ARTI_YEAR"/>
+		<result property="arti_date"   			column="ARTI_DATE"/>
+		<result property="arti_vol"   			column="ARTI_VOL"/>
+		<result property="arti_issue"   		column="ARTI_ISSUE"/>
+		<result property="arti_sup"   			column="ARTI_SUP"/>		
+		<result property="arti_doi"   			column="ARTI_DOI"/>
+		<result property="arti_ab"   			column="ARTI_AB"/>
+		<result property="arti_issn"   			column="ARTI_ISSN"/>
+		<result property="arti_eissn"   		column="ARTI_EISSN"/>
+		<result property="arti_cite_cnt"   		column="ARTI_CITE_CNT"/>
+		<result property="arti_page_cnt"   		column="ARTI_PAGE_CNT"/>
+		<result property="arti_bp"   			column="ARTI_BP"/>
+		<result property="arti_ep"   			column="ARTI_EP"/>
+		<result property="arti_oa"   			column="ARTI_OA"/>
+		<result property="arti_item_id"   		column="ARTI_ITEM_ID"/>
+		<result property="arti_item_avail"   	column="ARTI_ITEM_AVAIL"/>
+		<result property="arti_item_type"   	column="ARTI_ITEM_TYPE"/>
+		<result property="arti_item_page"   	column="ARTI_ITEM_PAGE"/>
+		<result property="arti_book_page"   	column="ARTI_BOOK_PAGE"/>
+		<result property="arti_book_bind"   	column="ARTI_BOOK_BIND"/>
+		<result property="arti_book_publ"   	column="ARTI_BOOK_PUBL"/>
+		<result property="arti_book_prepay"   	column="ARTI_BOOK_PREPAY"/>
+		<result property="arti_ctgr_name"   	column="ARTI_CTGR_NAME"/>
+		<result property="arti_ctgr_subh"   	column="ARTI_CTGR_SUBH"/>
+		<result property="arti_ctgr_subj"   	column="ARTI_CTGR_SUBJ"/>
+		
+		
+	</resultMap>
+	
+	
+	
+	<resultMap id="authMap" type="com.vinea.dto.AuthVO">
+	
+		<result property="auth_id"				column="AUTH_ID"/>
+		<result property="auth_dais"			column="AUTH_DAIS"/>
+		<result property="auth_addr_no"			column="AUTH_ADDR_NO"/>
+		<result property="auth_uid"   			column="AUTH_UID"/>
+		<result property="auth_dply"   			column="AUTH_DPLY"/>
+		<result property="auth_full"  		 	column="AUTH_FULL"/>
+		<result property="auth_wos"   			column="AUTH_WOS"/>
+		<result property="auth_first"  		 	column="AUTH_FIRST"/>
+		<result property="auth_last"   			column="AUTH_LAST"/>
+		<result property="auth_role"  		 	column="AUTH_ROLE"/>
+		<result property="auth_lead"  		 	column="AUTH_LEAD"/>
+		<result property="auth_repr"  		 	column="AUTH_REPR"/>
+		<result property="auth_email" 		  	column="AUTH_EMAIL"/>
+		<result property="auth_seq"   			column="AUTH_SEQ"/>
+		
+	</resultMap>
+	
+	<resultMap id="booknoteMap" type="com.vinea.dto.BooknoteVO">
+	
+		<result property="note_id"				column="NOTE_ID"/>
+		<result property="note_uid"				column="NOTE_UID"/>
+		<result property="note_name"			column="NOTE_NAME"/>
+		
+	</resultMap>
+	
+	<resultMap id="coauthMap" type="com.vinea.dto.CoauthVO">
+	
+		<result property="coauth_id"			column="COAUTH_ID"/>
+		<result property="coauth_orcid"			column="COAUTH_ORCID"/>
+		<result property="coauth_uid"			column="COAUTH_UID"/>
+		<result property="coauth_role"			column="COAUTH_ROLE"/>
+		<result property="coauth_rid"			column="COAUTH_RID"/>
+		<result property="coauth_dply"			column="COAUTH_DPLY"/>
+		<result property="coauth_full"			column="COAUTH_FULL"/>
+		<result property="coauth_first"			column="COAUTH_FIRST"/>
+		<result property="coauth_last"			column="COAUTH_LAST"/>
+		<result property="coauth_seq"			column="COAUTH_SEQ"/>
+		
+	</resultMap>
+	
+	<resultMap id="confMap" type="com.vinea.dto.ConfVO">
+	
+		<result property="conf_id"				column="CONF_ID"/>
+		<result property="conf_cid"				column="CONF_CID"/>
+		<result property="conf_uid"				column="CONF_UID"/>
+		<result property="conf_title"			column="CONF_TITLE"/>
+		<result property="conf_date"			column="CONF_DATE"/>
+		<result property="conf_start"			column="CONF_START"/>
+		<result property="conf_end"				column="CONF_END"/>
+		<result property="conf_city"			column="CONF_CITY"/>
+		<result property="conf_state"			column="CONF_STATE"/>
+		<result property="conf_ctry"			column="CONF_CTRY"/>
+		
+	</resultMap>
+	
+	<resultMap id="dtypeMap" type="com.vinea.dto.DtypeVO">
+	
+		<result property="dtype_id"				column="DTYPE_ID"/>
+		<result property="dtype_uid"			column="DTYPE_UID"/>
+		<result property="dtype_name"			column="DTYPE_NAME"/>
+		
+	</resultMap>
+	
+	<resultMap id="grntMap" type="com.vinea.dto.GrntVO">
+	
+		<result property="grnt_id"				column="GRNT_ID"/>
+		<result property="grnt_gid"				column="GRNT_GID"/>
+		<result property="grnt_uid"				column="GRNT_UID"/>
+		<result property="grnt_text"			column="GRNT_TEXT"/>
+		<result property="grnt_agcy"			column="GRNT_AGCY"/>
+		
+	</resultMap>
+	
+	<resultMap id="kwrdMap" type="com.vinea.dto.KwrdVO">
+	
+		<result property="kwrd_id"				column="KWRD_ID"/>
+		<result property="kwrd_uid"				column="KWRD_UID"/>
+		<result property="kwrd_name"			column="KWRD_NAME"/>
+		
+	</resultMap>
+	
+	<resultMap id="kwrdpMap" type="com.vinea.dto.KwrdplusVO">
+	
+		<result property="kwrdp_id"				column="KWRDP_ID"/>
+		<result property="kwrdp_uid"			column="KWRDP_UID"/>
+		<result property="kwrdp_name"			column="KWRDP_NAME"/>
+		
+	</resultMap>
+	
+	<resultMap id="orgnMap" type="com.vinea.dto.OrgnVO">
+	
+		<result property="orgn_id"				column="ORGN_ID"/>
+		<result property="orgn_addr_no"			column="ORGN_ADDR_NO"/>
+		<result property="orgn_uid"				column="ORGN_UID"/>
+		<result property="orgn_full"			column="ORGN_FULL"/>
+		<result property="orgn_name"			column="ORGN_NAME"/>
+		<result property="orgn_pref"			column="ORGN_PREF"/>
+		<result property="orgn_sub"				column="ORGN_SUB"/>
+		<result property="orgn_city"			column="ORGN_CITY"/>
+		<result property="orgn_state"			column="ORGN_STATE"/>
+		<result property="orgn_ctry"			column="ORGN_CTRY"/>
+		<result property="orgn_street"			column="ORGN_STREET"/>
+		
+	</resultMap>
+	
+	<resultMap id="publMap" type="com.vinea.dto.PublVO">
+	
+		<result property="publ_id"				column="PUBL_ID"/>
+		<result property="publ_uid"				column="PUBL_UID"/>
+		<result property="publ_addr"			column="PUBL_ADDR"/>
+		<result property="publ_city"			column="PUBL_CITY"/>
+		<result property="publ_state"			column="PUBL_STATE"/>
+		<result property="publ_ctry"			column="PUBL_CTRY"/>
+		<result property="publ_dply"			column="PUBL_DPLY"/>
+		<result property="publ_full"			column="PUBL_FULL"/>
+	</resultMap>
+	
+	<resultMap id="refrMap" type="com.vinea.dto.RefrVO">
+	
+		<result property="refr_id"				column="REFR_ID"/>
+		<result property="refr_ruid"			column="REFR_RUID"/>
+		<result property="refr_uid"				column="REFR_UID"/>
+		<result property="refr_auth"			column="REFR_AUTH"/>
+		<result property="refr_year"			column="REFR_YEAR"/>
+		<result property="refr_vol"				column="REFR_VOL"/>
+		<result property="refr_issue"			column="REFR_ISSUE"/>
+		<result property="refr_title"			column="REFR_TITLE"/>
+		<result property="refr_doi"				column="REFR_DOI"/>
+		<result property="refr_page"			column="REFR_PAGE"/>
+		<result property="refr_orgn"			column="REFR_ORGN"/>
+		
+	</resultMap>
+	
+	<resultMap id="sponMap" type="com.vinea.dto.SponVO">
+	
+		<result property="spon_id"				column="SPON_ID"/>
+		<result property="spon_conf_cid"		column="SPON_CONF_CID"/>
+		<result property="spon_name"			column="SPON_NAME"/>
+		
+	</resultMap>
+	
+	
+	
+	<insert id="insertArti"   parameterType="com.vinea.dto.ArtiVO">
+	INSERT
+		INTO TB_ARTI
+		(
+			ARTI_NO
+		,	ARTI_UID
+		,	ARTI_TITLE
+		,	ARTI_SOURCE_TITLE
+		,	ARTI_YEAR
+		,	ARTI_DATE
+		,	ARTI_VOL
+		,	ARTI_ISSUE
+		,	ARTI_SUP		
+		,	ARTI_DOI
+		,	ARTI_AB
+		,	ARTI_ISSN
+		,	ARTI_EISSN
+		,	ARTI_CITE_CNT
+		,	ARTI_PAGE_CNT
+		,	ARTI_BP
+		,	ARTI_EP
+		,	ARTI_OA
+		,	ARTI_ITEM_ID
+		,	ARTI_ITEM_AVAIL
+		,	ARTI_ITEM_TYPE
+		,	ARTI_ITEM_PAGE
+		,	ARTI_BOOK_PAGE
+		,	ARTI_BOOK_BIND
+		,	ARTI_BOOK_PUBL
+		,	ARTI_BOOK_PREPAY
+		,	ARTI_CTGR_NAME
+		,	ARTI_CTGR_SUBH
+		,	ARTI_CTGR_SUBJ
+		)
+		
+		VALUES
+		(
+			#{arti_no}			
+		,	#{arti_uid}     	
+		,	#{arti_title}
+		,	#{arti_source_title}
+		,	#{arti_year}
+		,	#{arti_date}  		
+		,	#{arti_vol} 		
+		,	#{arti_issue}   	
+		,	#{arti_sup}		
+		,	#{arti_doi}  		
+		,	#{arti_ab} 		
+		,	#{arti_issn}   		
+		,	#{arti_eissn}   	
+		,	#{arti_cite_cnt}   
+		,	#{arti_page_cnt}   
+		,	#{arti_bp}   		
+		,	#{arti_ep}   		
+		,	#{arti_oa}
+		,	#{arti_item_id}  	
+		,	#{arti_item_avail} 
+		,	#{arti_item_type}  
+		,	#{arti_item_page}  
+		,	#{arti_book_page}  
+		,	#{arti_book_bind} 
+		,	#{arti_book_publ} 
+		,	#{arti_book_prepay}
+		,	#{arti_ctgr_name}
+		,	#{arti_ctgr_subh}
+		,	#{arti_ctgr_subj}
+		)
+	</insert>
+	
+	<insert id="insertAuth"   parameterType="com.vinea.dto.AuthVO">
+	INSERT
+	    INTO TB_AUTH
+	    (
+	    	AUTH_DAIS
+		,	AUTH_ADDR_NO
+		,	AUTH_UID
+		,	AUTH_DPLY
+		,	AUTH_FULL
+		,	AUTH_WOS
+		,	AUTH_FIRST
+		,	AUTH_LAST
+		,	AUTH_ROLE
+		,	AUTH_LEAD
+		,	AUTH_REPR
+		,	AUTH_EMAIL
+		,	AUTH_SEQ
+		)
+		
+	    VALUES
+	    (
+			#{auth_dais}
+		,	#{auth_addr_no}
+		,	#{auth_uid}    
+		,	#{auth_dply}  
+		,	#{auth_full}   
+		,	#{auth_wos} 
+		,	#{auth_first}  
+		,	#{auth_last}   
+		,	#{auth_role}   
+		,	#{auth_lead}   
+		,	#{auth_repr} 
+		,	#{auth_email} 
+		,	#{auth_seq}
+	    )
+	</insert>
+	<insert id="insertBooknote" parameterType="com.vinea.dto.BooknoteVO">
+	INSERT
+	    INTO TB_BOOK_NOTE
+	    (
+			NOTE_UID
+		,	NOTE_NAME
+	    )
+	    VALUES
+	    (
+			#{note_uid}
+		,	#{note_name}
+	    )
+	</insert>
+	<insert id="insertCoauth" parameterType="com.vinea.dto.CoauthVO">
+	INSERT
+	    INTO TB_COAUTH
+	    (
+			COAUTH_ORCID
+		,	COAUTH_UID
+		,	COAUTH_ROLE
+		,	COAUTH_RID
+		,	COAUTH_DPLY
+		,	COAUTH_FULL
+		,	COAUTH_FIRST
+		,	COAUTH_LAST
+		,	COAUTH_SEQ
+	    )
+	    VALUES
+	    (
+			#{coauth_orcid}
+		,	#{coauth_uid}
+		,	#{coauth_role}
+		,	#{coauth_rid}
+		,	#{coauth_dply}
+		,	#{coauth_full}
+		,	#{coauth_first}
+		,	#{coauth_last}
+		,	#{coauth_seq}
+	    )
+	</insert>
+	<insert id="insertConf" parameterType="com.vinea.dto.ConfVO">
+	INSERT
+	    INTO TB_CONF
+	    (
+			CONF_CID
+		,	CONF_UID
+		,	CONF_TITLE
+		,	CONF_DATE
+		,	CONF_START
+		,	CONF_END
+		,	CONF_CITY
+		,	CONF_STATE
+		,	CONF_CTRY
+		
+	    )
+	    VALUES
+	    (
+			#{conf_cid}
+		,	#{conf_uid}
+		,	#{conf_title}
+		,	#{conf_date}
+		,	#{conf_start}
+		,	#{conf_end}
+		,	#{conf_city}
+		,	#{conf_state}
+		,	#{conf_ctry}
+	    )
+	</insert>
+	
+	<insert id="insertDtype" parameterType="com.vinea.dto.DtypeVO">
+	INSERT
+	    INTO TB_DTYPE
+	    (
+			DTYPE_UID
+		,	DTYPE_NAME
+			
+	    )
+	    VALUES
+	    (
+			#{dtype_uid}
+		,	#{dtype_name}
+		
+	    )
+	</insert>
+	<insert id="insertGrnt" parameterType="com.vinea.dto.GrntVO">
+	INSERT
+	    INTO TB_GRNT
+	    (
+	    	GRNT_GID
+		,	GRNT_UID
+		,	GRNT_TEXT
+		,	GRNT_AGCY
+	    )
+	    VALUES
+	    (
+	    	#{grnt_gid}
+		,	#{grnt_uid}
+		,	#{grnt_text}
+		,	#{grnt_agcy}
+	    )
+	</insert>
+	<insert id="insertKwrd" parameterType="com.vinea.dto.KwrdVO">
+	
+	INSERT
+		INTO TB_KWRD
+		(
+			KWRD_UID
+		,	KWRD_NAME
+		)
+		VALUES
+		(
+			#{kwrd_uid}
+		,	#{kwrd_name}
+		
+		)
+	</insert>
+	<insert id="insertKwrdp" parameterType="com.vinea.dto.KwrdplusVO">
+	INSERT
+	    INTO TB_KWRD_PLUS
+	    (
+			KWRDP_UID
+		,	KWRDP_NAME
+		)
+		VALUES
+		(
+			#{kwrdp_uid}
+		,	#{kwrdp_name}
+		
+		)
+	</insert>
+	<insert id="insertOrgn" parameterType="com.vinea.dto.OrgnVO">
+	
+	INSERT
+	    INTO TB_ORGN
+	    (
+			ORGN_ADDR_NO
+		,	ORGN_UID
+		,	ORGN_FULL
+		,	ORGN_NAME
+		,	ORGN_PREF
+		,	ORGN_SUB
+		,	ORGN_CITY
+		,	ORGN_STATE
+		,	ORGN_CTRY
+		,	ORGN_STREET
+	    )
+	    VALUES
+	    (
+			#{orgn_addr_no}
+		,	#{orgn_uid}
+		,	#{orgn_full}
+		,	#{orgn_name}
+		,	#{orgn_pref}
+		,	#{orgn_sub}
+		,	#{orgn_city}
+		,	#{orgn_state}
+		,	#{orgn_ctry}
+		,	#{orgn_street}
+	    )
+	</insert>
+	<insert id="insertPubl" parameterType="com.vinea.dto.PublVO">
+	
+	INSERT
+	    INTO TB_PUBL
+	    (
+			PUBL_UID
+		,	PUBL_ADDR
+		,	PUBL_CITY
+		,	PUBL_STATE
+		,	PUBL_CTRY
+		,	PUBL_DPLY
+		,	PUBL_FULL
+		)
+	VALUES
+	    (
+			#{publ_uid}
+		,	#{publ_addr}
+		,	#{publ_city}
+		,	#{publ_state}
+		,	#{publ_ctry}
+		,	#{publ_dply}
+		,	#{publ_full}
+	    )
+	</insert>
+	<insert id="insertRefr" parameterType="com.vinea.dto.RefrVO">
+	
+	INSERT
+	    INTO TB_REFR
+	    (
+			REFR_RUID
+		,	REFR_UID
+		,	REFR_AUTH
+		,	REFR_YEAR
+		,	REFR_VOL
+		,	REFR_ISSUE
+		,	REFR_TITLE
+		,	REFR_DOI
+		,	REFR_PAGE
+		,	REFR_ORGN	
+	    )
+	    VALUES
+	    (
+			#{refr_ruid}
+		,	#{refr_uid}
+		,	#{refr_auth}
+		,	#{refr_year}
+		,	#{refr_vol}
+		,	#{refr_issue}
+		,	#{refr_title}
+		,	#{refr_doi}
+		,	#{refr_page}
+		,	#{refr_orgn}
+	    )
+	</insert>
+	<insert id="insertSpon" parameterType="com.vinea.dto.SponVO">
+	
+	INSERT
+		INTO TB_SPON
+		(
+			SPON_CONF_CID
+		,	SPON_NAME	
+		)
+		VALUES
+		(
+			#{spon_conf_cid}
+		,	#{spon_name}	
+		)
+	    
+	</insert>
+	
+		
+	
+	
+	
+	<insert id="insertAVO" parameterType="com.vinea.dto.ArtiVO">
+	
+	INSERT 
+		INTO TB_ARTI
+		(
+			 ARTI_NO
+			,ARTI_UID
+			,ARTI_TITLE
+			,ARTI_SOURCE_TITLE
+			,ARTI_YEAR
+			,ARTI_DATE
+			,ARTI_VOL
+			,ARTI_ISSUE
+			,ARTI_SUP
+			,ARTI_DOI
+			,ARTI_AB
+			,ARTI_ISSN
+			,ARTI_EISSN
+			,ARTI_CITE_CNT
+			,ARTI_PAGE_CNT
+			,ARTI_BP
+			,ARTI_EP
+			,ARTI_OA 
+		)
+		VALUES
+		(
+		     #{arti_no}
+		    ,#{arti_uid}
+		    ,#{arti_title}
+		    ,#{arti_source_title}
+		    ,#{arti_year}
+		    ,#{arti_date}
+		    ,#{arti_vol}
+		    ,#{arti_issue}
+		    ,#{arti_sup}
+		    ,#{arti_doi}
+		    ,#{arti_ab}
+		    ,#{arti_issn}
+		    ,#{arti_eissn}
+		    ,#{arti_cite_cnt}
+		    ,#{arti_page_cnt}
+		    ,#{arti_bp}
+		    ,#{arti_ep}
+		    ,#{arti_oa}		
+		)		
+
+	</insert>
+	
+	<insert id="insertXmlFile" parameterType="com.vinea.dto.XmlFileVO">
+	
+	INSERT
+		INTO TB_XML_FILE
+		(
+			 UID
+			,CONTENT
+			,REGIST_DATE
+			,FILE_NAME
+		)
+		VALUES
+		(
+			 #{uid}
+			,#{content}
+			,NOW()
+			,#{file_name}
+		)
+		
+	</insert>
+	
+	
+	
+	
+	<select id="selectXmlList" parameterType="hashmap" resultMap="artiMap">
+	<!--  xmlMapper.xml - selectXmlList : 홈에서 사용 해당 페이지 xmllist 반환 -->
+	
+		SELECT
+			
+			ARTI_ID
+			,ARTI_UID
+			,ARTI_TITLE
+			,ARTI_DATE
+			,ARTI_SOURCE_TITLE
+			,ARTI_VOL
+			,ARTI_ISSUE
+			,ARTI_YEAR
+			,ARTI_BP
+			,ARTI_EP
+			,ARTI_PAGE_CNT
+			
+			
+		FROM
+			TB_ARTI
+			
+		ORDER BY
+			ARTI_ID
+		ASC 
+		<!--  DESC -->
+		LIMIT
+			#{startIndex}
+		,	#{pageSize}
+		
+		
+	</select>
+	
+	<select id="countXml" resultType="java.lang.Integer">
+	
+		SELECT
+			COUNT(ARTI_ID)
+		FROM
+			TB_ARTI
+		
+			
+	
+	</select>
+	
+	<!-- 키워드 -->
+	<select id ="selectKwrdList" parameterType="java.lang.String" resultMap="kwrdMap">
+	
+	
+		SELECT DISTINCT
+			KWRD_NAME
+		FROM
+			TB_KWRD		
+		WHERE
+			KWRD_UID = #{uid}
+			
+	</select>
+	
+	
+	<!-- 참고문헌 -->
+	<select id ="selectRefrList" parameterType="java.lang.String" resultMap="refrMap">
+	
+	
+		SELECT DISTINCT
+			REFR_AUTH
+			,REFR_TITLE
+			,REFR_YEAR
+			,REFR_VOL
+			,REFR_ISSUE
+			,REFR_DOI
+			,REFR_PAGE
+			,REFR_ORGN
+		FROM
+			TB_REFR
+			
+		WHERE
+			REFR_UID = #{uid}
+		ORDER BY
+			REFR_ID
+		ASC
+			
+	</select>	
+	
+	
+	<!-- 저자 -->
+	<select id ="selectAuthList" parameterType="java.lang.String" resultMap="authMap">
+	
+	
+		SELECT DISTINCT
+			 AUTH_FULL 
+			,AUTH_LEAD
+			,AUTH_REPR
+		FROM
+			TB_AUTH
+			
+		WHERE
+			AUTH_UID = #{uid}
+		ORDER BY
+			AUTH_SEQ
+		ASC
+		
+	</select>	
+	
+	<!-- 기관 -->
+   <select id ="selectOrgnList" parameterType="java.lang.String" resultMap="orgnMap">
+   
+   
+      SELECT DISTINCT
+          ORGN_ADDR_NO 
+         ,ORGN_NAME
+      FROM
+         TB_ORGN         
+      WHERE
+         ORGN_UID = #{uid}   
+   </select>   
+   
+   <!-- 발행 기관 -->
+   <select id ="selectPublList" parameterType="java.lang.String" resultMap="publMap">
+   
+   
+      SELECT DISTINCT
+          PUBL_DPLY 
+         ,PUBL_FULL
+         ,PUBL_ADDR
+      FROM
+         TB_PUBL         
+      WHERE
+         PUBL_UID = #{uid}   
+   </select>   
+   
+	
+	
+	<select id="selectOneXml" parameterType="java.lang.Integer" resultMap="artiMap">
+		
+		SELECT
+		
+			 ARTI_UID
+			,ARTI_TITLE
+			,ARTI_SOURCE_TITLE
+			,ARTI_VOL
+			,ARTI_ISSUE
+			,ARTI_YEAR
+			,ARTI_BP
+			,ARTI_EP
+			,ARTI_DOI
+			,ARTI_PAGE_CNT
+		    ,ARTI_AB
+		    ,ARTI_CITE_CNT
+		    ,ARTI_CTGR_NAME
+		    ,ARTI_CTGR_SUBH
+		    ,ARTI_CTGR_SUBJ
+	
+		FROM
+			TB_ARTI
+		
+		WHERE
+			ARTI_ID = #{arti_id}
+		
+		
+	
+	</select>
+	
+
+</mapper>
