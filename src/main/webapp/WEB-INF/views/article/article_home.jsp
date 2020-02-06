@@ -57,7 +57,7 @@
 
 			var filePath = $("#filePath").val();
 
-			//console.log(m_chk);
+			console.log(m_chk);
 
 			if (!m_chk) {
 
