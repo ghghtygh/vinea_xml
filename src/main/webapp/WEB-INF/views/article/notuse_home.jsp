@@ -255,7 +255,7 @@ a {
 
 																	${ArtiVO.jrnl_title} |
 																	<c:if test="${ArtiVO.issue != ''}">
-																	 ${ArtiVO.arti_vol}(${ArtiVO.issue}) 
+																	 ${ArtiVO.volume}(${ArtiVO.issue}) 
 																	</c:if>
 
 																	<c:if test="${ArtiVO.issue == ''}">

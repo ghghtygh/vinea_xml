@@ -165,8 +165,8 @@
                      </c:forEach>
                      <br>
                      <c:forEach var="orgn" items="${ArtiVO.list_orgn}" varStatus="o">
-                            ${orgn.orgn_full_nm}
-                            <c:if test="${o.count != fn:length(ArtiVO.list_orgn)}">/</c:if>
+                            ${orgn.orgn_nm}
+                            <c:if test="${(o.count != fn:length(ArtiVO.list_orgn))and fn:length(ArtiVO.list_orgn)!=0}">/</c:if>
                      </c:forEach>
                   </p>
                   <hr style="border-bottom: 0.5px dotted #b4b4b4">

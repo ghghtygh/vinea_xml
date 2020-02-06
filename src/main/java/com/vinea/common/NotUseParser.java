@@ -18,17 +18,17 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.vinea.notuseDto.AuthVO;
-import com.vinea.notuseDto.ArtiVO;
-import com.vinea.notuseDto.DtypeVO;
-import com.vinea.notuseDto.BooknoteVO;
-import com.vinea.notuseDto.GrntVO;
-import com.vinea.notuseDto.XmlFileVO;
-import com.vinea.notuseDto.PublVO;
-import com.vinea.notuseDto.RefrVO;
-import com.vinea.notuseDto.OrgnVO;
-import com.vinea.notuseDto.ConfVO;
-import com.vinea.notuseDto.KwrdVO;
+import com.vinea.dto.ArtiVO;
+import com.vinea.dto.AuthVO;
+import com.vinea.dto.BooknoteVO;
+import com.vinea.dto.ConfVO;
+import com.vinea.dto.DtypeVO;
+import com.vinea.dto.GrntVO;
+import com.vinea.dto.KwrdVO;
+import com.vinea.dto.OrgnVO;
+import com.vinea.dto.PublVO;
+import com.vinea.dto.RefrVO;
+import com.vinea.dto.XmlFileVO;
 
 
 public class NotUseParser {

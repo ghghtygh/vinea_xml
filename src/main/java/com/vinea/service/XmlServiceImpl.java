@@ -18,16 +18,13 @@ import com.vinea.dao.XmlDAO;
 import com.vinea.dto.ArtiVO;
 import com.vinea.dto.AuthVO;
 import com.vinea.dto.BooknoteVO;
-import com.vinea.dto.CoauthVO;
 import com.vinea.dto.ConfVO;
 import com.vinea.dto.DtypeVO;
 import com.vinea.dto.GrntVO;
 import com.vinea.dto.KwrdVO;
-import com.vinea.dto.KwrdplusVO;
 import com.vinea.dto.OrgnVO;
 import com.vinea.dto.PublVO;
 import com.vinea.dto.RefrVO;
-import com.vinea.dto.SponVO;
 import com.vinea.dto.XmlFileVO;
 
 @Service
@@ -62,37 +59,17 @@ public class XmlServiceImpl implements XmlService{
 		
 		for (ArtiVO vo : list_artiVO){
 			
-			vo.setList_auth(dao.selectAuthList(vo.getArti_uid()));
+			vo.setList_auth(dao.selectAuthList(vo.getUid()));
 		}
 		
 		return list_artiVO;
 	}
 	
-	/** 논문 상세보기  **/
+	/** 논문 상세보기
 	@Override
 	public ArtiVO article_detail(int arti_id) throws Exception{
 		
 		ArtiVO vo = dao.selectOneXml(arti_id);
-		
-		/* 키워드 정보 */
-		vo.setList_kwrd(dao.selectKwrdList(vo.getArti_uid()));		
-		/* 저자 정보 */
-		vo.setList_auth(dao.selectAuthList(vo.getArti_uid()));		
-		/* 참고문헌 정보 */
-		vo.setList_refr(dao.selectRefrList(vo.getArti_uid()));		
-		/* 저자 연구기관 정보 */
-	    vo.setList_orgn(dao.selectOrgnList(vo.getArti_uid()));	    
-	    /* 발행기관 정보 */
-	    vo.setList_publ(dao.selectPublList(vo.getArti_uid()));
-		
-		return vo;
-	}
-	
-	/** 논문 상세보기  
-	@Override
-	public ArtiVO article_detail(String arti_no) throws Exception{
-		
-		ArtiVO vo = dao.selectOneXml(arti_no);
 		
 		/* 키워드 정보 
 		vo.setList_kwrd(dao.selectKwrdList(vo.getArti_uid()));		
@@ -106,7 +83,27 @@ public class XmlServiceImpl implements XmlService{
 	    vo.setList_publ(dao.selectPublList(vo.getArti_uid()));
 		
 		return vo;
-	}**/
+	}  **/
+	
+	/** 논문 상세보기  **/
+	@Override
+	public ArtiVO article_detail(String arti_no) throws Exception{
+		
+		ArtiVO vo = dao.selectOneXml(arti_no);
+		
+		/* 키워드 정보  */
+		vo.setList_kwrd(dao.selectKwrdList(vo.getUid()));		
+		/* 저자 정보  */
+		vo.setList_auth(dao.selectAuthList(vo.getUid()));		
+		/* 참고문헌 정보  */
+		vo.setList_refr(dao.selectRefrList(vo.getUid()));		
+		/* 저자 연구기관 정보  */
+	    vo.setList_orgn(dao.selectOrgnList(vo.getUid()));	    
+	    /* 발행기관 정보 */
+	    vo.setList_publ(dao.selectPublList(vo.getUid()));
+		
+		return vo;
+	}
 	
 	/** 파싱된 논문 데이터 DB에 저장 **/
 	@Override
@@ -217,12 +214,30 @@ public class XmlServiceImpl implements XmlService{
 		}
 		
 	}
+	@Override
+	public void Test() throws Exception{
+		
+		List<String> list = new ArrayList<String>();
+		
+		//list.add("C:\\Users\\vinea\\iCloudDrive\\2017_CORE\\WR_2017_20180509131811_CORE_0001.xml");
+		//list.add("C:\\Users\\vinea\\iCloudDrive\\2017_CORE\\WR_2017_20180509131811_CORE_0002.xml");
+		
+		list.add("C:\\Users\\vinea\\iCloudDrive\\2017_CORE\\WR_2017_20180509131811_CORE_0003.xml");
+		list.add("C:\\Users\\vinea\\iCloudDrive\\2017_CORE\\WR_2017_20180509131811_CORE_0004.xml");
+		list.add("C:\\Users\\vinea\\iCloudDrive\\2017_CORE\\WR_2017_20180509131811_CORE_0005.xml");
+		
+		for(String str : list){
+			
+			articleTest(str);
+		}
+	}
 	
 	/** 원본 데이터 파싱 테스트 **/	
 	@Override
 	public void articleTest(String filePath) throws Exception{
 		
-		filePath = "C:\\Users\\vinea\\iCloudDrive\\2017_CORE\\WR_2017_20180509131811_CORE_0001.xml";
+		//filePath = "C:\\Users\\vinea\\iCloudDrive\\2017_CORE\\WR_2017_20180509131811_CORE_0001.xml";
+		
 		//filePath = "D:\\2017_CORE\\WR_2017_20180509131811_CORE_0001.xml";
 		
 		/* 파일 이름 세팅 */
@@ -240,6 +255,9 @@ public class XmlServiceImpl implements XmlService{
 			
 			fr = new FileReader(filePath);
 			br = new BufferedReader(fr);
+			
+			/* uid 태그 문자열 자르기 위한 Index */
+			int beginIndex = 0;
 			
 			/* 라인 수*/
 			int lineCnt = 0;
@@ -268,31 +286,11 @@ public class XmlServiceImpl implements XmlService{
 			long start = date.getTime();
 			
 			/* 원본 데이터 VO 객체에 저장 */
-			XmlFileVO vo = null;
+			XmlFileVO vo = new XmlFileVO();
 			
 			while((str=br.readLine())!=null){
 				
-				/* REC 태그 종료*/
-				if(str.contains("</REC>")){
-					recCnt++;
-					
-					recStr+=str;
-					
-					vo.setContent(recStr);
-					vo.setFile_name(fileName);
-					
-					/* VO객체에 저장되었는지 확인*/
-					logger.info(vo.toStringMultiline());
-					
-					/* VO객체 DB에 저장 */
-					dao.insertXmlFile(vo);
-					
-					recStr = "";
-					m_rec = false;
-					vo = null;
-					
-					//break;
-				}
+				
 				
 				/* REC 태그 시작*/
 				if(str.contains("<REC r_id_")){
@@ -307,13 +305,18 @@ public class XmlServiceImpl implements XmlService{
 					recStr+=str;
 					
 					/* UID 세팅 */
-					//if(str.contains("</UID>")){
-					if(recLineCnt==2){	
-						int beginIndex = str.indexOf("WOS");
+					//if(str.contains("<UID>")){
+					if(recLineCnt==2){
+						
+						beginIndex = str.indexOf("WOS");
 						
 						uidStr = str.substring(beginIndex, (str.substring(beginIndex).indexOf("</UID>")+beginIndex));
 						
 						vo.setUid(uidStr);
+						
+						/* UID 확인*/
+						//logger.info("<UID> : "+vo.getUid());
+						
 					}
 					
 					/*REC 태그 종료*/
@@ -324,7 +327,7 @@ public class XmlServiceImpl implements XmlService{
 						vo.setFile_name(fileName);
 						
 						/* VO 확인*/
-						//logger.info(vo.toStringMultiline());
+						//logger.info(vo.getUid());
 						
 						/* VO 데이터베이스에 저장 */
 						dao.insertXmlFile(vo);

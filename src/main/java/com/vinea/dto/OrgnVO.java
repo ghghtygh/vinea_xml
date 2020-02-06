@@ -1,23 +1,49 @@
 package com.vinea.dto;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+/** 저자 연구기관정보_VO 객체  **/
 public class OrgnVO {
 
-	private int orgn_id;
+	//저자 연구기관 테이블 기본키
+	private int auth_orgn_pk;
+	//논문 UID
+	private String uid;
+	//기관 주소
 	private String orgn_addr_no;
-	private String orgn_uid;
-	private String orgn_full;
-	private String orgn_name;
-	private String orgn_pref;
-	private String orgn_sub;
-	private String orgn_city;
-	private String orgn_state;
-	private String orgn_ctry;
-	private String orgn_street;
-	public int getOrgn_id() {
-		return orgn_id;
+	//기관 풀네임
+	private String orgn_full_nm;
+	//기관명
+	private String orgn_nm;
+	//세부 기관명
+	private String orgn_pref_nm;
+	//소속 기관명
+	private String orgn_sub_nm;
+	//연구기관 주소정보_도시명
+	private String city;
+	//연구기관 주소정보_주
+	private String state;
+	//연구기관 주소정보_국가명
+	private String country;
+	//연구기관 주소정보_도로명 주소
+	private String street;
+	
+	/* getter/setter 작성 */	
+	public int getAuth_orgn_pk() {
+		return auth_orgn_pk;
 	}
-	public void setOrgn_id(int orgn_id) {
-		this.orgn_id = orgn_id;
+	
+	public void setAuth_orgn_pk(int auth_orgn_pk) {
+		this.auth_orgn_pk = auth_orgn_pk;
+	}
+
+	public String getUid() {
+		return uid;
+	}
+	
+	public void setUid(String uid) {
+		this.uid = uid;
 	}
 	public String getOrgn_addr_no() {
 		return orgn_addr_no;
@@ -25,61 +51,61 @@ public class OrgnVO {
 	public void setOrgn_addr_no(String orgn_addr_no) {
 		this.orgn_addr_no = orgn_addr_no;
 	}
-	public String getOrgn_uid() {
-		return orgn_uid;
+	
+	public String getOrgn_nm() {
+		return orgn_nm;
 	}
-	public void setOrgn_uid(String orgn_uid) {
-		this.orgn_uid = orgn_uid;
+
+	public void setOrgn_nm(String orgn_nm) {
+		this.orgn_nm = orgn_nm;
 	}
-	public String getOrgn_full() {
-		return orgn_full;
+
+	public String getOrgn_full_nm() {
+		return orgn_full_nm;
 	}
-	public void setOrgn_full(String orgn_full) {
-		this.orgn_full = orgn_full;
+	public void setOrgn_full_nm(String orgn_full_nm) {
+		this.orgn_full_nm = orgn_full_nm;
 	}
-	public String getOrgn_name() {
-		return orgn_name;
+	public String getOrgn_pref_nm() {
+		return orgn_pref_nm;
 	}
-	public void setOrgn_name(String orgn_name) {
-		this.orgn_name = orgn_name;
+	public void setOrgn_pref_nm(String orgn_pref_nm) {
+		this.orgn_pref_nm = orgn_pref_nm;
 	}
-	public String getOrgn_pref() {
-		return orgn_pref;
+	public String getOrgn_sub_nm() {
+		return orgn_sub_nm;
 	}
-	public void setOrgn_pref(String orgn_pref) {
-		this.orgn_pref = orgn_pref;
+	public void setOrgn_sub_nm(String orgn_sub_nm) {
+		this.orgn_sub_nm = orgn_sub_nm;
 	}
-	public String getOrgn_sub() {
-		return orgn_sub;
+	public String getCity() {
+		return city;
 	}
-	public void setOrgn_sub(String orgn_sub) {
-		this.orgn_sub = orgn_sub;
+	public void setCity(String city) {
+		this.city = city;
 	}
-	public String getOrgn_city() {
-		return orgn_city;
+	public String getState() {
+		return state;
 	}
-	public void setOrgn_city(String orgn_city) {
-		this.orgn_city = orgn_city;
+	public void setState(String state) {
+		this.state = state;
 	}
-	public String getOrgn_state() {
-		return orgn_state;
+	public String getCountry() {
+		return country;
 	}
-	public void setOrgn_state(String orgn_state) {
-		this.orgn_state = orgn_state;
+	public void setCountry(String country) {
+		this.country = country;
 	}
-	public String getOrgn_ctry() {
-		return orgn_ctry;
+	public String getStreet() {
+		return street;
 	}
-	public void setOrgn_ctry(String orgn_ctry) {
-		this.orgn_ctry = orgn_ctry;
-	}
-	public String getOrgn_street() {
-		return orgn_street;
-	}
-	public void setOrgn_street(String orgn_street) {
-		this.orgn_street = orgn_street;
+	public void setStreet(String street) {
+		this.street = street;
 	}
 	
-
+	/* VO객체에 담긴 데이터들을  로그로 확인할 때 사용 */	
+	public String toStringMultiline() {
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+	}	
 	
 }

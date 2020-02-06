@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.vinea.dto.ArtiVO;
+import com.vinea.dto.OrgnVO;
 import com.vinea.service.XmlService;
 import com.vinea.service.PostPager;
 
@@ -52,23 +53,28 @@ public class ArtiController {
 		model.addAttribute("pager", pager);
 		model.addAttribute("cnt", xmlCount);
 		
-		return "article/article_home";
+		//return "article/article_home";
+		return "article/notuse_home";
 	}
 	
 	/** 파싱된 XML(논문) 내용 상세보기 **/
-	@RequestMapping(value="/article/article_detail", method=RequestMethod.GET)
+	/*@RequestMapping(value="/article/article_detail", method=RequestMethod.GET)
 	public void article_detail(@RequestParam("arti_id")int arti_id, Model model) throws Exception{
 				
 		model.addAttribute("ArtiVO",service.article_detail(arti_id));
-	} 
+	} */
 	
-	/** 파싱된 XML(논문) 내용 상세보기 
+	/** 파싱된 XML(논문) 내용 상세보기 **/
 	@RequestMapping(value="/article/article_detail", method=RequestMethod.GET)
-	public void article_detail(@RequestParam("arti_no")String arti_no, Model model) throws Exception{
+	public String article_detail(@RequestParam("arti_no")String arti_no, Model model) throws Exception{
 		
 		
-		model.addAttribute("ArtiVO",service.article_detail(arti_no));
-	} **/
+		
+		model.addAttribute("ArtiVO", service.article_detail(arti_no));
+		
+		return "article/notuse_detail";
+		
+	} 
 	
 	
 	/** 메인 페이지(article_home.jsp)에서 Ajax파싱 부분 불러오기 **/
@@ -95,7 +101,8 @@ public class ArtiController {
 	public void articleTest() throws Exception{
 		
 		String filePath = "";
-		service.articleTest(filePath);
+		//service.articleTest(filePath);
+		service.Test();
 	}
 	
 

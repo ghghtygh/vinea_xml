@@ -1,676 +1,625 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.vinea.mapper.xmlMapper">
  
-<mapper namespace="com.vinea.mapper.xmlMapper">
+ 	<resultMap id="artiMap" type="com.vinea.dto.ArtiVO">
+ 	<!-- xmlMapper.xml -> resultMap(id:artiMap) 논문정보 테이블의 컬럼 -->	
+ 	
+			<result property="uid"					column="UID"/>
+			<result property="arti_no"				column="ARTI_NO"/>
+			<result property="arti_title"    		column="ARTI_TITLE"/>
+			<result property="pub_year"    			column="PUB_YEAR"/>   	
+			<result property="pub_date"    			column="PUB_DATE"/>    	
+			<result property="volume"    			column="VOLUME"/>    	
+			<result property="issue"    			column="ISSUE"/>    	
+			<result property="doi"    				column="DOI"/>    		
+			<result property="abstr"    			column="ABSTR"/>    	
+			<result property="issn"    				column="ISSN"/>   		
+			<result property="eissn"    			column="EISSN"/>    	
+			<result property="cite_cnt"    			column="CITE_CNT"/>    	
+			<result property="jrnl_title"    		column="JRNL_TITLE"/>    
+			<result property="sup_cnt"    			column="SUP_CNT"/>    	
+			<result property="page_cnt"    			column="PAGE_CNT"/>    	
+			<result property="begin_page"    		column="BEGIN_PAGE"/>    
+			<result property="end_page"    			column="END_PAGE"/>   	
+			<result property="open_yn"    			column="OPEN_YN"/>    	
+			<result property="item_id"    			column="ITEM_ID"/>    	
+			<result property="item_avail_yn"    	column="ITEM_AVAIL_YN"/>   
+			<result property="item_type"    		column="ITEM_TYPE"/>    
+			<result property="item_page_cnt"    	column="ITEM_PAGE_CNT"/>   
+			<result property="book_page_cnt"    	column="BOOK_PAGE_CNT"/>   
+			<result property="book_bind_yn"    		column="BOOK_BIND_YN"/> 
+			<result property="book_publ"    		column="BOOK_PUBL"/>   	
+			<result property="book_prepay"    		column="BOOK_PREPAY"/>  
+			<result property="ctgry_nm"     		column="CTGRY_NM"/>     
+			<result property="ctgry_sub_title"    	column="CTGRY_SUB_TITLE"/> 
+			<result property="ctgry_subject"    	column="CTGRY_SUBJECT"/>   
+			<result property="del_yn"    			column="DEL_YN"/>    	
+			<result property="regist_date"    		column="REGIST_DATE"/>    
+			<result property="registr_id"    		column="REGISTR_ID"/>    
+			<result property="modify_date"    		column="MODIFY_DATE"/>    
+			<result property="modify_id"    		column="MODIFY_ID"/>    				
+	</resultMap>   
 
-	<resultMap id="artiMap" type="com.vinea.dto.ArtiVO">
-
-		<result property="arti_id"				column="ARTI_ID"/>
-		<result property="arti_no"				column="ARTI_NO"/>
-		<result property="arti_uid"     		column="ARTI_UID"/>
-		<result property="arti_title"   		column="ARTI_TITLE"/>
-		<result property="arti_source_title"    column="ARTI_SOURCE_TITLE"/>
-		<result property="arti_year"   		    column="ARTI_YEAR"/>
-		<result property="arti_date"   			column="ARTI_DATE"/>
-		<result property="arti_vol"   			column="ARTI_VOL"/>
-		<result property="arti_issue"   		column="ARTI_ISSUE"/>
-		<result property="arti_sup"   			column="ARTI_SUP"/>		
-		<result property="arti_doi"   			column="ARTI_DOI"/>
-		<result property="arti_ab"   			column="ARTI_AB"/>
-		<result property="arti_issn"   			column="ARTI_ISSN"/>
-		<result property="arti_eissn"   		column="ARTI_EISSN"/>
-		<result property="arti_cite_cnt"   		column="ARTI_CITE_CNT"/>
-		<result property="arti_page_cnt"   		column="ARTI_PAGE_CNT"/>
-		<result property="arti_bp"   			column="ARTI_BP"/>
-		<result property="arti_ep"   			column="ARTI_EP"/>
-		<result property="arti_oa"   			column="ARTI_OA"/>
-		<result property="arti_item_id"   		column="ARTI_ITEM_ID"/>
-		<result property="arti_item_avail"   	column="ARTI_ITEM_AVAIL"/>
-		<result property="arti_item_type"   	column="ARTI_ITEM_TYPE"/>
-		<result property="arti_item_page"   	column="ARTI_ITEM_PAGE"/>
-		<result property="arti_book_page"   	column="ARTI_BOOK_PAGE"/>
-		<result property="arti_book_bind"   	column="ARTI_BOOK_BIND"/>
-		<result property="arti_book_publ"   	column="ARTI_BOOK_PUBL"/>
-		<result property="arti_book_prepay"   	column="ARTI_BOOK_PREPAY"/>
-		<result property="arti_ctgr_name"   	column="ARTI_CTGR_NAME"/>
-		<result property="arti_ctgr_subh"   	column="ARTI_CTGR_SUBH"/>
-		<result property="arti_ctgr_subj"   	column="ARTI_CTGR_SUBJ"/>
-		
-		
-	</resultMap>
-	
-	
-	
 	<resultMap id="authMap" type="com.vinea.dto.AuthVO">
+	<!-- xmlMapper.xml -> resultMap(id:authMap) 저자정보 테이블의 컬럼 -->	
 	
-		<result property="auth_id"				column="AUTH_ID"/>
-		<result property="auth_dais"			column="AUTH_DAIS"/>
-		<result property="auth_addr_no"			column="AUTH_ADDR_NO"/>
-		<result property="auth_uid"   			column="AUTH_UID"/>
-		<result property="auth_dply"   			column="AUTH_DPLY"/>
-		<result property="auth_full"  		 	column="AUTH_FULL"/>
-		<result property="auth_wos"   			column="AUTH_WOS"/>
-		<result property="auth_first"  		 	column="AUTH_FIRST"/>
-		<result property="auth_last"   			column="AUTH_LAST"/>
-		<result property="auth_role"  		 	column="AUTH_ROLE"/>
-		<result property="auth_lead"  		 	column="AUTH_LEAD"/>
-		<result property="auth_repr"  		 	column="AUTH_REPR"/>
-		<result property="auth_email" 		  	column="AUTH_EMAIL"/>
-		<result property="auth_seq"   			column="AUTH_SEQ"/>
-		
-	</resultMap>
+			<result property="auth_pk"				column="AUTH_PK"/>
+			<result property="auth_id"				column="AUTH_ID"/>
+			<result property="auth_seq"				column="AUTH_SEQ_NO"/>
+			<result property="auth_addr_no"   		column="AUTH_ADDR_NO"/>
+			<result property="uid"   				column="UID"/>
+			<result property="auth_nm"  		 	column="AUTH_NM"/>
+			<result property="auth_full_nm"   		column="AUTH_FULL_NM"/>
+			<result property="auth_wos_nm"  		column="AUTH_WOS_NM"/>
+			<result property="auth_role"   			column="AUTH_ROLE"/>
+			<result property="lead_yn"  		 	column="LEAD_YN"/>
+			<result property="corres_yn"  		 	column="CORRES_YN"/>
+			<result property="auth_email_addr"  	column="AUTH_EMAIL_ADDR"/>
+			<result property="orcid_id" 		  	column="ORCID_ID"/>
+			<result property="auth_rid"   			column="AUTH_RID"/>		
+	</resultMap> 
 	
 	<resultMap id="booknoteMap" type="com.vinea.dto.BooknoteVO">
+	<!-- xmlMapper.xml -> resultMap(id:booknoteMap) 도서기록정보 테이블의 컬럼 -->	
 	
-		<result property="note_id"				column="NOTE_ID"/>
-		<result property="note_uid"				column="NOTE_UID"/>
-		<result property="note_name"			column="NOTE_NAME"/>
-		
-	</resultMap>
-	
-	<resultMap id="coauthMap" type="com.vinea.dto.CoauthVO">
-	
-		<result property="coauth_id"			column="COAUTH_ID"/>
-		<result property="coauth_orcid"			column="COAUTH_ORCID"/>
-		<result property="coauth_uid"			column="COAUTH_UID"/>
-		<result property="coauth_role"			column="COAUTH_ROLE"/>
-		<result property="coauth_rid"			column="COAUTH_RID"/>
-		<result property="coauth_dply"			column="COAUTH_DPLY"/>
-		<result property="coauth_full"			column="COAUTH_FULL"/>
-		<result property="coauth_first"			column="COAUTH_FIRST"/>
-		<result property="coauth_last"			column="COAUTH_LAST"/>
-		<result property="coauth_seq"			column="COAUTH_SEQ"/>
-		
+		<result property="book_note_pk"				column="BOOK_NOTE_PK"/>
+		<result property="uid"						column="UID"/>
+		<result property="note_nm"					column="NOTE_NM"/>		
 	</resultMap>
 	
 	<resultMap id="confMap" type="com.vinea.dto.ConfVO">
+	<!-- xmlMapper.xml -> resultMap(id:confMap) 학회정보 테이블의 컬럼 -->	
 	
-		<result property="conf_id"				column="CONF_ID"/>
-		<result property="conf_cid"				column="CONF_CID"/>
-		<result property="conf_uid"				column="CONF_UID"/>
-		<result property="conf_title"			column="CONF_TITLE"/>
-		<result property="conf_date"			column="CONF_DATE"/>
-		<result property="conf_start"			column="CONF_START"/>
-		<result property="conf_end"				column="CONF_END"/>
-		<result property="conf_city"			column="CONF_CITY"/>
-		<result property="conf_state"			column="CONF_STATE"/>
-		<result property="conf_ctry"			column="CONF_CTRY"/>
-		
+		<result property="conf_pk"					column="CONF_PK"/>
+		<result property="conf_id"					column="CONF_ID"/>
+		<result property="uid"						column="UID"/>
+		<result property="conf_title"				column="CONF_TITLE"/>
+		<result property="conf_date"				column="CONF_DATE"/>
+		<result property="start_date"				column="START_DATE"/>
+		<result property="end_date"					column="END_DAT"/>
+		<result property="city"						column="CITY"/>
+		<result property="state"					column="STATE"/>
+		<result property="country"					column="COUNTRY"/>
+		<result property="spon_nm"					column="SPON_NM"/>
 	</resultMap>
 	
 	<resultMap id="dtypeMap" type="com.vinea.dto.DtypeVO">
+	<!-- xmlMapper.xml -> resultMap(id:dtypeMap) 문서유형정보 테이블의 컬럼 -->	
 	
-		<result property="dtype_id"				column="DTYPE_ID"/>
-		<result property="dtype_uid"			column="DTYPE_UID"/>
-		<result property="dtype_name"			column="DTYPE_NAME"/>
-		
+		<result property="dtype_pk"					column="DTYPE_PK"/>
+		<result property="uid"						column="UID"/>
+		<result property="dtype_nm"					column="DTYPE_NM"/>	
 	</resultMap>
 	
 	<resultMap id="grntMap" type="com.vinea.dto.GrntVO">
+	<!-- xmlMapper.xml -> resultMap(id:grntMap) 보조금 정보 테이블의 컬럼 -->	
 	
-		<result property="grnt_id"				column="GRNT_ID"/>
+		<result property="grnt_pk"				column="GRNT_PK"/>
+		<result property="uid"					column="UID"/>
 		<result property="grnt_gid"				column="GRNT_GID"/>
-		<result property="grnt_uid"				column="GRNT_UID"/>
 		<result property="grnt_text"			column="GRNT_TEXT"/>
-		<result property="grnt_agcy"			column="GRNT_AGCY"/>
-		
+		<result property="grnt_agcy"			column="GRNT_AGCY"/>		
 	</resultMap>
 	
 	<resultMap id="kwrdMap" type="com.vinea.dto.KwrdVO">
+	<!-- xmlMapper.xml -> resultMap(id:kwrdMap) 키워드 정보 테이블의 컬럼 -->	
 	
-		<result property="kwrd_id"				column="KWRD_ID"/>
-		<result property="kwrd_uid"				column="KWRD_UID"/>
-		<result property="kwrd_name"			column="KWRD_NAME"/>
-		
+		<result property="arti_kwrd_pk"			column="ARTI_KWRD_PK"/>	
+		<result property="uid"					column="UID"/>
+		<result property="kwrd_nm"				column="KWRD_NM"/>
+		<result property="kw_plus_yn"			column="KW_PLUS_YN"/>
 	</resultMap>
 	
-	<resultMap id="kwrdpMap" type="com.vinea.dto.KwrdplusVO">
+	<resultMap id="authOrgnMap" type="com.vinea.dto.OrgnVO">
+	<!-- xmlMapper.xml -> resultMap(id:authOrgnMap) 저자 기관정보 테이블의 컬럼 -->	
 	
-		<result property="kwrdp_id"				column="KWRDP_ID"/>
-		<result property="kwrdp_uid"			column="KWRDP_UID"/>
-		<result property="kwrdp_name"			column="KWRDP_NAME"/>
-		
-	</resultMap>
-	
-	<resultMap id="orgnMap" type="com.vinea.dto.OrgnVO">
-	
-		<result property="orgn_id"				column="ORGN_ID"/>
+		<result property="auth_orgn_pk"			column="AUTH_ORGN_PK"/>
+		<result property="uid"					column="UID"/>
 		<result property="orgn_addr_no"			column="ORGN_ADDR_NO"/>
-		<result property="orgn_uid"				column="ORGN_UID"/>
-		<result property="orgn_full"			column="ORGN_FULL"/>
-		<result property="orgn_name"			column="ORGN_NAME"/>
-		<result property="orgn_pref"			column="ORGN_PREF"/>
-		<result property="orgn_sub"				column="ORGN_SUB"/>
-		<result property="orgn_city"			column="ORGN_CITY"/>
-		<result property="orgn_state"			column="ORGN_STATE"/>
-		<result property="orgn_ctry"			column="ORGN_CTRY"/>
-		<result property="orgn_street"			column="ORGN_STREET"/>
-		
+		<result property="orgn_full_nm"			column="ORGN_FULL_NM"/>
+		<result property="orgn_nm"			    column="ORGN_NM"/>
+		<result property="orgn_pref_nm"			column="ORGN_PREF_NM"/>
+		<result property="orgn_sub_nm"			column="ORGN_SUB_NM"/>
+		<result property="city"					column="CITY"/>
+		<result property="state"				column="STATE"/>
+		<result property="country"				column="COUNTRY"/>
+		<result property="street"				column="STREET"/>		
 	</resultMap>
 	
 	<resultMap id="publMap" type="com.vinea.dto.PublVO">
+	<!-- xmlMapper.xml -> resultMap(id:publMap) 발행기관 정보 테이블의 컬럼 -->	
 	
-		<result property="publ_id"				column="PUBL_ID"/>
-		<result property="publ_uid"				column="PUBL_UID"/>
+		<result property="publ_pk"				column="PUBL_PK"/>
+		<result property="uid"					column="UID"/>
 		<result property="publ_addr"			column="PUBL_ADDR"/>
-		<result property="publ_city"			column="PUBL_CITY"/>
-		<result property="publ_state"			column="PUBL_STATE"/>
-		<result property="publ_ctry"			column="PUBL_CTRY"/>
-		<result property="publ_dply"			column="PUBL_DPLY"/>
-		<result property="publ_full"			column="PUBL_FULL"/>
+		<result property="publ_full_nm"			column="PUBL_FULL_NM"/>
+		<result property="publ_nm"				column="PUBL_NM"/>
+		<result property="city"					column="CITY"/>
+		<result property="country"				column="COUNTRY"/>
+		<result property="state"				column="STATE"/>		
 	</resultMap>
 	
 	<resultMap id="refrMap" type="com.vinea.dto.RefrVO">
+	<!-- xmlMapper.xml -> resultMap(id:refrMap) 참고문헌 정보 테이블의 컬럼 -->	
 	
 		<result property="refr_id"				column="REFR_ID"/>
-		<result property="refr_ruid"			column="REFR_RUID"/>
 		<result property="refr_uid"				column="REFR_UID"/>
-		<result property="refr_auth"			column="REFR_AUTH"/>
-		<result property="refr_year"			column="REFR_YEAR"/>
-		<result property="refr_vol"				column="REFR_VOL"/>
-		<result property="refr_issue"			column="REFR_ISSUE"/>
-		<result property="refr_title"			column="REFR_TITLE"/>
-		<result property="refr_doi"				column="REFR_DOI"/>
-		<result property="refr_page"			column="REFR_PAGE"/>
-		<result property="refr_orgn"			column="REFR_ORGN"/>
-		
-	</resultMap>
-	
-	<resultMap id="sponMap" type="com.vinea.dto.SponVO">
-	
-		<result property="spon_id"				column="SPON_ID"/>
-		<result property="spon_conf_cid"		column="SPON_CONF_CID"/>
-		<result property="spon_name"			column="SPON_NAME"/>
-		
-	</resultMap>
-	
-	
+		<result property="uid"				    column="UID"/>
+		<result property="author"				column="AUTHOR"/>
+		<result property="pub_year"				column="PUB_YEAR"/>
+		<result property="volume"				column="VOLUME"/>
+		<result property="issue"				column="ISSUE"/>
+		<result property="arti_title"			column="ARTI_TITLE"/>
+		<result property="doi"					column="DOI"/>
+		<result property="page"					column="PAGE"/>
+		<result property="orgn_nm"				column="ORGN_NM"/>
+		<result property="jrnl_title"			column="JRNL_TITLE"/>
+		<result property="del_yn"				column="DEL_YN"/>
+		<result property="regist_date"			column="REGIST_DATE"/>
+		<result property="registr_id"			column="REGISTR_ID"/>
+		<result property="modify_date"			column="MODIFY_DATE"/>	
+		<result property="modify_id"			column="MODIFY_ID"/>		
+	</resultMap>      
 	
 	<insert id="insertArti"   parameterType="com.vinea.dto.ArtiVO">
-	INSERT
-		INTO TB_ARTI
+	<!-- 파싱한 논문정보 DB에 저장 *path: src/main/resources/mappers/xmlMapper.xml *id: insertArti -->
+	
+		INSERT IGNORE
+			INTO TB_ARTI
 		(
-			ARTI_NO
-		,	ARTI_UID
-		,	ARTI_TITLE
-		,	ARTI_SOURCE_TITLE
-		,	ARTI_YEAR
-		,	ARTI_DATE
-		,	ARTI_VOL
-		,	ARTI_ISSUE
-		,	ARTI_SUP		
-		,	ARTI_DOI
-		,	ARTI_AB
-		,	ARTI_ISSN
-		,	ARTI_EISSN
-		,	ARTI_CITE_CNT
-		,	ARTI_PAGE_CNT
-		,	ARTI_BP
-		,	ARTI_EP
-		,	ARTI_OA
-		,	ARTI_ITEM_ID
-		,	ARTI_ITEM_AVAIL
-		,	ARTI_ITEM_TYPE
-		,	ARTI_ITEM_PAGE
-		,	ARTI_BOOK_PAGE
-		,	ARTI_BOOK_BIND
-		,	ARTI_BOOK_PUBL
-		,	ARTI_BOOK_PREPAY
-		,	ARTI_CTGR_NAME
-		,	ARTI_CTGR_SUBH
-		,	ARTI_CTGR_SUBJ
-		)
-		
+			 UID
+			,ARTI_NO
+			,ARTI_TITLE
+			,PUB_YEAR
+			,PUB_DATE
+			,VOLUME
+			,ISSUE
+			,DOI
+			,ABSTR
+			,ISSN
+			,EISSN
+			,CITE_CNT
+			,JRNL_TITLE
+			,SUP_CNT
+			,PAGE_CNT
+			,BEGIN_PAGE
+			,END_PAGE
+			,OPEN_YN
+			,ITEM_ID
+			,ITEM_AVAIL_YN
+			,ITEM_TYPE
+			,ITEM_PAGE_CNT
+			,BOOK_PAGE_CNT
+			,BOOK_BIND_YN
+			,BOOK_PUBL
+			,BOOK_PREPAY
+			,CTGRY_NM
+			,CTGRY_SUB_TITLE
+			,CTGRY_SUBJECT
+			,DEL_YN
+			,REGIST_DATE
+			,REGISTR_ID
+			,MODIFY_DATE
+			,MODIFY_ID
+		)   		
 		VALUES
 		(
-			#{arti_no}			
-		,	#{arti_uid}     	
-		,	#{arti_title}
-		,	#{arti_source_title}
-		,	#{arti_year}
-		,	#{arti_date}  		
-		,	#{arti_vol} 		
-		,	#{arti_issue}   	
-		,	#{arti_sup}		
-		,	#{arti_doi}  		
-		,	#{arti_ab} 		
-		,	#{arti_issn}   		
-		,	#{arti_eissn}   	
-		,	#{arti_cite_cnt}   
-		,	#{arti_page_cnt}   
-		,	#{arti_bp}   		
-		,	#{arti_ep}   		
-		,	#{arti_oa}
-		,	#{arti_item_id}  	
-		,	#{arti_item_avail} 
-		,	#{arti_item_type}  
-		,	#{arti_item_page}  
-		,	#{arti_book_page}  
-		,	#{arti_book_bind} 
-		,	#{arti_book_publ} 
-		,	#{arti_book_prepay}
-		,	#{arti_ctgr_name}
-		,	#{arti_ctgr_subh}
-		,	#{arti_ctgr_subj}
-		)
+			 #{uid}			
+			,#{arti_no}     	
+			,#{arti_title}
+			,#{pub_year}
+			,#{pub_date}
+			,#{volume}  		
+			,#{issue} 		
+			,#{doi}   	
+			,#{abstr}		
+			,#{issn}  		
+			,#{eissn} 		
+			,#{cite_cnt}   		
+			,#{jrnl_title}   	
+			,#{sup_cnt}   
+			,#{page_cnt}   
+			,#{begin_page}   		
+			,#{end_page}   		
+			,#{open_yn}
+			,#{item_id}  	
+			,#{item_avail_yn} 
+			,#{item_type}  
+			,#{item_page_cnt}  
+			,#{book_page_cnt}  
+			,#{book_bind_yn} 
+			,#{book_publ} 
+			,#{book_prepay}
+			,#{ctgry_nm}
+			,#{ctgry_sub_title}
+			,#{ctgry_subject}
+			,#{del_yn}
+			,#{regist_date}
+			,#{registr_id}
+			,#{modify_date}
+			,#{modify_id}
+		)      
 	</insert>
 	
-		<insert id="insertAuth"   parameterType="com.vinea.dto.AuthVO">
-	INSERT
-	    INTO TB_AUTH
+	<insert id="insertAuth"   parameterType="com.vinea.dto.AuthVO">
+	<!-- 파싱한 저자정보 DB에 저장 *path: src/main/resources/mappers/xmlMapper.xml *id: insertAuth -->
+	
+		INSERT IGNORE
+	    	INTO TB_AUTH
 	    (
-	    	AUTH_DAIS
-		,	AUTH_ADDR_NO
-		,	AUTH_UID
-		,	AUTH_DPLY
-		,	AUTH_FULL
-		,	AUTH_WOS
-		,	AUTH_FIRST
-		,	AUTH_LAST
-		,	AUTH_ROLE
-		,	AUTH_LEAD
-		,	AUTH_REPR
-		,	AUTH_EMAIL
-		,	AUTH_SEQ
-		)
-		
+	    	 AUTH_PK
+			,AUTH_ID
+			,AUTH_SEQ
+			,AUTH_ADDR_NO
+			,UID
+			,AUTH_NM
+			,AUTH_FULL_NM
+			,AUTH_WOS_NM
+			,AUTH_ROLE
+			,LEAD_YN
+			,CORRES_YN
+			,AUTH_EMAIL_ADDR
+			,ORCID_ID
+			,AUTH_RID
+		) 		
 	    VALUES
 	    (
-			#{auth_dais}
-		,	#{a	uth_addr_no}
-		,	#{auth_uid}    
-		,	#{auth_dply}  
-		,	#{auth_full}   
-		,	#{auth_wos} 
-		,	#{auth_first}  
-		,	#{auth_last}   
-		,	#{auth_role}   
-		,	#{auth_lead}   
-		,	#{auth_repr} 
-		,	#{auth_email} 
-		,	#{auth_seq}
-	    )
+			 #{auth_pk}
+			,#{auth_id}
+			,#{auth_seq}    
+			,#{auth_addr_no}  
+			,#{uid}   
+			,#{auth_nm} 
+			,#{auth_full_nm}  
+			,#{auth_wos_nm}   
+			,#{auth_role}   
+			,#{lead_yn}   
+			,#{corres_yn} 
+			,#{auth_email_addr} 
+			,#{orcid_id}
+			,#{auth_rid}
+	    )        
 	</insert>
+	
 	<insert id="insertBooknote" parameterType="com.vinea.dto.BooknoteVO">
-	INSERT
-	    INTO TB_BOOK_NOTE
+	<!-- 파싱한 도서기록정보 DB에 저장 *path: src/main/resources/mappers/xmlMapper.xml *id: insertBooknote -->
+	
+		INSERT IGNORE
+	    	INTO TB_BOOK_NOTE
 	    (
-			NOTE_UID
-		,	NOTE_NAME
-	    )
+			 BOOK_NOTE_PK
+			,UID
+			,NOTE_NM
+	    )  
 	    VALUES
 	    (
-			#{note_uid}
-		,	#{note_name}
-	    )
+			#{book_note_pk}
+			,#{uid}
+			,#{note_nm}
+	    )    
 	</insert>
-	<insert id="insertCoauth" parameterType="com.vinea.dto.CoauthVO">
-	INSERT
-	    INTO TB_COAUTH
-	    (
-			COAUTH_ORCID
-		,	COAUTH_UID
-		,	COAUTH_ROLE
-		,	COAUTH_RID
-		,	COAUTH_DPLY
-		,	COAUTH_FULL
-		,	COAUTH_FIRST
-		,	COAUTH_LAST
-		,	COAUTH_SEQ
-	    )
-	    VALUES
-	    (
-			#{coauth_orcid}
-		,	#{coauth_uid}
-		,	#{coauth_role}
-		,	#{coauth_rid}
-		,	#{coauth_dply}
-		,	#{coauth_full}
-		,	#{coauth_first}
-		,	#{coauth_last}
-		,	#{coauth_seq}
-	    )
-	</insert>
+	
 	<insert id="insertConf" parameterType="com.vinea.dto.ConfVO">
-	INSERT
-	    INTO TB_CONF
+	<!-- 파싱한 학회정보 DB에 저장 *path: src/main/resources/mappers/xmlMapper.xml *id: insertConf -->
+	
+		INSERT IGNORE
+	    	INTO TB_CONF
 	    (
-			CONF_CID
-		,	CONF_UID
-		,	CONF_TITLE
-		,	CONF_DATE
-		,	CONF_START
-		,	CONF_END
-		,	CONF_CITY
-		,	CONF_STATE
-		,	CONF_CTRY
-		
-	    )
+			 CONF_PK  
+			,CONF_ID  
+			,UID  
+			,CONF_TITLE  
+			,CONF_DATE  
+			,START_DATE  
+			,END_DATE  
+			,CITY  
+			,STATE  
+			,COUNTRY
+		    ,SPON_NM
+	    )   
 	    VALUES
 	    (
-			#{conf_cid}
-		,	#{conf_uid}
-		,	#{conf_title}
-		,	#{conf_date}
-		,	#{conf_start}
-		,	#{conf_end}
-		,	#{conf_city}
-		,	#{conf_state}
-		,	#{conf_ctry}
-	    )
-	</insert>
+			 #{conf_pk}
+			,#{conf_id}
+			,#{uid}
+			,#{conf_title}
+			,#{conf_date}
+			,#{start_date}
+			,#{end_date}
+			,#{city}
+			,#{state}
+			,#{country}
+			,#{spon_nm}
+	    )     
+	</insert> 
 	
 	<insert id="insertDtype" parameterType="com.vinea.dto.DtypeVO">
-	INSERT
-	    INTO TB_DTYPE
+	<!-- 파싱한 문서유형정보 DB에 저장 *path: src/main/resources/mappers/xmlMapper.xml *id: insertDtype -->
+	
+		INSERT IGNORE
+	    	INTO TB_DTYPE
 	    (
-			DTYPE_UID
-		,	DTYPE_NAME
+			 DTYPE_PK
+			,UID
+			,DTYPE_NM
 			
 	    )
 	    VALUES
 	    (
-			#{dtype_uid}
-		,	#{dtype_name}
+			 #{dtype_pk}
+			,#{uid}
+			,#{dtype_nm}
 		
 	    )
 	</insert>
+	
 	<insert id="insertGrnt" parameterType="com.vinea.dto.GrntVO">
-	INSERT
-	    INTO TB_GRNT
+	<!-- 파싱한 보조금정보 DB에 저장 *path: src/main/resources/mappers/xmlMapper.xml *id: insertGrnt -->
+		
+		INSERT IGNORE
+	    	INTO TB_GRNT
 	    (
-	    	GRNT_GID
-		,	GRNT_UID
-		,	GRNT_TEXT
-		,	GRNT_AGCY
+	    	 GRNT_PK
+			,UID
+			,GRNT_GID
+			,GRNT_TEXT
+			,GRNT_AGCY
 	    )
 	    VALUES
 	    (
-	    	#{grnt_gid}
-		,	#{grnt_uid}
-		,	#{grnt_text}
-		,	#{grnt_agcy}
+	    	 #{grnt_pk}
+			,#{uid}
+			,#{grnt_gid}
+			,#{grnt_text}
+			,#{grnt_agcy}
 	    )
 	</insert>
+	
 	<insert id="insertKwrd" parameterType="com.vinea.dto.KwrdVO">
+	<!-- 파싱한 키워드정보 DB에 저장 *path: src/main/resources/mappers/xmlMapper.xml *id: insertKwrd -->
 	
-	INSERT
-		INTO TB_KWRD
+		INSERT IGNORE
+			INTO TB_KWRD
 		(
-			KWRD_UID
-		,	KWRD_NAME
+			 KWRD_PK
+			,UID
+			,KWRD_NM
+			,KW_PLUS_YN
 		)
 		VALUES
 		(
-			#{kwrd_uid}
-		,	#{kwrd_name}
+			 #{kwrd_pk}
+			,#{uid}
+			,#{kwrd_nm}
+			,#{kw_plus_yn}
 		
 		)
 	</insert>
-	<insert id="insertKwrdp" parameterType="com.vinea.dto.KwrdplusVO">
-	INSERT
-	    INTO TB_KWRD_PLUS
-	    (
-			KWRDP_UID
-		,	KWRDP_NAME
-		)
-		VALUES
-		(
-			#{kwrdp_uid}
-		,	#{kwrdp_name}
-		
-		)
-	</insert>
+	
 	<insert id="insertOrgn" parameterType="com.vinea.dto.OrgnVO">
+	<!-- 파싱한 저자기관정보 DB에 저장 *path: src/main/resources/mappers/xmlMapper.xml *id: insertOrgn -->
 	
-	INSERT
-	    INTO TB_ORGN
+		INSERT IGNORE
+	    	INTO TB_AUTH_ORGN
 	    (
-			ORGN_ADDR_NO
-		,	ORGN_UID
-		,	ORGN_FULL
-		,	ORGN_NAME
-		,	ORGN_PREF
-		,	ORGN_SUB
-		,	ORGN_CITY
-		,	ORGN_STATE
-		,	ORGN_CTRY
-		,	ORGN_STREET
-	    )
+			 AUTH_ORGN_PK
+			,UID
+			,ORGN_ADDR_NO
+			,ORGN_FULL_NM
+			,ORGN_NM
+			,ORGN_PREF_NM
+			,ORGN_SUB_NM
+			,CITY
+			,STATE
+			,COUNTRY
+	        ,STREET
+	     )
 	    VALUES
 	    (
-			#{orgn_addr_no}
-		,	#{orgn_uid}
-		,	#{orgn_full}
-		,	#{orgn_name}
-		,	#{orgn_pref}
-		,	#{orgn_sub}
-		,	#{orgn_city}
-		,	#{orgn_state}
-		,	#{orgn_ctry}
-		,	#{orgn_street}
-	    )
+			 #{auth_orgn_pk}
+			,#{uid}
+			,#{orgn_addr_no}
+			,#{orgn_full_nm}
+			,#{orgn_nm}
+			,#{orgn_pref_nm}
+			,#{orgn_sub_nm}
+			,#{city}
+			,#{state}
+			,#{country}
+			,#{street}
+	    )     
 	</insert>
+	
 	<insert id="insertPubl" parameterType="com.vinea.dto.PublVO">
+	<!-- 파싱한 발행기관정보 DB에 저장 *path: src/main/resources/mappers/xmlMapper.xml *id: insertPubl -->
 	
-	INSERT
-	    INTO TB_PUBL
+		INSERT IGNORE
+	    	INTO TB_PUBL
 	    (
-			PUBL_UID
-		,	PUBL_ADDR
-		,	PUBL_CITY
-		,	PUBL_STATE
-		,	PUBL_CTRY
-		,	PUBL_DPLY
-		,	PUBL_FULL
-		)
-	VALUES
+			 PUBL_PK
+			,UID
+			,PUBL_ADDR
+			,PUBL_FULL_NM
+			,PUBL_NM
+			,CITY
+			,COUNTRY
+			,STATE
+		)    
+		VALUE
 	    (
-			#{publ_uid}
-		,	#{publ_addr}
-		,	#{publ_city}
-		,	#{publ_state}
-		,	#{publ_ctry}
-		,	#{publ_dply}
-		,	#{publ_full}
+			 #{publ_pk}
+			,#{uid}
+			,#{publ_addr}
+			,#{publ_full_nm}
+			,#{publ_nm}
+			,#{city}
+			,#{country}
+			,#{state}
 	    )
 	</insert>
+	
 	<insert id="insertRefr" parameterType="com.vinea.dto.RefrVO">
+	<!-- 파싱한 참고문헌정보 DB에 저장 *path: src/main/resources/mappers/xmlMapper.xml *id: insertRefr -->
 	
-	INSERT
-	    INTO TB_REFR
+		INSERT IGNORE
+	    	INTO TB_REFR
 	    (
-			REFR_RUID
-		,	REFR_UID
-		,	REFR_AUTH
-		,	REFR_YEAR
-		,	REFR_VOL
-		,	REFR_ISSUE
-		,	REFR_TITLE
-		,	REFR_DOI
-		,	REFR_PAGE
-		,	REFR_ORGN	
-	    )
-	    VALUES
-	    (
-			#{refr_ruid}
-		,	#{refr_uid}
-		,	#{refr_auth}
-		,	#{refr_year}
-		,	#{refr_vol}
-		,	#{refr_issue}
-		,	#{refr_title}
-		,	#{refr_doi}
-		,	#{refr_page}
-		,	#{refr_orgn}
-	    )
-	</insert>
-	<insert id="insertSpon" parameterType="com.vinea.dto.SponVO">
-	
-	INSERT
-		INTO TB_SPON
-		(
-			SPON_CONF_CID
-		,	SPON_NAME	
-		)
-		VALUES
-		(
-			#{spon_conf_cid}
-		,	#{spon_name}	
-		)
-	    
-	</insert>
-	
-		
-	
-	
-	
-	<insert id="insertAVO" parameterType="com.vinea.dto.ArtiVO">
-	
-	INSERT 
-		INTO TB_ARTI
-		(
-			 ARTI_NO
-			,ARTI_UID
+			 REFR_ID
+			,REFR_UID
+			,UID
+			,AUTHOR
+			,PUB_YEAR
+			,VOLUME
+			,ISSUE
 			,ARTI_TITLE
-			,ARTI_SOURCE_TITLE
-			,ARTI_YEAR
-			,ARTI_DATE
-			,ARTI_VOL
-			,ARTI_ISSUE
-			,ARTI_SUP
-			,ARTI_DOI
-			,ARTI_AB
-			,ARTI_ISSN
-			,ARTI_EISSN
-			,ARTI_CITE_CNT
-			,ARTI_PAGE_CNT
-			,ARTI_BP
-			,ARTI_EP
-			,ARTI_OA 
-		)
+			,DOI
+			,PAGE
+			,ORGN_NM
+			,JRNL_TITLE
+			,DEL_YN
+			,REGIST_DATE
+			,REGISTR_ID
+			,MODIFY_DATE
+			,MODIFY_ID
+	    )   
 		VALUES
-		(
-		     #{arti_no}
-		    ,#{arti_uid}
-		    ,#{arti_title}
-		    ,#{arti_source_title}
-		    ,#{arti_year}
-		    ,#{arti_date}
-		    ,#{arti_vol}
-		    ,#{arti_issue}
-		    ,#{arti_sup}
-		    ,#{arti_doi}
-		    ,#{arti_ab}
-		    ,#{arti_issn}
-		    ,#{arti_eissn}
-		    ,#{arti_cite_cnt}
-		    ,#{arti_page_cnt}
-		    ,#{arti_bp}
-		    ,#{arti_ep}
-		    ,#{arti_oa}		
-		)		
-
+	    (   
+			 #{refr_id}	
+			,#{refr_uid}
+			,#{uid}
+			,#{author}
+			,#{pub_year}
+			,#{volume}
+			,#{issue}
+			,#{arti_title}
+			,#{doi}
+			,#{page}
+			,#{orgn_nm}
+			,#{jrnl_title}
+			,#{del_yn}
+			,#{regist_date}
+			,#{registr_id}
+			,#{modify_date}
+		    ,#{modify_id}   
+	    )
 	</insert>
 	
 	<insert id="insertXmlFile" parameterType="com.vinea.dto.XmlFileVO">
+	<!-- 원본 데이터   *path: src/main/resources/mappers/xmlMapper.xml *id: insertXmlFile -->
 	
-	INSERT IGNORE
-		INTO TB_XML_FILE
+		INSERT IGNORE
+			INTO TB_XML_FILE
 		(
-			UID
+			 UID
 			,CONTENT
 			,REGIST_DATE
+			,REGISTR_ID
 			,FILE_NAME
+			,PARSE_YN
+			,DEL_YN
 		)
 		VALUES
 		(
-			#{uid}
+			 #{uid}
 			,#{content}
 			,NOW()
+			,"none"
 			,#{file_name}
+			,'N'
+			,'N'
 		)
 		
 	</insert>
 	
-	
-	
-	
 	<select id="selectXmlList" parameterType="hashmap" resultMap="artiMap">
-	<!--  xmlMapper.xml - selectXmlList : 홈에서 사용 해당 페이지 xmllist 반환 -->
+	<!-- 요청 페이지에 따른 파싱된 논문 목록 조회  *path: src/main/resources/mappers/xmlMapper.xml *id: selectXmlList -->
 	
-		SELECT
-			
-			ARTI_ID
-			,ARTI_UID
+		SELECT			
+			 UID
+			,ARTI_NO
 			,ARTI_TITLE
-			,ARTI_DATE
-			,ARTI_SOURCE_TITLE
-			,ARTI_VOL
-			,ARTI_ISSUE
-			,ARTI_YEAR
-			,ARTI_BP
-			,ARTI_EP
-			,ARTI_PAGE_CNT
-			
-			
+			,PUB_DATE
+			,JRNL_TITLE
+			,VOLUME
+			,ISSUE
+			,PUB_YEAR
+			,BEGIN_PAGE
+			,END_PAGE
+			,PAGE_CNT
 		FROM
-			TB_ARTI
-			
+			TB_ARTI			
 		ORDER BY
-			ARTI_ID
-		ASC 
-		<!--  DESC -->
+			UID
+		DESC 
 		LIMIT
-			#{startIndex}
-		,	#{pageSize}
-		
-		
+			 #{startIndex}
+			,#{pageSize}		
 	</select>
 	
 	<select id="countXml" resultType="java.lang.Integer">
+	<!-- 논문 건수 카운팅  *path: src/main/resources/mappers/xmlMapper.xml *id: countXml -->
 	
 		SELECT
-			COUNT(ARTI_ID)
+			COUNT(UID)
 		FROM
-			TB_ARTI
-		
-			
-	
+			TB_ARTI	
 	</select>
 	
-	<!-- 키워드 -->
+	<select id="selectOneXml" parameterType="java.lang.String" resultMap="artiMap">
+	<!-- 논문 상세페이지에 들어갈 정보  *path: src/main/resources/mappers/xmlMapper.xml *id: selectOneXml -->
+		
+		SELECT		
+			 UID
+			,ARTI_TITLE
+			,JRNL_TITLE
+			,VOLUME
+			,ISSUE
+			,PUB_YEAR
+			,BEGIN_PAGE
+			,END_PAGE
+			,DOI
+			,PAGE_CNT
+		    ,ABSTR
+		    ,CITE_CNT
+		    ,CTGRY_NM
+		    ,CTGRY_SUB_TITLE
+		    ,CTGRY_SUBJECT
+		FROM
+			TB_ARTI		
+		WHERE
+			ARTI_NO = #{arti_no}
+	</select>
+	
 	<select id ="selectKwrdList" parameterType="java.lang.String" resultMap="kwrdMap">
-	
-	
+	<!-- 논문 상세페이지에서 조회되는 논문키워드  *path: src/main/resources/mappers/xmlMapper.xml *id: selectKwrdList -->
+		
 		SELECT DISTINCT
-			KWRD_NAME
+			KWRD_NM
 		FROM
 			TB_KWRD		
 		WHERE
-			KWRD_UID = #{uid}
+			UID = #{uid}
 			
 	</select>
 	
-	
-	<!-- 참고문헌 -->
 	<select id ="selectRefrList" parameterType="java.lang.String" resultMap="refrMap">
-	
+	<!-- 논문 상세페이지에서 조회되는 참고문헌 목록  *path: src/main/resources/mappers/xmlMapper.xml *id: selectRefrList -->
 	
 		SELECT DISTINCT
-			REFR_AUTH
-			,REFR_TITLE
-			,REFR_YEAR
-			,REFR_VOL
-			,REFR_ISSUE
-			,REFR_DOI
-			,REFR_PAGE
-			,REFR_ORGN
+			 AUTHOR
+			,ARTI_TITLE
+			,PUB_YEAR
+			,VOLUME
+			,ISSUE
+			,DOI
+			,PAGE
+			,ORGN_NM
 		FROM
-			TB_REFR
-			
+			TB_REFR			
 		WHERE
 			REFR_UID = #{uid}
 		ORDER BY
@@ -679,83 +628,47 @@
 			
 	</select>	
 	
-	
-	<!-- 저자 -->
 	<select id ="selectAuthList" parameterType="java.lang.String" resultMap="authMap">
-	
+	<!-- 논문 상세페이지에서 조회되는 저자정보  *path: src/main/resources/mappers/xmlMapper.xml *id: selectAuthList -->
 	
 		SELECT DISTINCT
-			 AUTH_FULL 
-			,AUTH_LEAD
-			,AUTH_REPR
+			 AUTH_FULL_NM 
+			,LEAD_YN
+			,CORRES_YN
 		FROM
-			TB_AUTH
-			
+			TB_AUTH			
 		WHERE
-			AUTH_UID = #{uid}
+			UID = #{uid}
 		ORDER BY
 			AUTH_SEQ
 		ASC
 		
 	</select>	
 	
-	<!-- 기관 -->
-   <select id ="selectOrgnList" parameterType="java.lang.String" resultMap="orgnMap">
-   
-   
+   <select id ="selectOrgnList" parameterType="java.lang.String" resultMap="authOrgnMap">
+   <!-- 논문 상세페이지에서 조회되는 기관정보  *path: src/main/resources/mappers/xmlMapper.xml *id: selectOrgnList -->
+     
       SELECT DISTINCT
-          ORGN_ADDR_NO 
-         ,ORGN_NAME
+          ORGN_ADDR_NO
+         ,ORGN_FULL_NM
+         ,ORGN_NM
       FROM
-         TB_ORGN         
+         TB_AUTH_ORGN         
       WHERE
-         ORGN_UID = #{uid}   
+         UID = #{uid}   
    </select>   
    
-   <!-- 발행 기관 -->
    <select id ="selectPublList" parameterType="java.lang.String" resultMap="publMap">
-   
-   
+   <!-- 논문 상세페이지에서 조회되는 발행기관정보  *path: src/main/resources/mappers/xmlMapper.xml *id: selectPublList -->
+     
       SELECT DISTINCT
-          PUBL_DPLY 
-         ,PUBL_FULL
+          PUBL_NM
+         ,PUBL_FULL_NM
          ,PUBL_ADDR
       FROM
          TB_PUBL         
       WHERE
-         PUBL_UID = #{uid}   
+         UID = #{uid}   
    </select>   
-   
-	
-	
-	<select id="selectOneXml" parameterType="java.lang.Integer" resultMap="artiMap">
-		
-		SELECT		
-			 ARTI_UID
-			,ARTI_TITLE
-			,ARTI_SOURCE_TITLE
-			,ARTI_VOL
-			,ARTI_ISSUE
-			,ARTI_YEAR
-			,ARTI_BP
-			,ARTI_EP
-			,ARTI_DOI
-			,ARTI_PAGE_CNT
-		    ,ARTI_AB
-		    ,ARTI_CITE_CNT
-		    ,ARTI_CTGR_NAME
-		    ,ARTI_CTGR_SUBH
-		    ,ARTI_CTGR_SUBJ
-	
-		FROM
-			TB_ARTI
-		
-		WHERE
-			ARTI_ID = #{arti_id}
-		
-		
-	
-	</select>
-	
 
-</mapper>
+ </mapper>

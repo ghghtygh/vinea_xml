@@ -10,7 +10,6 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.slf4j.Logger;
@@ -22,16 +21,15 @@ import org.w3c.dom.NodeList;
 import com.vinea.dto.ArtiVO;
 import com.vinea.dto.AuthVO;
 import com.vinea.dto.BooknoteVO;
-import com.vinea.dto.CoauthVO;
 import com.vinea.dto.ConfVO;
 import com.vinea.dto.DtypeVO;
 import com.vinea.dto.GrntVO;
 import com.vinea.dto.KwrdVO;
-import com.vinea.dto.KwrdplusVO;
 import com.vinea.dto.OrgnVO;
 import com.vinea.dto.PublVO;
 import com.vinea.dto.RefrVO;
-import com.vinea.dto.SponVO;
+import com.vinea.dto.XmlFileVO;
+
 
 public class NjhParser {
 
@@ -65,6 +63,8 @@ public class NjhParser {
 
 	}
 	
+	
+
 	public boolean CanParse() {
 
 		try {
@@ -96,7 +96,8 @@ public class NjhParser {
 	}
 	
 	public ArtiVO parseRecStr(String str) throws Exception{
-		
+	
+		/** String 형태를 파싱하기 위해 DOM 객체로 변환 **/
 		return parseREC((Node)DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new ByteArrayInputStream(str.getBytes())).getDocumentElement());
 	}
 	
@@ -108,88 +109,80 @@ public class NjhParser {
 		/* 논문번호 */
 		vo.setArti_no((String) xpath.evaluate(".//identifier[@type='art_no']/@value", rec, XPathConstants.STRING));
 		/* 논문UID */
-		vo.setArti_uid((String) xpath.evaluate(".//UID/text()", rec, XPathConstants.STRING));
+		vo.setUid((String) xpath.evaluate(".//UID/text()", rec, XPathConstants.STRING));
 		/* 논문제목 */
 		vo.setArti_title((String) xpath.evaluate(".//title[@type='item']", rec, XPathConstants.STRING));
 		/* 학술지명 */
-		vo.setArti_source_title((String) xpath.evaluate(".//title[@type='source']", rec, XPathConstants.STRING));
+		vo.setJrnl_title((String) xpath.evaluate(".//title[@type='source']", rec, XPathConstants.STRING));
 		/* 발행년도 */
-		vo.setArti_year((String) xpath.evaluate(".//pub_info/@pubyear", rec, XPathConstants.STRING));
+		vo.setPub_year((String) xpath.evaluate(".//pub_info/@pubyear", rec, XPathConstants.STRING));
 		/* 발행일자 */
-		vo.setArti_date((String) xpath.evaluate(".//pub_info/@sortdate", rec, XPathConstants.STRING));
+		vo.setPub_date((String) xpath.evaluate(".//pub_info/@sortdate", rec, XPathConstants.STRING));
 		/* 권번호 */
-		vo.setArti_vol((String) xpath.evaluate(".//pub_info/@vol", rec, XPathConstants.STRING));
+		vo.setVolume((String) xpath.evaluate(".//pub_info/@vol", rec, XPathConstants.STRING));
 		/* 호번호 */
-		vo.setArti_issue((String) xpath.evaluate(".//pub_info/@issue", rec, XPathConstants.STRING));
+		vo.setIssue((String) xpath.evaluate(".//pub_info/@issue", rec, XPathConstants.STRING));
 		/* 부록수 */
-		vo.setArti_sup((String) xpath.evaluate(".//pub_info/@supplement", rec, XPathConstants.STRING));
+		vo.setSup_cnt((String) xpath.evaluate(".//pub_info/@supplement", rec, XPathConstants.STRING));
 		/* DOI 식별자 번호 */
-		vo.setArti_doi(
-				(String) xpath.evaluate(".//identifier[contains(@type, 'doi')]/@value", rec, XPathConstants.STRING));
+		vo.setDoi((String) xpath.evaluate(".//identifier[contains(@type, 'doi')]/@value", rec, XPathConstants.STRING));
 		/* 초록 */
-		vo.setArti_ab((String) xpath.evaluate(".//abstract_text/p", rec, XPathConstants.STRING));
+		vo.setAbstr((String) xpath.evaluate(".//abstract_text/p", rec, XPathConstants.STRING));
 		/* 국제연속간행물번호 */
-		vo.setArti_issn((String) xpath.evaluate(".//identifier[@type='issn']/@value", rec, XPathConstants.STRING));
+		vo.setIssn((String) xpath.evaluate(".//identifier[@type='issn']/@value", rec, XPathConstants.STRING));
 		/* 전자국제연속간행물번호 */
-		vo.setArti_eissn((String) xpath.evaluate(".//identifier[@type='eissn']/@value", rec, XPathConstants.STRING));
+		vo.setEissn((String) xpath.evaluate(".//identifier[@type='eissn']/@value", rec, XPathConstants.STRING));
 		/* 참고문헌수 */
 		/** 각 API(XML) 파일이  노드명이 달라서 조건문 사용 **/
 		if (((String) xpath.evaluate(".//references/@count", rec, XPathConstants.STRING)).equals("")) {
 
-			vo.setArti_cite_cnt((String) xpath.evaluate(".//refs/@count", rec, XPathConstants.STRING));
+			vo.setCite_cnt((String) xpath.evaluate(".//refs/@count", rec, XPathConstants.STRING));
 
 		} else {
 
-			vo.setArti_cite_cnt((String) xpath.evaluate(".//references/@count", rec, XPathConstants.STRING));
+			vo.setCite_cnt((String) xpath.evaluate(".//references/@count", rec, XPathConstants.STRING));
 
 		}
 
 		/* 논문 페이지수 */
-		vo.setArti_page_cnt((String) xpath.evaluate(".//page/@page_count", rec, XPathConstants.STRING));
+		vo.setPage_cnt((String) xpath.evaluate(".//page/@page_count", rec, XPathConstants.STRING));
 		/* 논문 시작페이지 */	
-		vo.setArti_bp((String) xpath.evaluate(".//page/@begin", rec, XPathConstants.STRING));
+		vo.setBegin_page((String) xpath.evaluate(".//page/@begin", rec, XPathConstants.STRING));
 		/* 논문 종료페이지 */	
-		vo.setArti_ep((String) xpath.evaluate(".//page/@end", rec, XPathConstants.STRING));
+		vo.setEnd_page((String) xpath.evaluate(".//page/@end", rec, XPathConstants.STRING));
 		/* 논문 자료열람여부 */
-		vo.setArti_oa((String) xpath.evaluate(".//pub_info/@journal_oas_gold", rec, XPathConstants.STRING));
+		vo.setOpen_yn((String) xpath.evaluate(".//pub_info/@journal_oas_gold", rec, XPathConstants.STRING));
 
 		/* 간행물 아이디 */
-		vo.setArti_item_id((String) xpath.evaluate("./static_data/item/ids/text()", rec, XPathConstants.STRING));
+		vo.setItem_id((String) xpath.evaluate("./static_data/item/ids/text()", rec, XPathConstants.STRING));
 
 		/* 간행물 사용여부 */
-		vo.setArti_item_avail((String) xpath.evaluate("./static_data/item/ids/@avail", rec, XPathConstants.STRING));
+		vo.setItem_avail_yn((String) xpath.evaluate("./static_data/item/ids/@avail", rec, XPathConstants.STRING));
 
 		/* 간행물 종류 */
-		vo.setArti_item_type(
-				(String) xpath.evaluate("./static_data/item/bib_pagecount/@type", rec, XPathConstants.STRING));
+		vo.setItem_type((String) xpath.evaluate("./static_data/item/bib_pagecount/@type", rec, XPathConstants.STRING));
 
 		/* 간행물_페이지 수 */
-		vo.setArti_item_page(
-				(String) xpath.evaluate("./static_data/item/bib_pagecount/text()", rec, XPathConstants.STRING));
+		vo.setItem_page_cnt((String) xpath.evaluate("./static_data/item/bib_pagecount/text()", rec, XPathConstants.STRING));
 
 		/* 도서 페이지 수 */
-		vo.setArti_book_page(
-				(String) xpath.evaluate("./static_data/item/book_pages/text()", rec, XPathConstants.STRING));
+		vo.setBook_page_cnt((String) xpath.evaluate("./static_data/item/book_pages/text()", rec, XPathConstants.STRING));
 
 		/* 도서 제본 정보 */
-		vo.setArti_book_bind(
-				(String) xpath.evaluate("./static_data/item/book_desc/bk_binding/text()", rec, XPathConstants.STRING));
+		vo.setBook_bind_yn((String) xpath.evaluate("./static_data/item/book_desc/bk_binding/text()", rec, XPathConstants.STRING));
 
 		/* 도서 출판사 */
-		vo.setArti_book_publ((String) xpath.evaluate("./static_data/item/book_desc/bk_publisher/text()", rec,
+		vo.setBook_publ((String) xpath.evaluate("./static_data/item/book_desc/bk_publisher/text()", rec,
 				XPathConstants.STRING));
 
 		/* 도서 주문 정보 */
-		vo.setArti_book_prepay(
-				(String) xpath.evaluate("./static_data/item/book_desc/bk_prepay/text()", rec, XPathConstants.STRING));
+		vo.setBook_prepay((String) xpath.evaluate("./static_data/item/book_desc/bk_prepay/text()", rec, XPathConstants.STRING));
 		
 		/* 카테고리(연구분야) */
-		vo.setArti_ctgr_name((String) xpath.evaluate("./static_data/fullrecord_metadata/category_info/headings/heading",
-				rec, XPathConstants.STRING));
+		vo.setCtgry_nm((String) xpath.evaluate("./static_data/fullrecord_metadata/category_info/headings/heading", rec, XPathConstants.STRING));
 
-		/* 카테고리(연구분야) 부제 */
-		NodeList subList = (NodeList) xpath.evaluate(
-				"./static_data/fullrecord_metadata/category_info/subheadings/subheading", rec, XPathConstants.NODESET);
+		/* 카테고리(연구분야) 소제목 */
+		NodeList subList = (NodeList) xpath.evaluate("./static_data/fullrecord_metadata/category_info/subheadings/subheading", rec, XPathConstants.NODESET);
 
 		String subhs = "";
 		String subjs = "";
@@ -197,12 +190,12 @@ public class NjhParser {
 
 			String subh = subList.item(i).getTextContent();
 
-			/** 부제는 2개 이상이 나올 수 있으므로 구분자 '|'로 구분 **/
+			/** 소제목은 2개 이상이 나올 수 있으므로 구분자 '|'로 구분 **/
 			subhs += (subh + "|");
 
 		}
 		
-		vo.setArti_ctgr_subh(subhs);
+		vo.setCtgry_sub_title(subhs);
 
 		/* 카테고리(연구분야) 주제 */
 		NodeList subjList = (NodeList) xpath.evaluate(
@@ -218,33 +211,8 @@ public class NjhParser {
 	
 		}
 		
-		vo.setArti_ctgr_subj(subjs);		
+		vo.setCtgry_subject(subjs);		
 		/** TB_ARTI(논문정보) 테이블에 저장할 내용 파싱  종료 **/
-
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
-		/** TB_KWRD_PLUS(간행물_키워드정보) 테이블에 저장할 내용 파싱  시작 **/		
-		/* 간행물 키워드 정보는 여러개 있으므로 리스트로 저장 */
-		List<KwrdplusVO> list_kwrdplus = new ArrayList<KwrdplusVO>();
-
-		NodeList keywordsPlusNodeList = (NodeList) xpath.evaluate("./static_data/item/keywords_plus/keyword", rec,
-				XPathConstants.NODESET);
-
-		for (int j = 0, m = keywordsPlusNodeList.getLength(); j < m; j++) {
-
-			KwrdplusVO kwrdplusVO = new KwrdplusVO();
-
-			Node keywordsPlusNode = keywordsPlusNodeList.item(j);
-
-			kwrdplusVO.setKwrdp_uid(vo.getArti_uid());
-
-			kwrdplusVO.setKwrdp_name((String) xpath.evaluate("./text()", keywordsPlusNode, XPathConstants.STRING));
-
-			list_kwrdplus.add(kwrdplusVO);
-		}
-
-		vo.setList_kwrdplus(list_kwrdplus);
-		/** TB_KWRD_PLUS(간행물_키워드정보) 테이블에 저장할 내용 파싱  종료 **/
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -262,34 +230,30 @@ public class NjhParser {
 			Node node = (Node) nameNodeList.item(i);
 
 			/* TB_ARTI의 논문 UID를 가져와 DB 저장 */
-			authVO.setAuth_uid(vo.getArti_uid());
+			authVO.setUid(vo.getUid());
 			
 			/* 저자 해당 아이디 */
-			authVO.setAuth_dais((String) xpath.evaluate("./@daisng_id", node, XPathConstants.STRING));
+			authVO.setAuth_id((String) xpath.evaluate("./@daisng_id", node, XPathConstants.STRING));
 			/* 저자 주소 번호_연구기관과 매칭시킬때 필요 */
 			authVO.setAuth_addr_no((String) xpath.evaluate("./@addr_no", node, XPathConstants.STRING));
 			/* 저자 이름_레코드 표기 */
-			authVO.setAuth_dply((String) xpath.evaluate("./display_name", node, XPathConstants.STRING));
+			authVO.setAuth_nm((String) xpath.evaluate("./display_name", node, XPathConstants.STRING));
 			/* 저자 이메일 주소 */
-			authVO.setAuth_email((String) xpath.evaluate("./email_addr", node, XPathConstants.STRING));
+			authVO.setAuth_email_addr((String) xpath.evaluate("./email_addr", node, XPathConstants.STRING));
 			/* 저자 풀네임 */
-			authVO.setAuth_full((String) xpath.evaluate("./full_name", node, XPathConstants.STRING));
-			/* 저자 이름 */
-			authVO.setAuth_first((String) xpath.evaluate("./first_name", node, XPathConstants.STRING));
-			/* 저자 성 */
-			authVO.setAuth_last((String) xpath.evaluate("./last_name", node, XPathConstants.STRING));
+			authVO.setAuth_full_nm((String) xpath.evaluate("./full_name", node, XPathConstants.STRING));
 			/* 저자 wos 기준 이름 */
-			authVO.setAuth_wos((String) xpath.evaluate("./wos_standard", node, XPathConstants.STRING));
+			authVO.setAuth_wos_nm((String) xpath.evaluate("./wos_standard", node, XPathConstants.STRING));
 			
 			/* 저자 seq_no */
 			authVO.setAuth_seq(parseInt((String) xpath.evaluate("./@seq_no", node, XPathConstants.STRING)));
 			/** 저자의 seq_no가 1일때 주저자로 표시 **/
 			if ((String) xpath.evaluate("../name[@seq_no = '1']", node, XPathConstants.STRING) != null) {
-				authVO.setAuth_lead("Y");
+				authVO.setLead_yn("Y");
 			}
 
 			/* 저자의 교신 여부 */
-			authVO.setAuth_repr((String) xpath.evaluate("./@reprint", node, XPathConstants.STRING));
+			authVO.setCorres_yn((String) xpath.evaluate("./@reprint", node, XPathConstants.STRING));
 			/* 저자 역할 */
 			authVO.setAuth_role((String) xpath.evaluate("./@role", node, XPathConstants.STRING));
 
@@ -302,47 +266,6 @@ public class NjhParser {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
-		/** TB_COAUTH(공저자 정보) 테이블에 저장할 내용 파싱  시작 **/
-		/* 공저자는 여러명이므로 리스트에 저장 */
-		List<CoauthVO> list_coauth = new ArrayList<CoauthVO>();
-
-		NodeList nodelist1 = (NodeList) xpath.evaluate("./static_data/contributors/contributor/name", rec,
-				XPathConstants.NODESET);
-
-		for (int i = 0, n = nodelist1.getLength(); i < n; i++) {
-
-			CoauthVO coauthVO = new CoauthVO();
-
-			Node node = (Node) nodelist1.item(i);
-
-			/* TB_ARTI의 논문 UID를 가져와 DB 저장 */
-			coauthVO.setCoauth_uid(vo.getArti_uid());
-			
-			/* 공저자 이름_레코드 표기 */
-			coauthVO.setCoauth_dply((String) xpath.evaluate("./display_name", node, XPathConstants.STRING));
-			/* 공저자 풀네임 */
-			coauthVO.setCoauth_full((String) xpath.evaluate("./full_name", node, XPathConstants.STRING));
-			/* 공저자 이름 */
-			coauthVO.setCoauth_first((String) xpath.evaluate("./first_name", node, XPathConstants.STRING));
-			/* 공저자 성 */
-			coauthVO.setCoauth_last((String) xpath.evaluate("./last_name", node, XPathConstants.STRING));
-			/* 공저자 아이디(orcid_id)_과학자와 다른학문자를 구별하기 위한 식별자 코드 */
-			coauthVO.setCoauth_orcid((String) xpath.evaluate("./@orcid_id", node, XPathConstants.STRING));
-			/* 공저자 연구아이디(research_id) */
-			coauthVO.setCoauth_rid((String) xpath.evaluate("./@r_id", node, XPathConstants.STRING));
-			/* 공저자 역할 */
-			coauthVO.setCoauth_role((String) xpath.evaluate("./@role", node, XPathConstants.STRING));
-			/* 공저자 seq_no */
-			coauthVO.setCoauth_seq(parseInt((String) xpath.evaluate("./@seq_no", node, XPathConstants.STRING)));
-
-			list_coauth.add(coauthVO);
-		}
-
-		vo.setList_coauth(list_coauth);
-		/** TB_COAUTH(공저자 정보) 테이블에 저장할 내용 파싱  종료 **/
-		
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 		/** TB_CONF(학회 정보) 테이블에 저장할 내용 파싱  시작 **/
 		List<ConfVO> list_conf = new ArrayList<ConfVO>();
 
@@ -356,48 +279,38 @@ public class NjhParser {
 			Node node = (Node) nodelist2.item(i);
 			
 			/* TB_ARTI의 논문 UID를 가져와 DB 저장 */
-			confVO.setConf_uid(vo.getArti_uid());
+			confVO.setUid(vo.getUid());
 			
 			/* 학회 아이디 */
-			confVO.setConf_cid((String) xpath.evaluate("./@conf_id", node, XPathConstants.STRING));
+			confVO.setConf_id((String) xpath.evaluate("./@conf_id", node, XPathConstants.STRING));
 			/* 학회명 */
 			confVO.setConf_title((String) xpath.evaluate("./conf_titles/conf_title", node, XPathConstants.STRING));
 			/* 학회 날짜 */
 			confVO.setConf_date((String) xpath.evaluate("./conf_dates/conf_date", node, XPathConstants.STRING));
 			/* 학회 시작일 */
-			confVO.setConf_start((String) xpath.evaluate("./conf_dates/conf_date/@conf_start", node, XPathConstants.STRING));
+			confVO.setStart_date((String) xpath.evaluate("./conf_dates/conf_date/@conf_start", node, XPathConstants.STRING));
 			/* 학회 종료일 */
-			confVO.setConf_end((String) xpath.evaluate("./conf_dates/conf_date/@conf_end", node, XPathConstants.STRING));
-			/* 학회 장소_도시 */
-			confVO.setConf_city((String) xpath.evaluate("./conf_locations/conf_location/conf_city", node, XPathConstants.STRING));
+			confVO.setEnd_date((String) xpath.evaluate("./conf_dates/conf_date/@conf_end", node, XPathConstants.STRING));
+			/* 학회 장소_도시명 */
+			confVO.setCity((String) xpath.evaluate("./conf_locations/conf_location/conf_city", node, XPathConstants.STRING));
 			/* 학회 장소_주 */
-			confVO.setConf_state((String) xpath.evaluate("./conf_locations/conf_location/conf_state", node, XPathConstants.STRING));
-			/* 학회 장소_나라(나라 정보는 논문 데이터에 없어서 임시로 공백표기) */
-			confVO.setConf_ctry("");
-			
-			/** TB_CONF(학회 정보) 아래 TB_SPON(후원기관 정보) 테이블에 저장할 내용 파싱  시작 **/
-			List<SponVO> list_spon = new ArrayList<SponVO>();
+			confVO.setState((String) xpath.evaluate("./conf_locations/conf_location/conf_state", node, XPathConstants.STRING));
+			/* 학회 장소_국가명(국가명은 논문 데이터에 없어서 임시로 공백표기) */
+			confVO.setCountry("");
+			/* 후원기관명 */
+			NodeList sponList = (NodeList) xpath.evaluate("./static_data/summary/conferences/conference/sponsors/sponsor", rec, XPathConstants.NODESET);
 
-			NodeList nodelist3 = (NodeList) xpath.evaluate("./sponsors/sponsor", node, XPathConstants.NODESET);
+			String spon = "";
+			for (int k = 0, k1 = sponList.getLength(); k < k1; k++) {
 
-			for (int i1 = 0, n1 = nodelist3.getLength(); i1 < n1; i1++) {
+				String spon1 = sponList.item(i).getTextContent();
 
-				SponVO sponVO = new SponVO();
-
-				Node node2 = (Node) nodelist3.item(i);
-
-				/* TB_CONF의 학회정보 아이디와 후원기관 아이디 매칭 */
-				sponVO.setSpon_conf_id(confVO.getConf_cid());
-				/* 후원기관명 */
-				sponVO.setSpon_name((String) xpath.evaluate("./text()", node2, XPathConstants.STRING));
-
-				list_spon.add(sponVO);
+				/** 후원기관은 2개 이상이 나올 수 있으므로 구분자 '|'로 구분 **/
+				spon += (spon1 + "|");
 
 			}
-			/** TB_CONF(학회 정보) 아래 TB_SPON(후원기관 정보) 테이블에 저장할 내용 파싱  종료 **/
 			
-			confVO.setList_spon(list_spon);
-			list_conf.add(confVO);
+			confVO.setSpon_nm(spon);
 
 		}
 
@@ -418,7 +331,7 @@ public class NjhParser {
 			DtypeVO dtypeVO = new DtypeVO();
 
 			/* TB_ARTI의 논문 UID를 가져와 DB 저장 */
-			dtypeVO.setDtype_uid(vo.getArti_uid());
+			dtypeVO.setUid(vo.getUid());
 
 			String dtype_names = "";
 
@@ -435,7 +348,7 @@ public class NjhParser {
 
 			}
 
-			dtypeVO.setDtype_name(dtype_names);
+			dtypeVO.setDtype_nm(dtype_names);
 
 			list_dtype.add(dtypeVO);
 		}
@@ -457,7 +370,7 @@ public class NjhParser {
 
 			GrntVO grntVO = new GrntVO();
 			/* TB_ARTI의 논문 UID를 가져와 DB 저장 */
-			grntVO.setGrnt_uid(vo.getArti_uid());
+			grntVO.setUid(vo.getUid());
 			
 			/* 자금 후원정보(요약) */
 			grntVO.setGrnt_text((String) xpath.evaluate("./fund_text/p/text()", node, XPathConstants.STRING));
@@ -488,12 +401,20 @@ public class NjhParser {
 			KwrdVO kwrdVO = new KwrdVO();
 			
 			/* TB_ARTI의 논문 UID를 가져와 DB 저장 */
-			kwrdVO.setKwrd_uid(vo.getArti_uid());
+			kwrdVO.setUid(vo.getUid());
 			
 			/* 키워드명 */
-			kwrdVO.setKwrd_name((String) xpath.evaluate("./text()", node, XPathConstants.STRING));
+			kwrdVO.setKwrd_nm((String) xpath.evaluate("./text()", node, XPathConstants.STRING));
+			
+			/* 논문키워드와 키워드플러스 구분 부분(어떻게?)
+			 * NodeList keywordsPlusNodeList = (NodeList) xpath.evaluate("./static_data/item/keywords_plus/keyword", rec,
+					XPathConstants.NODESET);
 
-			list_kwrd.add(kwrdVO);
+			for (int j = 0, m = keywordsPlusNodeList.getLength(); j < m; j++) {
+
+				Node keywordsPlusNode = keywordsPlusNodeList.item(j);
+
+				((String) xpath.evaluate("./text()", keywordsPlusNode, XPathConstants.STRING));*/
 
 		}
 
@@ -515,27 +436,27 @@ public class NjhParser {
 			RefrVO refrVO = new RefrVO();
 			
 			/* TB_ARTI의 논문 UID를 가져와 DB 저장 */
-			refrVO.setRefr_uid(vo.getArti_uid());
+			refrVO.setUid(vo.getUid());
 			
 			/* 참고문헌(논문) UID */
-			refrVO.setRefr_ruid((String) xpath.evaluate("./uid", node, XPathConstants.STRING));
+			refrVO.setRefr_uid((String) xpath.evaluate("./uid", node, XPathConstants.STRING));
 			/* 참고문헌(논문) 제목 */
-			refrVO.setRefr_title((String) xpath.evaluate("./citedTitle", node, XPathConstants.STRING));
+			refrVO.setArti_title((String) xpath.evaluate("./citedTitle", node, XPathConstants.STRING));
 			/* 참고문헌(논문) 발행년도 */
-			refrVO.setRefr_year((String) xpath.evaluate("./year", node, XPathConstants.STRING));
+			refrVO.setPub_year((String) xpath.evaluate("./year", node, XPathConstants.STRING));
 			/* 참고문헌(논문) 저자 */
-			refrVO.setRefr_auth((String) xpath.evaluate("./citedAuthor", node, XPathConstants.STRING));
+			refrVO.setAuthor((String) xpath.evaluate("./citedAuthor", node, XPathConstants.STRING));
 			/* 연구기관 */
-			refrVO.setRefr_orgn((String) xpath.evaluate("./citedWork", node, XPathConstants.STRING));
+			refrVO.setOrgn_nm((String) xpath.evaluate("./citedWork", node, XPathConstants.STRING));
 			/* 참고문헌(논문) 권번호 */
-			refrVO.setRefr_vol((String) xpath.evaluate("./volume", node, XPathConstants.STRING));
+			refrVO.setVolume((String) xpath.evaluate("./volume", node, XPathConstants.STRING));
 			/* 참고문헌(논문) 호번호 */
 			/** 참고문헌의 호번호는 논문 데이터에 존재하지 않아 임시로 공백표기 **/
-			refrVO.setRefr_issue("");
+			refrVO.setIssue("");
 			/* 참고(인용한) 페이지 번호 */
-			refrVO.setRefr_page((String) xpath.evaluate("./page", node, XPathConstants.STRING));
+			refrVO.setPage((String) xpath.evaluate("./page", node, XPathConstants.STRING));
 			/* 참고문헌(논문) DOI 식별자 번호 */
-			refrVO.setRefr_doi((String) xpath.evaluate("./doi", node, XPathConstants.STRING));
+			refrVO.setDoi((String) xpath.evaluate("./doi", node, XPathConstants.STRING));
 
 			list_refr.add(refrVO);
 
@@ -559,10 +480,10 @@ public class NjhParser {
 			BooknoteVO booknoteVO = new BooknoteVO();
 
 			/* TB_ARTI의 논문 UID를 가져와 DB 저장 */
-			booknoteVO.setNote_uid(vo.getArti_uid());
+			booknoteVO.setUid(vo.getUid());
 
 			/* 생략 */
-			booknoteVO.setNote_name("");
+			booknoteVO.setNote_nm("");
 
 			list_booknote.add(booknoteVO);
 
@@ -586,27 +507,27 @@ public class NjhParser {
 			OrgnVO orgnVO = new OrgnVO();
 
 			/* TB_ARTI의 논문 UID를 가져와 DB 저장 */
-			orgnVO.setOrgn_uid(vo.getArti_uid());
+			orgnVO.setUid(vo.getUid());
 			
 			/* 기관의 주소번호_저자의 주소번호 매칭시 필요 */
 			orgnVO.setOrgn_addr_no((String) xpath.evaluate("./@addr_no", node, XPathConstants.STRING));
 			/* 기관명 */
 			/** 속성이 없는 노드의 정보를 가져오기 위한 정규표현 **/
-			orgnVO.setOrgn_name((String) xpath.evaluate("./organizations/organization[count(@*)=0]", node, XPathConstants.STRING));
+			orgnVO.setOrgn_nm((String) xpath.evaluate("./organizations/organization[count(@*)=0]", node, XPathConstants.STRING));
 			/* 기관명 풀네임 */
-			orgnVO.setOrgn_full((String) xpath.evaluate("./full_address", node, XPathConstants.STRING));
-			/* 자세한 기관명 */
-			orgnVO.setOrgn_pref((String) xpath.evaluate("./organizations/organization[@pref = 'Y']", node, XPathConstants.STRING));
-			/* 기관 주소정보_도시 */
-			orgnVO.setOrgn_city((String) xpath.evaluate("./city", node, XPathConstants.STRING));
-			/* 기관 주소정보_나라 */
-			orgnVO.setOrgn_ctry((String) xpath.evaluate("./country", node, XPathConstants.STRING));
+			orgnVO.setOrgn_full_nm((String) xpath.evaluate("./full_address", node, XPathConstants.STRING));
+			/* 세부 기관명 */
+			orgnVO.setOrgn_pref_nm((String) xpath.evaluate("./organizations/organization[@pref = 'Y']", node, XPathConstants.STRING));
+			/* 기관 주소정보_도시명 */
+			orgnVO.setCity((String) xpath.evaluate("./city", node, XPathConstants.STRING));
+			/* 기관 주소정보_국가명 */
+			orgnVO.setCountry((String) xpath.evaluate("./country", node, XPathConstants.STRING));
 			/* 기관 주소정보_주 */
-			orgnVO.setOrgn_state((String) xpath.evaluate("./state", node, XPathConstants.STRING));
+			orgnVO.setState((String) xpath.evaluate("./state", node, XPathConstants.STRING));
 			/* 기관 주소정보_도로명 */
-			orgnVO.setOrgn_street((String) xpath.evaluate("./street", node, XPathConstants.STRING));
-			/* 하위기관명 */
-			orgnVO.setOrgn_sub((String) xpath.evaluate("./suborganizations/suborganization", node, XPathConstants.STRING));
+			orgnVO.setStreet((String) xpath.evaluate("./street", node, XPathConstants.STRING));
+			/* 소속 기관명 */
+			orgnVO.setOrgn_sub_nm((String) xpath.evaluate("./suborganizations/suborganization", node, XPathConstants.STRING));
 
 			list_orgn.add(orgnVO);
 
@@ -630,22 +551,22 @@ public class NjhParser {
 			PublVO publVO = new PublVO();
 			
 			/* TB_ARTI의 논문 UID를 가져와 DB 저장 */
-			publVO.setPubl_uid(vo.getArti_uid());
+			publVO.setUid(vo.getUid());
 
 			/* 출판사 주소정보_전체주소명 */
 			publVO.setPubl_addr((String) xpath.evaluate("./address_spec/full_address", node, XPathConstants.STRING));
-			/* 출판사 주소정보_도시 */
-			publVO.setPubl_city((String) xpath.evaluate("./address_spec/city", node, XPathConstants.STRING));
-			/* 출판사 주소정보_나라 */
+			/* 출판사 주소정보_도시명*/
+			publVO.setCity((String) xpath.evaluate("./address_spec/city", node, XPathConstants.STRING));
+			/* 출판사 주소정보_국가명 */
 			/** 현재 논문데이터에 나라정보가 없으므로 임시로 공백표기 **/
-			publVO.setPubl_ctry("");
+			publVO.setCountry("");
 			/* 츨판사 주소정보_주 */
 			/** 현재 논문데이터에 주정보가 없으므로 임시로 공백표기 **/
-			publVO.setPubl_state("");
+			publVO.setState("");
 			/* 출판사명_레코드 표기 */
-			publVO.setPubl_dply((String) xpath.evaluate("./names/name/display_name", node, XPathConstants.STRING));
+			publVO.setPubl_nm((String) xpath.evaluate("./names/name/display_name", node, XPathConstants.STRING));
 			/* 출판사명_풀네임 */
-			publVO.setPubl_full((String) xpath.evaluate("./names/name/full_name", node, XPathConstants.STRING));
+			publVO.setPubl_full_nm((String) xpath.evaluate("./names/name/full_name", node, XPathConstants.STRING));
 
 			list_publ.add(publVO);
 

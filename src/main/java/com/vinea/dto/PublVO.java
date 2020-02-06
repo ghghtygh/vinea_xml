@@ -1,28 +1,40 @@
 package com.vinea.dto;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+/** 발행기관 정보_VO 객체  **/
 public class PublVO {
 
-	private int publ_id;
-	private String publ_uid;
+	//발행기관 정보 테이블 기본키
+	private int publ_pk;
+	//논문 UID
+	private String uid;
+	//발행기관 주소
 	private String publ_addr;
-	private String publ_city;
-	private String publ_state;
-	private String publ_ctry;
-	private String publ_dply;
-	private String publ_full;
+	//발행기관 풀네임
+	private String publ_full_nm;
+	//발행기관 명
+	private String publ_nm;
+	//발행기관 주소정보_도시명
+	private String city;
+	//발행기관 주소정보_국가명
+	private String country;
+	//발행기관 주소정보_주
+	private String state;
 	
-	
-	public int getPubl_id() {
-		return publ_id;
+	/* getter/setter 작성 */	
+	public int getPubl_pk() {
+		return publ_pk;
 	}
-	public void setPubl_id(int publ_id) {
-		this.publ_id = publ_id;
+	public void setPubl_pk(int publ_pk) {
+		this.publ_pk = publ_pk;
 	}
-	public String getPubl_uid() {
-		return publ_uid;
+	public String getUid() {
+		return uid;
 	}
-	public void setPubl_uid(String publ_uid) {
-		this.publ_uid = publ_uid;
+	public void setUid(String uid) {
+		this.uid = uid;
 	}
 	public String getPubl_addr() {
 		return publ_addr;
@@ -30,39 +42,40 @@ public class PublVO {
 	public void setPubl_addr(String publ_addr) {
 		this.publ_addr = publ_addr;
 	}
-	public String getPubl_city() {
-		return publ_city;
+	public String getPubl_full_nm() {
+		return publ_full_nm;
 	}
-	public void setPubl_city(String publ_city) {
-		this.publ_city = publ_city;
+	public void setPubl_full_nm(String publ_full_nm) {
+		this.publ_full_nm = publ_full_nm;
 	}
-	public String getPubl_state() {
-		return publ_state;
+	public String getPubl_nm() {
+		return publ_nm;
 	}
-	public void setPubl_state(String publ_state) {
-		this.publ_state = publ_state;
+	public void setPubl_nm(String publ_nm) {
+		this.publ_nm = publ_nm;
 	}
-	public String getPubl_ctry() {
-		return publ_ctry;
+	public String getCity() {
+		return city;
 	}
-	public void setPubl_ctry(String publ_ctry) {
-		this.publ_ctry = publ_ctry;
+	public void setCity(String city) {
+		this.city = city;
 	}
-	public String getPubl_dply() {
-		return publ_dply;
+	public String getCountry() {
+		return country;
 	}
-	public void setPubl_dply(String publ_dply) {
-		this.publ_dply = publ_dply;
+	public void setCountry(String country) {
+		this.country = country;
 	}
-	public String getPubl_full() {
-		return publ_full;
+	public String getState() {
+		return state;
 	}
-	public void setPubl_full(String publ_full) {
-		this.publ_full = publ_full;
+	public void setState(String state) {
+		this.state = state;
 	}
 	
-	
-	
-	
-	
+	/* VO객체에 담긴 데이터들을  로그로 확인할 때 사용 */	
+	public String toStringMultiline() {
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+	}	
+		
 }

@@ -13,16 +13,13 @@ import org.springframework.stereotype.Repository;
 import com.vinea.dto.ArtiVO;
 import com.vinea.dto.AuthVO;
 import com.vinea.dto.BooknoteVO;
-import com.vinea.dto.CoauthVO;
 import com.vinea.dto.ConfVO;
 import com.vinea.dto.DtypeVO;
 import com.vinea.dto.GrntVO;
 import com.vinea.dto.KwrdVO;
-import com.vinea.dto.KwrdplusVO;
 import com.vinea.dto.OrgnVO;
 import com.vinea.dto.PublVO;
 import com.vinea.dto.RefrVO;
-import com.vinea.dto.SponVO;
 import com.vinea.dto.XmlFileVO;
 import com.vinea.web.ArtiController;
 
@@ -117,7 +114,6 @@ public class XmlDAO {
 	/** 논문XML(API) 원본데이터  **/
 	public void insertXmlFile(XmlFileVO vo){
 		
-		//logger.info(vo.toStringMultiline());
 		sqlSession.insert(Namespace+".insertXmlFile", vo);
 	}
 	
@@ -127,17 +123,17 @@ public class XmlDAO {
 		return sqlSession.selectList(Namespace + ".selectXmlList", map);
 	}
 	
-	/** 논문 상세보기 **/
+	/** 논문 상세보기
 	public ArtiVO selectOneXml(int arti_id){
 		
 		return sqlSession.selectOne(Namespace+".selectOneXml",arti_id);
-	}
+	} **/
 	
-	/* 논문 상세보기 
+	/** 논문 상세보기 **/
 	public ArtiVO selectOneXml(String arti_no){
 		
 		return sqlSession.selectOne(Namespace+".selectOneXml",arti_no);
-	}*/
+	}
 	
 	/** 논문 상세보기_키워드  **/
 	public List<KwrdVO> selectKwrdList(String uid){
