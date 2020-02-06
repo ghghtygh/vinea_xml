@@ -38,7 +38,7 @@
 
 		});
 
-		/** 메인 - [파싱]버튼 : XML 데이터 파일 추가 창 열기_BootStrap Modal 활용  **/
+		/** 메인 - [XML추가]버튼 : XML 데이터 파일 추가 창 열기_BootStrap Modal 활용  **/
 		$("#btn_insertXML").on("click", function(e) {
 
 			e.preventDefault();
@@ -222,16 +222,15 @@ a {
 											<c:forEach items="${xmlList}" var="ArtiVO" varStatus="g">
 												<tr>
 													<td>
-														<p class="mb-0" style="margin-top: 5px;">${ArtiVO.arti_id}</p>
+														<p class="mb-0" style="margin-top: 5px;">${ArtiVO.arti_no}</p>
 													</td>
 													<td>
 														<blockquote class="" style="font-size: 130%;">
 
 															<!-- 논문 제목 클릭시, 논문상세페이지로 이동 -->
 															<a class="mb-0" style="color: black;"
-																href='article/article_detail?arti_id=${ArtiVO.arti_id}'>
+																href='article/article_detail?arti_no=${ArtiVO.arti_no}'>
 																${ArtiVO.arti_title} </a>
-
 															<footer class=""
 																style="font-size: 70%; vertical-align: bottom;">
 
@@ -244,7 +243,7 @@ a {
 																	<c:forEach var="auth" items="${ArtiVO.list_auth}"
 																		varStatus="a">
 
-																		<c:if test="${a.count==1 }">${auth.auth_full }</c:if>
+																		<c:if test="${a.count==1 }">${auth.auth_full_nm}</c:if>
 
 																	</c:forEach>
 
@@ -254,26 +253,26 @@ a {
 																	</c:if>
 
 
-																	${ArtiVO.arti_source_title} |
-																	<c:if test="${ArtiVO.arti_issue != ''}">
-																	 ${ArtiVO.arti_vol}(${ArtiVO.arti_issue}) 
+																	${ArtiVO.jrnl_title} |
+																	<c:if test="${ArtiVO.issue != ''}">
+																	 ${ArtiVO.volume}(${ArtiVO.issue}) 
 																	</c:if>
 
-																	<c:if test="${ArtiVO.arti_issue == ''}">
-																	${ArtiVO.arti_vol} 
+																	<c:if test="${ArtiVO.issue == ''}">
+																	${ArtiVO.volume} 
 																	</c:if>
 																	<c:if
-																		test="${ArtiVO.arti_bp != '' && ArtiVO.arti_ep != ''}">
+																		test="${ArtiVO.begin_page != '' && ArtiVO.end_page != ''}">
 																	| 
-																	pp.${ArtiVO.arti_bp}~${ArtiVO.arti_ep}
+																	pp.${ArtiVO.begin_page}~${ArtiVO.end_page}
 																	|
 																	</c:if>
 																	|
 																	<c:set var="tmp_list"
-																		value="${fn:split(ArtiVO.arti_date,'-')}" />
+																		value="${fn:split(ArtiVO.pub_date,'-')}" />
 
 																	<c:forEach var="tmp" items="${tmp_list}" varStatus="g">
-																		<c:if test="${g.count == 2}">${ArtiVO.arti_year}.${tmp}</c:if>
+																		<c:if test="${g.count == 2}">${ArtiVO.pub_year}.${tmp}</c:if>
 																	</c:forEach>
 																</div>
 															</footer>
@@ -293,7 +292,8 @@ a {
 						</div>
 					</div>
 				</div>
-				<!--  페이징 처리 -->
+				
+				<!-- 페이징 처리  -->
 				<div style="width: 100%;">
 					<div align="right" style="position: relative;">
 						<div style="position: absolute; text-align: center; width: 100%;">
@@ -383,10 +383,11 @@ a {
 						</div>
 					</div>
 				</div>
+				<!-- / 페이징처리 -->
 			</div>
 		</div>
 
-
+		<!-- [XML추가] 모달 -->
 		<div id="insertXML" class="modal">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
@@ -404,21 +405,16 @@ a {
 								<p>XML 파일의 경로를 입력해주세요</p>
 							</div>
 							<div class="input-group mb-2" style="width: 100%;">
-								<input type="text" id="filePath" name="filePath"
-									class="form-control" onkeyup="input_chk();">
-
-								<button id="btn_chk" class="btn btn-secondary">파싱</button>
+								<input type="text" id="filePath" name="filePath" class="form-control" onkeyup="input_chk();">
+								<button id="btn_chk" class="btn btn-secondary">확인</button>
 							</div>
 							<div id="loading" class="text-center">
 								<div class="spinner-border" role="status">
 									<span class="sr-only">Loading...</span>
 								</div>
 							</div>
-							<!--  추가
-							<div class='progress' id="progressDivId">
-								<div class='progress-bar' id='progressBar'></div>
-								<div class='percent' id='percent'>0%</div>
-							</div>-->
+							
+							<!-- 알림창 -->
 							<div id="div_alert" class="alert alert-dismissible alert-primary"
 								style="display: none;">
 								<button type="button" class="close" id="btn_alert_hide"
@@ -426,9 +422,14 @@ a {
 								<strong id="alert_subject">경로를 입력하지 않았습니다</strong><br>
 								<p id="alert_content">XML 파일의 경로를 입력해주세요</p>
 							</div>
+							<!-- / 알림창 -->
+							
+							<!-- 파싱 내용 -->
 							<div>
 								<div id="div_parse"></div>
 							</div>
+							<!-- / 파싱 내용 -->
+							
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -439,6 +440,8 @@ a {
 				</div>
 			</div>
 		</div>
+		<!-- / [XML추가] 모달 -->
+		
 	</form>
 </body>
 </html>

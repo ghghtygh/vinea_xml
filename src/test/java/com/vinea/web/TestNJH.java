@@ -41,44 +41,6 @@ public class TestNJH {
 		logger.info(Long.toString(start));
 		logger.info(fileName);
 
-		String uid1 = "<UID>dfdff</UID>";
-		String uid2 = "<uid>dfasdf</uid>";
-		if (uid1.contains("<UID>")) {
-			System.out.println("1ㅇㅇ");
-		} else {
-			System.out.println("1ㄴㄴ");
-		}
-
-		if (uid2.contains("<UID>")) {
-			System.out.println("2ㅇㅇ");
-		} else {
-			System.out.println("2ㄴㄴ");
-		}
-
-		//		if(np.CanParse()){
-		//			
-		//			np.DoParse();
-		//			list = np.returnList();
-		//			
-		//			for (ArtiVO vo : list){
-		//				
-		//				logger.info(vo.getArti_ctgr_name());
-		//				logger.info(vo.getArti_ctgr_subh());
-		//				logger.info(vo.getArti_ctgr_subj());
-		//				
-		//				for (DtypeVO dvo : vo.getList_dtype()){
-		//					
-		//					logger.info(dvo.toStringMultiline());
-		//				}
-		//				
-		//			}
-		//			
-		//			logger.info("성공");
-		//		}else{
-		//		
-		//			logger.info("실패");
-		//		}
-
 	}
 
 	public static void main(String[] args) throws Exception {

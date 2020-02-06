@@ -1,4 +1,4 @@
-package com.vinea.common;
+package com.vinea.notuse;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;

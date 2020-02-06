@@ -53,8 +53,8 @@ public class ArtiController {
 		model.addAttribute("pager", pager);
 		model.addAttribute("cnt", xmlCount);
 		
-		//return "article/article_home";
-		return "article/notuse_home";
+		return "article/article_home";
+		
 	}
 	
 	/** 파싱된 XML(논문) 내용 상세보기 **/
@@ -72,7 +72,7 @@ public class ArtiController {
 		
 		model.addAttribute("ArtiVO", service.article_detail(arti_no));
 		
-		return "article/notuse_detail";
+		return "article/article_detail";
 		
 	} 
 	
