@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.vinea.dto.ArtiVO;
 import com.vinea.dto.OrgnVO;
+import com.vinea.dto.XmlFileVO;
 import com.vinea.service.XmlService;
 import com.vinea.service.PostPager;
 
@@ -58,13 +59,6 @@ public class ArtiController {
 	}
 	
 	/** 파싱된 XML(논문) 내용 상세보기 **/
-	/*@RequestMapping(value="/article/article_detail", method=RequestMethod.GET)
-	public void article_detail(@RequestParam("arti_id")int arti_id, Model model) throws Exception{
-				
-		model.addAttribute("ArtiVO",service.article_detail(arti_id));
-	} */
-	
-	/** 파싱된 XML(논문) 내용 상세보기 **/
 	@RequestMapping(value="/article/article_detail", method=RequestMethod.GET)
 	public String article_detail(@RequestParam("arti_no")String arti_no, Model model) throws Exception{
 		
@@ -100,10 +94,31 @@ public class ArtiController {
 	@RequestMapping(value = "/article/test")
 	public void articleTest() throws Exception{
 		
-		String filePath = "";
-		//service.articleTest(filePath);
-		service.Test();
+		service.articleTestList();
 	}
 	
+	/** 원본 논문 데이터 파싱 테스트(DB 저장) **/
+	@RequestMapping(value = "/article/parsing")
+	public String parsingMapping() throws Exception{
+		
+		
+		return "article/article_parse";
+	}
+	
+	/** 파싱 현황 불러오기 **/
+	@RequestMapping(value="article/parsing/check")
+	@ResponseBody
+	public List<XmlFileVO> xmlParsingCheck() throws Exception{
+		
+		return service.selectXmlFileList();
+	}
+	
+	/** test **/
+	@RequestMapping(value="article/parsing/test")
+	@ResponseBody
+	public XmlFileVO xmlParsingTest(@RequestParam(defaultValue="") String file_name) throws Exception{
+		
+		return service.selectOneXmlFile(file_name);
+	}
 
 }

@@ -8,13 +8,26 @@ public class XmlFileVO {
 	private String uid;
 	private String content;
 	private String regist_date;
-	private String regist_id;
+	private String registr_id;
 	private String file_name;
 	private String parse_yn;
 	private String del_yn;
+	private int y_cnt;
+	private int all_cnt;
 	
 	
-	
+	public int getY_cnt() {
+		return y_cnt;
+	}
+	public void setY_cnt(int y_cnt) {
+		this.y_cnt = y_cnt;
+	}
+	public int getAll_cnt() {
+		return all_cnt;
+	}
+	public void setAll_cnt(int all_cnt) {
+		this.all_cnt = all_cnt;
+	}
 	public String getUid() {
 		return uid;
 	}
@@ -33,11 +46,11 @@ public class XmlFileVO {
 	public void setRegist_date(String regist_date) {
 		this.regist_date = regist_date;
 	}
-	public String getRegist_id() {
-		return regist_id;
+	public String getRegistr_id() {
+		return registr_id;
 	}
-	public void setRegist_id(String regist_id) {
-		this.regist_id = regist_id;
+	public void setRegistr_id(String registr_id) {
+		this.registr_id = registr_id;
 	}
 	public String getFile_name() {
 		return file_name;

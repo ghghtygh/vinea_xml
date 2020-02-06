@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.vinea.dto.ArtiVO;
+import com.vinea.dto.XmlFileVO;
 
 public interface XmlService {
 
@@ -25,12 +26,19 @@ public interface XmlService {
 	/** chk 동작  **/
 	public List<ArtiVO> checkList(String filePath) throws Exception;
 	
-	/** 원본 데이터 파싱 테스트 **/	
+	/** XML 파일 DB 저장 반복 **/
+	public void articleTestList() throws Exception;
+	
+	/** XML 파일 DB 저장 **/	
 	public void articleTest(String filePath) throws Exception;
 
 	/** 논문 정보 VO 객체 DB 에 저장**/
 	public void createVO(ArtiVO vo) throws Exception;
 	
-	public void Test() throws Exception;
+	/** 파싱 현황 불러오기 **/
+	public List<XmlFileVO> selectXmlFileList() throws Exception;
+	
+	/** XML파일의 REC 태그 한개 불러오기 **/
+	public XmlFileVO selectOneXmlFile(String file_name) throws Exception;
 	
 }

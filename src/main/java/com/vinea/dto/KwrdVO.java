@@ -7,7 +7,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class KwrdVO {
 
 	//키워드 정보 테이블 기본키
-	private int arti_kwrd_pk;
+	private int kwrd_pk;
 	//논문 UID
 	private String uid;
 	//키워드 명
@@ -16,11 +16,11 @@ public class KwrdVO {
 	private String kw_plus_yn;
 	
 	/* getter/setter 작성 */	
-	public int getArti_kwrd_pk() {
-		return arti_kwrd_pk;
+	public int getKwrd_pk() {
+		return kwrd_pk;
 	}
-	public void setArti_kwrd_pk(int arti_kwrd_pk) {
-		this.arti_kwrd_pk = arti_kwrd_pk;
+	public void setKwrd_pk(int kwrd_pk) {
+		this.kwrd_pk = kwrd_pk;
 	}
 	public String getUid() {
 		return uid;

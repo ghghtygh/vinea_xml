@@ -39,12 +39,6 @@ public class XmlDAO {
 		return sqlSession.selectOne(Namespace + ".countXml");
 	}
 
-	/* ArtiVO DB 저장(사용안함)
-	public void insertAVO(ArtiVO vo) {
-
-		sqlSession.insert(Namespace + ".insertAVO", vo);
-	} */
-
 	/** 논문 정보 DB 저장 **/
 	public void insertArti(ArtiVO vo) {
 
@@ -61,20 +55,11 @@ public class XmlDAO {
 		sqlSession.insert(Namespace + ".insertBooknote", vo);
 	}
 
-	/* 공저자 정보 DB 저장(사용안함)
-	public void insertCoauth(CoauthVO vo) {
-		sqlSession.insert(Namespace + ".insertCoauth", vo);
-	}*/
-
 	/** 학회 정보 DB 저장 **/
 	public void insertConf(ConfVO vo) {
 		sqlSession.insert(Namespace + ".insertConf", vo);
 	}
 	
-	/* 후원기관 정보 DB 저장(사용안함)
-	public void insertSpon(SponVO vo) {
-	sqlSession.insert(Namespace + ".insertSpon", vo);
-	}*/
 
 	/** 문서유형 정보 DB 저장 **/
 	public void insertDtype(DtypeVO vo) {
@@ -90,11 +75,6 @@ public class XmlDAO {
 	public void insertKwrd(KwrdVO vo) {
 		sqlSession.insert(Namespace + ".insertKwrd", vo);
 	}
-
-	/* 간행물 키워드(키워드플러스) 정보 DB 저장(사용안함)
-	public void insertKwrdp(KwrdplusVO vo) {
-		sqlSession.insert(Namespace + ".insertKwrdp", vo);
-	}*/
 
 	/** 저자 연구기관 정보 DB 저장 **/
 	public void insertOrgn(OrgnVO vo) {
@@ -123,46 +103,60 @@ public class XmlDAO {
 		return sqlSession.selectList(Namespace + ".selectXmlList", map);
 	}
 	
-	/** 논문 상세보기
-	public ArtiVO selectOneXml(int arti_id){
-		
-		return sqlSession.selectOne(Namespace+".selectOneXml",arti_id);
-	} **/
 	
 	/** 논문 상세보기 **/
 	public ArtiVO selectOneXml(String arti_no){
 		
-		return sqlSession.selectOne(Namespace+".selectOneXml",arti_no);
+		return sqlSession.selectOne(Namespace+".selectOneXml", arti_no);
 	}
 	
 	/** 논문 상세보기_키워드  **/
 	public List<KwrdVO> selectKwrdList(String uid){
 		
-		return sqlSession.selectList(Namespace +".selectKwrdList",uid);
+		return sqlSession.selectList(Namespace +".selectKwrdList", uid);
 	}
 	
 	/** 논문 상세보기_참고문헌  **/
 	public List<RefrVO> selectRefrList(String uid){
 		
-		return sqlSession.selectList(Namespace +".selectRefrList",uid);
+		return sqlSession.selectList(Namespace +".selectRefrList", uid);
 	}
 	
 	/** 논문 상세보기_저자 정보  **/
 	public List<AuthVO> selectAuthList(String uid){
 		
-		return sqlSession.selectList(Namespace +".selectAuthList",uid);
+		return sqlSession.selectList(Namespace +".selectAuthList", uid);
 	}
 	
     /** 논문 상세보기_기관 정보  **/
 	public List<OrgnVO> selectOrgnList(String uid){
 		
-		return sqlSession.selectList(Namespace +".selectOrgnList",uid);
+		return sqlSession.selectList(Namespace +".selectOrgnList", uid);
 	}
 	
 	/** 논문 상세보기_발행기관  **/
 	public List<PublVO> selectPublList(String uid){
 		
-		return sqlSession.selectList(Namespace +".selectPublList",uid);
+		return sqlSession.selectList(Namespace +".selectPublList", uid);
+	}
+	
+	/** XML 파일명에 따른 REC태그 **/
+	public XmlFileVO selectOneXmlFile(String file_name){
+		
+		return sqlSession.selectOne(Namespace +".selectOneXmlFile", file_name);
+		
+	}
+	
+	/****/
+	public void updateParseYN(String uid){
+		
+		sqlSession.update(Namespace+".updateParseYN", uid);
+	}
+	
+	/** 파일명과 REC태그 개수 **/
+	public List<XmlFileVO> selectXmlFileList(){
+		
+		return sqlSession.selectList(Namespace +".selectXmlFileList");
 	}
 		
 }

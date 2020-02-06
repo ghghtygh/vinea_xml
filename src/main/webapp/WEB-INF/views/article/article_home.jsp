@@ -122,7 +122,7 @@
 					var item_html = "";
 
 					$.each(data, function(index, item) {
-
+						item_html+=item['uid']+"<br>";
 					});
 
 					m_chk = true;
@@ -404,10 +404,16 @@ a {
 							<div>
 								<p>XML 파일의 경로를 입력해주세요</p>
 							</div>
+							
+							<!-- 경로입력 및 파일 확인 -->
 							<div class="input-group mb-2" style="width: 100%;">
+							
 								<input type="text" id="filePath" name="filePath" class="form-control" onkeyup="input_chk();">
 								<button id="btn_chk" class="btn btn-secondary">확인</button>
+								
 							</div>
+							
+							<!-- 로딩표시 -->
 							<div id="loading" class="text-center">
 								<div class="spinner-border" role="status">
 									<span class="sr-only">Loading...</span>
@@ -422,13 +428,11 @@ a {
 								<strong id="alert_subject">경로를 입력하지 않았습니다</strong><br>
 								<p id="alert_content">XML 파일의 경로를 입력해주세요</p>
 							</div>
-							<!-- / 알림창 -->
 							
 							<!-- 파싱 내용 -->
 							<div>
 								<div id="div_parse"></div>
 							</div>
-							<!-- / 파싱 내용 -->
 							
 						</div>
 					</div>

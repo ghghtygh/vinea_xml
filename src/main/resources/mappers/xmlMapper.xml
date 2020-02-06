@@ -108,7 +108,7 @@
 	<resultMap id="kwrdMap" type="com.vinea.dto.KwrdVO">
 	<!-- xmlMapper.xml -> resultMap(id:kwrdMap) 키워드 정보 테이블의 컬럼 -->	
 	
-		<result property="arti_kwrd_pk"			column="ARTI_KWRD_PK"/>	
+		<result property="kwrd_pk"				column="KWRD_PK"/>	
 		<result property="uid"					column="UID"/>
 		<result property="kwrd_nm"				column="KWRD_NM"/>
 		<result property="kw_plus_yn"			column="KW_PLUS_YN"/>
@@ -165,11 +165,26 @@
 		<result property="modify_id"			column="MODIFY_ID"/>		
 	</resultMap>      
 	
+	<resultMap id="xmlFileMap" type="com.vinea.dto.XmlFileVO">
+	<!-- xmlMapper.xml -> resultMap(id:xmlFileMap) XML 파일 테이블의 컬럼 -->	
+	
+		<result property="uid"					column="UID"/>	
+		<result property="content"				column="CONTENT"/>	
+		<result property="regist_date"			column="REGIST_DATE"/>	
+		<result property="registr_id"			column="REGISTR_ID"/>	
+		<result property="file_name"			column="FILE_NAME"/>	
+		<result property="parse_yn"				column="PARSE_YN"/>	
+		<result property="del_yn"				column="DEL_YN"/>	
+		<result property="y_cnt"				column="Y_CNT"/>
+		<result property="all_cnt"				column="ALL_CNT"/>
+	
+	</resultMap>
+	
 	<insert id="insertArti"   parameterType="com.vinea.dto.ArtiVO">
 	<!-- 파싱한 논문정보 DB에 저장 *path: src/main/resources/mappers/xmlMapper.xml *id: insertArti -->
 	
-		INSERT IGNORE
-			INTO TB_ARTI
+		INSERT INTO
+			TB_ARTI
 		(
 			 UID
 			,ARTI_NO
@@ -238,11 +253,14 @@
 			,#{ctgry_sub_title}
 			,#{ctgry_subject}
 			,#{del_yn}
-			,#{regist_date}
+			,NOW()
 			,#{registr_id}
 			,#{modify_date}
 			,#{modify_id}
-		)      
+		)
+		ON DUPLICATE KEY UPDATE
+			REGIST_DATE = NOW()
+		
 	</insert>
 	
 	<insert id="insertAuth"   parameterType="com.vinea.dto.AuthVO">
@@ -670,5 +688,59 @@
       WHERE
          UID = #{uid}   
    </select>   
+
+	<select id="selectOneXmlFile" parameterType="java.lang.String" resultMap="xmlFileMap">
+	<!-- 입력 파일명에 따른 파싱안된 XML<REC>태그내용  *path: src/main/resources/mappers/xmlMapper.xml *id: selectOneXmlFile -->	
+	
+		SELECT
+			 UID
+			,CONTENT
+		FROM
+			TB_XML_FILE
+		WHERE
+			UID = (
+					SELECT
+						UID
+					FROM
+						TB_XML_FILE
+					WHERE
+						FILE_NAME = #{file_name}
+					AND
+						(PARSE_YN='N' OR (PARSE_YN IS NULL))
+					ORDER BY
+						REGIST_DATE
+					ASC
+						LIMIT 0,1
+					)
+			
+	</select>
+	
+	
+	<select id="selectXmlFileList" resultMap="xmlFileMap">
+	<!-- XML 파일 목록  *path: src/main/resources/mappers/xmlMapper.xml *id: selectXmlFileList -->
+	
+		SELECT
+			 FILE_NAME
+			,COUNT(IF(PARSE_YN='Y', PARSE_YN, NULL))	AS Y_CNT
+			,COUNT(UID)									AS ALL_CNT
+		FROM
+			TB_XML_FILE
+		GROUP BY
+			FILE_NAME
+			
+			
+	</select>
+
+	<update id="updateParseYN" parameterType="java.lang.String">
+	
+		UPDATE
+			TB_XML_FILE
+		SET
+			PARSE_YN = 'Y'
+		WHERE
+			UID = #{uid}
+	
+	</update>
+	
 
  </mapper>

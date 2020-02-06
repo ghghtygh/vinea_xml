@@ -406,18 +406,35 @@ public class NjhParser {
 			/* 키워드명 */
 			kwrdVO.setKwrd_nm((String) xpath.evaluate("./text()", node, XPathConstants.STRING));
 			
-			/* 논문키워드와 키워드플러스 구분 부분(어떻게?)
-			 * NodeList keywordsPlusNodeList = (NodeList) xpath.evaluate("./static_data/item/keywords_plus/keyword", rec,
-					XPathConstants.NODESET);
-
-			for (int j = 0, m = keywordsPlusNodeList.getLength(); j < m; j++) {
-
-				Node keywordsPlusNode = keywordsPlusNodeList.item(j);
-
-				((String) xpath.evaluate("./text()", keywordsPlusNode, XPathConstants.STRING));*/
-
+			/* 논문키워드와 키워드플러스 구분*/
+			kwrdVO.setKw_plus_yn("N");
+			
+			list_kwrd.add(kwrdVO);
+			
 		}
+		
+		NodeList keywordsPlusNodeList = (NodeList) xpath.evaluate("./static_data/item/keywords_plus/keyword", rec,
+				XPathConstants.NODESET);
 
+		for (int j = 0, m = keywordsPlusNodeList.getLength(); j < m; j++) {
+
+			Node keywordsPlusNode = keywordsPlusNodeList.item(j);
+			
+			KwrdVO kwrdVO = new KwrdVO();
+			
+			/* TB_ARTI의 논문 UID를 가져와 DB 저장 */
+			kwrdVO.setUid(vo.getUid());
+			
+			/* 키워드명 */
+			kwrdVO.setKwrd_nm((String) xpath.evaluate("./text()", keywordsPlusNode, XPathConstants.STRING));
+			
+			/* 논문키워드와 키워드플러스 구분*/
+			kwrdVO.setKw_plus_yn("Y");
+			
+			list_kwrd.add(kwrdVO);
+		}
+		
+		
 		vo.setList_kwrd(list_kwrd);
 		/** TB_KWRD(논문 키워드) 테이블에 저장할 내용 파싱  종료 **/
 		
