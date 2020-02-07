@@ -30,6 +30,9 @@ import com.vinea.dto.XmlFileVO;
 @Service
 public class XmlServiceImpl implements XmlService{
 	
+	
+	private XmlFileVO xmlFileVO;
+	
 	private NjhParser parser;
 	
 	private FileReader fr;
@@ -189,8 +192,8 @@ public class XmlServiceImpl implements XmlService{
 		
 		//list.add("C:\\Users\\vinea\\iCloudDrive\\2017_CORE\\WR_2017_20180509131811_CORE_0001.xml");
 		//list.add("C:\\Users\\vinea\\iCloudDrive\\2017_CORE\\WR_2017_20180509131811_CORE_0002.xml");
+		//list.add("C:\\Users\\vinea\\iCloudDrive\\2017_CORE\\WR_2017_20180509131811_CORE_0003.xml");
 		
-		list.add("C:\\Users\\vinea\\iCloudDrive\\2017_CORE\\WR_2017_20180509131811_CORE_0003.xml");
 		list.add("C:\\Users\\vinea\\iCloudDrive\\2017_CORE\\WR_2017_20180509131811_CORE_0004.xml");
 		list.add("C:\\Users\\vinea\\iCloudDrive\\2017_CORE\\WR_2017_20180509131811_CORE_0005.xml");
 		
@@ -337,26 +340,25 @@ public class XmlServiceImpl implements XmlService{
 		return dao.selectXmlFileList();
 	}
 	
-	/** XML파일의 REC 태그 한개 불러오기 **/
+	/** XML파일의 REC 태그 한개 불러와서 파싱 하기 **/
 	public XmlFileVO selectOneXmlFile(String file_name) throws Exception{
 		//return dao.selectOneXmlFile(file_name);
 		
-		XmlFileVO vo = new XmlFileVO();
-		NjhParser parser = new NjhParser();
-		ArtiVO artiVO = new ArtiVO();
+		xmlFileVO = new XmlFileVO();
+		parser = new NjhParser();
 		
-		while((vo = dao.selectOneXmlFile(file_name)) != null){
+		while((xmlFileVO = dao.selectOneXmlFile(file_name)) != null){
 			
 		
 		/* ArtiVO 저장*/
-		createVO(parser.parseRecStr(vo.getContent()));
+		createVO(parser.parseRecStr(xmlFileVO.getContent()));
 		
 		/* N -> Y */
-		dao.updateParseYN(vo.getUid());
+		dao.updateParseYN(xmlFileVO.getUid());
 		
 		
 		}
-		return vo;
+		return xmlFileVO;
 	}
 	
 	

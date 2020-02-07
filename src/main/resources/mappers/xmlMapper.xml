@@ -483,7 +483,7 @@
 	<insert id="insertRefr" parameterType="com.vinea.dto.RefrVO">
 	<!-- 파싱한 참고문헌정보 DB에 저장 *path: src/main/resources/mappers/xmlMapper.xml *id: insertRefr -->
 	
-		INSERT IGNORE
+		INSERT
 	    	INTO TB_REFR
 	    (
 			 REFR_ID
@@ -519,11 +519,13 @@
 			,#{orgn_nm}
 			,#{jrnl_title}
 			,#{del_yn}
-			,#{regist_date}
+			,NOW()
 			,#{registr_id}
 			,#{modify_date}
 		    ,#{modify_id}   
 	    )
+	    ON DUPLICATE KEY UPDATE
+			REGIST_DATE = NOW()
 	</insert>
 	
 	<insert id="insertXmlFile" parameterType="com.vinea.dto.XmlFileVO">
