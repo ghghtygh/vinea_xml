@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StopWatch;
 
 import com.vinea.common.NjhParser;
 import com.vinea.dao.XmlDAO;
@@ -37,6 +38,8 @@ public class XmlServiceImpl implements XmlService{
 	
 	private FileReader fr;
 	private BufferedReader br;
+	
+	private StopWatch stopWatch;
 	
 	Logger logger = LoggerFactory.getLogger(XmlServiceImpl.class);
 	
@@ -347,17 +350,36 @@ public class XmlServiceImpl implements XmlService{
 		xmlFileVO = new XmlFileVO();
 		parser = new NjhParser();
 		
+		stopWatch = new StopWatch();
+		stopWatch.start();
+		
 		while((xmlFileVO = dao.selectOneXmlFile(file_name)) != null){
 			
-		
-		/* ArtiVO 저장*/
-		createVO(parser.parseRecStr(xmlFileVO.getContent()));
-		
-		/* N -> Y */
-		dao.updateParseYN(xmlFileVO.getUid());
-		
-		
+			try{
+				/* ArtiVO 저장*/
+				createVO(parser.parseRecStr(xmlFileVO.getContent()));
+				
+				dao.updateParseYN(xmlFileVO.getUid());
+				
+			}catch(Exception e){
+				
+				logger.info("오류발생 >>>"+xmlFileVO.getUid());
+				
+			}finally{
+				
+				break;
+				
+			}
+			/* N -> Y */
+			
+			
+			
 		}
+		
+		stopWatch.stop();
+		
+		logger.info("수행시간 : {}",stopWatch.getTotalTimeSeconds());
+		
 		return xmlFileVO;
 	}
 	

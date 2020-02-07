@@ -18,6 +18,8 @@
 <link href="<c:url value='/resources/css/_variables.scss' />" rel="stylesheet">
 </head>
 <script>
+
+
 	$(document).ready(function() {
 
 		$("#loading").hide();
@@ -30,7 +32,7 @@
 
 		});
 		
-		
+		/** 버튼, 파싱현황 세팅 **/
 		$.ajax({
 			type:"POST",
 			url:"/article/parsing/check",
@@ -38,13 +40,32 @@
 			async:false,
 			success:function(data){
 				
+				var str = "";
+				
+				str+="<div>";
+				
 				$.each(data, function(index, item){
+					console.log(index+" : "+item['file_name']+" "+item['y_cnt']+" "+item['all_cnt']);
 					
-					console.log("index : "+index);
-					console.log(item['file_name']+" "+item['y_cnt']+" "+item['all_cnt']);
+					str+="<div class='row' style='font-size:90%;'>";
 					
+					str+="	<div class='col-sm-8'>";
+					str+=		item['file_name'];
+					str+="	</div>";
+					str+="	<div class='col-sm-3' align='right' name="+item['file_name']+">";
+					str+=		item['y_cnt']+"/"+item['all_cnt'];
+					str+="	</div>"
+					str+="	<div class='col-sm-1'>";
+					str+="		<button type='button' name='btn_parse' value="+item['file_name']+">파싱";
+					str+="		</button>";
+					str+="	</div>";
+					
+					str+="</div>"
 					
 				});
+				
+				str+="</div>";
+				$("#parse_div").html(str);
 			},
 			error:function(request,error){
 				console.log("request :"+request+"\nerror:"+error);
@@ -52,8 +73,7 @@
 			}
 		});
 		
-		
-		
+		/* [파싱현황 확인] 버튼 클릭*/
 		$("#btn_parse_chk").click(function(e){
 			
 			e.preventDefault();
@@ -61,32 +81,43 @@
 			
 		});
 		
+		
+		
+		$("button[name='btn_parse']").click(function(e){
+			
+			e.preventDefault();
+		
+			$.ajax({
+				
+			
+				type:"POST",
+				url:"/article/parsing/test",
+				data:{
+					"file_name":$(this).attr('value')
+				},
+				dataType:"json",
+				async:false,
+				success:function(data){
+					
+					
+					console.log(data['uid']);
+					//console.log(data['content']);
+					parsing_check();
+					
+				},
+				error:function(request,error){
+					console.log("request :"+request+"\nerror:"+error);
+					return;	
+				}
+			});
+				
+		});
+		
 		$("#btn_test").click(function(e){
 			
 			e.preventDefault();
 			
-				$.ajax({
-					
-				
-					type:"POST",
-					url:"/article/parsing/test",
-					data:{
-						"file_name":"WR_2017_20180509131811_CORE_0001.xml"
-					},
-					dataType:"json",
-					async:false,
-					success:function(data){
-						
-						
-						console.log(data['uid']);
-						//console.log(data['content']);
-						
-					},
-					error:function(request,error){
-						console.log("request :"+request+"\nerror:"+error);
-						return;	
-					}
-				});
+			
 				
 		});
 	});
@@ -101,10 +132,15 @@
 			success:function(data){
 				$.each(data, function(index, item){
 					
+					
 					//console.log("index : "+index);
 					console.log(item['file_name']+" "+item['y_cnt']+" "+item['all_cnt']);
 					
+					$("div[name='"+item['file_name']+"']").html(item['y_cnt']+"/"+item['all_cnt']);
 				});
+				
+				
+				
 			},
 			error:function(request,error){
 				console.log("request :"+request+"\nerror:"+error);
@@ -152,13 +188,13 @@
 
 					<!-- 파싱 내용 -->
 					<div>
-						<div id=""></div>
+						<div id="parse_div"></div>
 					</div>
 					
 					<!-- 테스트 -->
 					<div>
 						<button type="button" class="btn btn-secondary" id="btn_parse_chk">파싱 현황 확인</button>
-						<button type="button" class="btn btn-secondary" id="btn_test">테스트</button>
+						<button type="button" class="btn btn-secondary" id="btn_test" value="WR_2017_20180509131811_CORE_0001.xml">테스트</button>
 					</div>
 					
 				</div>
