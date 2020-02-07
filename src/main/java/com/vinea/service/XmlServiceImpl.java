@@ -365,20 +365,16 @@ public class XmlServiceImpl implements XmlService{
 				
 				logger.info("오류발생 >>>"+xmlFileVO.getUid());
 				
-			}finally{
-				
-				break;
-				
 			}
+				
+			break;
+			
 			/* N -> Y */
-			
-			
-			
 		}
 		
 		stopWatch.stop();
 		
-		logger.info("수행시간 : {}",stopWatch.getTotalTimeSeconds());
+		//logger.info("수행시간 : {}",stopWatch.getTotalTimeSeconds());
 		
 		return xmlFileVO;
 	}

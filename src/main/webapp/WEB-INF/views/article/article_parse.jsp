@@ -52,11 +52,11 @@
 					str+="	<div class='col-sm-8'>";
 					str+=		item['file_name'];
 					str+="	</div>";
-					str+="	<div class='col-sm-3' align='right' name="+item['file_name']+">";
+					str+="	<div class='col-sm-2' align='right' name="+item['file_name']+">";
 					str+=		item['y_cnt']+"/"+item['all_cnt'];
 					str+="	</div>"
-					str+="	<div class='col-sm-1'>";
-					str+="		<button type='button' name='btn_parse' value="+item['file_name']+">파싱";
+					str+="	<div class='col-sm-2'>";
+					str+="		<button type='button' class='btn btn-primary btn-sm' name='btn_parse' value="+item['file_name']+">파싱";
 					str+="		</button>";
 					str+="	</div>";
 					

@@ -113,7 +113,7 @@ public class ArtiController {
 		return service.selectXmlFileList();
 	}
 	
-	/** test **/
+	/** XML 파일명에 따라 파싱 **/
 	@RequestMapping(value="article/parsing/test")
 	@ResponseBody
 	public XmlFileVO xmlParsingTest(@RequestParam(defaultValue="") String file_name) throws Exception{
