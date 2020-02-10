@@ -47,14 +47,13 @@
 				$.each(data, function(index, item){
 					console.log(index+" : "+item['file_name']+" "+item['y_cnt']+" "+item['all_cnt']);
 					
-					str+="<div class='row' style='font-size:90%;'>";
+					str+="<div class='row' style='font-size:80%;'>";
 					
-					str+="	<div class='col-sm-8'>";
+					str+="	<div class='col-sm-7'>";
 					str+=		item['file_name'];
 					str+="	</div>";
-					str+="	<div class='col-sm-2' align='right' name="+item['file_name']+">";
-					str+=		item['y_cnt']+"/"+item['all_cnt'];
-					str+="	</div>"
+					str+="	<div class='col-sm-1' name="+item['file_name']+">"+item['y_cnt']+"</div>";
+					str+="	<div class='col-sm-1'>/"+item['all_cnt']+"</div>";
 					str+="	<div class='col-sm-2'>";
 					str+="		<button type='button' class='btn btn-primary btn-sm' name='btn_parse' value="+item['file_name']+">파싱";
 					str+="		</button>";
@@ -100,7 +99,7 @@
 				success:function(data){
 					
 					
-					console.log(data['uid']);
+					//console.log(data['uid']);
 					//console.log(data['content']);
 					parsing_check();
 					
@@ -117,8 +116,6 @@
 			
 			e.preventDefault();
 			
-			
-				
 		});
 	});
 
@@ -126,7 +123,7 @@
 		
 		$.ajax({
 			type:"POST",
-			url:"/article/parsing/check",
+			url:"/article/parsing/check2",
 			dataType:"json",
 			async:false,
 			success:function(data){
@@ -134,9 +131,9 @@
 					
 					
 					//console.log("index : "+index);
-					console.log(item['file_name']+" "+item['y_cnt']+" "+item['all_cnt']);
+					//console.log(item['file_name']+" "+item['y_cnt']+" "+item['all_cnt']);
 					
-					$("div[name='"+item['file_name']+"']").html(item['y_cnt']+"/"+item['all_cnt']);
+					$("div[name='"+item['file_name']+"']").html(item['y_cnt']);
 				});
 				
 				

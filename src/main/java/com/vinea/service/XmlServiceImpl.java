@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -73,9 +75,9 @@ public class XmlServiceImpl implements XmlService{
 	
 	/** 논문 상세보기  **/
 	@Override
-	public ArtiVO article_detail(String arti_no) throws Exception{
+	public ArtiVO article_detail(String uid) throws Exception{
 		
-		ArtiVO vo = dao.selectOneXml(arti_no);
+		ArtiVO vo = dao.selectOneXml(uid);
 		
 		/* 키워드 정보  */
 		vo.setList_kwrd(dao.selectKwrdList(vo.getUid()));		
@@ -119,11 +121,11 @@ public class XmlServiceImpl implements XmlService{
 		
 		dao.insertArti(vo);
 		
-		/* 저자 정보 리스트 */
+		/* 저자 정보 리스트 
 		for(AuthVO authVO : vo.getList_auth()){
 			dao.insertAuth(authVO);
-		}
-		
+		}*/
+		dao.insertAuthList(vo.getList_auth());
 		/* 도서기록 정보 리스트 */
 		for(BooknoteVO booknoteVO : vo.getList_booknote()){
 			dao.insertBooknote(booknoteVO);
@@ -339,12 +341,16 @@ public class XmlServiceImpl implements XmlService{
 	}
 	
 	/** 파싱 현황 불러오기 **/
-	public List<XmlFileVO> selectXmlFileList() throws Exception{
-		return dao.selectXmlFileList();
+	public List<XmlFileVO> selectXmlFileCount() throws Exception{
+		return dao.selectXmlFileCount();
+	}
+	
+	public List<XmlFileVO> selectParseYN() throws Exception{
+		return dao.selectParseYN();
 	}
 	
 	/** XML파일의 REC 태그 한개 불러와서 파싱 하기 **/
-	public XmlFileVO selectOneXmlFile(String file_name) throws Exception{
+	public XmlFileVO parseOneXml(String file_name) throws Exception{
 		//return dao.selectOneXmlFile(file_name);
 		
 		xmlFileVO = new XmlFileVO();
@@ -353,33 +359,60 @@ public class XmlServiceImpl implements XmlService{
 		stopWatch = new StopWatch();
 		stopWatch.start();
 		
-		while((xmlFileVO = dao.selectOneXmlFile(file_name)) != null){
+		if((xmlFileVO = dao.selectOneXmlFile(file_name)) != null){
 			
 			try{
 				/* ArtiVO 저장*/
 				createVO(parser.parseRecStr(xmlFileVO.getContent()));
 				
+				/* 파싱 완료 표시 */
 				dao.updateParseYN(xmlFileVO.getUid());
 				
 			}catch(Exception e){
 				
+				/* 오류 표시 */
+				//dao.updateErrorYN(xmlFileVO.getUid());
 				logger.info("오류발생 >>>"+xmlFileVO.getUid());
+			}finally{
+				
+				stopWatch.stop();
+				
+				logger.info("parseOneXml - 수행시간 : {}",stopWatch.getTotalTimeSeconds());
 				
 			}
-				
-			break;
+			
+			return xmlFileVO;
 			
 			/* N -> Y */
+		}else{
+			return null;
 		}
 		
-		stopWatch.stop();
 		
-		//logger.info("수행시간 : {}",stopWatch.getTotalTimeSeconds());
 		
-		return xmlFileVO;
 	}
 	
-	
-	
-	
+	/** 해당 파일명, 태그 개수을 입력받아 여러 태그 한꺼번에 파싱 **/
+	public void parseXmlList(Map<String,Object> map) throws Exception{
+		
+		xmlFileVO = new XmlFileVO();
+		parser = new NjhParser();
+		stopWatch = new StopWatch();
+		stopWatch.start();
+		
+		for(XmlFileVO vo : dao.selectXmlFileList(map)){
+			try{
+				createVO(parser.parseRecStr(vo.getContent()));
+				dao.updateParseYN(vo.getUid());
+			}catch(Exception e){
+			
+				/* 오류 표시 */
+				dao.updateErrorYN(vo.getUid());
+				logger.info("오류발생 >>>"+vo.getUid());
+			}
+		}
+		stopWatch.stop();
+		
+		logger.info("parseXmlList - 수행시간 : {}",stopWatch.getTotalTimeSeconds());
+	}
 }

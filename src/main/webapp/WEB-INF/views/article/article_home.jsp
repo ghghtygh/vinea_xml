@@ -229,7 +229,7 @@ a {
 
 															<!-- 논문 제목 클릭시, 논문상세페이지로 이동 -->
 															<a class="mb-0" style="color: black;"
-																href='article/article_detail?arti_no=${ArtiVO.arti_no}'>
+																href='article/article_detail?uid=${ArtiVO.uid}'>
 																${ArtiVO.arti_title} </a>
 															<footer class=""
 																style="font-size: 70%; vertical-align: bottom;">

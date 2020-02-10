@@ -303,6 +303,48 @@
 	    )        
 	</insert>
 	
+	
+	<insert id="insertAuthList" parameterType="java.util.List">
+		INSERT IGNORE
+	    	INTO TB_AUTH
+	    (
+			AUTH_ID
+			,AUTH_SEQ
+			,AUTH_ADDR_NO
+			,UID
+			,AUTH_NM
+			,AUTH_FULL_NM
+			,AUTH_WOS_NM
+			,AUTH_ROLE
+			,LEAD_YN
+			,CORRES_YN
+			,AUTH_EMAIL_ADDR
+			,ORCID_ID
+			,AUTH_RID
+		) 		
+	    VALUES
+	    <foreach collection="list" item="item" separator=" , ">
+	    (
+			 #{item.auth_id}
+			,#{item.auth_seq}    
+			,#{item.auth_addr_no}  
+			,#{item.uid}   
+			,#{item.auth_nm} 
+			,#{item.auth_full_nm}  
+			,#{item.auth_wos_nm}   
+			,#{item.auth_role}   
+			,#{item.lead_yn}   
+			,#{item.corres_yn} 
+			,#{item.auth_email_addr} 
+			,#{item.orcid_id}
+			,#{item.auth_rid}
+	    )
+	    </foreach>
+	    
+	</insert>
+	
+	
+	
 	<insert id="insertBooknote" parameterType="com.vinea.dto.BooknoteVO">
 	<!-- 파싱한 도서기록정보 DB에 저장 *path: src/main/resources/mappers/xmlMapper.xml *id: insertBooknote -->
 	
@@ -573,7 +615,7 @@
 		FROM
 			TB_ARTI			
 		ORDER BY
-			UID
+			REGIST_DATE
 		DESC 
 		LIMIT
 			 #{startIndex}
@@ -611,7 +653,8 @@
 		FROM
 			TB_ARTI		
 		WHERE
-			ARTI_NO = #{arti_no}
+			UID = #{UID}
+
 	</select>
 	
 	<select id ="selectKwrdList" parameterType="java.lang.String" resultMap="kwrdMap">
@@ -700,45 +743,84 @@
 		FROM
 			TB_XML_FILE
 		WHERE
-			UID = (
-					SELECT
-						UID
-					FROM
-						TB_XML_FILE
-					WHERE
-						FILE_NAME = #{file_name}
-					AND
-						(PARSE_YN='N' OR (PARSE_YN IS NULL))
-					ORDER BY
-						REGIST_DATE
-					ASC
-						LIMIT 0,1
-					)
+			FILE_NAME = #{file_name}
+		AND
+			(PARSE_YN = 'N' OR PARSE_YN IS NULL)
+		AND
+			(ERROR_YN != 'Y' OR ERROR_YN IS NULL)
+		LIMIT 1
 			
 	</select>
 	
+	<select id="selectXmlFileList" parameterType="hashMap" resultMap="xmlFileMap">
+	<!-- 입력 파일명에 따른 파싱안된 XML<REC>태그내용 리스트  *path: src/main/resources/mappers/xmlMapper.xml *id: selectOneXmlFile -->
 	
-	<select id="selectXmlFileList" resultMap="xmlFileMap">
-	<!-- XML 파일 목록  *path: src/main/resources/mappers/xmlMapper.xml *id: selectXmlFileList -->
+		SELECT
+			 UID
+			,CONTENT
+		FROM
+			TB_XML_FILE
+		WHERE
+			FILE_NAME = #{file_name}
+		AND
+			(PARSE_YN = 'N' OR PARSE_YN IS NULL)
+		AND
+			(ERROR_YN != 'Y' OR ERROR_YN IS NULL)
+		
+		LIMIT #{file_cnt}
+		
+	</select>
+	
+	<select id="selectXmlFileCount" resultMap="xmlFileMap">
+	<!-- XML 파싱 현황 목록  *path: src/main/resources/mappers/xmlMapper.xml *id: selectXmlFileList -->
 	
 		SELECT
 			 FILE_NAME
 			,COUNT(IF(PARSE_YN='Y', PARSE_YN, NULL))	AS Y_CNT
-			,COUNT(UID)									AS ALL_CNT
+			,COUNT(*)									AS ALL_CNT
 		FROM
 			TB_XML_FILE
 		GROUP BY
 			FILE_NAME
 			
-			
 	</select>
-
+	
+	
+	
+	<select id="selectParseYN" resultMap="xmlFileMap">
+	<!-- XML 파싱 완료 현황  *path: src/main/resources/mappers/xmlMapper.xml *id: selectParseYN -->
+	
+		SELECT
+			 FILE_NAME
+			,COUNT(*)									AS Y_CNT
+		FROM
+			TB_XML_FILE
+		WHERE
+			PARSE_YN = 'Y'
+		GROUP BY
+			FILE_NAME
+	
+	</select>
+	
 	<update id="updateParseYN" parameterType="java.lang.String">
+	<!-- 파싱 완료 표기  *path: src/main/resources/mappers/xmlMapper.xml *id: updateParseYN -->
 	
 		UPDATE
 			TB_XML_FILE
 		SET
 			PARSE_YN = 'Y'
+		WHERE
+			UID = #{uid}
+	
+	</update>
+	
+	<update id="updateErrorYN" parameterType="java.lang.String">
+	<!-- 에러 파일 표기 *path: src/main/resources/mappers/xmlMapper.xml *id: updateErrorYN -->
+		
+		UPDATE
+			TB_XML_FILE
+		SET
+			ERROR_YN = 'Y'
 		WHERE
 			UID = #{uid}
 	

@@ -58,13 +58,6 @@ public class NjhParser {
 		xpath = XPathFactory.newInstance().newXPath();
 	}
 	
-	public void Test1() throws Exception {
-
-
-	}
-	
-	
-
 	public boolean CanParse() {
 
 		try {
@@ -94,6 +87,7 @@ public class NjhParser {
 		}
 
 	}
+	
 	
 	public ArtiVO parseRecStr(String str) throws Exception{
 	

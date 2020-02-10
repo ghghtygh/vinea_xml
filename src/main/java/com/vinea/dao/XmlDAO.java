@@ -49,7 +49,14 @@ public class XmlDAO {
 	public void insertAuth(AuthVO vo) {
 		sqlSession.insert(Namespace + ".insertAuth", vo);
 	}
-
+	
+	
+	/** 저자 정보리스트 DB 저장 **/
+	public void insertAuthList(List<AuthVO> list){
+		sqlSession.insert(Namespace+".insertAuthList", list);
+	}
+	
+	
 	/** 도서기록 정보 DB 저장 **/
 	public void insertBooknote(BooknoteVO vo) {
 		sqlSession.insert(Namespace + ".insertBooknote", vo);
@@ -105,9 +112,9 @@ public class XmlDAO {
 	
 	
 	/** 논문 상세보기 **/
-	public ArtiVO selectOneXml(String arti_no){
+	public ArtiVO selectOneXml(String uid){
 		
-		return sqlSession.selectOne(Namespace+".selectOneXml", arti_no);
+		return sqlSession.selectOne(Namespace+".selectOneXml", uid);
 	}
 	
 	/** 논문 상세보기_키워드  **/
@@ -144,19 +151,39 @@ public class XmlDAO {
 	public XmlFileVO selectOneXmlFile(String file_name){
 		
 		return sqlSession.selectOne(Namespace +".selectOneXmlFile", file_name);
-		
 	}
 	
-	/****/
+	/** XML 파일명에 따른 REC태그 리스트**/
+	public List<XmlFileVO> selectXmlFileList(Map<String,Object> map){
+		
+		return sqlSession.selectList(Namespace +".selectXmlFileList", map);
+	}
+	
+	/** 파일명과 REC태그 개수 **/
+	public List<XmlFileVO> selectXmlFileCount(){
+		
+		return sqlSession.selectList(Namespace +".selectXmlFileCount");
+	}
+	
+	/**  XML 파싱 완료 현황 **/
+	public List<XmlFileVO> selectParseYN(){
+		
+		return sqlSession.selectList(Namespace +".selectParseYN");
+	}
+	
+	
+	/** XML 파일 파싱완료 표기 **/
 	public void updateParseYN(String uid){
 		
 		sqlSession.update(Namespace+".updateParseYN", uid);
 	}
 	
-	/** 파일명과 REC태그 개수 **/
-	public List<XmlFileVO> selectXmlFileList(){
+	/** XML 파일 에러 표기 **/
+	public void updateErrorYN(String uid){
 		
-		return sqlSession.selectList(Namespace +".selectXmlFileList");
+		sqlSession.update(Namespace+".updateErrorYN", uid);
 	}
+	
+	
 		
 }
