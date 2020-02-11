@@ -37,17 +37,28 @@
 			$("#div_alert").hide();
 
 		});
+		
+		$('body').on('hidden.bs.modal', '.modal', function () {
+			
+			//console.log("모달 닫힘");
+			//$(this).find('.modal-content').empty();
+		    $("#insertXML").removeData('bs.modal');
+		});
 
 		/** 메인 - [XML추가]버튼 : XML 데이터 파일 추가 창 열기_BootStrap Modal 활용  **/
 		$("#btn_insertXML").on("click", function(e) {
 
 			e.preventDefault();
 
+			
 			$("#div_alert").hide();
 
 			input_chk();
-
-			$("#insertXML").modal();
+			
+			//$("#insertXML").modal();
+			$("#insertXML").modal({remote:"article/parsing"});
+			
+			
 		});
 
 		/** 파싱모달 - [저장] 버튼 : insertXML - 파싱 후, xml(논문데이터) DB 저장  **/
@@ -248,12 +259,11 @@ a {
 																	</c:forEach>
 
 																	<c:if test="${fn:length(ArtiVO.list_auth)>1}">
-																		<c:out
-																			value="  외  ${fn:length(ArtiVO.list_auth)-1}명 | "></c:out>
+																		<c:out value="  외  ${fn:length(ArtiVO.list_auth)-1}명 "></c:out>
 																	</c:if>
 
 
-																	${ArtiVO.jrnl_title} |
+																	| ${ArtiVO.jrnl_title} |
 																	<c:if test="${ArtiVO.issue != ''}">
 																	 ${ArtiVO.volume}(${ArtiVO.issue}) 
 																	</c:if>
@@ -267,7 +277,6 @@ a {
 																	pp.${ArtiVO.begin_page}~${ArtiVO.end_page}
 																	|
 																	</c:if>
-																	|
 																	<c:set var="tmp_list"
 																		value="${fn:split(ArtiVO.pub_date,'-')}" />
 
@@ -391,56 +400,6 @@ a {
 		<div id="insertXML" class="modal">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title">XML 데이터추가</h5>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					
-					<div class="modal-body">
-						<div class="container">
-							<div>
-								<p>XML 파일의 경로를 입력해주세요</p>
-							</div>
-							
-							<!-- 경로입력 및 파일 확인 -->
-							<div class="input-group mb-2" style="width: 100%;">
-							
-								<input type="text" id="filePath" name="filePath" class="form-control" onkeyup="input_chk();">
-								<button id="btn_chk" class="btn btn-secondary">확인</button>
-								
-							</div>
-							
-							<!-- 로딩표시 -->
-							<div id="loading" class="text-center">
-								<div class="spinner-border" role="status">
-									<span class="sr-only">Loading...</span>
-								</div>
-							</div>
-							
-							<!-- 알림창 -->
-							<div id="div_alert" class="alert alert-dismissible alert-primary"
-								style="display: none;">
-								<button type="button" class="close" id="btn_alert_hide"
-									style="color: white;">&times;</button>
-								<strong id="alert_subject">경로를 입력하지 않았습니다</strong><br>
-								<p id="alert_content">XML 파일의 경로를 입력해주세요</p>
-							</div>
-							
-							<!-- 파싱 내용 -->
-							<div>
-								<div id="div_parse"></div>
-							</div>
-							
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" id="btn_saveXml">저장</button>
-						<button type="button" class="btn btn-secondary"
-							data-dismiss="modal" onclick="input_chk();">취소</button>
-					</div>
 				</div>
 			</div>
 		</div>

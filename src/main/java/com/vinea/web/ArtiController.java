@@ -62,7 +62,7 @@ public class ArtiController {
 	@RequestMapping(value="/article/article_detail", method=RequestMethod.GET)
 	public String article_detail(@RequestParam("uid")String uid, Model model) throws Exception{
 		
-		
+		//logger.info(service.article_detail(uid).toStringMultiline());
 		
 		model.addAttribute("ArtiVO", service.article_detail(uid));
 		
@@ -106,7 +106,7 @@ public class ArtiController {
 	}
 	
 	/** 파싱 현황 불러오기 **/
-	@RequestMapping(value="article/parsing/check")
+	@RequestMapping(value="/article/parsing/check")
 	@ResponseBody
 	public List<XmlFileVO> xmlParsingCheck() throws Exception{
 		
@@ -114,7 +114,7 @@ public class ArtiController {
 	}
 	
 	/** 파싱 현황 불러오기 **/
-	@RequestMapping(value="article/parsing/check2")
+	@RequestMapping(value="/article/parsing/check2")
 	@ResponseBody
 	public List<XmlFileVO> xmlParsingCheck2() throws Exception{
 		
@@ -122,7 +122,7 @@ public class ArtiController {
 	}
 	
 	/** XML 파일명에 따라 파싱 **/
-	@RequestMapping(value="article/parsing/test")
+	@RequestMapping(value="/article/parsing/test")
 	@ResponseBody
 	public XmlFileVO xmlParsingTest(@RequestParam(defaultValue="") String file_name) throws Exception{
 		
@@ -133,16 +133,20 @@ public class ArtiController {
 	
 	/** XML 파일명에 따라 파싱 **/
 	@RequestMapping(value="/article/parsing/test2")
-	public void xmlParsingTest2() throws Exception{
+	@ResponseBody
+	public Boolean xmlParsingTest2(@RequestParam(defaultValue="") String file_name,
+			@RequestParam(defaultValue="1")int file_cnt) throws Exception{
 		
-		String file_name = "WR_2017_20180509131811_CORE_0001.xml";
-		int file_cnt = 1;
+		//file_name = "WR_2017_20180509131811_CORE_0001.xml";
+		//file_cnt = 1;
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("file_name",file_name);
 		map.put("file_cnt", file_cnt);
 		
 		service.parseXmlList(map);
+		
+		return true;
 	}
 
 }

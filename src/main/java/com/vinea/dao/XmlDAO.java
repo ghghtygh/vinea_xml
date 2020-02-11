@@ -50,13 +50,6 @@ public class XmlDAO {
 		sqlSession.insert(Namespace + ".insertAuth", vo);
 	}
 	
-	
-	/** 저자 정보리스트 DB 저장 **/
-	public void insertAuthList(List<AuthVO> list){
-		sqlSession.insert(Namespace+".insertAuthList", list);
-	}
-	
-	
 	/** 도서기록 정보 DB 저장 **/
 	public void insertBooknote(BooknoteVO vo) {
 		sqlSession.insert(Namespace + ".insertBooknote", vo);
@@ -98,11 +91,78 @@ public class XmlDAO {
 		sqlSession.insert(Namespace + ".insertRefr", vo);
 	}
 
-	/** 논문XML(API) 원본데이터  **/
+	/** 논문XML(API) 원본데이터 DB 저장 **/
 	public void insertXmlFile(XmlFileVO vo){
 		
 		sqlSession.insert(Namespace+".insertXmlFile", vo);
 	}
+	
+	
+	/** 논문 정보리스트 DB 저장 **/
+	public void insertArtiList(List<ArtiVO> list){
+		if(list.isEmpty())
+			return;
+		sqlSession.insert(Namespace+".insertArtiList", list);
+	}
+	/** 저자 정보리스트 DB 저장 **/
+	public void insertAuthList(List<AuthVO> list){
+		if(list.isEmpty())
+			return;
+		sqlSession.insert(Namespace+".insertAuthList", list);
+	}
+	/** 북노트 정보리스트 DB 저장 **/
+	public void insertBooknoteList(List<BooknoteVO> list){
+		if(list.isEmpty())
+			return;
+		sqlSession.insert(Namespace+".insertBooknoteList", list);
+	}
+	/** 학회 정보리스트 DB 저장 **/
+	public void insertConfList(List<ConfVO> list){
+		if(list.isEmpty())
+			return;
+		sqlSession.insert(Namespace+".insertConfList", list);
+	}
+	/** 문서유형 정보리스트 DB 저장 **/
+	public void insertDtypeList(List<DtypeVO> list){
+		if(list.isEmpty())
+			return;
+		sqlSession.insert(Namespace+".insertDtypeList", list);
+	}
+	/** 보조금 정보리스트 DB 저장 **/
+	public void insertGrntList(List<GrntVO> list){
+		if(list.isEmpty())
+			return;
+		sqlSession.insert(Namespace+".insertGrntList", list);
+	}
+	/** 키워드 정보리스트 DB 저장 **/
+	public void insertKwrdList(List<KwrdVO> list){
+		if(list.isEmpty())
+			return;
+		sqlSession.insert(Namespace+".insertKwrdList", list);
+	}
+	/** 저자 연구기관 정보리스트 DB 저장 **/
+	public void insertOrgnList(List<OrgnVO> list){
+		if(list.isEmpty())
+			return;
+		sqlSession.insert(Namespace+".insertOrgnList", list);
+	}
+	/** 발행기관 정보리스트 DB 저장 **/
+	public void insertPublList(List<PublVO> list){
+		if(list.isEmpty())
+			return;
+		sqlSession.insert(Namespace+".insertPublList", list);
+	}
+	/** 참고문헌 정보리스트 DB 저장 **/
+	public void insertRefrList(List<RefrVO> list){
+		if(list.isEmpty())
+			return;
+		sqlSession.insert(Namespace+".insertRefrList", list);
+	}
+	
+	
+	
+	
+	
 	
 	/** 페이징 처리된 논문 목록 조회  **/
 	public List<ArtiVO> selectXmlList(Map<String, Object> map) {

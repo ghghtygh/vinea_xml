@@ -32,6 +32,9 @@ public interface XmlService {
 	/** 논문 정보 VO 객체 DB 에 저장**/
 	public void createVO(ArtiVO vo) throws Exception;
 	
+	/** 논문 정보 리스트 DB에 저장 **/
+	public void insertVOList(List<ArtiVO> list) throws Exception;
+	
 	/** 파싱 현황 불러오기 **/
 	public List<XmlFileVO> selectXmlFileCount() throws Exception;
 	
@@ -43,4 +46,10 @@ public interface XmlService {
 	
 	/** 해당 파일명, 태그 개수을 입력받아 여러 태그 한꺼번에 파싱 **/
 	public void parseXmlList(Map<String,Object> map) throws Exception;
+
+	/** 저장완료 반영 **/
+	public void updateParse(String uid) throws Exception;
+
+	/** 저장에러 반영 **/
+	public void updateError(String uid) throws Exception;
 }

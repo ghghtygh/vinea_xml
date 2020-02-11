@@ -494,8 +494,9 @@ public class NjhParser {
 			booknoteVO.setUid(vo.getUid());
 
 			/* 생략 */
-			booknoteVO.setNote_nm("");
+			booknoteVO.setNote_nm(node.getTextContent());
 
+			
 			list_booknote.add(booknoteVO);
 
 		}

@@ -123,7 +123,7 @@
 						</p>
 						<p style="font-size: 13px">
 							<c:if test="${ArtiVO.ctgry_nm != ''}">
-								연구분야: <a href="#"> ${ArtiVO.ctgry_nm} </a>
+                        연구분야: <a href="#"> ${ArtiVO.ctgry_nm} </a>
 
 								<c:if test="${not empty ArtiVO.ctgry_sub_title}">></c:if>
 
@@ -160,7 +160,10 @@
 						<div class="articleBody">
 							<div class="box">
 								<h2 style="font-size: 14px; font-weight: bold">
-									초록 &emsp; &emsp; &emsp; &emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; <img src="/resources/image/up.png" alt="close">
+									초록
+									<div style="float: right;">
+										<img src="/resources/image/up.png" alt="close">
+									</div>
 								</h2>
 								<div class="innerBox open" style="display: block;">
 									<p style="white-space: pre-line;">${ArtiVO.abstr}</p>
@@ -169,7 +172,10 @@
 							<hr style="border-bottom: 0.5px dotted #b4b4b4">
 							<div class="box">
 								<h2 style="font-size: 14px; font-weight: bold">
-									키워드 &emsp; &emsp; &emsp; &emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; <img src="/resources/image/up.png" alt="close">
+									키워드
+									<div style="float: right;">
+										<img src="/resources/image/up.png" alt="close">
+									</div>
 								</h2>
 								<div class="innerBox open" style="display: block;">
 									<div>
@@ -180,14 +186,17 @@
 											<a href="#" style="font-size: 13px"> ${kw.kwrd_nm} <c:if test="${k.count !=fn:length(ArtiVO.list_kwrd) }">,</c:if>
 
 											</a>&nbsp;
-										</c:forEach>
+                              </c:forEach>
 									</div>
 								</div>
 							</div>
 							<hr style="border-bottom: 0.5px dotted #b4b4b4">
 							<div class="box">
 								<h2 style="font-size: 14px; font-weight: bold">
-									참고문헌<a href="#">(${ArtiVO.cite_cnt})</a> &emsp; &emsp; &emsp; &emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&emsp;&emsp;&emsp;&emsp;&emsp; &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp; <img src="/resources/image/down.png" alt="open">
+									참고문헌<a href="#">(${ArtiVO.cite_cnt})</a>
+									<div style="float: right;">
+										<img src="/resources/image/down.png" alt="open">
+									</div>
 								</h2>
 								<div class="innerBox" style="display: none;">
 									<div>
@@ -196,20 +205,20 @@
 												<p style="text-align: center; font-size: 13px">데이터가 없습니다</p>
 											</c:if>
 											<c:forEach var="refr" items="${ArtiVO.list_refr}" varStatus="rf">
-												${rf.count}. &nbsp; ${refr.author} / ${refr.pub_year} / ${refr.arti_title} 
-												<c:if test="${refr.issue == '' and refr.volume != ''}">
-													/ ${refr.volume} : 
-												</c:if>
-												<c:if test="${refr.issue != '' and refr.volume != ''}">
-													/ ${refr.volume} (${refr.issue}) :
-												</c:if>
-												<c:if test="${refr.page == '' and refr.orgn_nm != ''}">
-													${refr.orgn_nm}
-												</c:if>
-												<c:if test="${refr.page != ''}">
-													${refr.page} / ${refr.orgn_nm}
-												</c:if>
-												<br>
+			                                    ${rf.count}. &nbsp; ${refr.author} / ${refr.pub_year} / ${refr.arti_title} 
+			                                    <c:if test="${refr.issue == '' and refr.volume != ''}">
+			                                       / ${refr.volume} : 
+			                                    </c:if>
+															<c:if test="${refr.issue != '' and refr.volume != ''}">
+			                                       / ${refr.volume} (${refr.issue}) :
+			                                    </c:if>
+															<c:if test="${refr.page == '' and refr.orgn_nm != ''}">
+			                                       ${refr.orgn_nm}
+			                                    </c:if>
+															<c:if test="${refr.page != ''}">
+			                                       ${refr.page} / ${refr.orgn_nm}
+			                                    </c:if>
+															<br>
 											</c:forEach>
 										</p>
 									</div>
