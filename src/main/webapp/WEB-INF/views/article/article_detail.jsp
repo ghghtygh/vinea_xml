@@ -160,7 +160,10 @@
 						<div class="articleBody">
 							<div class="box">
 								<h2 style="font-size: 14px; font-weight: bold">
-									초록 &emsp; &emsp; &emsp; &emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; <img src="/resources/image/up.png" alt="close">
+									초록
+									<div style="float:right;">
+									<img src="/resources/image/up.png" alt="close">
+									</div>
 								</h2>
 								<div class="innerBox open" style="display: block;">
 									<p style="white-space: pre-line;">${ArtiVO.abstr}</p>
@@ -169,7 +172,10 @@
 							<hr style="border-bottom: 0.5px dotted #b4b4b4">
 							<div class="box">
 								<h2 style="font-size: 14px; font-weight: bold">
-									키워드 &emsp; &emsp; &emsp; &emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; <img src="/resources/image/up.png" alt="close">
+									키워드
+									<div style="float:right;">
+									<img src="/resources/image/up.png" alt="close">
+									</div>
 								</h2>
 								<div class="innerBox open" style="display: block;">
 									<div>
@@ -187,7 +193,10 @@
 							<hr style="border-bottom: 0.5px dotted #b4b4b4">
 							<div class="box">
 								<h2 style="font-size: 14px; font-weight: bold">
-									참고문헌<a href="#">(${ArtiVO.cite_cnt})</a> &emsp; &emsp; &emsp; &emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&emsp;&emsp;&emsp;&emsp;&emsp; &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp; <img src="/resources/image/down.png" alt="open">
+									참고문헌<a href="#">(${ArtiVO.cite_cnt})</a> 
+									<div style="float:right;">
+									 <img src="/resources/image/down.png" alt="open">
+									 </div>
 								</h2>
 								<div class="innerBox" style="display: none;">
 									<div>
