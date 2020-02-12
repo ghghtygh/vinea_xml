@@ -18,10 +18,11 @@
 <link href="<c:url value='/resources/css/_variables.scss' />" rel="stylesheet"> -->
 </head>
 <script>
-
+	var m_mode;
 
 	$(document).ready(function() {
 
+		m_mode = true;
 		//console.log("article_parse.jsp 로딩완료");
 		
 		$("#loading").hide();
@@ -98,38 +99,51 @@
 			
 			e.preventDefault();
 		
-			$.ajax({
-				
-				type:"POST",
-				url:"/article/parsing/test2",
-				data:{
-					"file_name":$(this).attr('value'),
-					"file_cnt":$("#file_cnt").val()
-				},
-				dataType:"json",
-				async:false,
-				success:function(data){
-					
-					parsing_check();
-					
-				},
-				error:function(request,error){
-					console.log("request :"+request+"\nerror:"+error);
-					return;	
-				}
-			});
+			
+			parsing_do($(this).attr('value'));
+			
 				
 		});
 		
 		$("#btn_test").click(function(e){
 			
 			e.preventDefault();
-			
-			console.log($("#file_cnt").val());
+			m_mode = !m_mode;
+			console.log(m_mode);
 			
 		});
 	});
-
+	function parsing_do(fileName){
+		
+		$.ajax({
+			
+			type:"POST",
+			url:"/article/parsing/test2",
+			data:{
+				"file_name":fileName,
+				"file_cnt":$("#file_cnt").val()
+			},
+			dataType:"json",
+			async:true,
+			success:function(data){
+				
+				parsing_check();
+				
+				console.log("parsing_do 실행완료 : "+m_mode);
+				
+				if (m_mode){
+					return;
+				}else{
+					parsing_do(fileName);
+				}
+				
+			},
+			error:function(request,error){
+				console.log("request :"+request+"\nerror:"+error);
+				return;	
+			}
+		});
+	}
 	function parsing_check(){
 		
 		$.ajax({

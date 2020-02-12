@@ -2,6 +2,7 @@ package com.vinea.service;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -118,50 +119,59 @@ public class XmlServiceImpl implements XmlService{
 	@Override
 	public void createVO(ArtiVO vo) throws Exception{
 		
-		dao.insertArti(vo);
-		/* 저자 정보 리스트 */
-		dao.insertAuthList(vo.getList_auth());
-		
-		/* 도서기록 정보 리스트 */
-		for(BooknoteVO booknoteVO : vo.getList_booknote()){
-			dao.insertBooknote(booknoteVO);
-		} 
-		
-		
-		/* 학회 정보 리스트 */
-		for(ConfVO confVO : vo.getList_conf()){
-			dao.insertConf(confVO);		
-		}
-		
-		/* 문서유형 정보 리스트 */
-		for(DtypeVO dtypeVO : vo.getList_dtype()){
-			dao.insertDtype(dtypeVO);
-		}
-		
-		/* 보조금 정보 리스트 */
-		for(GrntVO grntVO : vo.getList_grnt()){
-			dao.insertGrnt(grntVO);
-		}
-		
-		/* 키워드 정보 리스트 */
-		for(KwrdVO kwrdVO : vo.getList_kwrd()){
-			dao.insertKwrd(kwrdVO);
-		}
-		
-		
-		/* 저자 연구기관 정보 리스트 */
-		for(OrgnVO orgnVO : vo.getList_orgn()){
-			dao.insertOrgn(orgnVO);
-		}
-		
-		/* 발행기관 정보 리스트 */
-		for(PublVO publVO : vo.getList_publ()){
-			dao.insertPubl(publVO);
-		}
-		
-		/* 참고문헌 정보 리스트 */
-		for(RefrVO refrVO : vo.getList_refr()){
-			dao.insertRefr(refrVO);
+		try{
+			
+			dao.insertArti(vo);
+			/* 저자 정보 리스트 */
+			dao.insertAuthList(vo.getList_auth());
+			
+			/* 도서기록 정보 리스트 */
+			for(BooknoteVO booknoteVO : vo.getList_booknote()){
+				dao.insertBooknote(booknoteVO);
+			} 
+			
+			
+			/* 학회 정보 리스트 */
+			for(ConfVO confVO : vo.getList_conf()){
+				dao.insertConf(confVO);		
+			}
+			
+			/* 문서유형 정보 리스트 */
+			for(DtypeVO dtypeVO : vo.getList_dtype()){
+				dao.insertDtype(dtypeVO);
+			}
+			
+			/* 보조금 정보 리스트 */
+			for(GrntVO grntVO : vo.getList_grnt()){
+				dao.insertGrnt(grntVO);
+			}
+			
+			/* 키워드 정보 리스트 */
+			for(KwrdVO kwrdVO : vo.getList_kwrd()){
+				dao.insertKwrd(kwrdVO);
+			}
+			
+			
+			/* 저자 연구기관 정보 리스트 */
+			for(OrgnVO orgnVO : vo.getList_orgn()){
+				dao.insertOrgn(orgnVO);
+			}
+			
+			/* 발행기관 정보 리스트 */
+			for(PublVO publVO : vo.getList_publ()){
+				dao.insertPubl(publVO);
+			}
+			
+			/* 참고문헌 정보 리스트 */
+			for(RefrVO refrVO : vo.getList_refr()){
+				dao.insertRefr(refrVO);
+			}
+			
+			updateParse(vo.getUid());
+			
+		}catch(Exception e){
+			updateError(vo.getUid());
+			logger.info("CREATEVO - INSERT 오류 발생 >> "+vo.getUid());
 		}
 				
 	}
@@ -169,19 +179,40 @@ public class XmlServiceImpl implements XmlService{
 	@Override
 	public void insertVOList(List<ArtiVO> list) throws Exception{
 		
-		dao.insertArtiList(list);
 		
-		for (ArtiVO vo : list){
-			dao.insertAuthList(vo.getList_auth());
-			dao.insertBooknoteList(vo.getList_booknote());
-			dao.insertConfList(vo.getList_conf());
-			dao.insertDtypeList(vo.getList_dtype());
-			dao.insertGrntList(vo.getList_grnt());
-			dao.insertKwrdList(vo.getList_kwrd());
-			dao.insertOrgnList(vo.getList_orgn());
-			dao.insertPublList(vo.getList_publ());
-			dao.insertRefrList(vo.getList_refr());
+		/*throws 처리 */
+		try{
+			
+			dao.insertArtiList(list);
+			
+			for (ArtiVO vo : list){
+				dao.insertAuthList(vo.getList_auth());
+				dao.insertBooknoteList(vo.getList_booknote());
+				dao.insertConfList(vo.getList_conf());
+				dao.insertDtypeList(vo.getList_dtype());
+				dao.insertGrntList(vo.getList_grnt());
+				dao.insertKwrdList(vo.getList_kwrd());
+				dao.insertOrgnList(vo.getList_orgn());
+				dao.insertPublList(vo.getList_publ());
+				dao.insertRefrList(vo.getList_refr());
+			}
+			
+			for(ArtiVO vo : list){
+				updateParse(vo.getUid());
+			}
+			
+		}catch(Exception e){
+		/* 파싱은 됬는데 INSERT 에러 검출 (보통 컬럼 길이문제 ) */
+			
+			for(ArtiVO vo : list){
+				/* INSERT 에러 누구 때문인지 검출 */
+				
+				createVO(vo);
+				
+			}
 		}
+		
+		
 		
 	}
 	
@@ -373,31 +404,18 @@ public class XmlServiceImpl implements XmlService{
 		xmlFileVO = new XmlFileVO();
 		parser = new NjhParser();
 		
-		stopWatch = new StopWatch();
-		stopWatch.start();
+		//stopWatch = new StopWatch();
+		//stopWatch.start();
 		
 		if((xmlFileVO = dao.selectOneXmlFile(file_name)) != null){
 			
-			try{
-				/* ArtiVO 저장*/
-				createVO(parser.parseRecStr(xmlFileVO.getContent()));
-				
-				/* 파싱 완료 표시 */
-				dao.updateParseYN(xmlFileVO.getUid());
-				
-			}catch(Exception e){
-				
-				/* 오류 표시 */
-				dao.updateErrorYN(xmlFileVO.getUid());
-				logger.info("오류발생 >>>"+xmlFileVO.getUid());
-			}finally{
-				
-				stopWatch.stop();
-				
-				logger.info("parseOneXml - 수행시간 : {}",stopWatch.getTotalTimeSeconds());
-				
-			}
 			
+			createVO(parser.parseRecStr(xmlFileVO.getContent()));
+				
+			//stopWatch.stop();
+			
+			//logger.info("parseOneXml - 수행시간 : {}",stopWatch.getTotalTimeSeconds());
+				
 			return xmlFileVO;
 			
 			
@@ -422,18 +440,22 @@ public class XmlServiceImpl implements XmlService{
 		List<ArtiVO> list = new ArrayList<ArtiVO>();
 		
 		for(XmlFileVO vo : dao.selectXmlFileList(map)){
-			try{
-				list.add(parser.parseRecStr(vo.getContent()));
-				updateParse(vo.getUid());
-			}catch(Exception e){
 			
-				/* 오류 표시 */
+			try{
+				
+				list.add(parser.parseRecStr(vo.getContent()));
+				
+			}catch(Exception e){
+			/* 파싱에러 검출 */
+				
 				updateError(vo.getUid());
-				logger.info("오류발생 >>>"+vo.getUid());
+				logger.info("PARSING 오류발생 >>>"+vo.getUid());
 			}
 		}
 		
 		insertVOList(list);
+		
+		
 		
 		//stopWatch.stop();
 		//logger.info("parseXmlList insert 수행시간 : {}",stopWatch.getTotalTimeSeconds());
