@@ -211,10 +211,9 @@ public class XmlServiceImpl implements XmlService{
 		
 		//list.add("C:\\Users\\vinea\\iCloudDrive\\2017_CORE\\WR_2017_20180509131811_CORE_0001.xml");
 		//list.add("C:\\Users\\vinea\\iCloudDrive\\2017_CORE\\WR_2017_20180509131811_CORE_0002.xml");
-		//list.add("C:\\Users\\vinea\\iCloudDrive\\2017_CORE\\WR_2017_20180509131811_CORE_0003.xml");
-		
-		list.add("C:\\Users\\vinea\\iCloudDrive\\2017_CORE\\WR_2017_20180509131811_CORE_0004.xml");
-		list.add("C:\\Users\\vinea\\iCloudDrive\\2017_CORE\\WR_2017_20180509131811_CORE_0005.xml");
+		list.add("F:\\vinea\\WOS\\2017_CORE\\WR_2017_20180509131811_CORE_0003.xml");
+		list.add("F:\\vinea\\WOS\\2017_CORE\\WR_2017_20180509131811_CORE_0004.xml");
+		list.add("F:\\vinea\\WOS\\2017_CORE\\WR_2017_20180509131811_CORE_0005.xml");
 		
 		for(String str : list){
 			articleTest(str);

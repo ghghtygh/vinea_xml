@@ -149,4 +149,16 @@ public class ArtiController {
 		return true;
 	}
 
+	/** 현황분석_시각화(테스트) **/
+	@RequestMapping(value = "/article/test/chart")
+	public String testChart() throws Exception {
+
+		/* 연도별 통계 : 발행연도, 논문수, 도서권수, 학술지종수, 참고문헌수 데이터 가져오기 */
+		/* 소속기관별 통계: 소속기관명, 발행연도, 논문수, 인용수, 페이징 처리 추가 */
+		/* 연구분야별 통계: 분야명(대분류, 주제명), 저자수, 논문수, 학술지종수, 참고문헌수, 페이징 처리 추가 */
+
+		return "article/article_chart";
+	}
+	   
+
 }
