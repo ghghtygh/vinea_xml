@@ -34,7 +34,7 @@ public class ArtiController {
 	public String xmlList(@RequestParam(defaultValue = "1") int page, Model model) throws Exception
 	{
 		/* 논문 목록의 건수 */
-		int xmlCount = service.countXml();
+		int xmlCount = 100;//service.countXml();
 		/* 한페이지에 보여질 페이지 수 */
 		int pageSize = 7;
 		int startIndex = -1;
@@ -149,16 +149,30 @@ public class ArtiController {
 		return true;
 	}
 
-	/** 현황분석_시각화(테스트) **/
-	@RequestMapping(value = "/article/test/chart")
-	public String testChart() throws Exception {
+	/** 연도별 데이터 통계 **/
+	@RequestMapping(value = "/article/yearstat")
+	public String yearlyChart() throws Exception {
 
 		/* 연도별 통계 : 발행연도, 논문수, 도서권수, 학술지종수, 참고문헌수 데이터 가져오기 */
-		/* 소속기관별 통계: 소속기관명, 발행연도, 논문수, 인용수, 페이징 처리 추가 */
-		/* 연구분야별 통계: 분야명(대분류, 주제명), 저자수, 논문수, 학술지종수, 참고문헌수, 페이징 처리 추가 */
 
-		return "article/article_chart";
+		return "article/year_stat";
 	}
-	   
-
+	
+	/** 소속기관별 데이터 통계 **/
+	@RequestMapping(value = "/article/orgnstat")
+	public String orgnChart() throws Exception {
+		
+		/* 소속기관별 통계: 소속기관명, 발행연도, 논문수, 인용수, 페이징 처리 추가 */
+		
+		return "article/orgn_stat";
+	}
+	
+	/** 소속기관별 데이터 통계 **/
+	@RequestMapping(value = "/article/ctgrstat")
+	public String ctgrChart() throws Exception {
+		
+		/* 연구분야별 통계: 분야명(대분류, 주제명), 저자수, 논문수, 학술지종수, 참고문헌수 */
+		
+		return "article/ctgr_stat";
+	}
 }

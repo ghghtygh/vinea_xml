@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -55,6 +53,7 @@ public class XmlServiceImpl implements XmlService{
 		
 		return dao.countXml();
 	}
+	
 	
 	/** 요청 페이지에 따른 논문 목록 조회 **/
 	@Override

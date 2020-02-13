@@ -10,7 +10,7 @@ public interface XmlService {
 
 	/** 파싱된 논문 건수 반환 **/
 	public int countXml() throws Exception;
-	
+		
 	/** 요청 페이지에 따른 논문 목록 조회 **/
 	public List<ArtiVO> selectXmlList(Map<String, Object> map);
 	

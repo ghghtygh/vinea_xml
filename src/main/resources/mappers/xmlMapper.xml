@@ -910,18 +910,20 @@
 			REGIST_DATE
 		DESC 
 		LIMIT
-			 #{startIndex}
+		 	#{startIndex}
 			,#{pageSize}		
 	</select>
 	
 	<select id="countXml" resultType="java.lang.Integer">
-	<!-- 논문 건수 카운팅  *path: src/main/resources/mappers/xmlMapper.xml *id: countXml -->
+	<!--  논문 건수 카운팅  *path: src/main/resources/mappers/xmlMapper.xml *id: countXml -->
 	
 		SELECT
 			COUNT(UID)
 		FROM
-			TB_ARTI	
+			TB_ARTI 
+		
 	</select>
+	
 	
 	<select id="selectOneXml" parameterType="java.lang.String" resultMap="artiMap">
 	<!-- 논문 상세페이지에 들어갈 정보  *path: src/main/resources/mappers/xmlMapper.xml *id: selectOneXml -->
