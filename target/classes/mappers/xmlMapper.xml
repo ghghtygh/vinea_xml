@@ -309,14 +309,12 @@
 		INSERT IGNORE
 	    	INTO TB_BOOK_NOTE
 	    (
-			 BOOK_NOTE_PK
-			,UID
+			 UID
 			,NOTE_NM
 	    )  
 	    VALUES
 	    (
-			#{book_note_pk}
-			,#{uid}
+			 #{uid}
 			,#{note_nm}
 	    )    
 	</insert>
@@ -327,8 +325,7 @@
 		INSERT IGNORE
 	    	INTO TB_CONF
 	    (
-			 CONF_PK  
-			,CONF_ID  
+			CONF_ID  
 			,UID  
 			,CONF_TITLE  
 			,CONF_DATE  
@@ -341,8 +338,7 @@
 	    )   
 	    VALUES
 	    (
-			 #{conf_pk}
-			,#{conf_id}
+			 #{conf_id}
 			,#{uid}
 			,#{conf_title}
 			,#{conf_date}
@@ -361,15 +357,13 @@
 		INSERT IGNORE
 	    	INTO TB_DTYPE
 	    (
-			 DTYPE_PK
-			,UID
+			 UID
 			,DTYPE_NM
 			
 	    )
 	    VALUES
 	    (
-			 #{dtype_pk}
-			,#{uid}
+			 #{uid}
 			,#{dtype_nm}
 		
 	    )
@@ -381,16 +375,14 @@
 		INSERT IGNORE
 	    	INTO TB_GRNT
 	    (
-	    	 GRNT_PK
-			,UID
+	    	 UID
 			,GRNT_GID
 			,GRNT_TEXT
 			,GRNT_AGCY
 	    )
 	    VALUES
 	    (
-	    	 #{grnt_pk}
-			,#{uid}
+	    	 #{uid}
 			,#{grnt_gid}
 			,#{grnt_text}
 			,#{grnt_agcy}
@@ -403,15 +395,13 @@
 		INSERT IGNORE
 			INTO TB_KWRD
 		(
-			 KWRD_PK
-			,UID
+			 UID
 			,KWRD_NM
 			,KW_PLUS_YN
 		)
 		VALUES
 		(
-			 #{kwrd_pk}
-			,#{uid}
+			 #{uid}
 			,#{kwrd_nm}
 			,#{kw_plus_yn}
 		
@@ -422,10 +412,9 @@
 	<!-- 파싱한 저자기관정보 DB에 저장 *path: src/main/resources/mappers/xmlMapper.xml *id: insertOrgn -->
 	
 		INSERT IGNORE
-	    	INTO TB_AUTH_ORGN
-	    (
-			 AUTH_ORGN_PK
-			,UID
+			INTO TB_AUTH_ORGN
+		(
+			 UID
 			,ORGN_ADDR_NO
 			,ORGN_FULL_NM
 			,ORGN_NM
@@ -438,8 +427,7 @@
 	     )
 	    VALUES
 	    (
-			 #{auth_orgn_pk}
-			,#{uid}
+			 #{uid}
 			,#{orgn_addr_no}
 			,#{orgn_full_nm}
 			,#{orgn_nm}
@@ -456,10 +444,9 @@
 	<!-- 파싱한 발행기관정보 DB에 저장 *path: src/main/resources/mappers/xmlMapper.xml *id: insertPubl -->
 	
 		INSERT IGNORE
-	    	INTO TB_PUBL
-	    (
-			 PUBL_PK
-			,UID
+			INTO TB_PUBL
+		(
+			 UID
 			,PUBL_ADDR
 			,PUBL_FULL_NM
 			,PUBL_NM
@@ -467,10 +454,9 @@
 			,COUNTRY
 			,STATE
 		)    
-		VALUE
+		VALUES
 	    (
-			 #{publ_pk}
-			,#{uid}
+			 #{uid}
 			,#{publ_addr}
 			,#{publ_full_nm}
 			,#{publ_nm}
@@ -555,6 +541,354 @@
 		
 	</insert>
 	
+	<insert id="insertArtiList"   parameterType="java.util.List">
+	<!-- 파싱한 논문정보리스트 DB에 저장 *path: src/main/resources/mappers/xmlMapper.xml *id: insertArtiList -->
+	
+		INSERT INTO
+			TB_ARTI
+		(
+			 UID
+			,ARTI_NO
+			,ARTI_TITLE
+			,PUB_YEAR
+			,PUB_DATE
+			,VOLUME
+			,ISSUE
+			,DOI
+			,ABSTR
+			,ISSN
+			,EISSN
+			,CITE_CNT
+			,JRNL_TITLE
+			,SUP_CNT
+			,PAGE_CNT
+			,BEGIN_PAGE
+			,END_PAGE
+			,OPEN_YN
+			,ITEM_ID
+			,ITEM_AVAIL_YN
+			,ITEM_TYPE
+			,ITEM_PAGE_CNT
+			,BOOK_PAGE_CNT
+			,BOOK_BIND_YN
+			,BOOK_PUBL
+			,BOOK_PREPAY
+			,CTGRY_NM
+			,CTGRY_SUB_TITLE
+			,CTGRY_SUBJECT
+			,DEL_YN
+			,REGIST_DATE
+			,REGISTR_ID
+			,MODIFY_DATE
+			,MODIFY_ID
+		)   		
+		VALUES	
+		<foreach collection="list" item="item" separator=" , ">
+		(
+			 #{item.uid}			
+			,#{item.arti_no}     	
+			,#{item.arti_title}
+			,#{item.pub_year}
+			,#{item.pub_date}
+			,#{item.volume}  		
+			,#{item.issue} 		
+			,#{item.doi}   	
+			,#{item.abstr}		
+			,#{item.issn}  		
+			,#{item.eissn} 		
+			,#{item.cite_cnt}   		
+			,#{item.jrnl_title}   	
+			,#{item.sup_cnt}   
+			,#{item.page_cnt}   
+			,#{item.begin_page}   		
+			,#{item.end_page}   		
+			,#{item.open_yn}
+			,#{item.item_id}  	
+			,#{item.item_avail_yn} 
+			,#{item.item_type}  
+			,#{item.item_page_cnt}  
+			,#{item.book_page_cnt}  
+			,#{item.book_bind_yn} 
+			,#{item.book_publ} 
+			,#{item.book_prepay}
+			,#{item.ctgry_nm}
+			,#{item.ctgry_sub_title}
+			,#{item.ctgry_subject}
+			,#{item.del_yn}
+			,NOW()
+			,#{item.registr_id}
+			,#{item.modify_date}
+			,#{item.modify_id}		
+		
+		)
+		</foreach>
+		ON DUPLICATE KEY UPDATE
+			REGIST_DATE = NOW()
+			
+	</insert>
+	<insert id="insertAuthList" parameterType="java.util.List">
+		INSERT IGNORE
+	    	INTO TB_AUTH
+	    (
+			 AUTH_ID
+			,AUTH_SEQ
+			,AUTH_ADDR_NO
+			,UID
+			,AUTH_NM
+			,AUTH_FULL_NM
+			,AUTH_WOS_NM
+			,AUTH_ROLE
+			,LEAD_YN
+			,CORRES_YN
+			,AUTH_EMAIL_ADDR
+			,ORCID_ID
+			,AUTH_RID
+		) 		
+	    VALUES
+	    <foreach collection="list" item="item" separator=" , ">
+	    (
+			 #{item.auth_id}
+			,#{item.auth_seq}    
+			,#{item.auth_addr_no}  
+			,#{item.uid}   
+			,#{item.auth_nm} 
+			,#{item.auth_full_nm}  
+			,#{item.auth_wos_nm}   
+			,#{item.auth_role}   
+			,#{item.lead_yn}   
+			,#{item.corres_yn} 
+			,#{item.auth_email_addr} 
+			,#{item.orcid_id}
+			,#{item.auth_rid}
+	    )
+	    </foreach>
+	</insert>
+	
+	<insert id="insertBooknoteList" parameterType="java.util.List">
+	<!-- 파싱한 도서기록정보리스트 DB에 저장 *path: src/main/resources/mappers/xmlMapper.xml *id: insertBooknoteList -->
+	
+		INSERT IGNORE
+	    	INTO TB_BOOK_NOTE
+	    (
+			 UID
+			,NOTE_NM
+	    )
+	    VALUES
+		<foreach collection="list" item="item" separator=" , ">
+		(
+			 #{item.uid}
+			,#{item.note_nm}
+		)
+		</foreach>
+	</insert>
+	
+	<insert id="insertConfList" parameterType="java.util.List">
+	<!-- 파싱한 학회정보리스트 DB에 저장 *path: src/main/resources/mappers/xmlMapper.xml *id: insertConfList -->
+		
+		INSERT IGNORE
+	    	INTO TB_CONF
+	    (
+			 CONF_ID  
+			,UID  
+			,CONF_TITLE  
+			,CONF_DATE  
+			,START_DATE  
+			,END_DATE  
+			,CITY  
+			,STATE  
+			,COUNTRY
+		    ,SPON_NM
+	    )
+	    VALUES
+		<foreach collection="list" item="item" separator=" , ">
+		(
+			 #{item.conf_id}
+			,#{item.uid}
+			,#{item.conf_title}
+			,#{item.conf_date}
+			,#{item.start_date}
+			,#{item.end_date}
+			,#{item.city}
+			,#{item.state}
+			,#{item.country}
+			,#{item.spon_nm}		
+		)
+		</foreach>
+	</insert>
+	
+	<insert id="insertDtypeList" parameterType="java.util.List">
+	<!-- 파싱한 문서유형정보리스트 DB에 저장 *path: src/main/resources/mappers/xmlMapper.xml *id: insertDtypeList -->
+		
+		INSERT IGNORE
+	    	INTO TB_DTYPE
+	    (
+			 UID
+			,DTYPE_NM
+			
+	    )
+	    VALUES
+		<foreach collection="list" item="item" separator=" , ">
+		(
+			 #{item.uid}
+			,#{item.dtype_nm}
+		)
+		</foreach>
+	</insert>
+	
+	<insert id="insertGrntList" parameterType="java.util.List">
+	<!-- 파싱한 보조금정보리스트 DB에 저장 *path: src/main/resources/mappers/xmlMapper.xml *id: insertGrntList -->
+	
+		INSERT IGNORE
+	    	INTO TB_GRNT
+	    (
+	    	 UID
+			,GRNT_GID
+			,GRNT_TEXT
+			,GRNT_AGCY
+	    )
+	    VALUES
+		<foreach collection="list" item="item" separator=" , ">
+		(
+			 #{item.uid}
+			,#{item.grnt_gid}
+			,#{item.grnt_text}
+			,#{item.grnt_agcy}
+		)
+		</foreach>
+	</insert>
+	
+	<insert id="insertKwrdList" parameterType="java.util.List">
+	<!-- 파싱한 키워드정보리스트 DB에 저장 *path: src/main/resources/mappers/xmlMapper.xml *id: insertKwrdList -->
+	
+		INSERT IGNORE
+			INTO TB_KWRD
+		(
+			 UID
+			,KWRD_NM
+			,KW_PLUS_YN
+		)
+		VALUES
+		<foreach collection="list" item="item" separator=" , ">
+		(
+			 #{item.uid}
+			,#{item.kwrd_nm}
+			,#{item.kw_plus_yn}
+		)
+		</foreach>
+	</insert>
+	
+	<insert id="insertOrgnList" parameterType="java.util.List">
+	<!-- 파싱한 저자기관정보 DB에 저장 *path: src/main/resources/mappers/xmlMapper.xml *id: insertOrgnList -->
+	
+		INSERT IGNORE
+			INTO TB_AUTH_ORGN
+		(
+			 UID
+			,ORGN_ADDR_NO
+			,ORGN_FULL_NM
+			,ORGN_NM
+			,ORGN_PREF_NM
+			,ORGN_SUB_NM
+			,CITY
+			,STATE
+			,COUNTRY
+	        ,STREET
+	     )
+	    VALUES
+		<foreach collection="list" item="item" separator=" , ">
+		(
+			 #{item.uid}
+			,#{item.orgn_addr_no}
+			,#{item.orgn_full_nm}
+			,#{item.orgn_nm}
+			,#{item.orgn_pref_nm}
+			,#{item.orgn_sub_nm}
+			,#{item.city}
+			,#{item.state}
+			,#{item.country}
+			,#{item.street}
+		)
+		</foreach>
+	</insert>
+	
+	<insert id="insertPublList" parameterType="java.util.List">
+	<!-- 파싱한 발행기관정보 DB에 저장 *path: src/main/resources/mappers/xmlMapper.xml *id: insertPublList -->
+		
+		INSERT IGNORE
+			INTO TB_PUBL
+		(
+			 UID
+			,PUBL_ADDR
+			,PUBL_FULL_NM
+			,PUBL_NM
+			,CITY
+			,COUNTRY
+			,STATE
+		)    
+		VALUES
+		<foreach collection="list" item="item" separator=" , ">
+		(
+			 #{item.uid}
+			,#{item.publ_addr}
+			,#{item.publ_full_nm}
+			,#{item.publ_nm}
+			,#{item.city}
+			,#{item.country}
+			,#{item.state}
+		)
+		</foreach>
+	</insert>
+	
+	<insert id="insertRefrList" parameterType="java.util.List">
+	<!-- 파싱한 참고문헌정보리스트 DB에 저장 *path: src/main/resources/mappers/xmlMapper.xml *id: insertRefrList -->
+	
+		INSERT
+	    	INTO TB_REFR
+	    (
+			 REFR_ID
+			,REFR_UID
+			,UID
+			,AUTHOR
+			,PUB_YEAR
+			,VOLUME
+			,ISSUE
+			,ARTI_TITLE
+			,DOI
+			,PAGE
+			,ORGN_NM
+			,JRNL_TITLE
+			,DEL_YN
+			,REGIST_DATE
+			,REGISTR_ID
+			,MODIFY_DATE
+			,MODIFY_ID
+	    )   
+		VALUES
+		<foreach collection="list" item="item" separator=" , ">
+		(
+			 #{item.refr_id}	
+			,#{item.refr_uid}
+			,#{item.uid}
+			,#{item.author}
+			,#{item.pub_year}
+			,#{item.volume}
+			,#{item.issue}
+			,#{item.arti_title}
+			,#{item.doi}
+			,#{item.page}
+			,#{item.orgn_nm}
+			,#{item.jrnl_title}
+			,#{item.del_yn}
+			,NOW()
+			,#{item.registr_id}
+			,#{item.modify_date}
+		    ,#{item.modify_id}
+		)
+		</foreach>
+		ON DUPLICATE KEY UPDATE
+			REGIST_DATE = NOW()
+	</insert>
+	
 	<select id="selectXmlList" parameterType="hashmap" resultMap="artiMap">
 	<!-- 요청 페이지에 따른 파싱된 논문 목록 조회  *path: src/main/resources/mappers/xmlMapper.xml *id: selectXmlList -->
 	
@@ -573,21 +907,23 @@
 		FROM
 			TB_ARTI			
 		ORDER BY
-			UID
+			REGIST_DATE
 		DESC 
 		LIMIT
-			 #{startIndex}
+		 	#{startIndex}
 			,#{pageSize}		
 	</select>
 	
 	<select id="countXml" resultType="java.lang.Integer">
-	<!-- 논문 건수 카운팅  *path: src/main/resources/mappers/xmlMapper.xml *id: countXml -->
+	<!--  논문 건수 카운팅  *path: src/main/resources/mappers/xmlMapper.xml *id: countXml -->
 	
 		SELECT
 			COUNT(UID)
 		FROM
-			TB_ARTI	
+			TB_ARTI 
+		
 	</select>
+	
 	
 	<select id="selectOneXml" parameterType="java.lang.String" resultMap="artiMap">
 	<!-- 논문 상세페이지에 들어갈 정보  *path: src/main/resources/mappers/xmlMapper.xml *id: selectOneXml -->
@@ -611,7 +947,8 @@
 		FROM
 			TB_ARTI		
 		WHERE
-			ARTI_NO = #{arti_no}
+			UID = #{UID}
+
 	</select>
 	
 	<select id ="selectKwrdList" parameterType="java.lang.String" resultMap="kwrdMap">
@@ -641,7 +978,7 @@
 		FROM
 			TB_REFR			
 		WHERE
-			REFR_UID = #{uid}
+			UID = #{uid}
 		ORDER BY
 			REFR_ID
 		ASC
@@ -700,45 +1037,84 @@
 		FROM
 			TB_XML_FILE
 		WHERE
-			UID = (
-					SELECT
-						UID
-					FROM
-						TB_XML_FILE
-					WHERE
-						FILE_NAME = #{file_name}
-					AND
-						(PARSE_YN='N' OR (PARSE_YN IS NULL))
-					ORDER BY
-						REGIST_DATE
-					ASC
-						LIMIT 0,1
-					)
+			FILE_NAME = #{file_name}
+		AND
+			(PARSE_YN = 'N' OR PARSE_YN IS NULL)
+		AND
+			(ERROR_YN != 'Y' OR ERROR_YN IS NULL)
+		LIMIT 1
 			
 	</select>
 	
+	<select id="selectXmlFileList" parameterType="hashMap" resultMap="xmlFileMap">
+	<!-- 입력 파일명에 따른 파싱안된 XML<REC>태그내용 리스트  *path: src/main/resources/mappers/xmlMapper.xml *id: selectOneXmlFile -->
 	
-	<select id="selectXmlFileList" resultMap="xmlFileMap">
-	<!-- XML 파일 목록  *path: src/main/resources/mappers/xmlMapper.xml *id: selectXmlFileList -->
+		SELECT
+			 UID
+			,CONTENT
+		FROM
+			TB_XML_FILE
+		WHERE
+			FILE_NAME = #{file_name}
+		AND
+			(PARSE_YN = 'N' OR PARSE_YN IS NULL)
+		AND
+			(ERROR_YN != 'Y' OR ERROR_YN IS NULL)
+		
+		LIMIT #{file_cnt}
+		
+	</select>
+	
+	<select id="selectXmlFileCount" resultMap="xmlFileMap">
+	<!-- XML 파싱 현황 목록  *path: src/main/resources/mappers/xmlMapper.xml *id: selectXmlFileList -->
 	
 		SELECT
 			 FILE_NAME
 			,COUNT(IF(PARSE_YN='Y', PARSE_YN, NULL))	AS Y_CNT
-			,COUNT(UID)									AS ALL_CNT
+			,COUNT(*)									AS ALL_CNT
 		FROM
 			TB_XML_FILE
 		GROUP BY
 			FILE_NAME
 			
-			
 	</select>
-
+	
+	
+	
+	<select id="selectParseYN" resultMap="xmlFileMap">
+	<!-- XML 파싱 완료 현황  *path: src/main/resources/mappers/xmlMapper.xml *id: selectParseYN -->
+	
+		SELECT
+			 FILE_NAME
+			,COUNT(*)									AS Y_CNT
+		FROM
+			TB_XML_FILE
+		WHERE
+			PARSE_YN = 'Y'
+		GROUP BY
+			FILE_NAME
+	
+	</select>
+	
 	<update id="updateParseYN" parameterType="java.lang.String">
+	<!-- 파싱 완료 표기  *path: src/main/resources/mappers/xmlMapper.xml *id: updateParseYN -->
 	
 		UPDATE
 			TB_XML_FILE
 		SET
 			PARSE_YN = 'Y'
+		WHERE
+			UID = #{uid}
+	
+	</update>
+	
+	<update id="updateErrorYN" parameterType="java.lang.String">
+	<!-- 에러 파일 표기 *path: src/main/resources/mappers/xmlMapper.xml *id: updateErrorYN -->
+		
+		UPDATE
+			TB_XML_FILE
+		SET
+			ERROR_YN = 'Y'
 		WHERE
 			UID = #{uid}
 	

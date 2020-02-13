@@ -49,7 +49,7 @@ public class XmlDAO {
 	public void insertAuth(AuthVO vo) {
 		sqlSession.insert(Namespace + ".insertAuth", vo);
 	}
-
+	
 	/** 도서기록 정보 DB 저장 **/
 	public void insertBooknote(BooknoteVO vo) {
 		sqlSession.insert(Namespace + ".insertBooknote", vo);
@@ -91,11 +91,78 @@ public class XmlDAO {
 		sqlSession.insert(Namespace + ".insertRefr", vo);
 	}
 
-	/** 논문XML(API) 원본데이터  **/
+	/** 논문XML(API) 원본데이터 DB 저장 **/
 	public void insertXmlFile(XmlFileVO vo){
 		
 		sqlSession.insert(Namespace+".insertXmlFile", vo);
 	}
+	
+	
+	/** 논문 정보리스트 DB 저장 **/
+	public void insertArtiList(List<ArtiVO> list){
+		if(list.isEmpty())
+			return;
+		sqlSession.insert(Namespace+".insertArtiList", list);
+	}
+	/** 저자 정보리스트 DB 저장 **/
+	public void insertAuthList(List<AuthVO> list){
+		if(list.isEmpty())
+			return;
+		sqlSession.insert(Namespace+".insertAuthList", list);
+	}
+	/** 북노트 정보리스트 DB 저장 **/
+	public void insertBooknoteList(List<BooknoteVO> list){
+		if(list.isEmpty())
+			return;
+		sqlSession.insert(Namespace+".insertBooknoteList", list);
+	}
+	/** 학회 정보리스트 DB 저장 **/
+	public void insertConfList(List<ConfVO> list){
+		if(list.isEmpty())
+			return;
+		sqlSession.insert(Namespace+".insertConfList", list);
+	}
+	/** 문서유형 정보리스트 DB 저장 **/
+	public void insertDtypeList(List<DtypeVO> list){
+		if(list.isEmpty())
+			return;
+		sqlSession.insert(Namespace+".insertDtypeList", list);
+	}
+	/** 보조금 정보리스트 DB 저장 **/
+	public void insertGrntList(List<GrntVO> list){
+		if(list.isEmpty())
+			return;
+		sqlSession.insert(Namespace+".insertGrntList", list);
+	}
+	/** 키워드 정보리스트 DB 저장 **/
+	public void insertKwrdList(List<KwrdVO> list){
+		if(list.isEmpty())
+			return;
+		sqlSession.insert(Namespace+".insertKwrdList", list);
+	}
+	/** 저자 연구기관 정보리스트 DB 저장 **/
+	public void insertOrgnList(List<OrgnVO> list){
+		if(list.isEmpty())
+			return;
+		sqlSession.insert(Namespace+".insertOrgnList", list);
+	}
+	/** 발행기관 정보리스트 DB 저장 **/
+	public void insertPublList(List<PublVO> list){
+		if(list.isEmpty())
+			return;
+		sqlSession.insert(Namespace+".insertPublList", list);
+	}
+	/** 참고문헌 정보리스트 DB 저장 **/
+	public void insertRefrList(List<RefrVO> list){
+		if(list.isEmpty())
+			return;
+		sqlSession.insert(Namespace+".insertRefrList", list);
+	}
+	
+	
+	
+	
+	
 	
 	/** 페이징 처리된 논문 목록 조회  **/
 	public List<ArtiVO> selectXmlList(Map<String, Object> map) {
@@ -105,9 +172,9 @@ public class XmlDAO {
 	
 	
 	/** 논문 상세보기 **/
-	public ArtiVO selectOneXml(String arti_no){
+	public ArtiVO selectOneXml(String uid){
 		
-		return sqlSession.selectOne(Namespace+".selectOneXml", arti_no);
+		return sqlSession.selectOne(Namespace+".selectOneXml", uid);
 	}
 	
 	/** 논문 상세보기_키워드  **/
@@ -144,19 +211,39 @@ public class XmlDAO {
 	public XmlFileVO selectOneXmlFile(String file_name){
 		
 		return sqlSession.selectOne(Namespace +".selectOneXmlFile", file_name);
-		
 	}
 	
-	/****/
+	/** XML 파일명에 따른 REC태그 리스트**/
+	public List<XmlFileVO> selectXmlFileList(Map<String,Object> map){
+		
+		return sqlSession.selectList(Namespace +".selectXmlFileList", map);
+	}
+	
+	/** 파일명과 REC태그 개수 **/
+	public List<XmlFileVO> selectXmlFileCount(){
+		
+		return sqlSession.selectList(Namespace +".selectXmlFileCount");
+	}
+	
+	/**  XML 파싱 완료 현황 **/
+	public List<XmlFileVO> selectParseYN(){
+		
+		return sqlSession.selectList(Namespace +".selectParseYN");
+	}
+	
+	
+	/** XML 파일 파싱완료 표기 **/
 	public void updateParseYN(String uid){
 		
 		sqlSession.update(Namespace+".updateParseYN", uid);
 	}
 	
-	/** 파일명과 REC태그 개수 **/
-	public List<XmlFileVO> selectXmlFileList(){
+	/** XML 파일 에러 표기 **/
+	public void updateErrorYN(String uid){
 		
-		return sqlSession.selectList(Namespace +".selectXmlFileList");
+		sqlSession.update(Namespace+".updateErrorYN", uid);
 	}
+	
+	
 		
 }

@@ -58,13 +58,6 @@ public class NjhParser {
 		xpath = XPathFactory.newInstance().newXPath();
 	}
 	
-	public void Test1() throws Exception {
-
-
-	}
-	
-	
-
 	public boolean CanParse() {
 
 		try {
@@ -94,6 +87,7 @@ public class NjhParser {
 		}
 
 	}
+	
 	
 	public ArtiVO parseRecStr(String str) throws Exception{
 	
@@ -500,8 +494,9 @@ public class NjhParser {
 			booknoteVO.setUid(vo.getUid());
 
 			/* 생략 */
-			booknoteVO.setNote_nm("");
+			booknoteVO.setNote_nm(node.getTextContent());
 
+			
 			list_booknote.add(booknoteVO);
 
 		}

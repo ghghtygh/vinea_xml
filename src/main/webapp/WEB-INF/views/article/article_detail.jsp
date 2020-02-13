@@ -8,15 +8,25 @@
 <head>
 <meta charset="UTF-8">
 <title>상세 페이지</title>
-
-<!--  StyleSheet_부트스트랩 사용 -->
+<!-- JQUERY, JAVASCRIPT -->
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+	
+<!--  CSS -->
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/resources/css/style.css">
+<link href="/resources/css/_bootswatch.scss" rel="stylesheet">
+<link href="/resources/css/_variables.scss" rel="stylesheet">
 
-<link href="<c:url value='/resources/css/bootstrap.css' />" rel="stylesheet">
-<link href="<c:url value='/resources/css/_bootswatch.scss' />" rel="stylesheet">
-<link href="<c:url value='/resources/css/_variables.scss' />" rel="stylesheet">
+<!--  탭부분 수정 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<!-- Chart.js 사용(라인, 바, 플롯, 레이더 등 사용) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+<script src="/resources/js/jquery-radar-plus.js"></script>
 <script>
 	$(function() {
 
@@ -80,50 +90,88 @@
 				});
 	});
 </script>
-
-
-
 </head>
 <form>
-	<body>
-
-		<div id="wrap">
-
-			<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-				<div class="container">
-					<a class="navbar-brand" href="/article">Article DataParsing</a>
+<body>
+		<div class="wrapper d-flex align-items-stretch">
+	    <!-- 전체 메뉴 사이드바 -->
+		<nav id="sidebar">
+			<div class="p-4 pt-5">
+				<a href="/article" class="img logo rounded-circle mb-5" style="background-image: url(/resources/image/analyticx.png);"></a>
+				<ul class="list-unstyled components mb-5">
+					<li class="active">
+						<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">메인</a>
+						<ul class="collapse list-unstyled" id="homeSubmenu">
+						<li class="active">
+							<a href="/article">논문보기</a></li>
+						</ul>
+						</li>
+						<li>
+							<a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">현황</a>
+							<ul class="collapse list-unstyled" id="pageSubmenu">
+								<li>
+									<a href="/article/yearstat">연도별 현황</a>
+								</li>
+								<li>
+									<a href="/article/orgnstat">소속기관별 현황</a>
+								</li>
+								<li>
+									<a href="/article/ctgrstat">분야별 현황</a>
+								</li>
+								<li>
+									<a href="#">키워드 현황</a>
+								</li>
+							</ul>
+						</li>
+				</ul>
+				<div class="footer">
+					<p>
+						<script>document.write(new Date().getFullYear());</script>  About XML Parsing<i class="icon-heart" aria-hidden="true"></i>
+					</p>
+					<p>
+						made with by JuHyeon&Minjin
+						<a href="https://github.com/ghghtygh/vinea_xml.git" style="font-size: 12px" target="_blank">https://github.com/ghghtygh/vinea_xml.git</a>
+				</div>
+			</div>
+		</nav>
+		<!-- 메뉴에서 연도별 현황을 클릭하였을 때 결과 페이지  -->
+		<div id="content" class="p-4 p-md-5">
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+				<div class="container-fluid">
+					<button type="button" id="sidebarCollapse" class="btn btn-primary">
+						<i class="fa fa-bars"></i> <span class="sr-only">Toggle Menu</span>
+					</button>
+					<button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+						<i class="fa fa-bars"></i>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="nav navbar-nav ml-auto">
+							<li class="nav-item active"><a class="nav-link" href="/article">Home</a></li>
+						</ul>
+					</div>
 				</div>
 			</nav>
-
-			<div class="container">
-				<div style="min-height: 500px">
-					<div style="margin: 30px;">&nbsp;</div>
-					<div style="margin: 30px;">
-						<div class="input-group mb-3"></div>
-					</div>
-					<div id="contents">
-
-						<p style="font-size: 35px; font-weight: bold">${ArtiVO.arti_title}</p>
+			<div style="min-height: 500px;">
+			<p style="font-size: 35px; font-weight: bold">${ArtiVO.arti_title}</p>
 						<hr style="border-bottom: 0.5px dotted #b4b4b4">
-						<p style="font-size: 13px">
-							학술지명: <a href="#">${ArtiVO.jrnl_title}</a>
+						<p style="font-size: 13px; font-style: oblique;">
+							<a href="#">${ArtiVO.jrnl_title}</a>
 						</p>
 						<p style="font-size: 13px">
-							발행정보: <a href="#">${ArtiVO.pub_year},vol.${ArtiVO.volume} <c:if test="${ArtiVO.issue !=''}">, no.${ArtiVO.issue}</c:if> <c:if test="${ArtiVO.begin_page != '' && ArtiVO.end_page != ''}">, pp.${ArtiVO.begin_page}~${ArtiVO.end_page}</c:if> ,(${ArtiVO.page_cnt} pages)
-							</a>
+							${ArtiVO.pub_year},vol.${ArtiVO.volume} <c:if test="${ArtiVO.issue !=''}">, no.${ArtiVO.issue}</c:if> <c:if test="${ArtiVO.begin_page != '' && ArtiVO.end_page != ''}">, pp.${ArtiVO.begin_page}~${ArtiVO.end_page}</c:if> ,(${ArtiVO.page_cnt} pages)
 						</p>
-						<p style="font-size: 13px">
-							DOI: <a href="#">${ArtiVO.doi}</a>
+						<p style="font-size: 13px; font-style: oblique;">
+							DOI: ${ArtiVO.doi}
 						</p>
 						<p style="font-size: 13px">
 							발행기관:
 							<c:forEach var="pub" items="${ArtiVO.list_publ}" varStatus="a">
-								<a href="#"> ${pub.publ_nm} </a>
+								<a href="#"> ${pub.publ_nm} </a> 
 							</c:forEach>
 						</p>
-						<p style="font-size: 13px">
+						<p style="font-size: 13px; font-style: oblique;">
 							<c:if test="${ArtiVO.ctgry_nm != ''}">
-								연구분야: <a href="#"> ${ArtiVO.ctgry_nm} </a>
+                        <a href="#"> ${ArtiVO.ctgry_nm} </a>
 
 								<c:if test="${not empty ArtiVO.ctgry_sub_title}">></c:if>
 
@@ -186,7 +234,7 @@
 											<a href="#" style="font-size: 13px"> ${kw.kwrd_nm} <c:if test="${k.count !=fn:length(ArtiVO.list_kwrd) }">,</c:if>
 
 											</a>&nbsp;
-										</c:forEach>
+                              </c:forEach>
 									</div>
 								</div>
 							</div>
@@ -205,20 +253,20 @@
 												<p style="text-align: center; font-size: 13px">데이터가 없습니다</p>
 											</c:if>
 											<c:forEach var="refr" items="${ArtiVO.list_refr}" varStatus="rf">
-												${rf.count}. &nbsp; ${refr.author} / ${refr.pub_year} / ${refr.arti_title} 
-												<c:if test="${refr.issue == '' and refr.volume != ''}">
-													/ ${refr.volume} : 
-												</c:if>
-												<c:if test="${refr.issue != '' and refr.volume != ''}">
-													/ ${refr.volume} (${refr.issue}) :
-												</c:if>
-												<c:if test="${refr.page == '' and refr.orgn_nm != ''}">
-													${refr.orgn_nm}
-												</c:if>
-												<c:if test="${refr.page != ''}">
-													${refr.page} / ${refr.orgn_nm}
-												</c:if>
-												<br>
+			                                    ${rf.count}. &nbsp; ${refr.author} / ${refr.pub_year} / ${refr.arti_title} 
+			                                    <c:if test="${refr.issue == '' and refr.volume != ''}">
+			                                       / ${refr.volume} : 
+			                                    </c:if>
+															<c:if test="${refr.issue != '' and refr.volume != ''}">
+			                                       / ${refr.volume} (${refr.issue}) :
+			                                    </c:if>
+															<c:if test="${refr.page == '' and refr.orgn_nm != ''}">
+			                                       ${refr.orgn_nm}
+			                                    </c:if>
+															<c:if test="${refr.page != ''}">
+			                                       ${refr.page} / ${refr.orgn_nm}
+			                                    </c:if>
+															<br>
 											</c:forEach>
 										</p>
 									</div>
@@ -231,16 +279,11 @@
 						<footer> </footer>
 
 						<div align="left" style="margin-top: 15px; margin-bottom: 8px">
-							<button type="submit" class="btn btn-primary disabled" formaction="/" formmethod="get">돌아가기</button>
+							<button type="submit" class="btn btn-primary disabled" formaction="/article" formmethod="get">돌아가기</button>
 						</div>
-
-
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</body>
-
-	<form>
+			</div>												
+	</div>	
+</div>
+</body>
+</form>
 </html>

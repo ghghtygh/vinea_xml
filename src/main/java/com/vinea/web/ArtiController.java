@@ -34,7 +34,7 @@ public class ArtiController {
 	public String xmlList(@RequestParam(defaultValue = "1") int page, Model model) throws Exception
 	{
 		/* 논문 목록의 건수 */
-		int xmlCount = service.countXml();
+		int xmlCount = 100;//service.countXml();
 		/* 한페이지에 보여질 페이지 수 */
 		int pageSize = 7;
 		int startIndex = -1;
@@ -60,11 +60,11 @@ public class ArtiController {
 	
 	/** 파싱된 XML(논문) 내용 상세보기 **/
 	@RequestMapping(value="/article/article_detail", method=RequestMethod.GET)
-	public String article_detail(@RequestParam("arti_no")String arti_no, Model model) throws Exception{
+	public String article_detail(@RequestParam("uid")String uid, Model model) throws Exception{
 		
+		//logger.info(service.article_detail(uid).toStringMultiline());
 		
-		
-		model.addAttribute("ArtiVO", service.article_detail(arti_no));
+		model.addAttribute("ArtiVO", service.article_detail(uid));
 		
 		return "article/article_detail";
 		
@@ -124,19 +124,73 @@ public class ArtiController {
 	}
 	
 	/** 파싱 현황 불러오기 **/
-	@RequestMapping(value="article/parsing/check")
+	@RequestMapping(value="/article/parsing/check")
 	@ResponseBody
 	public List<XmlFileVO> xmlParsingCheck() throws Exception{
 		
-		return service.selectXmlFileList();
+		return service.selectXmlFileCount();
+	}
+	
+	/** 파싱 현황 불러오기 **/
+	@RequestMapping(value="/article/parsing/check2")
+	@ResponseBody
+	public List<XmlFileVO> xmlParsingCheck2() throws Exception{
+		
+		return service.selectParseYN();
 	}
 	
 	/** XML 파일명에 따라 파싱 **/
-	@RequestMapping(value="article/parsing/test")
+	@RequestMapping(value="/article/parsing/test")
 	@ResponseBody
 	public XmlFileVO xmlParsingTest(@RequestParam(defaultValue="") String file_name) throws Exception{
 		
-		return service.selectOneXmlFile(file_name);
+		
+		
+		return service.parseOneXml(file_name);
+	}
+	
+	/** XML 파일명에 따라 파싱 **/
+	@RequestMapping(value="/article/parsing/test2")
+	@ResponseBody
+	public Boolean xmlParsingTest2(@RequestParam(defaultValue="") String file_name,
+			@RequestParam(defaultValue="1")int file_cnt) throws Exception{
+		
+		//file_name = "WR_2017_20180509131811_CORE_0001.xml";
+		//file_cnt = 1;
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("file_name",file_name);
+		map.put("file_cnt", file_cnt);
+		
+		service.parseXmlList(map);
+		
+		return true;
 	}
 
+	/** 연도별 데이터 통계 **/
+	@RequestMapping(value = "/article/yearstat")
+	public String yearlyChart() throws Exception {
+
+		/* 연도별 통계 : 발행연도, 논문수, 도서권수, 학술지종수, 참고문헌수 데이터 가져오기 */
+
+		return "article/year_stat";
+	}
+	
+	/** 소속기관별 데이터 통계 **/
+	@RequestMapping(value = "/article/orgnstat")
+	public String orgnChart() throws Exception {
+		
+		/* 소속기관별 통계: 소속기관명, 발행연도, 논문수, 인용수, 페이징 처리 추가 */
+		
+		return "article/orgn_stat";
+	}
+	
+	/** 소속기관별 데이터 통계 **/
+	@RequestMapping(value = "/article/ctgrstat")
+	public String ctgrChart() throws Exception {
+		
+		/* 연구분야별 통계: 분야명(대분류, 주제명), 저자수, 논문수, 학술지종수, 참고문헌수 */
+		
+		return "article/ctgr_stat";
+	}
 }

@@ -24,7 +24,7 @@
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://192.168.0.196:3306/test02?serverTimezone=Asia/Seoul&amp;useSSL=false" />
+		<property name="url" value="jdbc:mysql://192.168.0.196:3306/test02?serverTimezone=Asia/Seoul&amp;allowPublicKeyRetrieval=true&amp;useSSL=false" />
 		<property name="username" value="jupo" />
 		<property name="password" value="qwe123" />
 	</bean>

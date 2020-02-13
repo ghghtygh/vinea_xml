@@ -17,7 +17,6 @@ import org.springframework.util.StopWatch;
 import com.vinea.common.NjhParser;
 import com.vinea.dao.XmlDAO;
 import com.vinea.dto.ArtiVO;
-import com.vinea.dto.AuthVO;
 import com.vinea.dto.BooknoteVO;
 import com.vinea.dto.ConfVO;
 import com.vinea.dto.DtypeVO;
@@ -55,6 +54,7 @@ public class XmlServiceImpl implements XmlService{
 		return dao.countXml();
 	}
 	
+	
 	/** 요청 페이지에 따른 논문 목록 조회 **/
 	@Override
 	public List<ArtiVO> selectXmlList(Map<String,Object> map){
@@ -73,9 +73,9 @@ public class XmlServiceImpl implements XmlService{
 	
 	/** 논문 상세보기  **/
 	@Override
-	public ArtiVO article_detail(String arti_no) throws Exception{
+	public ArtiVO article_detail(String uid) throws Exception{
 		
-		ArtiVO vo = dao.selectOneXml(arti_no);
+		ArtiVO vo = dao.selectOneXml(uid);
 		
 		/* 키워드 정보  */
 		vo.setList_kwrd(dao.selectKwrdList(vo.getUid()));		
@@ -118,16 +118,14 @@ public class XmlServiceImpl implements XmlService{
 	public void createVO(ArtiVO vo) throws Exception{
 		
 		dao.insertArti(vo);
-		
 		/* 저자 정보 리스트 */
-		for(AuthVO authVO : vo.getList_auth()){
-			dao.insertAuth(authVO);
-		}
+		dao.insertAuthList(vo.getList_auth());
 		
 		/* 도서기록 정보 리스트 */
 		for(BooknoteVO booknoteVO : vo.getList_booknote()){
 			dao.insertBooknote(booknoteVO);
-		}	
+		} 
+		
 		
 		/* 학회 정보 리스트 */
 		for(ConfVO confVO : vo.getList_conf()){
@@ -152,7 +150,6 @@ public class XmlServiceImpl implements XmlService{
 		
 		/* 저자 연구기관 정보 리스트 */
 		for(OrgnVO orgnVO : vo.getList_orgn()){
-			
 			dao.insertOrgn(orgnVO);
 		}
 		
@@ -167,7 +164,25 @@ public class XmlServiceImpl implements XmlService{
 		}
 				
 	}
+	/** 논문 정보 리스트 DB에 저장 **/
+	@Override
+	public void insertVOList(List<ArtiVO> list) throws Exception{
 		
+		dao.insertArtiList(list);
+		
+		for (ArtiVO vo : list){
+			dao.insertAuthList(vo.getList_auth());
+			dao.insertBooknoteList(vo.getList_booknote());
+			dao.insertConfList(vo.getList_conf());
+			dao.insertDtypeList(vo.getList_dtype());
+			dao.insertGrntList(vo.getList_grnt());
+			dao.insertKwrdList(vo.getList_kwrd());
+			dao.insertOrgnList(vo.getList_orgn());
+			dao.insertPublList(vo.getList_publ());
+			dao.insertRefrList(vo.getList_refr());
+		}
+		
+	}
 	
 	/** chk 동작 부분 **/
 	@Override
@@ -195,10 +210,9 @@ public class XmlServiceImpl implements XmlService{
 		
 		//list.add("C:\\Users\\vinea\\iCloudDrive\\2017_CORE\\WR_2017_20180509131811_CORE_0001.xml");
 		//list.add("C:\\Users\\vinea\\iCloudDrive\\2017_CORE\\WR_2017_20180509131811_CORE_0002.xml");
-		//list.add("C:\\Users\\vinea\\iCloudDrive\\2017_CORE\\WR_2017_20180509131811_CORE_0003.xml");
-		
-		list.add("C:\\Users\\vinea\\iCloudDrive\\2017_CORE\\WR_2017_20180509131811_CORE_0004.xml");
-		list.add("C:\\Users\\vinea\\iCloudDrive\\2017_CORE\\WR_2017_20180509131811_CORE_0005.xml");
+		list.add("F:\\vinea\\WOS\\2017_CORE\\WR_2017_20180509131811_CORE_0003.xml");
+		list.add("F:\\vinea\\WOS\\2017_CORE\\WR_2017_20180509131811_CORE_0004.xml");
+		list.add("F:\\vinea\\WOS\\2017_CORE\\WR_2017_20180509131811_CORE_0005.xml");
 		
 		for(String str : list){
 			articleTest(str);
@@ -339,12 +353,20 @@ public class XmlServiceImpl implements XmlService{
 	}
 	
 	/** 파싱 현황 불러오기 **/
-	public List<XmlFileVO> selectXmlFileList() throws Exception{
-		return dao.selectXmlFileList();
+	@Override
+	public List<XmlFileVO> selectXmlFileCount() throws Exception{
+		return dao.selectXmlFileCount();
+	}
+	
+	/** 원본파일명과 파싱된 태그 개수 반환**/
+	@Override
+	public List<XmlFileVO> selectParseYN() throws Exception{
+		return dao.selectParseYN();
 	}
 	
 	/** XML파일의 REC 태그 한개 불러와서 파싱 하기 **/
-	public XmlFileVO selectOneXmlFile(String file_name) throws Exception{
+	@Override
+	public XmlFileVO parseOneXml(String file_name) throws Exception{
 		//return dao.selectOneXmlFile(file_name);
 		
 		xmlFileVO = new XmlFileVO();
@@ -353,33 +375,79 @@ public class XmlServiceImpl implements XmlService{
 		stopWatch = new StopWatch();
 		stopWatch.start();
 		
-		while((xmlFileVO = dao.selectOneXmlFile(file_name)) != null){
+		if((xmlFileVO = dao.selectOneXmlFile(file_name)) != null){
 			
 			try{
 				/* ArtiVO 저장*/
 				createVO(parser.parseRecStr(xmlFileVO.getContent()));
 				
+				/* 파싱 완료 표시 */
 				dao.updateParseYN(xmlFileVO.getUid());
 				
 			}catch(Exception e){
 				
+				/* 오류 표시 */
+				dao.updateErrorYN(xmlFileVO.getUid());
 				logger.info("오류발생 >>>"+xmlFileVO.getUid());
+			}finally{
+				
+				stopWatch.stop();
+				
+				logger.info("parseOneXml - 수행시간 : {}",stopWatch.getTotalTimeSeconds());
 				
 			}
-				
-			break;
 			
-			/* N -> Y */
+			return xmlFileVO;
+			
+			
+		}else{
+			return null;
 		}
 		
-		stopWatch.stop();
 		
-		//logger.info("수행시간 : {}",stopWatch.getTotalTimeSeconds());
 		
-		return xmlFileVO;
+	}
+	
+	/** 해당 파일명, 태그 개수을 입력받아 여러 태그 한꺼번에 파싱 **/
+	@Override
+	public void parseXmlList(Map<String,Object> map) throws Exception{
+		
+		xmlFileVO = new XmlFileVO();
+		parser = new NjhParser();
+		
+		//stopWatch = new StopWatch();
+		//stopWatch.start();
+		
+		List<ArtiVO> list = new ArrayList<ArtiVO>();
+		
+		for(XmlFileVO vo : dao.selectXmlFileList(map)){
+			try{
+				list.add(parser.parseRecStr(vo.getContent()));
+				updateParse(vo.getUid());
+			}catch(Exception e){
+			
+				/* 오류 표시 */
+				updateError(vo.getUid());
+				logger.info("오류발생 >>>"+vo.getUid());
+			}
+		}
+		
+		insertVOList(list);
+		
+		//stopWatch.stop();
+		//logger.info("parseXmlList insert 수행시간 : {}",stopWatch.getTotalTimeSeconds());
 	}
 	
 	
+	@Override
+	public void updateParse(String uid) throws Exception{
+		
+		
+		dao.updateParseYN(uid);
+	}
+	@Override
+	public void updateError(String uid) throws Exception{
 	
-	
+		dao.updateErrorYN(uid);
+	}
 }
