@@ -10,13 +10,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.vinea.dto.ArtiVO;
-import com.vinea.dto.OrgnVO;
 import com.vinea.dto.XmlFileVO;
 import com.vinea.service.XmlService;
 import com.vinea.service.PostPager;
@@ -30,31 +31,69 @@ public class ArtiController {
 	Logger logger = LoggerFactory.getLogger(ArtiController.class);
 	
 	/** 메인화면으로 이동_논문 목록 페이지 **/
-	@RequestMapping(value = "/article")
-	public String xmlList(@RequestParam(defaultValue = "1") int page, Model model) throws Exception
+	@RequestMapping(value = "/article", method=RequestMethod.GET)
+	public ModelAndView xmlList(@RequestParam(defaultValue = "1") int page,
+			@RequestParam(defaultValue="") String search,
+			@RequestParam(defaultValue="0")String search_option,
+			@RequestParam(defaultValue="0")String sort_option) throws Exception
 	{
+		
+		StopWatch stopWatch = new StopWatch();
+		stopWatch.start("/article");
+		
+		ModelAndView mav = new ModelAndView("article/article_home");
+	
+		/* 한페이지에 보여질 요소 개수 */
+		int pageSize = 10;
+		
+		/* 찾을 요소 개수 제한 */
+		int maxCnt = 1000;
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		
+		map.put("search", search);
+		map.put("search_option",search_option);
+		map.put("sort_option", sort_option);
+		map.put("now_count", (page-1)*pageSize);
+		map.put("max_count", maxCnt);
+		
 		/* 논문 목록의 건수 */
-		int xmlCount = service.countXml();
-		/* 한페이지에 보여질 페이지 수 */
-		int pageSize = 7;
-		int startIndex = -1;
+		int xmlCount = service.countXml(map);
+		
+		if(xmlCount==maxCnt) {
+			
+		}else {
+			
+		}
+		
+		xmlCount+=((page-1)*pageSize);
+		
+		//logger.info("xmlCount : "+Integer.toString(xmlCount));
+		
 		
 		PostPager pager = new PostPager(xmlCount, page, pageSize);
 
-		startIndex = pager.getStartIndex();
 
-		Map<String, Object> map = new HashMap<String, Object>();
-
-		map.put("startIndex", startIndex);
-		map.put("pageSize", pageSize);
-
+		map.put("start_index", pager.getStartIndex());
+		map.put("page_size", pageSize);
+		
+		
+		
 		List<ArtiVO> xmlList = service.selectXmlList(map);
 		
-		model.addAttribute("xmlList", xmlList);
-		model.addAttribute("pager", pager);
-		model.addAttribute("cnt", xmlCount);
 		
-		return "article/article_home";
+		mav.addObject("xmlList", xmlList);
+		mav.addObject("pager", pager);
+		mav.addObject("cnt", xmlCount);
+		mav.addObject("search", search);
+		mav.addObject("search_option",search_option);
+		mav.addObject("sort_option",sort_option);
+		
+		stopWatch.stop();
+		logger.info(stopWatch.shortSummary());
+		
+		logger.info(Integer.toString(xmlCount));
+		return mav;
 		
 	}
 	

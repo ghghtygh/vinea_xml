@@ -1,3 +1,5 @@
+
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -26,10 +28,50 @@
 <script>
 	var m_chk = false;
 
+	var searchs = "${search}";
+	
+	/** document 로딩 **/
 	$(document).ready(function() {
 
 		$("#loading").hide();
 
+		
+		$("input[name='search']").val(searchs);
+		
+		$('#search_option option[value="${search_option}"]').attr("selected",true);
+		
+		$('#sort_option option[value="${sort_option}"]').attr("selected",true);
+		
+		
+		
+		/** 정렬하기 **/
+		$("#sort_option").on('change',function(){
+			
+			var sort_option = $(this).val();
+			
+			//같은 값 클릭되게 하고싶음
+			//$("#sort_option option:eq("+(sort_option-1)+")").remove();
+			
+			var formObj = $("#frm");
+			formObj.attr("action", "/article");
+			formObj.attr("method", "get");
+			formObj.submit();
+			
+		});
+		
+		$("#btn_search").on("click", function(e){
+			e.preventDefault();
+			
+			var search = $("#input_search").val();
+			
+			$("input[name='search']").val(search);
+			
+			var formObj = $("#frm");
+			formObj.attr("action", "/article");
+			formObj.attr("method", "get");
+			formObj.submit();
+		});
+		
 		/** 알림창 닫기 **/
 		$("#btn_alert_hide").on("click", function(e) {
 
@@ -38,6 +80,7 @@
 
 		});
 		
+		/** 모달 닫힐때 modal remote 데이터 지우기 **/
 		$('body').on('hidden.bs.modal', '.modal', function () {
 			
 			//console.log("모달 닫힘");
@@ -156,13 +199,22 @@
 		});
 
 	});
-
+	/** document 로딩 끝 **/
+	
 	/** 페이지 이동  **/
 	function fn_paging(nowPage) {
 
-		var url = "/article?page=" + nowPage;
-
-		location.href = url;
+		var formObj = $("#frm");
+		
+		var input_page = document.createElement("input");
+		$(input_page).attr("type","hidden");
+		$(input_page).attr("name","page");
+		$(input_page).attr("value",nowPage);
+		
+		formObj.append(input_page);
+		formObj.attr("action", "/article");
+		formObj.attr("method", "get");
+		formObj.submit();
 
 	}
 	function input_chk() {
@@ -204,7 +256,8 @@ a {
 </head>
 <body>
 	<form id="frm" enctype="multipart/form-data">
-
+		<input type="hidden" name="search" value="">
+		
 		<div class="wrap">
 
 			<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -214,12 +267,44 @@ a {
 			</nav>
 
 			<div class="container">
+
 				<div style="min-height: 500px;">
 
 					<div style="margin: 30px;">&nbsp;</div>
 
-					<div style="margin: 30px;">
-						<div class="input-group mb-3"></div>
+					<div class="row">
+
+
+						<div class="col-sm-9">
+
+							<div class="form-group row">
+								<div class="form-group">
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<select class="form-control" id="search_option" name="search_option">
+												<option value="1">제목</option>
+												<option value="2">저자</option>
+												<option value="3">키워드</option>
+											</select>
+										</div>
+										<input type="text" class="form-control" id="input_search">
+										<div class="input-group-append">
+											<button class="btn btn-primary" type="button" id="btn_search">검색</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="form-group row">
+								<label class="col-sm-4 col-form-label" align="right" >정렬</label>
+								<select class="col-sm-8 form-control" id="sort_option" name="sort_option">
+									<option value="1">정확도 순</option>
+									<option value="2">발행일 순</option>
+									<option value="3">인용횟수 순</option>
+								</select>
+							</div>
+						</div>
 					</div>
 
 					<div id="contents">
@@ -301,7 +386,7 @@ a {
 						</div>
 					</div>
 				</div>
-				
+
 				<!-- 페이징 처리  -->
 				<div style="width: 100%;">
 					<div align="right" style="position: relative;">
@@ -386,8 +471,7 @@ a {
 						</div>
 						<div>
 							<div style="position: relative; float: right; z-index: 10;">
-								<button id="btn_insertXML" class="btn btn-primary">XML
-									추가</button>
+								<button id="btn_insertXML" type="button" class="btn btn-primary">XML추가</button>
 							</div>
 						</div>
 					</div>
@@ -407,4 +491,7 @@ a {
 		
 	</form>
 </body>
+
+
+
 </html>

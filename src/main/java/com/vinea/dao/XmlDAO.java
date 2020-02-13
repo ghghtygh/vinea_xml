@@ -34,9 +34,16 @@ public class XmlDAO {
 	Logger logger = LoggerFactory.getLogger(XmlDAO.class);
 	
 	/** 파싱된 논문 건수 반환 **/
-	public int countXml() {
+	public int countXml(Map<String, Object> map) {
 
-		return sqlSession.selectOne(Namespace + ".countXml");
+		
+		
+		//logger.info("now page : "+map.get("now_page"));
+		//logger.info("max page : "+map.get("max_page"));
+		//int a= sqlSession.selectOne(Namespace + ".countXml", map);
+		//logger.info("지금 countXML : "+Integer.toString(a));
+		
+		return sqlSession.selectOne(Namespace + ".countXml", map);
 	}
 
 	/** 논문 정보 DB 저장 **/

@@ -52,15 +52,17 @@ public class XmlServiceImpl implements XmlService{
 	
 	/** 파싱된 논문 건수 반환 **/
 	@Override
-	public int countXml() throws Exception{
+	public int countXml(Map<String,Object> map) throws Exception{
 		
-		return dao.countXml();
+		return dao.countXml(map);
 	}
 	
 	/** 요청 페이지에 따른 논문 목록 조회 **/
 	@Override
 	public List<ArtiVO> selectXmlList(Map<String,Object> map){
 	
+		
+		
 		List<ArtiVO> list_artiVO = new ArrayList<ArtiVO>();
 		
 		list_artiVO = dao.selectXmlList(map);
@@ -70,6 +72,8 @@ public class XmlServiceImpl implements XmlService{
 			vo.setList_auth(dao.selectAuthList(vo.getUid()));
 		}
 		
+		
+
 		return list_artiVO;
 	}
 	
