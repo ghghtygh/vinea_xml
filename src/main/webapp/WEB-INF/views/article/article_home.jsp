@@ -49,8 +49,6 @@
 			
 			var sort_option = $(this).val();
 			
-			//같은 값 클릭되게 하고싶음
-			//$("#sort_option option:eq("+(sort_option-1)+")").remove();
 			
 			var formObj = $("#frm");
 			formObj.attr("action", "/article");
@@ -210,8 +208,8 @@
 		$(input_page).attr("type","hidden");
 		$(input_page).attr("name","page");
 		$(input_page).attr("value",nowPage);
-		
 		formObj.append(input_page);
+		
 		formObj.attr("action", "/article");
 		formObj.attr("method", "get");
 		formObj.submit();
@@ -227,6 +225,21 @@
 	function clear_input() {
 		$("#div_parse").html("");
 
+	}
+	
+	function inputKey(){
+		if(event.keyCode==13){
+			var search = $("#input_search").val();
+			
+			$("input[name='search']").val(search);
+			
+			var formObj = $("#frm");
+			formObj.attr("action", "/article");
+			formObj.attr("method", "get");
+			formObj.submit();
+		}else{
+			return true;
+		}
 	}
 </script>
 
@@ -273,10 +286,7 @@ a {
 					<div style="margin: 30px;">&nbsp;</div>
 
 					<div class="row">
-
-
 						<div class="col-sm-9">
-
 							<div class="form-group row">
 								<div class="form-group">
 									<div class="input-group mb-3">
@@ -287,7 +297,7 @@ a {
 												<option value="3">키워드</option>
 											</select>
 										</div>
-										<input type="text" class="form-control" id="input_search">
+										<input type="text" class="form-control" id="input_search" onKeyDown="return inputKey()" onsubmit="return false">
 										<div class="input-group-append">
 											<button class="btn btn-primary" type="button" id="btn_search">검색</button>
 										</div>

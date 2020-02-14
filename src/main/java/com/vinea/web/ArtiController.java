@@ -39,7 +39,7 @@ public class ArtiController {
 	{
 		
 		StopWatch stopWatch = new StopWatch();
-		stopWatch.start("/article");
+		stopWatch.start();
 		
 		ModelAndView mav = new ModelAndView("article/article_home");
 	
@@ -59,14 +59,17 @@ public class ArtiController {
 		
 		/* 논문 목록의 건수 */
 		int xmlCount = service.countXml(map);
+		//xmlCount+=((page-1)*pageSize);
 		
-		if(xmlCount==maxCnt) {
-			
-		}else {
-			
-		}
+		stopWatch.stop();
 		
-		xmlCount+=((page-1)*pageSize);
+		logger.info("service.countXml(map) 완료");
+		logger.info(stopWatch.shortSummary());
+		
+		stopWatch = new StopWatch();
+		stopWatch.start();
+		
+		
 		
 		//logger.info("xmlCount : "+Integer.toString(xmlCount));
 		
@@ -80,7 +83,10 @@ public class ArtiController {
 		
 		
 		List<ArtiVO> xmlList = service.selectXmlList(map);
+		stopWatch.stop();
 		
+		logger.info("service.selectXmlList(map) 완료");
+		logger.info(stopWatch.shortSummary());
 		
 		mav.addObject("xmlList", xmlList);
 		mav.addObject("pager", pager);
@@ -89,10 +95,9 @@ public class ArtiController {
 		mav.addObject("search_option",search_option);
 		mav.addObject("sort_option",sort_option);
 		
-		stopWatch.stop();
-		logger.info(stopWatch.shortSummary());
 		
-		logger.info(Integer.toString(xmlCount));
+		
+		logger.info("전체 개수 : "+Integer.toString(xmlCount));
 		return mav;
 		
 	}
