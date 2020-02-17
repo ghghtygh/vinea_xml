@@ -1,5 +1,6 @@
 package com.vinea.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -104,17 +105,6 @@ public class ArtiController {
 		return "article/article_insert";
 	}
 	
-	/** 현황분석_시각화(테스트) **/
-	@RequestMapping(value = "/article/test/chart")
-	public String testChart() throws Exception{
-		
-		/* 연도별 통계 : 발행연도, 논문수, 도서권수, 학술지종수, 참고문헌수 데이터 가져오기 */
-		/* 소속기관별 통계: 소속기관명, 발행연도, 논문수, 인용수, 페이징 처리 추가 */
-		/* 연구분야별 통계: 분야명(대분류, 주제명), 저자수, 논문수, 학술지종수, 참고문헌수,  페이징 처리 추가 */
-		
-		return "article/articleChart";
-	}
-	
 	/** 원본 논문 데이터 파싱 테스트(DB 저장) **/
 	@RequestMapping(value = "/article/parsing")
 	public String parsingMapping() throws Exception{
@@ -180,17 +170,30 @@ public class ArtiController {
 	@RequestMapping(value = "/article/orgnstat")
 	public String orgnChart() throws Exception {
 		
-		/* 소속기관별 통계: 소속기관명, 발행연도, 논문수, 인용수, 페이징 처리 추가 */
+		/* 소속기관별 통계: 논문수, 인용수, 소속기관별 연구분야 비율 */
 		
 		return "article/orgn_stat";
 	}
 	
-	/** 소속기관별 데이터 통계 **/
+	/** 연구분야별 데이터 통계 **/
 	@RequestMapping(value = "/article/ctgrstat")
 	public String ctgrChart() throws Exception {
 		
-		/* 연구분야별 통계: 분야명(대분류, 주제명), 저자수, 논문수, 학술지종수, 참고문헌수 */
+		/* 연구분야별 통계: 논문수, 인용수, 연구분야명, 세부분야명 */
 		
 		return "article/ctgr_stat";
 	}
+	
+	
+	/** 논문키워드 현황 **/
+	@RequestMapping(value = "/article/kwrdstat")
+	public String kwrdChart() throws Exception {
+		
+		/* 키워드 현황: 키워드명, 키워드 빈도 */
+		
+		return "article/kwrd_stat";
+	}
+	
+	
+	
 }
