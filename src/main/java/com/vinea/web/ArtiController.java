@@ -1,5 +1,6 @@
 package com.vinea.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,36 +47,38 @@ public class ArtiController {
 		/* 한페이지에 보여질 요소 개수 */
 		int pageSize = 10;
 		
-		/* 찾을 요소 개수 제한 */
-		int maxCnt = 1000;
-		
 		Map<String,Object> map = new HashMap<String,Object>();
 		
+		search = search.trim();
+		String[] searchs = search.split("\\s+");
+		ArrayList<String> searchList = new ArrayList<String>();
+		
+		for(int i=0,n=searchs.length;i<n;i++){
+			logger.info("searchs["+i+"] : "+searchs[i]);
+		}
+		
+		for(String s:searchs){
+			searchList.add(s);
+		}
 		map.put("search", search);
+		map.put("search_list", searchList);
 		map.put("search_option",search_option);
 		map.put("sort_option", sort_option);
-		map.put("now_count", (page-1)*pageSize);
-		map.put("max_count", maxCnt);
+		
 		
 		/* 논문 목록의 건수 */
 		int xmlCount = service.countXml(map);
-		//xmlCount+=((page-1)*pageSize);
 		
 		stopWatch.stop();
 		
-		logger.info("service.countXml(map) 완료");
+		
 		logger.info(stopWatch.shortSummary());
+		logger.info("service.countXml(map) 완료 <<< "+Integer.toString(xmlCount));
 		
 		stopWatch = new StopWatch();
 		stopWatch.start();
 		
-		
-		
-		//logger.info("xmlCount : "+Integer.toString(xmlCount));
-		
-		
 		PostPager pager = new PostPager(xmlCount, page, pageSize);
-
 
 		map.put("start_index", pager.getStartIndex());
 		map.put("page_size", pageSize);
@@ -85,8 +88,8 @@ public class ArtiController {
 		List<ArtiVO> xmlList = service.selectXmlList(map);
 		stopWatch.stop();
 		
-		logger.info("service.selectXmlList(map) 완료");
 		logger.info(stopWatch.shortSummary());
+		logger.info("service.selectXmlList(map) 완료");
 		
 		mav.addObject("xmlList", xmlList);
 		mav.addObject("pager", pager);
@@ -95,22 +98,20 @@ public class ArtiController {
 		mav.addObject("search_option",search_option);
 		mav.addObject("sort_option",sort_option);
 		
-		
-		
-		logger.info("전체 개수 : "+Integer.toString(xmlCount));
 		return mav;
-		
 	}
 	
 	/** 파싱된 XML(논문) 내용 상세보기 **/
 	@RequestMapping(value="/article/article_detail", method=RequestMethod.GET)
-	public String article_detail(@RequestParam("uid")String uid, Model model) throws Exception{
+	public ModelAndView article_detail(@RequestParam("uid")String uid) throws Exception{
 		
 		//logger.info(service.article_detail(uid).toStringMultiline());
 		
-		model.addAttribute("ArtiVO", service.article_detail(uid));
+		ModelAndView mav = new ModelAndView("article/article_detail");
 		
-		return "article/article_detail";
+		mav.addObject("ArtiVO", service.article_detail(uid));
+		
+		return mav;
 		
 	} 
 	

@@ -38,7 +38,7 @@
 		/** 버튼, 파싱현황 세팅 **/
 		$.ajax({
 			type:"POST",
-			url:"/article/parsing/check2",
+			url:"/article/parsing/check",
 			dataType:"json",
 			async:false,
 			success:function(data){
@@ -65,6 +65,7 @@
 					tb_str+="</td>";
 					
 					tb_str+="<td>";
+					tb_str+=item['all_cnt'];
 					tb_str+="</td>";
 					
 					tb_str+="<td>";
@@ -146,7 +147,7 @@
 		
 		$.ajax({
 			type:"POST",
-			url:"/article/parsing/check2",
+			url:"/article/parsing/check",
 			dataType:"json",
 			async:false,
 			success:function(data){
