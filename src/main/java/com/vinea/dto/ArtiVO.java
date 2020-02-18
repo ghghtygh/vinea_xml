@@ -8,6 +8,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 /** 논문 정보_VO 객체  **/
 public class ArtiVO {
 
+	//게시글번호
+	private int num;
 	//논문 UID
 	private String uid;
 	//논문 번호
@@ -97,6 +99,15 @@ public class ArtiVO {
 	private List<PublVO> list_publ;
 
 	/* getter/setter 작성 */	
+
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
+	
 	public String getUid() {
 		return uid;
 	}

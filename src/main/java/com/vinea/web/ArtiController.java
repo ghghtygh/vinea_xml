@@ -39,8 +39,7 @@ public class ArtiController {
 			@RequestParam(defaultValue="0")String sort_option) throws Exception
 	{
 		
-		StopWatch stopWatch = new StopWatch();
-		stopWatch.start();
+		
 		
 		ModelAndView mav = new ModelAndView("article/article_home");
 	
@@ -52,10 +51,6 @@ public class ArtiController {
 		search = search.trim();
 		String[] searchs = search.split("\\s+");
 		ArrayList<String> searchList = new ArrayList<String>();
-		
-		for(int i=0,n=searchs.length;i<n;i++){
-			logger.info("searchs["+i+"] : "+searchs[i]);
-		}
 		
 		for(String s:searchs){
 			searchList.add(s);
@@ -69,13 +64,7 @@ public class ArtiController {
 		/* 논문 목록의 건수 */
 		int xmlCount = service.countXml(map);
 		
-		stopWatch.stop();
-		
-		
-		logger.info(stopWatch.shortSummary());
-		logger.info("service.countXml(map) 완료 <<< "+Integer.toString(xmlCount));
-		
-		stopWatch = new StopWatch();
+		StopWatch stopWatch = new StopWatch();
 		stopWatch.start();
 		
 		PostPager pager = new PostPager(xmlCount, page, pageSize);
@@ -83,13 +72,10 @@ public class ArtiController {
 		map.put("start_index", pager.getStartIndex());
 		map.put("page_size", pageSize);
 		
-		
-		
 		List<ArtiVO> xmlList = service.selectXmlList(map);
 		stopWatch.stop();
 		
 		logger.info(stopWatch.shortSummary());
-		logger.info("service.selectXmlList(map) 완료");
 		
 		mav.addObject("xmlList", xmlList);
 		mav.addObject("pager", pager);

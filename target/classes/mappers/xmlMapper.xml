@@ -8,6 +8,7 @@
  	<resultMap id="artiMap" type="com.vinea.dto.ArtiVO">
  	<!-- xmlMapper.xml -> resultMap(id:artiMap) 논문정보 테이블의 컬럼 -->	
  	
+ 			<result property="num"				column="ROWNUM"/>
 			<result property="uid"					column="UID"/>
 			<result property="arti_no"				column="ARTI_NO"/>
 			<result property="arti_title"    		column="ARTI_TITLE"/>
@@ -891,9 +892,11 @@
 	
 	<select id="selectXmlList" parameterType="hashmap" resultMap="artiMap">
 	<!-- 요청 페이지에 따른 파싱된 논문 목록 조회  *path: src/main/resources/mappers/xmlMapper.xml *id: selectXmlList -->
-	
+		
 		SELECT
-			 TB_ARTI.UID	AS UID
+			 
+			@ROWNUM:=@ROWNUM+1	AS ROWNUM
+			,TB_ARTI.UID		AS UID
 			,ARTI_NO
 			,ARTI_TITLE
 			,PUB_DATE
@@ -905,8 +908,10 @@
 			,END_PAGE
 			,PAGE_CNT
 			
-			FROM(
 			
+			FROM (SELECT @ROWNUM:=#{start_index}) R
+			
+			,(
 				SELECT TB_ARTI.UID
 		<include refid="search"></include>
 		<include refid="sort"></include>
@@ -919,6 +924,7 @@
 			) C
 			INNER JOIN TB_ARTI
 			ON C.UID = TB_ARTI.UID
+			
 	</select>
 	
 	<select id="countXml" parameterType="hashMap" resultType="java.lang.Integer">
@@ -1014,19 +1020,21 @@
 	<!-- 정렬하기 -->
 		<choose>
 			<when test='sort_option.equals("1")'>
+			<!-- UID -->
+				USE INDEX(iii)
 				ORDER BY
 				UID
-				DESC
+				ASC
 			</when>
 			<when test='sort_option.equals("2")'>
+			<!-- 발행일 -->
+				USE INDEX(iii)
 				ORDER BY
 				PUB_DATE
-				DESC
+				ASC
 			</when>
 			<when test='sort_option.equals("3")'>
-				ORDER BY
-				UID
-				DESC
+			<!-- 제목 -->
 			</when>
 		</choose>
 		
