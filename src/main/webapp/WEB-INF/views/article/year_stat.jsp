@@ -105,6 +105,8 @@
 			<!--  연도별 통계: 테이블, 차트 -->
 			<div id="year_stat" style="margin-top: 20px">
 				<p style="font-size: 20px; font-weight: bold; color: #000069">연도별 데이터 통계</p>
+				<div class="row">
+				<div class="col-lg-12">
 				<table style="text-align: center;" class="table table-hover">
 					<tbody>
 						<th style="border-top: 2px solid #000069">구분</th>
@@ -194,16 +196,24 @@
 						</tr>
 					</tbody>
 				</table>
+				</div>
+				</div>
 				<!-- 논문, 도서, 학술지, 참고문헌으로 옵션으로 두는 SelectBox 생성 -->
+				<div class="row">
+				<div class="col-lg-12">
 				<select class="form-control" id="yearOption">
 					<option value="arti">논문</option>
 					<option value="book">도서</option>
 					<option value="jrnl">학술지</option>
 					<option value="refr">참고문헌</option>
 				</select>
+				</div>
+				</div>
 				<!-- 차트를 그릴 canvas 정의 -->
-				<div align="center" style="margin-top: 15px">
-					<canvas id="yearStat"></canvas>
+				<div class="row" align="center" style="margin-top: 15px">
+					<div class="col-lg-12">
+						<canvas id="yearStat"></canvas>
+					</div>
 				</div>
 				<script>
 					/** 위에 정의한 canvas 아이디를 가져와 차트를 정의 **/

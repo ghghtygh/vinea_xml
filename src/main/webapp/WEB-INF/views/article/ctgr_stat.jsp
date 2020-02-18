@@ -254,6 +254,8 @@
    				<!-- 연구분야별 데이터 통계 : 테이블 -->
    				<div id="ctgr_stat1" style="margin-top: 20px">
 					<p style="font-size: 20px; font-weight: bold; color: #000069">연구분야별 데이터 통계</p>
+					<div class="row">
+					<div class="col-lg-12">
 					<ol class="breadcrumb">
 						<!-- 연구분야별로 검색 -->
 						<li class="breadcrumb-item">
@@ -281,7 +283,11 @@
 						<p style="margin-left: 15px"></p>
 						<button class="btn btn-primary" type="button">검색</button>
 					</ol>
+					</div>
+					</div>
 					<!-- 연구분야별 데이터 통계: 전체 -->
+					<div class="row">
+					<div class="col-lg-12">
 					<div class="layer1">
 						<table style="text-align: center;" class="table table-hover">
 						<tbody>
@@ -329,6 +335,8 @@
 						</tbody>
 						</table>
 					</div>
+					</div>
+					</div>
 				</div>
    				</div>
    				<!-- 첫번째 tab에 들어갈 내용(끝) -->
@@ -337,6 +345,8 @@
   				<!-- 연구분야의 주제별 상위 통계 : 테이블, 차트 -->
   				<div id="ctgr_stat2" style="margin-top: 20px">
 					<p style="font-size: 20px; font-weight: bold; color: #000069">연구분야별 상위 통계</p>
+					<div class="row">
+					<div class="col-lg-12">
 					<ol class="breadcrumb">
 						<!-- 분야별 조회 -->
 						<li class="breadcrumb-item">
@@ -360,11 +370,12 @@
 							<option value="refrcnt">참고문헌</option>
 						</select>
 					</ol>
-					<!-- 연구분야의 주제별 상위 통계: 테이블 부분 -->
-					<section id="section">
-						<article id="article">
+					</div>
+					</div>
+						<!-- 연구분야의 주제별 상위 통계: 테이블 부분 -->
 						<!-- 저자수 통계 -->
-						<div class="authStat">
+						<div class="row">
+						<div class="col-lg-5">
 							<table style="text-align: center;" class="table table-hover">
 							<tbody>
 								<th style="border-top: 2px solid #000069">분야명</th>
@@ -383,7 +394,6 @@
 								</tr>
 							</tbody>
 							</table>
-						</div>
 						<!-- 논문수 통계 -->
 						<div class="artiStat">
 							<table style="text-align: center;" class="table table-hover">
@@ -447,11 +457,12 @@
 							</tbody>
 							</table>
 						</div>
-						</article>
-					</section>
-					<aside id="aside">
+						</div>
 						<!-- 연구분야의 주제별 상위 통계를 보여줄 차트 캔버스 정의 -->
+						<div class="col-lg-7">
 						<canvas id="ctgr" width="800" height="450"></canvas>
+						</div>
+						</div>
 						<script>
 							var myChart = new Chart(document.getElementById("ctgr"), {
 								    type: 'bar',
@@ -497,8 +508,7 @@
 								      	legend: { display: false }
 								    }
 								});
-								</script>
-							</aside>	
+						</script>
   						</div>
 					</div>	
 				</article>

@@ -7,17 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <title>메인 페이지</title>
-<!-- JQUERY, JAVASCRIPT -->
+<!--  StyleSheet_부트스트랩 사용 -->
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
-
-<!--  CSS -->
-<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/resources/css/style.css">
-<link href="/resources/css/_bootswatch.scss" rel="stylesheet">
- <link href="/resources/css/_variables.scss" rel="stylesheet">
-
+<link href="/resources/css1/bootstrap.css" rel="stylesheet">
+<link href="resources/css/_bootswatch.scss" rel="stylesheet">
+<link href="/resources/css/_variables.scss" rel="stylesheet">
 <script>
 	var m_chk = false;
 
@@ -41,8 +36,7 @@
 		$("#sort_option").on('change',function(){
 			
 			var sort_option = $(this).val();
-			
-			
+						
 			var formObj = $("#frm");
 			formObj.attr("action", "/article");
 			formObj.attr("method", "get");
@@ -261,73 +255,240 @@ a {
 
 </head>
 <body>
-<div class="wrapper d-flex align-items-stretch">
-	    <!-- 전체 메뉴 사이드바 -->
-		<nav id="sidebar">
-			<div class="p-4 pt-5">
-				<a href="/article" class="img logo rounded-circle mb-5" style="background-image: url(/resources/image/analyticx.png);"></a>
-				<ul class="list-unstyled components mb-5">
-					<li>
-						<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">메인</a>
-						<ul class="list-unstyled collapse show in" id="homeSubmenu" aria-expanded="true">
-						<li>
-							<a href="/article">논문보기</a>
-						</li>
-						</ul>
-					</li>
-						<li>
-							<a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">현황</a>
-							<ul class="collapse list-unstyled" id="pageSubmenu">
-								<li class="active">
-									<a href="/article/yearstat">연도별 현황</a>
-								</li>
-								<li>
-									<a href="/article/orgnstat">소속기관별 현황</a>
-								</li>
-								<li>
-									<a href="/article/ctgrstat">분야별 현황</a>
-								</li>
-								<li>
-									<a href="/article/kwrdstat">키워드 현황</a>
-								</li>
-							</ul>
-						</li>
-				</ul>
-				<div class="footer">
-					<p>
-						<script>
-							document.write(new Date().getFullYear());
-						</script>
-							About XML Parsing
-							<i class="icon-heart" aria-hidden="true"></i>
-					</p>
-					<p>
-						made with by JuHyeon&Minjin 
-						<a href="https://github.com/ghghtygh/vinea_xml.git" style="font-size: 12px" target="_blank">
-							https://github.com/ghghtygh/vinea_xml.git
-						</a>
-				</div>
-			</div>
-		</nav>
-		<!-- 메인 페이지  -->
-		<div id="content" class="p-4 p-md-5">
-			<nav class="navbar navbar-expand-lg navbar-light bg-light">
-				<div class="container-fluid">
-					<button type="button" id="sidebarCollapse" class="btn btn-primary">
-						<i class="fa fa-bars"></i> <span class="sr-only">Toggle Menu</span>
-					</button>
-					<button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-						<i class="fa fa-bars"></i>
-					</button>
-					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-						<ul class="nav navbar-nav ml-auto">
-							<li class="nav-item active"><a class="nav-link" href="/article">Home</a></li>
-						</ul>
-					</div>
+	<form id="frm" enctype="multipart/form-data">
+		<input type="hidden" name="search" value="">
+		
+		<div class="wrap">
+
+			<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+				<div class="container">
+					<a class="navbar-brand" href="/article">Article DataParsing</a>
 				</div>
 			</nav>
 
+			<div class="container">
+
+				<div style="min-height: 500px;">
+
+					<div style="margin: 30px;">&nbsp;</div>
+
+					<div class="row">
+						<div class="col-sm-9">
+							<div class="form-group row">
+								<div class="form-group">
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<select class="form-control" id="search_option" name="search_option">
+												<option value="1">제목</option>
+												<option value="2">저자</option>
+												<option value="3">키워드</option>
+											</select>
+										</div>
+										<input type="text" class="form-control" id="input_search" onKeyDown="return inputKey()" onsubmit="return false">
+										<div class="input-group-append">
+											<button class="btn btn-primary" type="button" id="btn_search">검색</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="form-group row">
+								<label class="col-sm-4 col-form-label" align="right" >정렬</label>
+								<select class="col-sm-8 form-control" id="sort_option" name="sort_option">
+									<option value="1">정확도 순</option>
+									<option value="2">발행일 순</option>
+									<option value="3">인용횟수 순</option>
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div id="contents">
+
+						<div>
+							<table class="table table-hover">
+								<tbody>
+									<!--  논문 목록이 비어있을때, 없을때를 구분하여 화면에 출력을 다르게 한다 -->
+									<c:choose>
+										<c:when test="${not empty xmlList}">
+											<c:forEach items="${xmlList}" var="ArtiVO" varStatus="g">
+												<tr>
+													<td>
+														<p class="mb-0" style="margin-top: 5px;">${ArtiVO.arti_no}</p>
+													</td>
+													<td>
+														<blockquote class="" style="font-size: 130%;">
+
+															<!-- 논문 제목 클릭시, 논문상세페이지로 이동 -->
+															<a class="mb-0" style="color: black;"
+																href='article/article_detail?uid=${ArtiVO.uid}'>
+																${ArtiVO.arti_title} </a>
+															<footer class=""
+																style="font-size: 70%; vertical-align: bottom;">
+
+																<!--  저자정보 추가예정, 학회정보 추가예정, 권(호), 시작~끝페이지, 발행일자, 연구분야 추가예정 -->
+
+
+																<div align="left" class="text-secondary"
+																	style="margin-top: 10px;">
+																	&nbsp;
+																	<c:forEach var="auth" items="${ArtiVO.list_auth}"
+																		varStatus="a">
+
+																		<c:if test="${a.count==1 }">${auth.auth_full_nm}</c:if>
+
+																	</c:forEach>
+
+																	<c:if test="${fn:length(ArtiVO.list_auth)>1}">
+																		<c:out value="  외  ${fn:length(ArtiVO.list_auth)-1}명 "></c:out>
+																	</c:if>
+
+
+																	| ${ArtiVO.jrnl_title} |
+																	<c:if test="${ArtiVO.issue != ''}">
+																	 ${ArtiVO.volume}(${ArtiVO.issue}) 
+																	</c:if>
+
+																	<c:if test="${ArtiVO.issue == ''}">
+																	${ArtiVO.volume} 
+																	</c:if>
+																	<c:if
+																		test="${ArtiVO.begin_page != '' && ArtiVO.end_page != ''}">
+																	| 
+																	pp.${ArtiVO.begin_page}~${ArtiVO.end_page}
+																	|
+																	</c:if>
+																	<c:set var="tmp_list"
+																		value="${fn:split(ArtiVO.pub_date,'-')}" />
+
+																	<c:forEach var="tmp" items="${tmp_list}" varStatus="g">
+																		<c:if test="${g.count == 2}">${ArtiVO.pub_year}.${tmp}</c:if>
+																	</c:forEach>
+																</div>
+															</footer>
+														</blockquote>
+													</td>
+												</tr>
+											</c:forEach>
+										</c:when>
+										<c:otherwise>
+											<tr>
+												<td style="text-align: center">등록된 논문이 없습니다</td>
+											</tr>
+										</c:otherwise>
+									</c:choose>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+				<!-- 페이징 처리  -->
+				<div style="width: 100%;">
+					<div align="right" style="position: relative;">
+						<div style="position: absolute; text-align: center; width: 100%;">
+							<div class="btn-group mr-2">
+								<c:choose>
+
+									<c:when test="${pager.nowPage ne 1 }">
+
+										<a href='#' class="btn btn-primary" onClick="fn_paging(1)">처음</a>
+
+
+									</c:when>
+									<c:otherwise>
+										<a class="btn btn-primary disabled">처음</a>
+									</c:otherwise>
+								</c:choose>
+
+								<c:choose>
+									<c:when test="${pager.nowPage ne 1 }">
+										<a href="#" class="btn btn-primary"
+											onClick="fn_paging('${pager.prevPage}')">&laquo;</a>
+									</c:when>
+									<c:otherwise>
+										<a class="btn btn-primary disabled">&laquo;</a>
+									</c:otherwise>
+								</c:choose>
+
+								<c:forEach begin="${pager.startPage}" end="${pager.endPage}"
+									var="pageNum">
+
+									<c:choose>
+
+										<c:when test="${pageNum eq pager.nowPage}">
+											<a href="#" class="btn btn-primary active"
+												onClick="fn_paging('${pageNum}')">${pageNum }</a>
+
+										</c:when>
+
+										<c:otherwise>
+											<a href="#" class="btn btn-primary"
+												onClick="fn_paging('${pageNum}')">${pageNum}</a>
+
+										</c:otherwise>
+
+									</c:choose>
+
+								</c:forEach>
+
+
+								<c:choose>
+									<c:when
+										test="${pager.nowPage ne pager.pageCnt && pager.pageCnt > 0 }">
+
+										<a class="btn btn-primary" href="#"
+											onClick="fn_paging('${pager.nextPage}')">&raquo;</a>
+
+
+									</c:when>
+									<c:otherwise>
+
+										<a class="btn btn-primary disabled">&raquo;</a>
+
+									</c:otherwise>
+								</c:choose>
+								<c:choose>
+									<c:when test="${pager.nowPage ne pager.pageCnt }">
+
+										<a class="btn btn-primary" href="#"
+											onClick="fn_paging('${pager.pageCnt}')">끝</a>
+
+
+									</c:when>
+									<c:otherwise>
+
+										<a class="btn btn-primary disabled">끝</a>
+
+									</c:otherwise>
+								</c:choose>
+
+							</div>
+						</div>
+						<div>
+							<div style="position: relative; float: right; z-index: 10;">
+								<button id="btn_insertXML" type="button" class="btn btn-primary">XML추가</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- / 페이징처리 -->
+			</div>
 		</div>
-</div>	
+
+		<!-- [XML추가] 모달 -->
+		<div id="insertXML" class="modal">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+				</div>
+			</div>
+		</div>
+		<!-- / [XML추가] 모달 -->
+		
+	</form>
 </body>
+
+
+
 </html>

@@ -131,6 +131,8 @@
 			<!--  소속기관별 통계: 테이블 -->
 			<div id="orgn_stat1" style="margin-top: 20px">
 				<p style="font-size: 20px; font-weight: bold; color: #000069">소속기관별 데이터 통계</p>
+				<div class="row">
+				<div class="col-lg-12">
 				<ol class="breadcrumb">
 					<!-- 연도별로 검색 -->
 					<li class="breadcrumb-item">
@@ -170,7 +172,11 @@
 					<p style="margin-left: 15px"></p>
 					<button class="btn btn-primary" type="button">조회</button>
 				</ol>
+				</div>
+				</div>
 				<!-- 소속기관별 논문수, 인용수 목록형 통계 부분 -->
+				<div class="row">
+				<div class="col-lg-12">
 				<table style="text-align: center;" class="table table-hover">
 					<tbody>
 						<th style="border-top: 2px solid #000069">순번</th>
@@ -189,6 +195,8 @@
 						</tr>
 					</tbody>
 				</table>
+				</div>
+				</div>
 			</div>
 			<!-- 페이징 처리 시작 -->
 			<div style="width: 100%;">
@@ -263,8 +271,15 @@
 						<img class="btn-img" src="/resources/image/back.png">
 					</button>
 					<!-- 소속기관별 연구분야 비율을  보여줄 캔버스 정의 -->
-					<canvas id="orgn-chart1" width="400" height="150"></canvas>
-					<script>
+					<div class="row" style="margin-top: 35px">
+						<div class="col-lg-6">
+							<canvas id="orgn-chart1" width="400" height="300"></canvas>
+						</div>
+						<div class="col-lg-6">
+							<canvas id="orgn-chart2" width="400" height="300"></canvas>
+						</div>
+					</div>
+					<script>					
 					    /** 위에 정의한 캔버스 아이디를 가져와 차트를 생성 **/
 					    var a =  new Chart(document.getElementById("orgn-chart1"), {
 						  type: 'radar',
@@ -274,7 +289,7 @@
 							  /* 연구분야 비율 데이터 들어갈 부분 */
 							  datasets: [{
 							      label: '연구분야',
-							      data: [20, 35, 40, 70, 45],
+							      data: [15, 20, 40, 60, 45],
 							      backgroundColor: 'rgba(102,153,255,0.5)'
 							  }]   
 						  },
@@ -292,8 +307,100 @@
 						    /* (이벤트 처리) 각 인덱스를 클릭하였을 때, 차트의 데이터와 라벨이 변할 수 있도록 함 */
 						    onClick: function(e) {
 						    	var element = this.getElementAtEvent(e);
-						    	e.stopPropagation();
-			
+					    		var index = element[0]["_index"];
+					    		var labels = element[0]["_chart"].data.labels[index];
+					    		
+					    		/* 인덱스 별 옵션 */
+								if (index == 0){
+									element[0]["_chart"].data.labels = ["정보통신", "컴공", "수학",  "건축", "전자"]
+									element[0]["_chart"].data.datasets[0].data =[30, 10, 5, 5, 10];
+									element[0]["_chart"].config.data.datasets[0].backgroundColor = "#8e5ea2"
+									element[0]["_chart"].config.data.datasets[0].label = "주제"
+								}
+								else if(index == 1){
+									element[0]["_chart"].data.labels = ["물리",  "화학", "생물학", "지구과학", "일반과학"]
+									element[0]["_chart"].data.datasets[0].data =[45, 15, 15, 35, 40];
+									element[0]["_chart"].config.data.datasets[0].backgroundColor = "#8e5ea2"
+									element[0]["_chart"].config.data.datasets[0].label = "주제"
+								}
+								else if(index == 2){
+									element[0]["_chart"].data.labels = ["체육", "미술", "음악", "도예", "운동"]
+									element[0]["_chart"].data.datasets[0].data =[20, 20, 40, 35, 40];
+									element[0]["_chart"].config.data.datasets[0].backgroundColor = "#8e5ea2"
+									element[0]["_chart"].config.data.datasets[0].label = "주제"
+								}
+								else if(index == 3){
+									element[0]["_chart"].data.labels = ["1", "2", "3", "4", "5"]
+									element[0]["_chart"].data.datasets[0].data =[20, 25, 60, 45, 75];
+									element[0]["_chart"].config.data.datasets[0].backgroundColor = "#8e5ea2"
+									element[0]["_chart"].config.data.datasets[0].label = "주제"
+								}
+								else if(index == 4){
+									element[0]["_chart"].data.labels = ["a", "b", "c", "d", "e"]
+									element[0]["_chart"].data.datasets[0].data =[90, 70, 40, 65, 55];
+									element[0]["_chart"].config.data.datasets[0].backgroundColor = "#8e5ea2"
+									element[0]["_chart"].config.data.datasets[0].label = "주제"
+								}
+								
+								element[0]["_chart"].update();
+						    },
+						    /* 비율은 0부터 100까지로 기준을 둠 */				    
+						    scale : {
+						    	ticks : {
+						    		beginAtZero : true,
+						    		min : 0,
+						    		max : 100,
+						    		stepSize: 10
+						    	},
+						    	scaleLabel : {
+						    		display: true,
+						    		labelString: 'Percentage',
+						    		fontSize: 20
+						    	}
+						    },
+						    legend : {
+						    	position: 'top'
+						    },
+						    title: {
+						    	display: true,
+						    	text: '소속기관명',
+						    	position: 'bottom',
+						    	fontSize: 17,
+						    	fontStyle: 'normal'
+						    },
+						    hover: {
+						    	mode: null,
+						    }
+						  }
+					});
+					    
+					    /** 위에 정의한 캔버스 아이디를 가져와 차트를 생성 **/
+					    var b =  new Chart(document.getElementById("orgn-chart2"), {
+						  type: 'radar',
+						  data: {
+							  /* 연구분야_주제목 */
+							  labels: ["공학", "자연과학", "예술 및 체육", "인문학", "사회학"],
+							  /* 연구분야 비율 데이터 들어갈 부분 */
+							  datasets: [{
+							      label: '연구분야',
+							      data: [75, 10, 30, 45, 45],
+							      backgroundColor: 'rgba(102,153,255,0.5)'
+							  }]   
+						  },
+						  /* 차트 옵션 정하는 부분(클릭 이벤트, 차트 제목 등..여러가지 기능) */
+						  options: {
+						    tooltips: {
+						      callbacks: {
+						        label: function(tooltipItem, data) {
+						          return data.datasets[tooltipItem.datasetIndex].label + ": " + tooltipItem.yLabel;
+						        }
+						      }
+						    },
+						    /* 캔버스 부분에서 vh, vw를 사용하여 반응형 차트를 만들고 싶을 때에는 false로 */
+						    responsive: true,
+						    /* (이벤트 처리) 각 인덱스를 클릭하였을 때, 차트의 데이터와 라벨이 변할 수 있도록 함 */
+						    onClick: function(e) {
+						    	var element = this.getElementAtEvent(e);
 					    		var index = element[0]["_index"];
 					    		var labels = element[0]["_chart"].data.labels[index];
 					    		
@@ -329,7 +436,7 @@
 									element[0]["_chart"].config.data.datasets[0].label = "주제"
 								}
 								
-								element[0]["_chart"].update();				
+								element[0]["_chart"].update();
 						    },
 						    /* 비율은 0부터 100까지로 기준을 둠 */				    
 						    scale : {
@@ -339,15 +446,26 @@
 						    		max : 100,
 						    		stepSize: 10
 						    	},
-						    	scaleLable : {
+						    	scaleLabel : {
 						    		display: true,
-						    		labelString: 'Percentage'
+						    		labelString: 'Percentage',
+						    		fontSize: 20
 						    	}
 						    },
 						    legend : {
-						    	position: 'bottom'
+						    	position: 'top'
 	
-						    }					    
+						    },
+						    title: {
+						    	display: true,
+						    	text: '소속기관명',
+						    	position: 'bottom',
+						    	fontSize: 17,
+						    	fontStyle: 'normal'
+						    },
+						    hover: {
+						    	mode: null,
+						    }
 						  }
 					});
 					 
@@ -361,7 +479,7 @@
 								  /* 연구분야 비율 데이터 들어갈 부분 */
 								  datasets: [{
 								      label: '연구분야',
-								      data: [20, 35, 40, 70, 45],
+								      data: [15, 25, 70, 35, 45],
 								      backgroundColor: 'rgba(102,153,255,0.5)'
 								  }]   
 							  },
@@ -378,9 +496,7 @@
 							    responsive: true,
 							    /* (이벤트 처리) 각 인덱스를 클릭하였을 때, 차트의 데이터와 라벨이 변할 수 있도록 함 */
 							    onClick: function(e) {
-							    	var element = this.getElementAtEvent(e);
-							    	e.stopPropagation();
-				
+							    	var element = this.getElementAtEvent(e);				
 						    		var index = element[0]["_index"];
 						    		var labels = element[0]["_chart"].data.labels[index];
 						    		
@@ -429,21 +545,134 @@
 							    		min : 0,
 							    		max : 100,
 							    		stepSize: 10
+							    	},
+							    	scaleLabel : {
+							    		display: true,
+							    		labelString: 'Percentage',
+							    		fontSize: 20
 							    	}
 							    },
 							    legend : {
-							    	position: 'bottom'
+							    	position: 'top'
 		
-							    }					    
+							    },
+							    title: {
+							    	display: true,
+							    	text: '소속기관명',
+							    	position: 'bottom',
+							    	fontSize: 17,
+							    	fontStyle: 'normal'
+							    },
+							    hover: {
+							    	mode: null,
+							    }
+							  }
+						});
+						  
+						var d =  new Chart(document.getElementById("orgn-chart2"), {
+							  type: 'radar',
+							  data: {
+								  /* 연구분야_주제목 */
+								  labels: ["공학", "자연과학", "예술 및 체육", "인문학", "사회학"],
+								  /* 연구분야 비율 데이터 들어갈 부분 */
+								  datasets: [{
+								      label: '연구분야',
+								      data: [20, 35, 40, 70, 45],
+								      backgroundColor: 'rgba(102,153,255,0.5)'
+								  }]   
+							  },
+							  /* 차트 옵션 정하는 부분(클릭 이벤트, 차트 제목 등..여러가지 기능) */
+							  options: {
+							    tooltips: {
+							      callbacks: {
+							        label: function(tooltipItem, data) {
+							          return data.datasets[tooltipItem.datasetIndex].label + ": " + tooltipItem.yLabel;
+							        }
+							      }
+							    },
+							    /* 캔버스 부분에서 vh, vw를 사용하여 반응형 차트를 만들고 싶을 때에는 false로 */
+							    responsive: true,
+							    /* (이벤트 처리) 각 인덱스를 클릭하였을 때, 차트의 데이터와 라벨이 변할 수 있도록 함 */
+							    onClick: function(e) {
+							    	var element = this.getElementAtEvent(e);				
+						    		var index = element[0]["_index"];
+						    		var labels = element[0]["_chart"].data.labels[index];
+						    		
+						    		
+									if (index == 0){
+										element[0]["_chart"].data.labels = ["정보통신", "컴공", "수학",  "건축", "전자"]
+										element[0]["_chart"].data.datasets[0].data =[30, 10, 5, 5, 10];
+										element[0]["_chart"].config.data.datasets[0].backgroundColor = "#8e5ea2"
+										element[0]["_chart"].config.data.datasets[0].label = "주제"
+										element[0]["_chart"].stop();
+									}
+									else if(index == 1){
+										element[0]["_chart"].data.labels = ["물리",  "화학", "생물학", "지구과학", "일반과학"]
+										element[0]["_chart"].data.datasets[0].data =[20, 30, 15, 35, 40];
+										element[0]["_chart"].config.data.datasets[0].backgroundColor = "#8e5ea2"
+										element[0]["_chart"].config.data.datasets[0].label = "주제"
+										element[0]["_chart"].stop();
+									}
+									else if(index == 2){
+										element[0]["_chart"].data.labels = ["체육", "미술", "음악", "도예", "운동"]
+										element[0]["_chart"].data.datasets[0].data =[15, 20, 40, 35, 40];
+										element[0]["_chart"].config.data.datasets[0].backgroundColor = "#8e5ea2"
+										element[0]["_chart"].config.data.datasets[0].label = "주제"
+										element[0]["_chart"].stop();
+									}
+									else if(index == 3){
+										element[0]["_chart"].data.labels = ["1", "2", "3", "4", "5"]
+										element[0]["_chart"].data.datasets[0].data =[40, 25, 60, 45, 75];
+										element[0]["_chart"].config.data.datasets[0].backgroundColor = "#8e5ea2"
+										element[0]["_chart"].config.data.datasets[0].label = "주제"
+										element[0]["_chart"].stop();
+									}
+									else if(index == 4){
+										element[0]["_chart"].data.labels = ["a", "b", "c", "d", "e"]
+										element[0]["_chart"].data.datasets[0].data =[90, 70, 80, 65, 55];
+										element[0]["_chart"].config.data.datasets[0].backgroundColor = "#8e5ea2"
+										element[0]["_chart"].config.data.datasets[0].label = "주제"
+										element[0]["_chart"].stop();
+									}
+									
+									element[0]["_chart"].update();
+							    },
+							    scale : {
+							    	ticks : {
+							    		beginAtZero : true,
+							    		min : 0,
+							    		max : 100,
+							    		stepSize: 10
+							    	},
+							    	scaleLabel : {
+							    		display: true,
+							    		labelString: 'Percentage',
+							    		fontSize: 20
+							    	}						    
+							    },
+							    legend : {
+							    	position: 'top'
+		
+							    },
+							    title: {
+							    	display: true,
+							    	text: '소속기관명',
+							    	position: 'bottom',
+							    	fontSize: 17,
+							    	fontStyle: 'normal'
+							    },
+							    hover: {
+							    	mode: null,
+							    }
 							  }
 						});
 					}
 					</script>
 				</div>
+				</div>
 			</div>
 			</div>
 		</div>
-	</div>	
 <!-- JQUERY, 필요한 JAVASCRIPT 파일 -->	
 <script src="/resources/js/jquery.min.js"></script>
 <script src="/resources/js/popper.js"></script>
