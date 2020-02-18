@@ -908,7 +908,6 @@
 			,END_PAGE
 			,PAGE_CNT
 			
-			
 			FROM (SELECT @ROWNUM:=#{start_index}) R
 			
 			,(
@@ -924,7 +923,6 @@
 			) C
 			INNER JOIN TB_ARTI
 			ON C.UID = TB_ARTI.UID
-			
 	</select>
 	
 	<select id="countXml" parameterType="hashMap" resultType="java.lang.Integer">
@@ -941,7 +939,6 @@
 						TB_ARTI.UID	AS UID
 					
 					<include refid="search"></include>
-					<include refid="sort"></include>
 				) C
 			</when>
 			<otherwise>
@@ -953,7 +950,6 @@
 					TB_NM = 'TB_ARTI'
 			</otherwise>
 		</choose>
-		
 		
 	</select>
 	
@@ -1021,16 +1017,15 @@
 		<choose>
 			<when test='sort_option.equals("1")'>
 			<!-- UID -->
-				USE INDEX(iii)
+				<!-- USE INDEX(iii) -->
 				ORDER BY
-				UID
+				TB_ARTI.UID
 				ASC
 			</when>
 			<when test='sort_option.equals("2")'>
 			<!-- 발행일 -->
-				USE INDEX(iii)
 				ORDER BY
-				PUB_DATE
+				TB_ARTI.PUB_DATE
 				ASC
 			</when>
 			<when test='sort_option.equals("3")'>
@@ -1039,6 +1034,7 @@
 		</choose>
 		
 	</sql>
+	
 	
 	
 	

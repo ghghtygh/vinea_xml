@@ -12,8 +12,7 @@
 <!--  StyleSheet_부트스트랩 사용 -->
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
-
-<link href="<c:url value='/resources/css/bootstrap.css' />" rel="stylesheet">
+<link href="<c:url value='/resources/css1/bootstrap.css' />" rel="stylesheet">
 <link href="<c:url value='/resources/css/_bootswatch.scss' />" rel="stylesheet">
 <link href="<c:url value='/resources/css/_variables.scss' />" rel="stylesheet">
 
@@ -80,15 +79,10 @@
 				});
 	});
 </script>
-
-
-
 </head>
 <form>
 	<body>
-
 		<div id="wrap">
-
 			<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 				<div class="container">
 					<a class="navbar-brand" href="/article">Article DataParsing</a>
@@ -123,7 +117,7 @@
 						</p>
 						<p style="font-size: 13px">
 							<c:if test="${ArtiVO.ctgry_nm != ''}">
-                        연구분야: <a href="#"> ${ArtiVO.ctgry_nm} </a>
+                      			  연구분야: <a href="#"> ${ArtiVO.ctgry_nm} </a>
 
 								<c:if test="${not empty ArtiVO.ctgry_sub_title}">></c:if>
 

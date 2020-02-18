@@ -1,8 +1,4 @@
-
-
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -11,20 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <title>메인 페이지</title>
-
 <!--  StyleSheet_부트스트랩 사용 -->
-<script
-	src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-<script
-	src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
-
-<link href="<c:url value='/resources/css/bootstrap.css' />"
-	rel="stylesheet">
-<link href="<c:url value='/resources/css/_bootswatch.scss' />"
-	rel="stylesheet">
-<link href="<c:url value='/resources/css/_variables.scss' />"
-	rel="stylesheet">
-
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<link href="/resources/css1/bootstrap.css" rel="stylesheet">
+<link href="resources/css/_bootswatch.scss" rel="stylesheet">
+<link href="/resources/css/_variables.scss" rel="stylesheet">
 <script>
 	var m_chk = false;
 
@@ -300,7 +288,7 @@ a {
 											</select>
 										</div>
 										<input type="text" class="form-control" id="input_search" onKeyDown="return inputKey()"
-										onsubmit="return false" value="">
+										onsubmit="return false" value="" maxlength="30">
 										<div class="input-group-append">
 											<button class="btn btn-primary" type="button" id="btn_search">검색</button>
 										</div>

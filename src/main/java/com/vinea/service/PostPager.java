@@ -1,61 +1,48 @@
 package com.vinea.service;
 
 public class PostPager {
-
 	
-	// 페이지마다 게시글 수
-    private int pageSize = 10;
-    
-    // 블럭마다 페이지 수
-    private int rangeSize = 5;
-    
-    // 현재 페이지
-    private int nowPage = 1;
-    
-    // 현재 블럭
-    private int nowRange = 1;
-    
-    // 총 게시글 수
-    private int listCnt;
-    
-    // 총 페이지 수
-    private int pageCnt;
-    
-    // 총 블럭 수
-    private int rangeCnt;
-    
-    // 블럭 시작 페이지
-    private int startPage = 1;
-    
-    // 블럭 마지막 페이지
-    private int endPage = 1;
-    
-    
-    private int startIndex = 0;
-    
-    // 이전 페이지
-    private int prevPage;
-    
-    // 다음 페이지
+	/* 페이지마다 게시글 수 */
+    private int pageSize = 10;    
+    /* 블럭마다 페이지 수 */
+    private int rangeSize = 5;   
+    /* 현재 페이지 */
+    private int nowPage = 1;   
+    /* 현재 블럭 */
+    private int nowRange = 1;   
+    /* 총 게시글 수 */
+    private int listCnt;   
+    /* 총 페이지 수 */
+    private int pageCnt;   
+    /* 총 블럭 수 */
+    private int rangeCnt;   
+    /* 블럭 시작 페이지 */
+    private int startPage = 1;   
+    /* 블럭 마지막 페이지 */
+    private int endPage = 1;    
+    private int startIndex = 0;    
+    /* 이전 페이지 */
+    private int prevPage;   
+    /* 다음 페이지 */
     private int nextPage;
 
     public PostPager(int cnt,int now,int size) {
     	
     	setPageSize(size);
     	
-    	// 현재 페이지 설정
+    	/* 현재 페이지 설정 */
     	setNowPage(now);
     	
-    	// 총 게시글 수 설정
+    	/* 총 게시글 수 설정 */
     	setListCnt(cnt);
     	
-    	// 총 페이지 수 설정
+    	/* 총 페이지 수 설정 */
     	setPageCnt(cnt);
     	
-    	// 총 블럭 수 설정
+    	/* 총 블럭 수 설정 */
     	setRangeCnt(pageCnt);
     	
-    	// 현재 블럭 및 이전,다음 페이지 설정
+    	/* 현재 블럭 및 이전,다음 페이지 설정 */
     	rangeSetting(nowPage);
     	
     	
@@ -70,8 +57,7 @@ public class PostPager {
     	
     	if(endPage > pageCnt){
             this.endPage = pageCnt;
-        }
-        
+        }       
         this.prevPage = nowPage - 1;
         this.nextPage = nowPage + 1;
     }
