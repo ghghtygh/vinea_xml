@@ -23,20 +23,19 @@
 
 		$("#loading").hide();
 
-		
 		$("input[name='search']").val(searchs);
+		$("#input_search").val(searchs);
 		
 		$('#search_option option[value="${search_option}"]').attr("selected",true);
 		
 		$('#sort_option option[value="${sort_option}"]').attr("selected",true);
 		
-		
-		
 		/** 정렬하기 **/
 		$("#sort_option").on('change',function(){
 			
 			var sort_option = $(this).val();
-						
+			
+			
 			var formObj = $("#frm");
 			formObj.attr("action", "/article");
 			formObj.attr("method", "get");
@@ -44,6 +43,7 @@
 			
 		});
 		
+		/** 검색하기 **/
 		$("#btn_search").on("click", function(e){
 			e.preventDefault();
 			
@@ -209,11 +209,14 @@
 		m_chk = false;
 
 	}
+	
+	
 	function clear_input() {
 		$("#div_parse").html("");
 
 	}
 	
+	/** input 태그에서 엔터 눌렀을 때 새로고침 방지 및 제출하기 **/
 	function inputKey(){
 		if(event.keyCode==13){
 			var search = $("#input_search").val();
@@ -284,7 +287,8 @@ a {
 												<option value="3">키워드</option>
 											</select>
 										</div>
-										<input type="text" class="form-control" id="input_search" onKeyDown="return inputKey()" onsubmit="return false">
+										<input type="text" class="form-control" id="input_search" onKeyDown="return inputKey()"
+										onsubmit="return false" value="" maxlength="30">
 										<div class="input-group-append">
 											<button class="btn btn-primary" type="button" id="btn_search">검색</button>
 										</div>
@@ -296,9 +300,9 @@ a {
 							<div class="form-group row">
 								<label class="col-sm-4 col-form-label" align="right" >정렬</label>
 								<select class="col-sm-8 form-control" id="sort_option" name="sort_option">
-									<option value="1">정확도 순</option>
+									<option value="1">UID 순</option>
 									<option value="2">발행일 순</option>
-									<option value="3">인용횟수 순</option>
+									<option value="3">제목 순</option>
 								</select>
 							</div>
 						</div>
@@ -315,7 +319,7 @@ a {
 											<c:forEach items="${xmlList}" var="ArtiVO" varStatus="g">
 												<tr>
 													<td>
-														<p class="mb-0" style="margin-top: 5px;">${ArtiVO.arti_no}</p>
+														<p class="mb-0" style="margin-top: 5px;">${ArtiVO.num}</p>
 													</td>
 													<td>
 														<blockquote class="" style="font-size: 130%;">
