@@ -1086,7 +1086,7 @@
 	
 		SELECT
 			 FILE_NAME
-			,COUNT(*)									AS Y_CNT
+			,COUNT(*) AS Y_CNT
 		FROM
 			TB_XML_FILE
 		WHERE
