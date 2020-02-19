@@ -29,6 +29,18 @@ public class OrgnVO {
 	//연구기관 주소정보_도로명 주소
 	private String street;
 	
+	// 통계 테이블
+	
+	// 통계테이블 순번
+	private int num;
+	//연구기관 논문 수
+	private int arti_cnt;
+	//연구기관 인용 수
+	private int cite_cnt;
+	// 해당 통계연도
+	private String pub_year;
+	
+	
 	/* getter/setter 작성 */	
 	public int getAuth_orgn_pk() {
 		return auth_orgn_pk;
@@ -103,6 +115,40 @@ public class OrgnVO {
 		this.street = street;
 	}
 	
+	
+	
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
+
+	public int getArti_cnt() {
+		return arti_cnt;
+	}
+
+	public void setArti_cnt(int arti_cnt) {
+		this.arti_cnt = arti_cnt;
+	}
+
+	public int getCite_cnt() {
+		return cite_cnt;
+	}
+
+	public void setCite_cnt(int cite_cnt) {
+		this.cite_cnt = cite_cnt;
+	}
+
+	public String getPub_year() {
+		return pub_year;
+	}
+
+	public void setPub_year(String pub_year) {
+		this.pub_year = pub_year;
+	}
+
 	/* VO객체에 담긴 데이터들을  로그로 확인할 때 사용 */	
 	public String toStringMultiline() {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);

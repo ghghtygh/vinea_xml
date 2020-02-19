@@ -48,73 +48,114 @@ a:hover.tip span {
 </style>
 <script>
 	/** 초록, 키워드, 참고문헌  요약보기, 상세보기 기능 **/
-	$(function() {
 	
-			$("p.title span:gt(0)").css({
-				"font-size" : "0.8em",
-				"font-weight" : "normal"
-			});
+	$(document).ready(function() {
+
+		$("p.title span:gt(0)").css({
+			"font-size" : "0.8em",
+			"font-weight" : "normal"
+		});
 
 		/** open, close 일때 이미지를 변경시키면서 요약,상세를 표시 **/
 		/** slideUp과 slideDown 메소드를 사용하여 요약,상세 기능 **/
-		function sectionToggle() {
-		var target = $(this).parents(".box").find(".innerBox");
-		var image = $(this).find("img");
-		var imgName = image.attr("src");
-		if (target.hasClass("open")) {
+		
+
+		$(".articleBody h2").click(sectionToggle).keydown(function(e) {
+
+			if (e.which == 13 || e.keyCode == 13)
+				sectionToggle();
+		});
+
+		$("a.expOverseaOpen").click(function() {
+			var target = $(this).closet("p").next("p.expOversea");
+			var image = $(this).find("img");
+			var imgName = image.attr("src");
+			if (target.hasClass("open")) {
 				target.slideUp(200);
 				target.removeClass("open");
 				image.attr(
 						"src",
 						imgName.replace("/resources/image/up.png",
-								"/resources/image/down.png")).attr("alt",
-						"open");
-		} else {
+								"/resources/image/down.png")).attr(
+						"alt", "open");
+			} else {
 				target.slideDown(200);
-				target.addClass("open");
+				target.addClass("open")
 				image.attr(
 						"src",
 						imgName.replace("/resources/image/down.png",
-								"/resources/image/up.png"))
-						.attr("alt", "close");
-		}
+								"/resources/image/up.png")).attr("alt",
+						"close");
+			}
 
-		}
-
-		$(".articleBody h2").click(sectionToggle).keydown(function(e) {
-			if (e.which == 13 || e.keyCode == 13)
-				sectionToggle();
 		});
-
-		$("a.expOverseaOpen").click(
-				function() {
-					var target = $(this).closet("p").next("p.expOversea");
-					var image = $(this).find("img");
-					var imgName = image.attr("src");
-					if (target.hasClass("open")) {
-						target.slideUp(200);
-						target.removeClass("open");
-						image.attr(
-								"src",
-								imgName.replace("/resources/image/up.png",
-										"/resources/image/down.png")).attr(
-								"alt", "open");
-					} else {
-						target.slideDown(200);
-						target.addClass("open")
-						image.attr(
-								"src",
-								imgName.replace("/resources/image/down.png",
-										"/resources/image/up.png")).attr("alt",
-								"close");
-					}
-
-				});
+		
 	});
+	
+	function sectionToggle() {
+		
+		var target = $(this).parents(".box").find(".innerBox");
+		var image = $(this).find("img");
+		var imgName = image.attr("src");
+		if (target.hasClass("open")) {
+			target.slideUp(200);
+			target.removeClass("open");
+			image.attr(
+					"src",
+					imgName.replace("/resources/image/up.png",
+							"/resources/image/down.png")).attr("alt",
+					"open");
+		} else {
+			target.slideDown(200);
+			target.addClass("open");
+			image.attr(
+					"src",
+					imgName.replace("/resources/image/down.png",
+							"/resources/image/up.png"))
+					.attr("alt", "close");
+		}
+
+	}
+	
+	function search_jrnl(title){
+		
+		$("input[name='search']").val(title);
+		$("input[name='search_option']").val(4);
+		
+		var formObj = $("#frm");
+		formObj.attr("action", "/article");
+		formObj.attr("method", "get");
+		formObj.submit();
+	}
+	
+	function search_auth(auth){
+		
+		$("input[name='search']").val(auth);
+		$("input[name='search_option']").val(5);
+		
+		var formObj = $("#frm");
+		formObj.attr("action", "/article");
+		formObj.attr("method", "get");
+		formObj.submit();
+		
+	}
 </script>
+<style>
+.list-unstyled.show.collapse.in{
+	visibility:visible
+}
+.list-unstyled.show.collapse{
+	visibility:hidden
+}
+.list-unstyled.show.collapsing{
+	visibility:hidden
+}
+</style>
 </head>
-<form>
+<form id="frm">
 	<body>
+		<input type="hidden" name="search" value="">
+		<input type="hidden" name="search_option" value="">
 		<div class="wrapper d-flex align-items-stretch">
 	    <!-- 전체 메뉴 사이드바 -->
 		<nav id="sidebar">
@@ -125,9 +166,9 @@ a:hover.tip span {
 					<li class="active">
 						<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">메인</a>
 						<ul class="list-unstyled collapse show in" id="homeSubmenu" aria-expanded="true">
-						<li class="active">
-							<a href="/article">논문보기</a>
-						</li>
+							<li class="active">
+								<a href="/article">논문보기</a>
+							</li>
 						</ul>
 					</li>
 						<li>
@@ -186,7 +227,7 @@ a:hover.tip span {
 					<hr style="border-bottom: 0.5px dotted #b4b4b4">
 					<!-- 학술지 명 -->
 					<p style="font-size: 13px; font-style: oblique;">
-						<a href="#" class="tip"> ${ArtiVO.jrnl_title}
+						<a href="#" class="tip" onClick="search_jrnl('${ArtiVO.jrnl_title}')"> ${ArtiVO.jrnl_title}
 							<span>해당 학술지 논문<br>Click</span>
 						</a>
 					</p>
@@ -235,7 +276,7 @@ a:hover.tip span {
 					<!-- 저자정보 -->
 					<p style="font-size: 13px; font-style: oblique;">
 					<c:forEach var="auth" items="${ArtiVO.list_auth}" varStatus="a">
-						<a href="#" class="tip"> ${auth.auth_full_nm}
+						<a href="#" class="tip" onClick="search_auth('${auth.auth_full_nm}')"> ${auth.auth_full_nm}
 							<!-- 1번째 오는 저자가 제1(주 저자) 임을 표시함 -->
 							<!-- 교신 여부를 파악하여 교신 저자인경우는 교신이라 표시해줌 -->
 							<c:if test="${auth.corres_yn == 'Y' and a.count == 1}">(주저자, 교신)</c:if> 

@@ -254,6 +254,10 @@ public class XmlDAO {
 	public List<YearVO> getYearCnt() {
 		return sqlSession.selectList(Namespace + ".getYearCnt");
 	}
-		
-		
+	public int countOrg(Map<String,Object> map) throws Exception{
+		return sqlSession.selectOne(Namespace + ".countOrg", map);
+	}
+	public List<OrgnVO> selectOrgList(Map<String,Object> map){
+		return sqlSession.selectList(Namespace + ".selectOrgList", map);
+	}
 }

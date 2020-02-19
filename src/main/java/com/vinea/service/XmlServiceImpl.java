@@ -18,6 +18,7 @@ import org.springframework.util.StopWatch;
 import com.vinea.common.NjhParser;
 import com.vinea.dao.XmlDAO;
 import com.vinea.dto.ArtiVO;
+import com.vinea.dto.AuthVO;
 import com.vinea.dto.BooknoteVO;
 import com.vinea.dto.ConfVO;
 import com.vinea.dto.CtgrKwrdVO;
@@ -489,5 +490,15 @@ public class XmlServiceImpl implements XmlService{
 	public List<YearVO> getYearCnt() throws Exception{
 	
 		return dao.getYearCnt();
+	}
+
+	@Override
+	public int countOrg(Map<String,Object> map) throws Exception{
+		return dao.countOrg(map);
+	}
+	
+	@Override
+	public List<OrgnVO> selectOrgList(Map<String,Object> map) throws Exception{
+		return dao.selectOrgList(map);
 	}
 }

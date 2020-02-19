@@ -1,5 +1,8 @@
 package com.vinea.dto;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class YearVO {
 	
 	private String pub_year;
@@ -39,6 +42,8 @@ public class YearVO {
 		this.refr_cnt = refr_cnt;
 	}
 	
-	
+	public String toStringMultiline() {
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+	}
 
 }

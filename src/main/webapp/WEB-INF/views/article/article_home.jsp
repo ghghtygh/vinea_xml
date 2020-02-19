@@ -251,6 +251,16 @@ input:read-only {
 	border: 0px;
 	width: 100%;
 }
+
+.list-unstyled.show.collapse.in{
+	visibility:visible
+}
+.list-unstyled.show.collapse{
+	visibility:hidden
+}
+.list-unstyled.show.collapsing{
+	visibility:hidden
+}
 </style>
 </head>
 <body>
@@ -322,37 +332,81 @@ input:read-only {
 			</nav>
 			<form id="frm" enctype="multipart/form-data">
 			<input type="hidden" name="search" value="">
-			<div class="row">
-				<div class="col-sm-9">
-					<div class="form-group row">
-						<div class="form-group">
-							<div class="input-group mb-3">
-								<div class="input-group-prepend">
-									<select class="form-control" id="search_option" name="search_option">
-										<option value="1">제목</option>
-										<option value="2">저자</option>
-										<option value="3">키워드</option>
-									</select>
-								</div>
-								<input type="text" class="form-control" id="input_search" onKeyDown="return inputKey()" onsubmit="return false" value="" maxlength="30">
-									<div class="input-group-append">
-										<button class="btn btn-primary" type="button" id="btn_search">검색</button>
+			
+			<c:choose>
+				<c:when test="${search_option==4}">
+					<input type="hidden" name="search_option" value="4">
+					<input type="hidden" name="sort_option" value="1">
+					<div>
+						<h5>학술지명 : ${search}</h5>
+						&nbsp;총 &nbsp;${cnt }&nbsp;건&nbsp;&nbsp;
+						<a href="/">전체보기</a>
+					</div>
+				</c:when>
+				<c:when test="${search_option==5}">
+					<input type="hidden" name="search_option" value="5">
+					<input type="hidden" name="sort_option" value="1">
+					<div>
+						<h5>저자 : ${search}</h5>
+						&nbsp;총 &nbsp;${cnt }&nbsp;건&nbsp;&nbsp;
+						<a href="/">전체보기</a>
+					</div>
+				</c:when>
+				<c:when test="${search_option==6}">
+					<input type="hidden" name="search_option" value="6">
+					<input type="hidden" name="sort_option" value="1">
+					<div>
+						<h5>기관명 : ${search}</h5>
+						&nbsp;총 &nbsp;${cnt }&nbsp;건&nbsp;&nbsp;
+						<a href="/">전체보기</a>
+					</div>
+				</c:when>
+				<c:otherwise>
+					
+					<div class="row">
+						<div class="col-sm-9">
+							<div class="form-group row">
+								<div class="form-group">
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<select class="form-control" id="search_option" name="search_option">
+												<option value="1">제목</option>
+												<option value="2">저자</option>
+												<option value="3">키워드</option>
+											</select>
+										</div>
+										<input type="text" class="form-control" id="input_search" onKeyDown="return inputKey()" onsubmit="return false" value="" maxlength="30">
+											<div class="input-group-append">
+												<button class="btn btn-primary" type="button" id="btn_search">검색</button>
+											</div>
 									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="form-group row">
+								<label class="col-sm-4 col-form-label" align="right" >정렬</label>
+									<select class="col-sm-8 form-control" id="sort_option" name="sort_option">
+										<option value="1">UID 순</option>
+										<option value="2">발행일 순</option>
+										<option value="3">제목 순</option>
+									</select>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col-sm-3">
-					<div class="form-group row">
-						<label class="col-sm-4 col-form-label" align="right" >정렬</label>
-							<select class="col-sm-8 form-control" id="sort_option" name="sort_option">
-								<option value="1">UID 순</option>
-								<option value="2">발행일 순</option>
-								<option value="3">제목 순</option>
-							</select>
-					</div>
-				</div>
-			</div>
+					<c:if test="${search ne ''}">
+						<div>
+							<div style="">
+								<h5>검색결과 : ${cnt }건</h5> 
+							</div>
+							<div style="">
+								<a href="/">전체보기</a>
+							</div>
+						</div>
+					</c:if>
+				</c:otherwise>
+			</c:choose>
+			
 			<div>
 				<table class="table table-hover">
 					<tbody>
@@ -402,13 +456,13 @@ input:read-only {
 						</c:when>
 						<c:otherwise>
 							<tr>
-								<td style="text-align: center">등록된 논문이 없습니다</td>
+								<td colspan="4" style="text-align: center">등록된 논문이 없습니다</td>
 							</tr>
 						</c:otherwise>
 					</c:choose>
 					</tbody>
 				</table>
-			</div>	
+			</div>	 
 			<!-- 페이징 처리(시작) -->
 			<div style="width: 100%;">
 				<div align="right" style="position: relative;">

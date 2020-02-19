@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.vinea.dto.ArtiVO;
+import com.vinea.dto.AuthVO;
 import com.vinea.dto.CtgrKwrdVO;
+import com.vinea.dto.OrgnVO;
 import com.vinea.dto.XmlFileVO;
 import com.vinea.dto.YearVO;
 
@@ -60,4 +62,11 @@ public interface XmlService {
 	
 	/** 연도별 논문,참고문헌,학술지,도서 수 **/
 	public List<YearVO> getYearCnt() throws Exception;
+
+	/** 논문 리스트 조회 - COUNT **/
+	public int countOrg(Map<String, Object> map) throws Exception;
+
+	/** 논문 리스트 조회  - SELECT **/
+	public List<OrgnVO> selectOrgList(Map<String, Object> map) throws Exception;
+	
 }

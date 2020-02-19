@@ -181,6 +181,7 @@
 	
 	</resultMap>
 	
+	
 	<insert id="insertArti"   parameterType="com.vinea.dto.ArtiVO">
 	<!-- 파싱한 논문정보 DB에 저장 *path: src/main/resources/mappers/xmlMapper.xml *id: insertArti -->
 	
@@ -912,7 +913,7 @@
 			
 			,(
 				SELECT TB_ARTI.UID
-		<include refid="search"></include>
+		<include refid="searchs"></include>
 		<include refid="sort"></include>
 		<!-- 정렬 처리 -->
 		
@@ -938,7 +939,7 @@
 					SELECT
 						TB_ARTI.UID	AS UID
 					
-					<include refid="search"></include>
+					<include refid="searchs"></include>
 				) C
 			</when>
 			<otherwise>
@@ -955,7 +956,7 @@
 	
 	
 	
-	<sql id="search">
+	<sql id="searchs">
 	<!-- 검색하기 -->
 		<choose>
 			<when test='search!=null and search!=""'>
@@ -968,8 +969,8 @@
 								(SELECT * FROM TB_ARTI LIMIT 10000) TB_ARTI
 								
 							WHERE
-							<foreach collection="search_list" item="search" open="(" close=")" separator="or">
-								ARTI_TITLE LIKE CONCAT('%',#{search},'%')
+							<foreach collection="search_list" item="item" open="(" close=")" separator="or">
+								ARTI_TITLE LIKE CONCAT('%',#{item},'%')
 							</foreach>
 						</when>
 						<when test='search_option.equals("2")'>
@@ -981,10 +982,10 @@
 							ON
 								TB_ARTI.UID = B.UID
 							WHERE
-							<foreach collection="search_list" item="search" open="(" close=")" separator="or">
+							<foreach collection="search_list" item="item" open="(" close=")" separator="or">
 								B.AUTH_FULL_NM
 							LIKE
-								CONCAT('%',#{search},'%')
+								CONCAT('%',#{item},'%')
 							</foreach>
 						</when>
 						<when test='search_option.equals("3")'>
@@ -1002,6 +1003,38 @@
 								CONCAT('%',#{search},'%')
 							</foreach>
 						</when>
+						<when test='search_option.equals("4")'>
+							FROM
+								TB_ARTI
+							WHERE
+								JRNL_TITLE = #{search}
+						</when>
+						<when test='search_option.equals("5")'>
+							FROM
+								TB_ARTI
+							INNER JOIN
+								TB_AUTH AS B
+							ON
+								TB_ARTI.UID = B.UID
+							WHERE
+								B.AUTH_FULL_NM = #{search}
+						</when>
+						<when test='search_option.equals("6")'>
+							FROM
+								(SELECT * FROM TB_ARTI LIMIT 10000) TB_ARTI
+							INNER JOIN
+								TB_AUTH_ORGN AS B
+							ON
+								TB_ARTI.UID = B.UID
+							WHERE
+								B.ORGN_NM = #{search}
+						</when>
+						<otherwise>
+						<!-- 검색어 없음 -->
+						FROM
+							TB_ARTI
+							
+						</otherwise>
 				</choose>
 			</when>
 			<otherwise>
@@ -1246,8 +1279,60 @@
 				,BOOK_CNT
 				,JRNL_CNT
 				,REFR_CNT
+				
 			FROM YEAR_STAT 
 	</select>
+	<select id="countOrg" resultType="java.lang.Integer" parameterType="hashMap">
+	<!-- 논문 목록 조회 -COUNT *path: src/main/resources/mappers/xmlMapper.xml *id: countOrg -->
+		SELECT
+			COUNT(*)
+		FROM
+			ORGN_STAT
+		WHERE
+			PUB_YEAR=#{search_year}
+		<include refid="searchOrg"></include>
+	</select>
+	<select id="selectOrgList" parameterType="hashMap" resultType="com.vinea.dto.OrgnVO">
+	<!-- 논문 목록 조회 -SELECT *path: src/main/resources/mappers/xmlMapper.xml *id: selectOrgList -->
+		SELECT
+			 @ROWNUM:=@ROWNUM+1	AS NUM
+			,ORGN_NM
+			,ARTI_CNT
+			,CITE_CNT
+		FROM
+			(SELECT @ROWNUM:=#{start_index}) R
+			,ORGN_STAT
+		WHERE
+			PUB_YEAR=#{search_year}
+		<include refid="searchOrg"></include>
+		ORDER BY ARTI_CNT DESC
+		LIMIT
+			 #{start_index}
+			,#{page_size}
+	</select>
+	<sql id="searchOrg">
+		<choose>
+			<when test='search!=null and search!=""'>
+				AND
+					<foreach collection="search_list" item="item" open="(" close=")" separator="or">
+						ORGN_NM LIKE CONCAT('%',#{item},'%')
+					</foreach>
+			</when>
+		</choose>
+	</sql>
 	
-
+	<select id="" parameterType="hashMap" resultType="com.vinea.dto.CtgrStatVO">
+		SELECT
+			 CTGR_NM
+			,SUBJ_NM
+			,ARTI_CNT
+			,JRNL_CNT
+			,REFR_CNT
+			,AUTH_CNT
+		FROM
+			CTGR_STAT
+	</select>
+	
+	
+	
  </mapper>

@@ -22,7 +22,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vinea.dto.ArtiVO;
+import com.vinea.dto.AuthVO;
 import com.vinea.dto.CtgrKwrdVO;
+import com.vinea.dto.OrgnVO;
 import com.vinea.dto.XmlFileVO;
 import com.vinea.dto.YearVO;
 import com.vinea.service.XmlService;
@@ -193,30 +195,20 @@ public class ArtiController {
 		return true;
 	}
 
-	/** 연도별 데이터 통계 
-	@RequestMapping(value = "/article/yearstat")
-	public String yearlyChart() throws Exception {
-
-
-		return "article/year_stat";
-	}**/
-	
 	/** 연도별 데이터 통계 **/
 	@RequestMapping(value = "/article/yearstat", method = RequestMethod.GET)
 	public ModelAndView yearlyChart() throws Exception {
 				
-		 // YearVO yearVO = new YearVO();
+			List<YearVO> list = service.getYearCnt();
 		  
-		  //yearVO.setArti_cnt(1);
-		  
-		  //logger.info("vo" + yearVO.getArti_cnt()); 
+		
 		  ModelAndView mav = new ModelAndView("article/year_stat");
 		  
-		  for (YearVO vo :service.getYearCnt()) {
-			  logger.info(vo.getPub_year()+" : "+Integer.toString(vo.getArti_cnt()));
+		  for (YearVO vo : list) {
+			  logger.info(vo.toStringMultiline());
 		  }
 		  
-		  mav.addObject("yearVOList", service.getYearCnt());
+		  mav.addObject("yearVOList", list);
 		  
 		  return mav;
 		 
@@ -228,7 +220,7 @@ public class ArtiController {
 
 		Gson gson = new Gson();
 		
-		YearVO yearVO = new YearVO();
+		//YearVO yearVO = new YearVO();
 
 		List<YearVO> list = service.getYearCnt();
 
@@ -240,11 +232,51 @@ public class ArtiController {
 	
 	/** 소속기관별 데이터 통계 **/
 	@RequestMapping(value = "/article/orgnstat")
-	public String orgnChart() throws Exception {
+	public ModelAndView orgnChart(@RequestParam(defaultValue = "1") int page,
+			@RequestParam(defaultValue="") String search,
+			@RequestParam(defaultValue="2017")String year) throws Exception {
 		
 		/* 소속기관별 통계: 논문수, 인용수, 소속기관별 연구분야 비율 */
+		ModelAndView mav = new ModelAndView("article/orgn_stat");
 		
-		return "article/orgn_stat";
+		
+		/* 한페이지에 보여질 요소 개수 */
+		int pageSize = 10;
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		
+		search = search.trim();
+		String[] searchs = search.split("\\s+");
+		ArrayList<String> searchList = new ArrayList<String>();
+		
+		for(String s:searchs){
+			searchList.add(s);
+		}
+		map.put("search", search);
+		map.put("search_list", searchList);
+		map.put("search_year", year);
+		
+		/* 기관 목록의 건수 */
+		int orgCnt = service.countOrg(map);
+		
+		PostPager pager = new PostPager(orgCnt, page, pageSize);
+
+		map.put("start_index", pager.getStartIndex());
+		map.put("page_size", pageSize);
+		
+		List<OrgnVO> orgList = service.selectOrgList(map);
+		
+		logger.info("orgCnt : {} ",orgCnt);
+		
+		for(OrgnVO vo : orgList){
+			logger.info(vo.toStringMultiline());
+		}
+		mav.addObject("orgList", orgList);
+		mav.addObject("pager", pager);
+		mav.addObject("cnt", orgCnt);
+		mav.addObject("search", search);
+		
+		return mav;
 	}
 	
 	/** 연구분야별 데이터 통계 **/

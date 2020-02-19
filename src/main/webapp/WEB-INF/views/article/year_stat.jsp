@@ -24,6 +24,15 @@
 <!-- Chart.js 사용(라인, 바, 플롯, 레이더 등 사용) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.js'></script>
+
+<script>
+	
+	$(document).ready(function(){
+	
+	});
+	
+
+</script>
 </head>
 <form>
 <body>
@@ -108,95 +117,72 @@
 				<p style="font-size: 20px; font-weight: bold; color: #000069">연도별 데이터 통계</p>
 				<div class="row">
 				<div class="col-lg-12">
-				<table style="text-align: center;" class="table table-hover">
+				<table id="table1" style="text-align: center;" class="table table-hover">
 					<tbody>
 						<th style="border-top: 2px solid #000069">구분</th>
-						<th style="border-top: 2px solid #000069">2015</th>
-						<th style="border-top: 2px solid #000069">2016</th>
-						<th style="border-top: 2px solid #000069">2017</th>
-						<th style="border-top: 2px solid #000069">2018</th>
-						<th style="border-top: 2px solid #000069">2019</th>
+						<c:choose>
+							<c:when test="${not empty yearVOList}">
+								<c:forEach items="${yearVOList}" var="vo" varStatus="g">
+									<th style="border-top: 2px solid #000069">${vo.pub_year}</th>
+								</c:forEach>
+							</c:when>
+						</c:choose>
 						<th style="border-top: 2px solid #000069">합계</th>
-						<!-- 연도별 논문, 도서, 학술지, 참고문헌 수를 통계낸 결과 데이터를 넣을 예정 -->
-						<!-- 각 통계데이터 결과를 클릭하였을 때, 그에 해당하는 논문 목록을 보여줌 -->
-						
+					
 						<tr>
 							<td style="border-top: 1px solid #b4b4b4">논문</td>
-							<td style="border-top: 1px solid #b4b4b4">
-								<c:if test="${fn:length(yearVOList)>0}">
-									<c:out value="  길이:  ${fn:length(yearVOList)}"></c:out>
-								</c:if>
-							</td>
-							<td style="border-top: 1px solid #b4b4b4">
-								<a href="#">0</a>
-							</td>
-							<td style="border-top: 1px solid #b4b4b4">
-								<a href="#">0</a>
-							</td>
-							<td style="border-top: 1px solid #b4b4b4">
-								<a href="#">0</a>
-							</td>
-							<td style="border-top: 1px solid #b4b4b4">
-								<a href="#">0</a>
-							</td>
-							<td style="border-top: 1px solid #b4b4b4">0</td>
+							<c:choose>
+								<c:when test="${not empty yearVOList}">
+									<c:set var = "sum" value = "0" />
+									<c:forEach items="${yearVOList}" var="vo" varStatus="g">
+										<td style="border-top: 1px solid #b4b4b4">${vo.arti_cnt}</td>
+										<c:set var="sum" value="${sum+vo.arti_cnt}" />
+									</c:forEach>
+									<td style="border-top: 1px solid #b4b4b4"><c:out value="${sum}"/></td>
+								</c:when>
+							</c:choose>
 						</tr>
+						
 						<tr>
-							<td>도서</td>
-							<td>
-								<a href="#">0</a>
-							</td>
-							<td>
-								<a href="#">0</a>
-							</td>
-							<td>
-								<a href="#">0</a>
-							</td>
-							<td>
-								<a href="#">0</a>
-							</td>
-							<td>
-								<a href="#">0</a>
-							</td>
-							<td>0</td>
+							<td style="">도서</td>
+							<c:choose>
+								<c:when test="${not empty yearVOList}">
+									<c:set var = "sum" value = "0" />
+									<c:forEach items="${yearVOList}" var="vo" varStatus="g">
+										<td style="">${vo.book_cnt}</td>
+										<c:set var="sum" value="${sum+vo.book_cnt}" />
+									</c:forEach>
+									<td style=""><c:out value="${sum}"/></td>
+								</c:when>
+							</c:choose>
 						</tr>
+						
 						<tr>
-							<td>학술지</td>
-							<td>
-								<a href="#">0</a>
-							</td>
-							<td>
-								<a href="#">0</a>
-							</td>
-							<td>
-								<a href="#">0</a>
-							</td>
-							<td>
-								<a href="#">0</a>
-							</td>
-							<td>
-								<a href="#">0</a>
-							</td>
-							<td>0</td>
+							<td style="">학술지</td>
+							<c:choose>
+								<c:when test="${not empty yearVOList}">
+									<c:set var = "sum" value = "0" />
+									<c:forEach items="${yearVOList}" var="vo" varStatus="g">
+										<td style="">${vo.jrnl_cnt}</td>
+										<c:set var="sum" value="${sum+vo.jrnl_cnt}" />
+									</c:forEach>
+									<td style=""><c:out value="${sum}"/></td>
+								</c:when>
+							</c:choose>
 						</tr>
+						
 						<tr>
-							<td>참고문헌</td>
-							<td>
-								<a href="#">0</a>
-							</td>
-							<td>
-								<a href="#">0</a>
-							</td>
-							<td>
-								<a href="#">0</a>
-							</td>
-							<td>
-								<a href="#">0</a>
-							</td>
-							<td>
-								<a href="#">0</a>
-							</td>
-							<td>0</td>
+							<td style="">참고문헌</td>
+							<c:choose>
+								<c:when test="${not empty yearVOList}">
+									<c:set var = "sum" value = "0" />
+									<c:forEach items="${yearVOList}" var="vo" varStatus="g">
+										<td style="">${vo.refr_cnt}</td>
+										<c:set var="sum" value="${sum+vo.refr_cnt}" />
+									</c:forEach>
+									<td style=""><c:out value="${sum}"/></td>
+								</c:when>
+							</c:choose>
 						</tr>
 					</tbody>
 				</table>
@@ -232,7 +218,7 @@
 		            var jrnlCnt = [];
 		            var refrCnt = [];
 		            
-		            $.getJSON("http://localhost:8080/article/yearcnt", function(data){	
+		            $.getJSON("/article/yearcnt", function(data){	
 						$.each(data, function(inx, obj){	
 							chartLabels.push(obj.pub_year);	
 							artiCnt.push(obj.arti_cnt);
@@ -243,7 +229,7 @@
 					    /** option이 변경될때마다 차트 업데이트 **/
 			            $('#yearOption').on('change', updateChart)
 			            updateChart();	
-						console.log("create Chart")	
+						//console.log("create Chart")
 					});
 			
 		            	/** 위에 생성한 SelectBox의 옵션에 따른 차트 변경 **/

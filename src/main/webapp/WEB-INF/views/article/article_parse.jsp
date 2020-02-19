@@ -128,7 +128,7 @@
 				
 				parsing_check();
 				
-				console.log(fileName+" parsing_do 실행완료 : "+m_mode);
+				//console.log(fileName+" parsing_do 실행완료 : "+m_mode);
 				
 				if (!m_mode){
 					return;
