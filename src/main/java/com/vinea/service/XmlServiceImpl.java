@@ -20,6 +20,7 @@ import com.vinea.dao.XmlDAO;
 import com.vinea.dto.ArtiVO;
 import com.vinea.dto.BooknoteVO;
 import com.vinea.dto.ConfVO;
+import com.vinea.dto.CtgrKwrdVO;
 import com.vinea.dto.DtypeVO;
 import com.vinea.dto.GrntVO;
 import com.vinea.dto.KwrdVO;
@@ -27,6 +28,7 @@ import com.vinea.dto.OrgnVO;
 import com.vinea.dto.PublVO;
 import com.vinea.dto.RefrVO;
 import com.vinea.dto.XmlFileVO;
+import com.vinea.dto.YearVO;
 
 @Service
 public class XmlServiceImpl implements XmlService{
@@ -475,5 +477,17 @@ public class XmlServiceImpl implements XmlService{
 	public void updateError(String uid) throws Exception{
 	
 		dao.updateErrorYN(uid);
+	}
+	
+	@Override
+	public List<CtgrKwrdVO> getKwrdCnt() throws Exception{
+	
+		return dao.getKwrdCnt();
+	}
+	
+	@Override
+	public List<YearVO> getYearCnt() throws Exception{
+	
+		return dao.getYearCnt();
 	}
 }

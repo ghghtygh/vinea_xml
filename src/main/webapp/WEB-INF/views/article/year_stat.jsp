@@ -25,6 +25,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.js'></script>
 </head>
+<form>
 <body>
 	<div class="wrapper d-flex align-items-stretch">
 	    <!-- 전체 메뉴 사이드바 -->
@@ -118,10 +119,13 @@
 						<th style="border-top: 2px solid #000069">합계</th>
 						<!-- 연도별 논문, 도서, 학술지, 참고문헌 수를 통계낸 결과 데이터를 넣을 예정 -->
 						<!-- 각 통계데이터 결과를 클릭하였을 때, 그에 해당하는 논문 목록을 보여줌 -->
+						
 						<tr>
 							<td style="border-top: 1px solid #b4b4b4">논문</td>
 							<td style="border-top: 1px solid #b4b4b4">
-								<a href="#">0</a>
+								<c:if test="${fn:length(yearVOList)>0}">
+									<c:out value="  길이:  ${fn:length(yearVOList)}"></c:out>
+								</c:if>
 							</td>
 							<td style="border-top: 1px solid #b4b4b4">
 								<a href="#">0</a>
@@ -221,23 +225,43 @@
 					/** 차트의 크기 정의 **/
 		            ctx.canvas.width = 800;
 		            ctx.canvas.height = 400;
+		            
+		            var chartLabels = [];
+		            var artiCnt = [];
+		            var bookCnt = [];
+		            var jrnlCnt = [];
+		            var refrCnt = [];
+		            
+		            $.getJSON("http://localhost:8080/article/yearcnt", function(data){	
+						$.each(data, function(inx, obj){	
+							chartLabels.push(obj.pub_year);	
+							artiCnt.push(obj.arti_cnt);
+							bookCnt.push(obj.book_cnt);
+							jrnlCnt.push(obj.jrnl_cnt);
+							refrCnt.push(obj.refr_cnt);
+						});	
+					    /** option이 변경될때마다 차트 업데이트 **/
+			            $('#yearOption').on('change', updateChart)
+			            updateChart();	
+						console.log("create Chart")	
+					});
 			
 		            	/** 위에 생성한 SelectBox의 옵션에 따른 차트 변경 **/
 		                var dataMap = {
 		            			/* 논문 선택 */
 		                		'arti' : {
-	                                 method : 'Line',
+	                                 method : 'Bar',
 	                                 data : {
 	                                	/* 연도 */
-	                                    labels : [ "2015", "2016", "2017", "2018", "2019" ],
+	                                    labels : chartLabels,
 	                                    /* 논문 수 데이터가 들어갈 부분 */
 	                                    datasets : [ {
-	                                       label : "yearly statistics of article",
+	                                       label : "논문수",
 	                                       fillColor : "rgba(102,153,255,0.5)",
 	                                       strokeColor : "rgba(000,051,153,0.8)",
 	                                       highlightFill : "rgba(220,220,220,0.75)",
 	                                       highlightStroke : "rgba(220,220,220,1)",
-	                                       data : [ 65, 59, 80, 81, 56 ]
+	                                       data : artiCnt
 	                                    } ],
 	                                 },
 	                                 /* 차트 옵션 정하는 부분(클릭 이벤트, 차트 제목 등..여러가지 기능) */
@@ -250,18 +274,18 @@
 	                              },
 	                              /* 도서 선택 */
 	                              'book' : {
-	                                 method : 'Line',
+	                                 method : 'Bar',
 	                                 data : {
 	                                	/* 연도 */
-	                                    labels : [ "2015", "2016", "2017", "2018", "2019" ],
+	                                    labels : chartLabels,
 	                                    /* 도서 수 데이터가 들어갈 부분 */
 	                                    datasets : [ {
-	                                       label : "yearly statistics of book",
+	                                       label : "도서수",
 	                                       fillColor : "rgba(102,153,255,0.5)",
 	                                       strokeColor : "rgba(000,051,153,0.8)",
 	                                       highlightFill : "rgba(220,220,220,0.75)",
 	                                       highlightStroke : "rgba(220,220,220,1)",
-	                                       data : [ 20, 25, 33, 45, 50 ]
+	                                       data : bookCnt
 	                                    } ],
 	                                 },
 	                                 /* 차트 옵션 정하는 부분(클릭 이벤트, 차트 제목 등..여러가지 기능) */
@@ -274,18 +298,18 @@
 	                              },
 	                              /* 학술지 선택 */
 	                              'jrnl' : {
-	                                 method : 'Line',
+	                                 method : 'Bar',
 	                                 data : {
 	                                	/* 연도 */
-	                                    labels : [ "2015", "2016", "2017", "2018", "2019" ],
+	                                    labels : chartLabels,
 	                                    /* 학술지 수 데이터가 들어갈 부분 */
 	                                    datasets : [ {
-	                                       label : "yearly statistics of journal",
+	                                       label : "학술지",
 	                                       fillColor : "rgba(102,153,255,0.5)",
 	                                       strokeColor : "rgba(000,051,153,0.8)",
 	                                       highlightFill : "rgba(220,220,220,0.75)",
 	                                       highlightStroke : "rgba(220,220,220,1)",
-	                                       data : [ 40, 33, 55, 90, 100 ]
+	                                       data : jrnlCnt
 	                                    } ],
 	                                 },
 	                                 /* 차트 옵션 정하는 부분(클릭 이벤트, 차트 제목 등..여러가지 기능) */
@@ -298,10 +322,10 @@
 	                              },
 	                              /* 참고문헌 선택 */
 	                              'refr' : {
-	                                 method : 'Line',
+	                                 method : 'Bar',
 	                                 data : {
 	                                	/* 연도 */
-	                                    labels : [ "2015", "2016", "2017", "2018", "2019" ],
+	                                    labels : chartLabels,
 	                                    /* 참고문헌 수 데이터가 들어갈 부분 */
 	                                    datasets : [ {
 	                                       label : "yearly statistics of reference",
@@ -309,7 +333,7 @@
 	                                       strokeColor : "rgba(000,051,153,0.8)",
 	                                       highlightFill : "rgba(220,220,220,0.75)",
 	                                       highlightStroke : "rgba(220,220,220,1)",
-	                                       data : [ 70, 75, 90, 85, 80 ]
+	                                       data : refrCnt
 	                                    } ]
 	                                 },
 	                                 /* 차트 옵션 정하는 부분(클릭 이벤트, 차트 제목 등..여러가지 기능) */
@@ -337,11 +361,7 @@
 			              var params = dataMap[determineChart]
 		            	  /** 차트를 생성 **/
 			              currentChart = new Chart(ctx)[params.method](params.data, {});
-		              }
-		
-		              /** option이 변경될때마다 차트 업데이트 **/
-		              $('#yearOption').on('change', updateChart)
-		              updateChart();		            
+		              }	            
 				</script>
 			</div>
 			</div>
@@ -354,4 +374,5 @@
 <script src="/resources/js/bootstrap.min.js"></script>
 <script src="/resources/js/main.js"></script>
 </body>
+</form>
 </html>

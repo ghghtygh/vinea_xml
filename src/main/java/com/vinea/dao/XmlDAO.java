@@ -14,6 +14,7 @@ import com.vinea.dto.ArtiVO;
 import com.vinea.dto.AuthVO;
 import com.vinea.dto.BooknoteVO;
 import com.vinea.dto.ConfVO;
+import com.vinea.dto.CtgrKwrdVO;
 import com.vinea.dto.DtypeVO;
 import com.vinea.dto.GrntVO;
 import com.vinea.dto.KwrdVO;
@@ -21,6 +22,7 @@ import com.vinea.dto.OrgnVO;
 import com.vinea.dto.PublVO;
 import com.vinea.dto.RefrVO;
 import com.vinea.dto.XmlFileVO;
+import com.vinea.dto.YearVO;
 import com.vinea.web.ArtiController;
 
 @Repository
@@ -244,6 +246,14 @@ public class XmlDAO {
 		sqlSession.update(Namespace+".updateErrorYN", uid);
 	}
 	
+	/** 키워드 빈도 수 **/
+	public List<CtgrKwrdVO> getKwrdCnt() {
+		return sqlSession.selectList(Namespace + ".getKwrdCnt");
+	}
 	
+	public List<YearVO> getYearCnt() {
+		return sqlSession.selectList(Namespace + ".getYearCnt");
+	}
+		
 		
 }
