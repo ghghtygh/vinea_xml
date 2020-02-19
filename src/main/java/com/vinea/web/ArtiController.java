@@ -3,15 +3,18 @@ package com.vinea.web;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StopWatch;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,9 +22,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vinea.dto.ArtiVO;
+import com.vinea.dto.CtgrKwrdVO;
 import com.vinea.dto.XmlFileVO;
+import com.vinea.dto.YearVO;
 import com.vinea.service.XmlService;
+
+
 import com.vinea.service.PostPager;
+import com.google.gson.Gson;
 
 @Controller
 public class ArtiController {
@@ -38,9 +46,7 @@ public class ArtiController {
 			@RequestParam(defaultValue="0")String search_option,
 			@RequestParam(defaultValue="0")String sort_option) throws Exception
 	{
-		
-		
-		
+			
 		ModelAndView mav = new ModelAndView("article/article_home");
 	
 		/* 한페이지에 보여질 요소 개수 */
@@ -187,14 +193,50 @@ public class ArtiController {
 		return true;
 	}
 
-	/** 연도별 데이터 통계 **/
+	/** 연도별 데이터 통계 
 	@RequestMapping(value = "/article/yearstat")
 	public String yearlyChart() throws Exception {
 
-		/* 연도별 통계 : 발행연도, 논문수, 도서권수, 학술지종수, 참고문헌수 데이터 가져오기 */
 
 		return "article/year_stat";
+	}**/
+	
+	/** 연도별 데이터 통계 **/
+	@RequestMapping(value = "/article/yearstat", method = RequestMethod.GET)
+	public ModelAndView yearlyChart() throws Exception {
+				
+		 // YearVO yearVO = new YearVO();
+		  
+		  //yearVO.setArti_cnt(1);
+		  
+		  //logger.info("vo" + yearVO.getArti_cnt()); 
+		  ModelAndView mav = new ModelAndView("article/year_stat");
+		  
+		  for (YearVO vo :service.getYearCnt()) {
+			  logger.info(vo.getPub_year()+" : "+Integer.toString(vo.getArti_cnt()));
+		  }
+		  
+		  mav.addObject("yearVOList", service.getYearCnt());
+		  
+		  return mav;
+		 
 	}
+	
+	/** 연도별 데이터 **/
+	@RequestMapping(value = "/article/yearcnt", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
+	public @ResponseBody String yearList(Locale locale, Model model) throws Exception {
+
+		Gson gson = new Gson();
+		
+		YearVO yearVO = new YearVO();
+
+		List<YearVO> list = service.getYearCnt();
+
+		return gson.toJson(list);
+
+	}	
+	
+	
 	
 	/** 소속기관별 데이터 통계 **/
 	@RequestMapping(value = "/article/orgnstat")
@@ -215,15 +257,33 @@ public class ArtiController {
 	}
 	
 	
-	/** 논문키워드 현황 **/
+	/** 논문키워드 현황
 	@RequestMapping(value = "/article/kwrdstat")
 	public String kwrdChart() throws Exception {
-		
-		/* 키워드 현황: 키워드명, 키워드 빈도 */
+
 		
 		return "article/kwrd_stat";
-	}
+	} **/
 	
+	/** 키워드 빈도 **/
+	@RequestMapping(value = "/article/kwrdstat", method = RequestMethod.GET)
+	public String kwrdChart(Locale locale, Model model) throws Exception {
+
+		
+		return "article/kwrd_stat";
+	} 
+	
+	/** 키워드 빈도 데이터 리스트 */
+	@RequestMapping(value = "/article/kwrdcnt", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
+	public @ResponseBody String incomeList(Locale locale, Model model) throws Exception {
+
+		Gson gson = new Gson();
+
+		List<CtgrKwrdVO> list = service.getKwrdCnt();
+
+		return gson.toJson(list);
+
+	}	
 	
 	
 }

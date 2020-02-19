@@ -22,7 +22,8 @@
 <link href="/resources/css/_variables.scss" rel="stylesheet">
 
 <!-- Chart.js 사용(라인, 바, 플롯, 레이더 등 사용) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+<!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
 
 <!-- 워드클라우드 -->
 <!-- zingchart 
@@ -315,7 +316,86 @@
 					</select>
 				</ol>
 				<p style="font-size: 20px; font-weight: bold; color: #000069; margin-top: 50px">(선택 분야명)키워드 빈도수</p>
-				<!-- 키워드 빈도를 보기 위한 워드클라우드 생성 -->
+				<!-- 테스트용(데이터베이스 데이터 넘겨 받기) -->
+				<div>
+					<canvas id="canvas" height="450" width="600"></canvas>
+				</div>
+				<script>
+					var chartLabels = [];
+					var chartData = [];
+		
+					$.getJSON("http://localhost:8080/article/kwrdcnt", function(data){	
+						$.each(data, function(inx, obj){	
+							chartLabels.push(obj.kwrd_nm);	
+							chartData.push(obj.kwrd_cnt);	
+						});	
+						createChart();	
+						console.log("create Chart")	
+					});
+		
+					var lineChartData = {	
+							labels : chartLabels,	
+							datasets : [	
+								{	
+									label : "키워드 빈도수",	
+									fillColor : "rbga(151,187,205,0.2)",	
+									strokeColor : "rbga(151,187,205,1)",	
+									pointColor : "rbga(151,187,205,1)",	
+									pointStrokeColor : "#fff",	
+									pointHighlightFill : "#fff",	
+									pointHighlightStroke : "rbga(151,187,205,1)",	
+									data : chartData	
+							}
+							]	
+					}
+	
+					function createChart(){
+						/* anychart.onDocumentReady(function(){
+							var data = [
+								{"x": chartLabels, value: chartData}
+							  ];
+														
+							var chart = anychart.tagCloud(data);
+							var formatter = "{%value}";
+							var tooltip = chart.tooltip();
+							
+							chart.angles([0, 90, 90])
+							chart.width = "800px";
+							chart.height = "400px";
+							chart.container("kwrdcloud");
+							chart.draw();	
+							tooltip.format(formatter);
+							
+							chart.listen("pointClick", function(e) {
+								
+								var url = "키워드 해당 논문 경로" + e.point.get("x");
+								alert(e.point.get("x"));
+								console.log(e.point.get("x"));
+							});
+							
+						}); */
+	
+						var ctx = document.getElementById("canvas").getContext("2d");
+	
+						LineChartDemo = Chart.Line(ctx,{	
+							data : lineChartData,	
+							options :{	
+								scales : {	
+									yAxes : [{	
+										ticks :{	
+											beginAtZero : true	
+										}
+	
+									}]
+	
+								}
+	
+							}
+	
+						})
+					}	
+				</script>
+				<!-- 키워드 빈도를 보기 위한 워드클라우드 생성 
 				<div id="kwrdcloud" style="height: 500px; width: 800px; margin-left: 400px"></div>
 				<script>
 					anychart.onDocumentReady(function(){
@@ -364,7 +444,7 @@
 						});
 						
 					});
-				</script>
+				</script>-->
 			</div>
 			</div>
 			</div>

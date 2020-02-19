@@ -10,8 +10,7 @@
 <!-- JQUERY, JAVASCRIPT -->
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
 	
 <!--  CSS -->
 <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
@@ -165,7 +164,7 @@ a:hover.tip span {
 				</div>
 			</div>
 		</nav>
-		<!-- 메인 페이지  -->
+		<!-- 상세 페이지  -->
 		<div id="content" class="p-4 p-md-5">
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
 				<div class="container-fluid">
@@ -188,7 +187,7 @@ a:hover.tip span {
 					<!-- 학술지 명 -->
 					<p style="font-size: 13px; font-style: oblique;">
 						<a href="#" class="tip"> ${ArtiVO.jrnl_title}
-							<span>해당 학술지 논문</span>
+							<span>해당 학술지 논문<br>Click</span>
 						</a>
 					</p>
 					<!-- 발행정보: 발행연도, 권(호), 시작~종료페이지, 페이지수 -->
@@ -203,16 +202,14 @@ a:hover.tip span {
 					<!-- 발행기관 -->
 					<p style="font-size: 13px; font-style: oblique;">
 						발행기관: <c:forEach var="pub" items="${ArtiVO.list_publ}" varStatus="a">
-									<a href="#" class="tip"> ${pub.publ_nm}
-										<span>해당 발행기관 논문</span>
-									</a>
+									 ${pub.publ_nm}
 								</c:forEach>
 					</p>
 					<!-- 연구분야: 주제목 -->
 					<p style="font-size: 13px; font-style: oblique;">
 					<c:if test="${ArtiVO.ctgry_nm != ''}">
 						<a href="/article/ctgrstat" class="tip"> ${ArtiVO.ctgry_nm}
-							<span>연구분야 동향분석</span>
+							<span>연구분야 동향<br>Click</span>
 						</a>
 						<!-- 연구분야: 소제목 -->
 						<c:if test="${not empty ArtiVO.ctgry_sub_title}">></c:if>
@@ -220,7 +217,7 @@ a:hover.tip span {
 						<c:set var="tmp_list" value="${fn:split(ArtiVO.ctgry_sub_title,'|') }" />
 						<c:forEach var="tmp" items="${tmp_list}" varStatus="g">
 							<a href="/article/ctgrstat" class="tip"> ${tmp}
-								<span>연구분야 동향분석</span>
+								<span>연구분야 동향<br>Click</span>
 							</a>
 							<c:if test="${g.count !=fn:length(tmp_list) }">,</c:if>
 						</c:forEach> > 
@@ -228,7 +225,7 @@ a:hover.tip span {
 						<c:set var="tmp_list" value="${fn:split(ArtiVO.ctgry_subject,'|') }" />
 						<c:forEach var="tmp" items="${tmp_list}" varStatus="g">
 							<a href="/article/ctgrstat" class="tip"> ${tmp}
-								<span>연구분야 동향분석</span>
+								<span>연구분야 동향<br>Click</span>
 							</a>
 							<c:if test="${g.count !=fn:length(tmp_list) }">,</c:if>
 						</c:forEach>
@@ -245,7 +242,7 @@ a:hover.tip span {
 							<c:if test="${auth.corres_yn != 'Y' and a.count == 1}">(주저자)</c:if> 
 							<c:if test="${auth.corres_yn == 'Y' and a.count > 1}">(교신)</c:if> 
 							<c:if test="${auth.corres_yn != 'Y' and a.count > 1}"></c:if>
-							<span>해당 저자 논문</span>
+							<span>해당 저자 논문<br>Click</span>
 						</a>&nbsp;
                      </c:forEach>
 					 <br>
@@ -291,7 +288,7 @@ a:hover.tip span {
 									<c:forEach var="kw" items="${ArtiVO.list_kwrd}" varStatus="k">
 										<a href="/article/kwrdstat" style="font-size: 13px" class="tip"> ${kw.kwrd_nm}  
 											<c:if test="${k.count !=fn:length(ArtiVO.list_kwrd) }">,</c:if>
-											<span>해당 키워드 동향</span>
+											<span>해당 키워드 동향<br>Click</span>
 										</a>&nbsp;
                               		</c:forEach>
 								</div>
@@ -303,7 +300,10 @@ a:hover.tip span {
 							<h2 style="font-size: 14px; font-weight: bold">
 								참고문헌
 							<!-- 참고문헌 수 -->
-							<a href="#">(${ArtiVO.cite_cnt})</a>
+							<a href="#" id="refrcnt" class="tip">
+								(${ArtiVO.cite_cnt})
+								<span>참고문헌수<br>${ArtiVO.cite_cnt}건</span>
+							</a>
 								<!-- 키워드 데이터를 볼 수 있는 화살표 이미지 오른쪽에 배치 -->
 								<div style="float: right;">
 									<img src="/resources/image/down.png" alt="open">
@@ -340,13 +340,16 @@ a:hover.tip span {
 							<hr style="border-bottom: 0.5px dotted #b4b4b4">
 						</div>
 					</div>
+					<!-- 메인페이지로 이동
 					<footer></footer>
-					<!-- 메인페이지로 이동 -->
 					<div align="left" style="margin-top: 15px; margin-bottom: 8px">
 						<button type="submit" class="btn btn-primary disabled" formaction="/article" formmethod="get">돌아가기</button>
-					</div>
+					</div> -->
 			</div>
 		</div>
 	</body>
+<!-- JQUERY, 필요한 JAVASCRIPT 파일 -->	
+<script src="/resources/js/popper.js"></script>
+<script src="/resources/js/main.js"></script>
 <form>
 </html>

@@ -8,7 +8,7 @@
  	<resultMap id="artiMap" type="com.vinea.dto.ArtiVO">
  	<!-- xmlMapper.xml -> resultMap(id:artiMap) 논문정보 테이블의 컬럼 -->	
  	
- 			<result property="num"				column="ROWNUM"/>
+ 			<result property="num"					column="ROWNUM"/>
 			<result property="uid"					column="UID"/>
 			<result property="arti_no"				column="ARTI_NO"/>
 			<result property="arti_title"    		column="ARTI_TITLE"/>
@@ -1035,10 +1035,6 @@
 		
 	</sql>
 	
-	
-	
-	
-	
 	<select id="selectOneXml" parameterType="java.lang.String" resultMap="artiMap">
 	<!-- 논문 상세페이지에 들어갈 정보  *path: src/main/resources/mappers/xmlMapper.xml *id: selectOneXml -->
 		
@@ -1184,7 +1180,7 @@
 	<!-- XML 파싱 현황 목록  *path: src/main/resources/mappers/xmlMapper.xml *id: selectXmlFileList -->
 	
 		SELECT
-			FILE_NAME
+			 FILE_NAME
 			,Y_CNT
 			,ALL_CNT
 		FROM
@@ -1232,6 +1228,26 @@
 			UID = #{uid}
 	
 	</update>
+	
+	<select id="getKwrdCnt" resultType="com.vinea.dto.CtgrKwrdVO">
+			SELECT
+				CTGR_NM
+			   ,SUBJ_NM
+			   ,KWRD_NM
+			   ,KWRD_CNT
+			   ,PUB_YEAR
+			FROM CTGR_KWRD_STAT 
+	</select>
+	
+	<select id="getYearCnt" resultType="com.vinea.dto.YearVO">
+			SELECT
+				 PUB_YEAR
+				,ARTI_CNT
+				,BOOK_CNT
+				,JRNL_CNT
+				,REFR_CNT
+			FROM YEAR_STAT 
+	</select>
 	
 
  </mapper>

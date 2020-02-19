@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.vinea.dto.ArtiVO;
+import com.vinea.dto.CtgrKwrdVO;
 import com.vinea.dto.XmlFileVO;
+import com.vinea.dto.YearVO;
 
 public interface XmlService {
 
@@ -52,4 +54,10 @@ public interface XmlService {
 
 	/** 저장에러 반영 **/
 	public void updateError(String uid) throws Exception;
+	
+	/** 키워드 빈도 **/
+	public List<CtgrKwrdVO> getKwrdCnt() throws Exception;
+	
+	/** 연도별 논문,참고문헌,학술지,도서 수 **/
+	public List<YearVO> getYearCnt() throws Exception;
 }
