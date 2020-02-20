@@ -15,6 +15,7 @@ import com.vinea.dto.AuthVO;
 import com.vinea.dto.BooknoteVO;
 import com.vinea.dto.ConfVO;
 import com.vinea.dto.CtgrKwrdVO;
+import com.vinea.dto.CtgrStatVO;
 import com.vinea.dto.DtypeVO;
 import com.vinea.dto.GrntVO;
 import com.vinea.dto.KwrdVO;
@@ -23,7 +24,6 @@ import com.vinea.dto.PublVO;
 import com.vinea.dto.RefrVO;
 import com.vinea.dto.XmlFileVO;
 import com.vinea.dto.YearVO;
-import com.vinea.web.ArtiController;
 
 @Repository
 public class XmlDAO {
@@ -251,13 +251,31 @@ public class XmlDAO {
 		return sqlSession.selectList(Namespace + ".getKwrdCnt");
 	}
 	
+	/** 연도별 통계 조회 **/
 	public List<YearVO> getYearCnt() {
 		return sqlSession.selectList(Namespace + ".getYearCnt");
 	}
+	
+	/** 기관목록 조회 - COUNT **/
 	public int countOrg(Map<String,Object> map) throws Exception{
 		return sqlSession.selectOne(Namespace + ".countOrg", map);
 	}
+	
+	/** 기관목록 조회 - SELECT **/
 	public List<OrgnVO> selectOrgList(Map<String,Object> map){
 		return sqlSession.selectList(Namespace + ".selectOrgList", map);
+	}
+	
+	/** 카테고리 통계 조회 - COUNT **/
+	public int countCtgrStat(Map<String,Object> map){
+		return sqlSession.selectOne(Namespace + ".countCtgrStat", map);
+	}
+	/** 카테고리 통계 조회 - SELECT **/
+	public List<CtgrStatVO> selectCtgrStatList(Map<String,Object> map){
+		return sqlSession.selectList(Namespace + ".selectCtgrStatList", map);
+	}
+	
+	public List<CtgrKwrdVO> kwrdCloudList(Map<String,Object> map) {
+		return sqlSession.selectList(Namespace + ".kwrdCloudList", map);
 	}
 }

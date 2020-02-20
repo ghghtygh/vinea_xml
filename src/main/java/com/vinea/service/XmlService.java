@@ -6,6 +6,7 @@ import java.util.Map;
 import com.vinea.dto.ArtiVO;
 import com.vinea.dto.AuthVO;
 import com.vinea.dto.CtgrKwrdVO;
+import com.vinea.dto.CtgrStatVO;
 import com.vinea.dto.OrgnVO;
 import com.vinea.dto.XmlFileVO;
 import com.vinea.dto.YearVO;
@@ -68,5 +69,13 @@ public interface XmlService {
 
 	/** 논문 리스트 조회  - SELECT **/
 	public List<OrgnVO> selectOrgList(Map<String, Object> map) throws Exception;
+
+	/** 카테고리 통계 조회 - COUNT **/
+	public int countCtgrStat(Map<String, Object> map);
+	
+	/** 카테고리 통계 조회 - SELECT **/
+	public List<CtgrStatVO> selectCtgrStatList(Map<String, Object> map);
+
+	public List<CtgrKwrdVO> kwrdCloudList(Map<String, Object> map);
 	
 }

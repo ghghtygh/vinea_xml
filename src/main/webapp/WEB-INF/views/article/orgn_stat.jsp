@@ -263,9 +263,17 @@ function search_orgn(orgn_nm){
 						<div class="row">
 							<div class="col-lg-12">
 								<table style="text-align: center;" class="table table-hover">
+									<thead>
+										<colgroup>
+											<col width="20%;">
+											<col width="*">
+											<col width="20%;">
+											<col width="20%;">
+										</colgroup>
+									</thead>
 									<tbody>
 										<th style="border-top: 2px solid #000069">순번</th>
-										<th style="border-top: 2px solid #000069">소속기관명</th>
+										<th style="border-top: 2px solid #000069;text-align:center">소속기관명</th>
 										<th style="border-top: 2px solid #000069">논문수</th>
 										<th style="border-top: 2px solid #000069">인용수</th>
 										<c:choose>
@@ -276,9 +284,9 @@ function search_orgn(orgn_nm){
 															<!-- 순번 -->
 															${orgnVO.num }
 														</td>
-														<td>
+														<td style="text-align:left;padding-left:5%">
 															<!-- 소속기관명 -->
-															<a class="mb-0" href="#" style="color: black;"  onClick="search_orgn('${orgnVO.orgn_nm}')">
+															<a class="mb-0" href="#" style="color:black;"  onClick="search_orgn('${orgnVO.orgn_nm}')">
 															${orgnVO.orgn_nm}
 															</a>
 														</td>

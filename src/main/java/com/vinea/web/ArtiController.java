@@ -2,19 +2,17 @@ package com.vinea.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,8 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vinea.dto.ArtiVO;
-import com.vinea.dto.AuthVO;
 import com.vinea.dto.CtgrKwrdVO;
+import com.vinea.dto.CtgrStatVO;
 import com.vinea.dto.OrgnVO;
 import com.vinea.dto.XmlFileVO;
 import com.vinea.dto.YearVO;
@@ -204,9 +202,7 @@ public class ArtiController {
 		
 		  ModelAndView mav = new ModelAndView("article/year_stat");
 		  
-		  for (YearVO vo : list) {
-			  logger.info(vo.toStringMultiline());
-		  }
+		  
 		  
 		  mav.addObject("yearVOList", list);
 		  
@@ -266,11 +262,11 @@ public class ArtiController {
 		
 		List<OrgnVO> orgList = service.selectOrgList(map);
 		
-		logger.info("orgCnt : {} ",orgCnt);
+		/*logger.info("orgCnt : {} ",orgCnt);
 		
 		for(OrgnVO vo : orgList){
 			logger.info(vo.toStringMultiline());
-		}
+		}*/
 		mav.addObject("orgList", orgList);
 		mav.addObject("pager", pager);
 		mav.addObject("cnt", orgCnt);
@@ -281,11 +277,39 @@ public class ArtiController {
 	
 	/** 연구분야별 데이터 통계 **/
 	@RequestMapping(value = "/article/ctgrstat")
-	public String ctgrChart() throws Exception {
+	public ModelAndView ctgrChart(@RequestParam(defaultValue = "1") int page
+			,@RequestParam(defaultValue="1")String sort_option
+			,@RequestParam(defaultValue="1")String ctgr_option
+			) throws Exception {
 		
 		/* 연구분야별 통계: 논문수, 인용수, 연구분야명, 세부분야명 */
 		
-		return "article/ctgr_stat";
+		ModelAndView mav = new ModelAndView("article/ctgr_stat");
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("sort_option", sort_option);
+		map.put("ctgr_option", ctgr_option);
+		
+		
+		int pageSize = 10;
+		int ctgrCount = service.countCtgrStat(map);
+		
+		PostPager pager = new PostPager(ctgrCount, page, pageSize);
+		
+		map.put("start_index", pager.getStartIndex());
+		map.put("page_size", pageSize);
+		
+		
+		List<CtgrStatVO> ctgrList = service.selectCtgrStatList(map);
+		
+		//logger.info(Integer.toString(ctgrCount));
+		//logger.info(ctgrList.get(5).getCtgr_nm());
+		
+		mav.addObject("ctgrList", ctgrList);
+		mav.addObject("pager", pager);
+		mav.addObject("cnt", ctgrCount);
+		mav.addObject("sort_option", sort_option);
+		mav.addObject("ctgr_option", ctgr_option);
+		return mav;
 	}
 	
 	
@@ -299,10 +323,60 @@ public class ArtiController {
 	
 	/** 키워드 빈도 **/
 	@RequestMapping(value = "/article/kwrdstat", method = RequestMethod.GET)
-	public String kwrdChart(Locale locale, Model model) throws Exception {
+	public ModelAndView kwrdChart(@RequestParam(defaultValue="") String ctgrnm
+			,@RequestParam(defaultValue="Materials Science, Multidisciplinary") String subjnm) throws Exception {
 
+		//view로 데이터 넘김
+		ModelAndView mav = new ModelAndView("article/kwrd_stat");
 		
-		return "article/kwrd_stat";
+		// 상위분야 리스트
+		List<CtgrKwrdVO> list= service.getKwrdCnt(); 
+		List<String> subList = new ArrayList<String>();
+		List<String> strList = new ArrayList<String>();
+		for (CtgrKwrdVO vo :list) {
+			
+		    if(vo.getCtgr_nm().equals(ctgrnm) || ctgrnm.equals("")) {
+		    	subList.add(vo.getSubj_nm());
+			}
+			strList.add(vo.getCtgr_nm());
+		}
+		HashSet<String> hashset = new HashSet<String>(strList);
+		
+		// 상위 분야 배열
+		mav.addObject("ctgrList",new ArrayList<String>(hashset));
+		
+		// 주제명 받을 배열
+		mav.addObject("ctgrList1",list);
+		// 하위 분야 배열
+		mav.addObject("subList",subList);
+		
+		List<String> list2 = new ArrayList<String>();
+		
+		//서비스로 보낼 맵
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("subjnm", subjnm);
+		
+		List<CtgrKwrdVO> kwrdList = service.kwrdCloudList(map);
+		
+		for (CtgrKwrdVO vo:kwrdList) {
+			
+			//logger.info(vo.getKwrd_nm()+":"+Integer.toString(vo.getKwrd_cnt()));
+			Map<String,Object> map2 = new HashMap<String,Object>();
+			map2.put("x", vo.getKwrd_nm());
+			map2.put("value", vo.getKwrd_cnt());
+			
+			Gson gson = new Gson();
+			String json = gson.toJson(map2);
+			list2.add(json);
+		}
+		
+		
+		mav.addObject("ctgrnm",ctgrnm);
+		mav.addObject("subjnm",subjnm);
+		// 워드클라우드 만들 배열
+		mav.addObject("list2",list2);
+		return mav;
+	
 	} 
 	
 	/** 키워드 빈도 데이터 리스트 */

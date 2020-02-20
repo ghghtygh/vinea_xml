@@ -22,6 +22,7 @@ import com.vinea.dto.AuthVO;
 import com.vinea.dto.BooknoteVO;
 import com.vinea.dto.ConfVO;
 import com.vinea.dto.CtgrKwrdVO;
+import com.vinea.dto.CtgrStatVO;
 import com.vinea.dto.DtypeVO;
 import com.vinea.dto.GrntVO;
 import com.vinea.dto.KwrdVO;
@@ -467,38 +468,54 @@ public class XmlServiceImpl implements XmlService{
 		//logger.info("parseXmlList insert 수행시간 : {}",stopWatch.getTotalTimeSeconds());
 	}
 	
-	
+	/** 파싱 완료 태그 업데이트 **/
 	@Override
 	public void updateParse(String uid) throws Exception{
 		
-		
 		dao.updateParseYN(uid);
 	}
+	/** 파싱 에러 태그 업데이트 **/
 	@Override
 	public void updateError(String uid) throws Exception{
 	
 		dao.updateErrorYN(uid);
 	}
-	
+	/** 카테고리&키워드 통계 조회**/
 	@Override
 	public List<CtgrKwrdVO> getKwrdCnt() throws Exception{
 	
 		return dao.getKwrdCnt();
 	}
-	
+	/** 연도별 통계 목록 조회 **/
 	@Override
 	public List<YearVO> getYearCnt() throws Exception{
 	
 		return dao.getYearCnt();
 	}
-
+	/** 기관 목록 개수 조회**/
 	@Override
 	public int countOrg(Map<String,Object> map) throws Exception{
 		return dao.countOrg(map);
 	}
-	
+	/** 기관 목록 조회**/
 	@Override
 	public List<OrgnVO> selectOrgList(Map<String,Object> map) throws Exception{
 		return dao.selectOrgList(map);
+	}
+	
+	/** 카테고리 통계 개수 조회 **/
+	@Override
+	public int countCtgrStat(Map<String,Object> map){
+		return dao.countCtgrStat(map);
+	}
+	/** 카테고리 통계목록 조회 **/
+	@Override
+	public List<CtgrStatVO> selectCtgrStatList(Map<String,Object> map){
+		return dao.selectCtgrStatList(map);
+	}
+	
+	@Override
+	public List<CtgrKwrdVO> kwrdCloudList(Map<String,Object> map) {
+		return dao.kwrdCloudList(map);
 	}
 }

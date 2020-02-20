@@ -1029,6 +1029,16 @@
 							WHERE
 								B.ORGN_NM = #{search}
 						</when>
+						<when test='search_option.equals("7")'>
+							FROM
+								(SELECT * FROM TB_ARTI LIMIT 10000) TB_ARTI
+							INNER JOIN
+								TB_KWRD AS B
+							ON
+								TB_ARTI.UID = B.UID
+							WHERE
+								B.KWRD_NM = #{search}
+						</when>
 						<otherwise>
 						<!-- 검색어 없음 -->
 						FROM
@@ -1262,15 +1272,6 @@
 	
 	</update>
 	
-	<select id="getKwrdCnt" resultType="com.vinea.dto.CtgrKwrdVO">
-			SELECT
-				CTGR_NM
-			   ,SUBJ_NM
-			   ,KWRD_NM
-			   ,KWRD_CNT
-			   ,PUB_YEAR
-			FROM CTGR_KWRD_STAT 
-	</select>
 	
 	<select id="getYearCnt" resultType="com.vinea.dto.YearVO">
 			SELECT
@@ -1321,18 +1322,127 @@
 		</choose>
 	</sql>
 	
-	<select id="" parameterType="hashMap" resultType="com.vinea.dto.CtgrStatVO">
+	<select id="countCtgrStat" parameterType="hashMap" resultType="java.lang.Integer">
+	
+	SELECT
+		COUNT(*)
+		
+	FROM
+		CTGR_STAT
+		<include refid="searchCtgr"></include>
+	</select>
+	
+	<select id="selectCtgrStatList" parameterType="hashMap" resultType="com.vinea.dto.CtgrStatVO">
 		SELECT
-			 CTGR_NM
+			 @ROWNUM:=@ROWNUM+1	AS NUM
+			,CTGR_NM
 			,SUBJ_NM
 			,ARTI_CNT
 			,JRNL_CNT
 			,REFR_CNT
 			,AUTH_CNT
 		FROM
-			CTGR_STAT
+			(SELECT @ROWNUM:=#{start_index}) R
+			,CTGR_STAT
+		<include refid="searchCtgr"></include>
+		<include refid="ctgrStatSort"></include>
+		
+		LIMIT
+			 #{start_index}
+			,#{page_size}	
 	</select>
-	
-	
-	
+	<sql id="searchCtgr">
+		<choose>
+			<when test='ctgr_option=="1"'>
+			</when>
+			<when test='ctgr_option=="2"'>
+			
+				WHERE
+					CTGR_NM LIKE CONCAT('Science','%')
+					
+			</when>
+			<when test='ctgr_option=="3"'>
+				
+				WHERE
+					CTGR_NM LIKE CONCAT('Arts','%')
+					
+			</when>
+			<when test='ctgr_option=="4"'>
+				WHERE
+					CTGR_NM = 'Social Sciences'
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+		
+	</sql>
+	<sql id="ctgrStatSort">
+	ORDER BY
+		<choose>
+			<when test='sort_option==1'>
+			CTGR_NM
+			,SUBJ_NM
+			</when>
+			<when test='sort_option==2'>
+			AUTH_CNT
+			</when>
+			<when test='sort_option==3'>
+			ARTI_CNT
+			</when>
+			<when test='sort_option==4'>
+			JRNL_CNT
+			</when>
+			<when test='sort_option==5'>
+			REFR_CNT
+			</when>
+			<otherwise>
+			CTGR_NM
+			,SUBJ_NM
+			</otherwise>
+		</choose>
+	DESC
+	</sql>
+	<select id="kwrdCloudList" parameterType="hashMap" resultType="com.vinea.dto.CtgrKwrdVO">
+
+		SELECT
+		KWRD_NM,
+		KWRD_CNT
+		FROM
+		CTGR_KWRD_STAT
+		WHERE
+		SUBJ_NM = #{subjnm}
+		ORDER BY KWRD_CNT DESC
+		LIMIT 10
+	</select>
+
+	<select id="getKwrdCnt" resultType="com.vinea.dto.CtgrKwrdVO">	
+	<![CDATA[
+		SELECT
+		   A.CTGR_NM,
+		   A.SUBJ_NM,
+		   A.KWRD_NM,
+		   A.KWRD_CNT 
+		FROM
+		   (
+		   SELECT
+		      CTGR_NM,
+		      SUBJ_NM,
+		      KWRD_NM,
+		      KWRD_CNT,
+		   CASE	         
+		         WHEN @GRP = CTGR_NM THEN
+		         @ROWNUM := @ROWNUM + 1 ELSE @ROWNUM := 1 
+		      END AS ROWNUM,
+		      ( @GRP := CTGR_NM ) AS DUM 
+		   FROM
+		      ( SELECT D.CTGR_NM, D.SUBJ_NM, D.KWRD_NM, D.KWRD_CNT FROM CTGR_KWRD_STAT D WHERE D.KWRD_CNT > 6 ) CTGR_KWRD_STAT,
+		      ( SELECT @ROWNUM := 0, @GRP := '' ) R 
+		   ORDER BY
+		      CTGR_NM,
+		      KWRD_CNT DESC 
+		   ) A 
+		WHERE
+		   ROWNUM <= 10
+	]]>
+	</select>
  </mapper>
