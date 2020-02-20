@@ -508,6 +508,13 @@ public class XmlServiceImpl implements XmlService{
 	public int countCtgrStat(Map<String,Object> map){
 		return dao.countCtgrStat(map);
 	}
+	
+	/** 분야별 저자수, 학술지, 논문, 참고문헌 수 */
+	@Override
+	public List<CtgrStatVO> getCtgrStatList() throws Exception {
+		return dao.getCtgrStatList();
+	}
+
 	/** 카테고리 통계목록 조회 **/
 	@Override
 	public List<CtgrStatVO> selectCtgrStatList(Map<String,Object> map){

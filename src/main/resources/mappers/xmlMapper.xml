@@ -1332,6 +1332,20 @@
 		<include refid="searchCtgr"></include>
 	</select>
 	
+	<select id="getCtgrStatList" resultType="com.vinea.dto.CtgrStatVO">
+		SELECT
+			 SUBJ_NM
+			,ARTI_CNT
+			,JRNL_CNT
+			,REFR_CNT
+			,AUTH_CNT
+		FROM
+			CTGR_STAT
+		<include refid="searchCtgr"></include>
+		<include refid="ctgrStatSort"></include>		
+		LIMIT 10
+	</select>
+	
 	<select id="selectCtgrStatList" parameterType="hashMap" resultType="com.vinea.dto.CtgrStatVO">
 		SELECT
 			 @ROWNUM:=@ROWNUM+1	AS NUM

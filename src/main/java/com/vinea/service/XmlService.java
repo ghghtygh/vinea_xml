@@ -73,6 +73,9 @@ public interface XmlService {
 	/** 카테고리 통계 조회 - COUNT **/
 	public int countCtgrStat(Map<String, Object> map);
 	
+	/** 분야별 주제의 저자수, 논문수, 학술지, 참고문헌수 **/
+	public List<CtgrStatVO> getCtgrStatList() throws Exception;
+	
 	/** 카테고리 통계 조회 - SELECT **/
 	public List<CtgrStatVO> selectCtgrStatList(Map<String, Object> map);
 

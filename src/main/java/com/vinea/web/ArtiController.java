@@ -197,7 +197,7 @@ public class ArtiController {
 	@RequestMapping(value = "/article/yearstat", method = RequestMethod.GET)
 	public ModelAndView yearlyChart() throws Exception {
 				
-			List<YearVO> list = service.getYearCnt();
+		 List<YearVO> list = service.getYearCnt();
 		  
 		
 		  ModelAndView mav = new ModelAndView("article/year_stat");
@@ -280,9 +280,9 @@ public class ArtiController {
 	public ModelAndView ctgrChart(@RequestParam(defaultValue = "1") int page
 			,@RequestParam(defaultValue="1")String sort_option
 			,@RequestParam(defaultValue="1")String ctgr_option
+			,@RequestParam(defaultValue="ctgr1") String tab_option
 			) throws Exception {
 		
-		/* 연구분야별 통계: 논문수, 인용수, 연구분야명, 세부분야명 */
 		
 		ModelAndView mav = new ModelAndView("article/ctgr_stat");
 		Map<String,Object> map = new HashMap<String,Object>();
@@ -309,17 +309,25 @@ public class ArtiController {
 		mav.addObject("cnt", ctgrCount);
 		mav.addObject("sort_option", sort_option);
 		mav.addObject("ctgr_option", ctgr_option);
+		
+		mav.addObject("tab_option",tab_option);
+		
 		return mav;
 	}
 	
-	
-	/** 논문키워드 현황
-	@RequestMapping(value = "/article/kwrdstat")
-	public String kwrdChart() throws Exception {
-
+	/** 주제별 차트를 보여주기 위한 정의 **/
+	@RequestMapping(value = "/article/subjcnt", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
+	public @ResponseBody String subjlist(@RequestParam(defaultValue="1")String sort_option,Locale locale, Model model) throws Exception {
 		
-		return "article/kwrd_stat";
-	} **/
+		Gson gson = new Gson();
+		List<CtgrStatVO> list = service.getCtgrStatList();
+		for(CtgrStatVO vo :list){
+			logger.info(Integer.toString(vo.getJrnl_cnt()));
+		}
+		return gson.toJson(list);
+
+	}
+	
 	
 	/** 키워드 빈도 **/
 	@RequestMapping(value = "/article/kwrdstat", method = RequestMethod.GET)
@@ -379,7 +387,7 @@ public class ArtiController {
 	
 	} 
 	
-	/** 키워드 빈도 데이터 리스트 */
+	/** 키워드 빈도 데이터 리스트 **/
 	@RequestMapping(value = "/article/kwrdcnt", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
 	public @ResponseBody String incomeList(Locale locale, Model model) throws Exception {
 
@@ -390,6 +398,7 @@ public class ArtiController {
 		return gson.toJson(list);
 
 	}	
+	
 	
 	
 }

@@ -270,10 +270,17 @@ public class XmlDAO {
 	public int countCtgrStat(Map<String,Object> map){
 		return sqlSession.selectOne(Namespace + ".countCtgrStat", map);
 	}
+	
+	public List<CtgrStatVO> getCtgrStatList() {
+		return sqlSession.selectList(Namespace + ".getCtgrStatList");
+	}
+	
 	/** 카테고리 통계 조회 - SELECT **/
 	public List<CtgrStatVO> selectCtgrStatList(Map<String,Object> map){
 		return sqlSession.selectList(Namespace + ".selectCtgrStatList", map);
 	}
+	
+	
 	
 	public List<CtgrKwrdVO> kwrdCloudList(Map<String,Object> map) {
 		return sqlSession.selectList(Namespace + ".kwrdCloudList", map);
