@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.vinea.dto.ArtiVO;
 import com.vinea.dto.CtgrKwrdVO;
+import com.vinea.dto.OrgnCtgrVO;
 import com.vinea.dto.XmlFileVO;
 import com.vinea.dto.YearVO;
 
@@ -60,4 +61,11 @@ public interface XmlService {
 	
 	/** 연도별 논문,참고문헌,학술지,도서 수 **/
 	public List<YearVO> getYearCnt() throws Exception;
+	
+	/** 소속기관별 연구분야 통계 **/
+	public List<OrgnCtgrVO> getCtgrCnt() throws Exception;
+
+	public List<CtgrKwrdVO> kwrdCloudList(Map<String, Object> map);
+	
+
 }

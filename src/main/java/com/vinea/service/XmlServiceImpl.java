@@ -2,7 +2,6 @@ package com.vinea.service;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +23,7 @@ import com.vinea.dto.CtgrKwrdVO;
 import com.vinea.dto.DtypeVO;
 import com.vinea.dto.GrntVO;
 import com.vinea.dto.KwrdVO;
+import com.vinea.dto.OrgnCtgrVO;
 import com.vinea.dto.OrgnVO;
 import com.vinea.dto.PublVO;
 import com.vinea.dto.RefrVO;
@@ -481,6 +481,8 @@ public class XmlServiceImpl implements XmlService{
 	
 	@Override
 	public List<CtgrKwrdVO> getKwrdCnt() throws Exception{
+		
+		
 	
 		return dao.getKwrdCnt();
 	}
@@ -490,4 +492,18 @@ public class XmlServiceImpl implements XmlService{
 	
 		return dao.getYearCnt();
 	}
+	
+	@Override
+	public List<OrgnCtgrVO> getCtgrCnt() throws Exception{
+		
+		return dao.getCtgrCnt();
+	}
+	
+	@Override
+	public List<CtgrKwrdVO> kwrdCloudList(Map<String,Object> map) {
+		return dao.kwrdCloudList(map);
+	}
+	
+	
+
 }

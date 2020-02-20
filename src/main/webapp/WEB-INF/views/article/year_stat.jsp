@@ -115,89 +115,142 @@
 						<th style="border-top: 2px solid #000069">2016</th>
 						<th style="border-top: 2px solid #000069">2017</th>
 						<th style="border-top: 2px solid #000069">2018</th>
-						<th style="border-top: 2px solid #000069">2019</th>
 						<th style="border-top: 2px solid #000069">합계</th>
 						<!-- 연도별 논문, 도서, 학술지, 참고문헌 수를 통계낸 결과 데이터를 넣을 예정 -->
 						<!-- 각 통계데이터 결과를 클릭하였을 때, 그에 해당하는 논문 목록을 보여줌 -->
-						
+						<c:choose>
+						<c:when test="${not empty yearVOList}">
 						<tr>
 							<td style="border-top: 1px solid #b4b4b4">논문</td>
+							<c:forEach var="yearstat" items="${yearVOList}" varStatus="a">
+							<c:if test="${a.count==1}">
 							<td style="border-top: 1px solid #b4b4b4">
-								<c:if test="${fn:length(yearVOList)>0}">
-									<c:out value="  길이:  ${fn:length(yearVOList)}"></c:out>
-								</c:if>
+								<a href="#">${yearstat.arti_cnt}</a>
 							</td>
+							</c:if>
+							</c:forEach>
+							<c:forEach var="yearstat" items="${yearVOList}" varStatus="a">
+							<c:if test="${a.count==2}">
 							<td style="border-top: 1px solid #b4b4b4">
-								<a href="#">0</a>
+								<a href="#">${yearstat.arti_cnt}</a>
 							</td>
+							</c:if>
+							</c:forEach>
+							<c:forEach var="yearstat" items="${yearVOList}" varStatus="a">
+							<c:if test="${a.count==3}">
 							<td style="border-top: 1px solid #b4b4b4">
-								<a href="#">0</a>
+								<a href="#">${yearstat.arti_cnt}</a>
 							</td>
+							</c:if>
+							</c:forEach>
+							<c:forEach var="yearstat" items="${yearVOList}" varStatus="a">
+							<c:if test="${a.count==4}">
 							<td style="border-top: 1px solid #b4b4b4">
-								<a href="#">0</a>
+								<a href="#">${yearstat.arti_cnt}</a>
 							</td>
+							</c:if>
+							</c:forEach>
 							<td style="border-top: 1px solid #b4b4b4">
-								<a href="#">0</a>
 							</td>
-							<td style="border-top: 1px solid #b4b4b4">0</td>
 						</tr>
 						<tr>
 							<td>도서</td>
+							<c:forEach var="yearstat" items="${yearVOList}" varStatus="a">
+							<c:if test="${a.count==1}">
 							<td>
-								<a href="#">0</a>
+								<a href="#">${yearstat.book_cnt}</a>
 							</td>
+							</c:if>
+							</c:forEach>
+							<c:forEach var="yearstat" items="${yearVOList}" varStatus="a">
+							<c:if test="${a.count==2}">
 							<td>
-								<a href="#">0</a>
+								<a href="#">${yearstat.book_cnt}</a>
 							</td>
+							</c:if>
+							</c:forEach>
+							<c:forEach var="yearstat" items="${yearVOList}" varStatus="a">
+							<c:if test="${a.count==3}">
 							<td>
-								<a href="#">0</a>
+								<a href="#">${yearstat.book_cnt}</a>
 							</td>
+							</c:if>
+							</c:forEach>
+							<c:forEach var="yearstat" items="${yearVOList}" varStatus="a">
+							<c:if test="${a.count==4}">
 							<td>
-								<a href="#">0</a>
+								<a href="#">${yearstat.book_cnt}</a>
 							</td>
-							<td>
-								<a href="#">0</a>
-							</td>
-							<td>0</td>
+							</c:if>
+							</c:forEach>
+							<td></td>
 						</tr>
 						<tr>
 							<td>학술지</td>
+							<c:forEach var="yearstat" items="${yearVOList}" varStatus="a">
+							<c:if test="${a.count==1}">
 							<td>
-								<a href="#">0</a>
+								<a href="#">${yearstat.jrnl_cnt}</a>
 							</td>
+							</c:if>
+							</c:forEach>
+							<c:forEach var="yearstat" items="${yearVOList}" varStatus="a">
+							<c:if test="${a.count==2}">
 							<td>
-								<a href="#">0</a>
+								<a href="#">${yearstat.jrnl_cnt}</a>
 							</td>
+							</c:if>
+							</c:forEach>
+							<c:forEach var="yearstat" items="${yearVOList}" varStatus="a">
+							<c:if test="${a.count==3}">
 							<td>
-								<a href="#">0</a>
+								<a href="#">${yearstat.jrnl_cnt}</a>
 							</td>
+							</c:if>
+							</c:forEach>
+							<c:forEach var="yearstat" items="${yearVOList}" varStatus="a">
+							<c:if test="${a.count==4}">
 							<td>
-								<a href="#">0</a>
+								<a href="#">${yearstat.jrnl_cnt}</a>
 							</td>
-							<td>
-								<a href="#">0</a>
-							</td>
-							<td>0</td>
+							</c:if>
+							</c:forEach>
+							<td></td>
 						</tr>
 						<tr>
 							<td>참고문헌</td>
+							<c:forEach var="yearstat" items="${yearVOList}" varStatus="a">
+							<c:if test="${a.count==1}">
 							<td>
-								<a href="#">0</a>
+								<a href="#">${yearstat.refr_cnt}</a>
 							</td>
+							</c:if>
+							</c:forEach>
+							<c:forEach var="yearstat" items="${yearVOList}" varStatus="a">
+							<c:if test="${a.count==2}">
 							<td>
-								<a href="#">0</a>
+								<a href="#">${yearstat.refr_cnt}</a>
 							</td>
+							</c:if>
+							</c:forEach>
+							<c:forEach var="yearstat" items="${yearVOList}" varStatus="a">
+							<c:if test="${a.count==3}">
 							<td>
-								<a href="#">0</a>
+								<a href="#">${yearstat.refr_cnt}</a>
 							</td>
+							</c:if>
+							</c:forEach>
+							<c:forEach var="yearstat" items="${yearVOList}" varStatus="a">
+							<c:if test="${a.count==4}">
 							<td>
-								<a href="#">0</a>
+								<a href="#">${yearstat.refr_cnt}</a>
 							</td>
-							<td>
-								<a href="#">0</a>
-							</td>
-							<td>0</td>
+							</c:if>
+							</c:forEach>
+							<td></td>
 						</tr>
+						</c:when>
+						</c:choose>
 					</tbody>
 				</table>
 				</div>
@@ -243,7 +296,6 @@
 					    /** option이 변경될때마다 차트 업데이트 **/
 			            $('#yearOption').on('change', updateChart)
 			            updateChart();	
-						console.log("create Chart")	
 					});
 			
 		            	/** 위에 생성한 SelectBox의 옵션에 따른 차트 변경 **/
@@ -269,6 +321,16 @@
 	                                    title : {
 	                                       display : true,
 	                                       text : '연도별 논문(건)수'
+	                                    },
+	                                    scales: {
+	                                    	yAxes: [{
+	                                    		display: true,
+	                                    		ticks: {
+	                                    			beginAtZero: true,
+	                                    			steps : 10,
+	                                    			stepValue: 1	                                    			
+	                                    		}
+	                                    	}]
 	                                    }
 	                                 }
 	                              },
@@ -293,6 +355,16 @@
 	                                    title : {
 	                                       display : true,
 	                                       text : '연도별 도서(권)수'
+	                                    },
+	                                    scales: {
+	                                    	yAxes: [{
+	                                    		display: true,
+	                                    		ticks: {
+	                                    			beginAtZero: true,
+	                                    			steps : 10,
+	                                    			stepValue: 1	                                    			
+	                                    		}
+	                                    	}]
 	                                    }
 	                                 }
 	                              },
@@ -317,6 +389,16 @@
 	                                    title : {
 	                                       display : true,
 	                                       text : '연도별 학술지(종)수'
+	                                    },
+	                                    scales: {
+	                                    	yAxes: [{
+	                                    		display: true,
+	                                    		ticks: {
+	                                    			beginAtZero: true,
+	                                    			steps : 10,
+	                                    			stepValue: 1	                                    			
+	                                    		}
+	                                    	}]
 	                                    }
 	                                 }
 	                              },
@@ -341,6 +423,16 @@
 	                                    title : {
 	                                       display : true,
 	                                       text : '연도별 참고문헌수'
+	                                    },
+	                                    scales: {
+	                                    	yAxes: [{
+	                                    		display: true,
+	                                    		ticks: {
+	                                    			beginAtZero: true,
+	                                    			steps : 10,
+	                                    			stepValue: 1	                                    			
+	                                    		}
+	                                    	}]
 	                                    }
 	                                 }
 	                              }

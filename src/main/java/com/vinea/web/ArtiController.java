@@ -2,6 +2,7 @@ package com.vinea.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.vinea.dto.ArtiVO;
 import com.vinea.dto.CtgrKwrdVO;
+import com.vinea.dto.OrgnCtgrVO;
 import com.vinea.dto.XmlFileVO;
 import com.vinea.dto.YearVO;
 import com.vinea.service.XmlService;
@@ -30,6 +32,7 @@ import com.vinea.service.XmlService;
 
 import com.vinea.service.PostPager;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 @Controller
 public class ArtiController {
@@ -193,28 +196,14 @@ public class ArtiController {
 		return true;
 	}
 
-	/** 연도별 데이터 통계 
-	@RequestMapping(value = "/article/yearstat")
-	public String yearlyChart() throws Exception {
-
-
-		return "article/year_stat";
-	}**/
-	
-	/** 연도별 데이터 통계 **/
 	@RequestMapping(value = "/article/yearstat", method = RequestMethod.GET)
-	public ModelAndView yearlyChart() throws Exception {
+	public ModelAndView yearlyChart(Locale locale, Model model) throws Exception {
 				
-		 // YearVO yearVO = new YearVO();
-		  
-		  //yearVO.setArti_cnt(1);
-		  
-		  //logger.info("vo" + yearVO.getArti_cnt()); 
 		  ModelAndView mav = new ModelAndView("article/year_stat");
 		  
-		  for (YearVO vo :service.getYearCnt()) {
+		 /*for (YearVO vo :service.getYearCnt()) {
 			  logger.info(vo.getPub_year()+" : "+Integer.toString(vo.getArti_cnt()));
-		  }
+		  }*/
 		  
 		  mav.addObject("yearVOList", service.getYearCnt());
 		  
@@ -228,8 +217,6 @@ public class ArtiController {
 
 		Gson gson = new Gson();
 		
-		YearVO yearVO = new YearVO();
-
 		List<YearVO> list = service.getYearCnt();
 
 		return gson.toJson(list);
@@ -239,38 +226,89 @@ public class ArtiController {
 	
 	
 	/** 소속기관별 데이터 통계 **/
-	@RequestMapping(value = "/article/orgnstat")
-	public String orgnChart() throws Exception {
-		
-		/* 소속기관별 통계: 논문수, 인용수, 소속기관별 연구분야 비율 */
+	@RequestMapping(value = "/article/orgnstat", method = RequestMethod.GET)
+	public String orgnChart(Locale locale, Model model) throws Exception {
 		
 		return "article/orgn_stat";
-	}
+	
+	}	
+
+	/**  소속기관별 데이터  **/
+	@RequestMapping(value = "/article/orgncnt", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
+	public @ResponseBody String orgnList(Locale locale, Model model) throws Exception {
+
+		Gson gson = new Gson();
+		
+		List<OrgnCtgrVO> list = service.getCtgrCnt();
+
+		return gson.toJson(list);
+
+	}	
 	
 	/** 연구분야별 데이터 통계 **/
 	@RequestMapping(value = "/article/ctgrstat")
 	public String ctgrChart() throws Exception {
-		
-		/* 연구분야별 통계: 논문수, 인용수, 연구분야명, 세부분야명 */
-		
+				
 		return "article/ctgr_stat";
 	}
 	
 	
-	/** 논문키워드 현황
-	@RequestMapping(value = "/article/kwrdstat")
-	public String kwrdChart() throws Exception {
-
-		
-		return "article/kwrd_stat";
-	} **/
-	
 	/** 키워드 빈도 **/
 	@RequestMapping(value = "/article/kwrdstat", method = RequestMethod.GET)
-	public String kwrdChart(Locale locale, Model model) throws Exception {
+	public ModelAndView kwrdChart(@RequestParam(defaultValue="") String ctgrnm
+			,@RequestParam(defaultValue="Materials Science, Multidisciplinary") String subjnm) throws Exception {
 
+		//view로 데이터 넘김
+		ModelAndView mav = new ModelAndView("article/kwrd_stat");
 		
-		return "article/kwrd_stat";
+		// 상위분야 리스트
+		List<CtgrKwrdVO> list= service.getKwrdCnt(); 
+		List<String> subList = new ArrayList<String>();
+		List<String> strList = new ArrayList<String>();
+		for (CtgrKwrdVO vo :list) {
+			
+		    if(vo.getCtgr_nm().equals(ctgrnm) || ctgrnm.equals("")) {
+		    	subList.add(vo.getSubj_nm());
+			}
+			strList.add(vo.getCtgr_nm());
+		}
+		HashSet<String> hashset = new HashSet<String>(strList);
+		
+		// 상위 분야 배열
+		mav.addObject("ctgrList",new ArrayList<String>(hashset));
+		
+		// 주제명 받을 배열
+		mav.addObject("ctgrList1",list);
+		// 하위 분야 배열
+		mav.addObject("subList",subList);
+		
+		List<String> list2 = new ArrayList<String>();
+		
+		//서비스로 보낼 맵
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("subjnm", subjnm);
+		
+		List<CtgrKwrdVO> kwrdList = service.kwrdCloudList(map);
+		
+		for (CtgrKwrdVO vo:kwrdList) {
+			
+			//logger.info(vo.getKwrd_nm()+":"+Integer.toString(vo.getKwrd_cnt()));
+			Map<String,Object> map2 = new HashMap<String,Object>();
+			map2.put("x", vo.getKwrd_nm());
+			map2.put("value", vo.getKwrd_cnt());
+			
+			Gson gson = new Gson();
+			String json = gson.toJson(map2);
+			list2.add(json);
+		}
+		
+		
+		mav.addObject("ctgrnm",ctgrnm);
+		mav.addObject("subjnm",subjnm);
+		// 워드클라우드 만들 배열
+		mav.addObject("list2",list2);
+		return mav;
+	
 	} 
 	
 	/** 키워드 빈도 데이터 리스트 */
@@ -278,9 +316,7 @@ public class ArtiController {
 	public @ResponseBody String incomeList(Locale locale, Model model) throws Exception {
 
 		Gson gson = new Gson();
-
 		List<CtgrKwrdVO> list = service.getKwrdCnt();
-
 		return gson.toJson(list);
 
 	}	

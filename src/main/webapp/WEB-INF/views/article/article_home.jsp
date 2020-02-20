@@ -14,9 +14,9 @@
 <!--  CSS -->
 <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/resources/css/style.css">
 <link href="/resources/css/_bootswatch.scss" rel="stylesheet">
 <link href="/resources/css/_variables.scss" rel="stylesheet">
+<link rel="stylesheet" href="/resources/css/style.css">
 <script>
 	var m_chk = false;
 
@@ -262,7 +262,7 @@ input:read-only {
 				<ul class="list-unstyled components mb-5">
 					<li class="active">
 						<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">메인</a>
-						<ul class="list-unstyled collapse show in" id="homeSubmenu">
+						<ul class="collapse list-unstyled" id="homeSubmenu">
 						<li class="active">
 							<a href="/article">논문보기</a>
 						</li>
@@ -271,7 +271,7 @@ input:read-only {
 						<!-- 기관별 현황 페이지에서는 '현황>소속기관별 현황'을 선택상태로 둠 -->
 						<li>
 							<a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">현황</a>
-							<ul class="list-unstyled collapse show in" id="pageSubmenu">
+							<ul class="collapse list-unstyled" id="pageSubmenu">
 								<li>
 									<a href="/article/yearstat">연도별 현황</a>
 								</li>
@@ -484,7 +484,6 @@ input:read-only {
 			</div>
 		</div>
 		<!-- / [XML추가] 모달 -->		
-<!-- JQUERY, 필요한 JAVASCRIPT 파일 -->	
 <script src="/resources/js/popper.js"></script>
 <script src="/resources/js/main.js"></script>
 </body>

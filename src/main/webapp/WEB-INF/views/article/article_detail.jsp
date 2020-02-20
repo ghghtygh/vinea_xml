@@ -10,14 +10,13 @@
 <!-- JQUERY, JAVASCRIPT -->
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
-
 	
 <!--  CSS -->
 <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/resources/css/style.css">
 <link href="/resources/css/_bootswatch.scss" rel="stylesheet">
 <link href="/resources/css/_variables.scss" rel="stylesheet">
+<link rel="stylesheet" href="/resources/css/style.css">
 
 <style>
 a.tip {
@@ -286,9 +285,8 @@ a:hover.tip span {
 									</c:if>
 									<!-- 키워드 데이터가 있는 경우(각 키워드를 ,로 구분함) -->
 									<c:forEach var="kw" items="${ArtiVO.list_kwrd}" varStatus="k">
-										<a href="/article/kwrdstat" style="font-size: 13px" class="tip"> ${kw.kwrd_nm}  
+										<a style="font-size: 13px"> ${kw.kwrd_nm}  
 											<c:if test="${k.count !=fn:length(ArtiVO.list_kwrd) }">,</c:if>
-											<span>해당 키워드 동향<br>Click</span>
 										</a>&nbsp;
                               		</c:forEach>
 								</div>
@@ -348,7 +346,6 @@ a:hover.tip span {
 			</div>
 		</div>
 	</body>
-<!-- JQUERY, 필요한 JAVASCRIPT 파일 -->	
 <script src="/resources/js/popper.js"></script>
 <script src="/resources/js/main.js"></script>
 <form>

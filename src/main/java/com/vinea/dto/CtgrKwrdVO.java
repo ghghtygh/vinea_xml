@@ -2,8 +2,11 @@ package com.vinea.dto;
 
 public class CtgrKwrdVO {
 	
+	//키워드 통계 테이블 기본키
 	private int kwrd_st_pk;
+	//상위분야명
 	private String ctgr_nm;
+	
 	private String subj_nm;
 	private String kwrd_nm;
 	private int kwrd_cnt;

@@ -1229,14 +1229,35 @@
 	
 	</update>
 	
-	<select id="getKwrdCnt" resultType="com.vinea.dto.CtgrKwrdVO">
-			SELECT
-				CTGR_NM
-			   ,SUBJ_NM
-			   ,KWRD_NM
-			   ,KWRD_CNT
-			   ,PUB_YEAR
-			FROM CTGR_KWRD_STAT 
+	<select id="getKwrdCnt" resultType="com.vinea.dto.CtgrKwrdVO">	
+	<![CDATA[
+		SELECT
+		   A.CTGR_NM,
+		   A.SUBJ_NM,
+		   A.KWRD_NM,
+		   A.KWRD_CNT 
+		FROM
+		   (
+		   SELECT
+		      CTGR_NM,
+		      SUBJ_NM,
+		      KWRD_NM,
+		      KWRD_CNT,
+		   CASE	         
+		         WHEN @GRP = CTGR_NM THEN
+		         @ROWNUM := @ROWNUM + 1 ELSE @ROWNUM := 1 
+		      END AS ROWNUM,
+		      ( @GRP := CTGR_NM ) AS DUM 
+		   FROM
+		      ( SELECT D.CTGR_NM, D.SUBJ_NM, D.KWRD_NM, D.KWRD_CNT FROM CTGR_KWRD_STAT D WHERE D.KWRD_CNT > 6 ) CTGR_KWRD_STAT,
+		      ( SELECT @ROWNUM := 0, @GRP := '' ) R 
+		   ORDER BY
+		      CTGR_NM,
+		      KWRD_CNT DESC 
+		   ) A 
+		WHERE
+		   ROWNUM <= 10
+	]]>
 	</select>
 	
 	<select id="getYearCnt" resultType="com.vinea.dto.YearVO">
@@ -1249,5 +1270,27 @@
 			FROM YEAR_STAT 
 	</select>
 	
+	<select id="getCtgrCnt" resultType="com.vinea.dto.OrgnCtgrVO">
+			SELECT 
+				 ORGN_NM
+				,COUNTRY
+				,CTGR_NM
+				,SUBJ_NM
+				,ARTI_CNT
+			FROM ORGN_CTGR_STAT 		
+	</select>
+	
+	<select id="kwrdCloudList" parameterType="hashMap" resultType="com.vinea.dto.CtgrKwrdVO">
+	
+		SELECT
+		      KWRD_NM,
+		      KWRD_CNT
+		FROM
+			CTGR_KWRD_STAT
+		WHERE
+			SUBJ_NM = #{subjnm}
+		ORDER BY KWRD_CNT DESC
+		LIMIT 10
+	</select>
 
  </mapper>
