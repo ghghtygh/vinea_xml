@@ -222,7 +222,8 @@ function search_orgn(orgn_nm){
 										<p style="font-size: 15px; font-weight: bold; margin-left: 15px; margin-right: 10px; margin-top: 10px">기관명</p>
 									</li>
 									<form id="frm" class="form-inline my-2 my-lg-0">
-										<input type="hidden" name="search" value=""> <input class="form-control" id="input_search" type="text" placeholder="기관명 검색.." style="margin-right: 10px" onKeyDown="return inputKey()" onsubmit="return false" value="" maxlength="30">
+										<input type="hidden" name="search" value=""> <input class="form-control" id="input_search" type="text" placeholder="기관명 검색.."
+										 style="margin-right: 10px" onKeyDown="return inputKey()" onsubmit="return false" value="" maxlength="30">
 										<button class="btn btn-primary" type="button" id="btn_search">검색</button>
 									</form>
 									<!-- 정렬방식: 어떤 기준으로 몇건씩 볼것인지 정함 

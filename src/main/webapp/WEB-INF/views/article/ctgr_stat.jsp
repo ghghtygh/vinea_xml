@@ -25,6 +25,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
 <script>
 	/** JQUERY 사용 **/
+	
+	
 	$(document).ready(function() {
 		
 		$("#${tab_option}").addClass("active");
@@ -33,7 +35,37 @@
 		
 		$('#cnt2 option[value="${sort_option}"]').attr("selected",true);
 		
+		var so = "${sort_option}";
+		var m_data = [];
+		var chartLabels = [];
+		var ctgrList = [];
+		<c:choose>
+			<c:when test="${not empty ctgrList}">
+				<c:forEach items="${ctgrList }" var="vo" varStatus="g">
+					
+					chartLabels.push("${vo.subj_nm}");
+					
+					if(so==1){
+						m_data.push("${vo.arti_cnt}");
+					}else if(so==2){
+						
+						m_data.push("${vo.auth_cnt}");
+						
+					}else if(so==3){
+						m_data.push("${vo.arti_cnt}");
+					}else if(so==4){
+						m_data.push("${vo.jrnl_cnt}");
+					}else if(so==5){
+						m_data.push("${vo.refr_cnt}");
+					}else{
+						
+					}
+				</c:forEach>
+			</c:when>
+		</c:choose>
 		
+		
+		createChart(chartLabels,m_data);
 		
 		var th_option_html = $('#cnt2 option[value="${sort_option}"]').html();
 		//console.log(th_option_html);
@@ -541,23 +573,24 @@
 									</div>
 									<!-- 연구분야의 주제별 상위 통계를 보여줄 차트 캔버스 정의 -->
 									<div class="col-lg-7">
-										<canvas id="ctgr"></canvas>
+										<canvas id="canvas_ctgr"></canvas>
 									</div>
 								</div>
 								<script>
 									/** 위에 정의한 canvas 아이디를 가져와 차트를 정의 **/
-									var ctx = document.getElementById("ctgr").getContext("2d");
+									var ctx = document.getElementById("canvas_ctgr").getContext("2d");
 									/** 차트의 크기 정의 **/
 						            ctx.canvas.width = 800;
 						            ctx.canvas.height = 400;
 						            
-						            var chartLabels = [];
+						            //var chartLabels = [];
 						            var artiCnt = [];
 						            var authCnt = [];
 						            var jrnlCnt = [];
 						            var refrCnt = [];
 						            
 						            ////진행중....
+						            /*
 						            $.getJSON("/article/subjcnt", function(data){	
 										$.each(data, function(inx, obj){	
 											chartLabels.push(obj.subj_nm);
@@ -566,15 +599,15 @@
 											jrnlCnt.push(obj.jrnl_cnt);
 											refrCnt.push(obj.refr_cnt);
 										});	
-										//$('#cnt2').on('change', updateChart);
-							            //console.log("artiCnt"+artiCnt);
+										
 							            createChart();
-							            //updateChart();
 						            });
-						           									            	
-						            function createChart()
+						            */
+						            							            	
+						            function createChart(chartLabels,m_data)
 						            {
-							            var chart = new Chart(document.getElementById("ctgr"), {
+						            	
+							            var chart = new Chart(document.getElementById("canvas_ctgr"), {
 										            	type : 'bar',
 					                                    data : {
 					                                       /** 해당 연구분야의 주제명 **/
@@ -587,14 +620,15 @@
 					                                                type : "line",
 					                                                borderColor : "#8e5ea2",
 					                                                /** 실제 통계 수치 **/
-					                                                data : artiCnt,
+					                                                //data : artiCnt,
+					                                                data:m_data,
 					                                                fill : false
 					                                             },
 					                                             {
 					                                                //label : "저자수",
 					                                                type : "bar",
 					                                                backgroundColor : "rgba(102,153,255,0.5)",
-					                                                data : artiCnt
+					                                                data : m_data
 					                                             } ]
 					                                    },
 					                                    options : {

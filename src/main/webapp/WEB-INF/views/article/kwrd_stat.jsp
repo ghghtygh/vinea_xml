@@ -174,7 +174,7 @@
 							</c:forEach>
 					</select>
 				</ol>
-				<p style="font-size: 20px; font-weight: bold; color: #000069; margin-top: 50px">(선택 분야명)키워드 빈도수</p>
+				<p style="font-size: 20px; font-weight: bold; color: #000069; margin-top: 50px">분야별 키워드 빈도수</p>
 				<div>
 					<div id="kwrdcloud" style="width: 1200px; height: 800px; margin-left: 130px"></div>
 				</div>
