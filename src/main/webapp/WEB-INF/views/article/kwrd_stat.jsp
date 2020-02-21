@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,8 +48,9 @@
 	 
 	 $('#ctgrnm option[value="${ctgrnm}"]').attr("selected",true);
 	 $('#subjnm option[value="${subjnm}"]').attr("selected",true);
-	 
-	
+	 //$("#ac_path_3").attr("fill","#000000");
+	console.log($("#ac_path_3"));
+	 console.log($("#ac_path_3").attr("fill"));
 		$("#ctgrnm").change(function() {
 	
 			//var state = $('#ctgrnm option:selected').val();
@@ -176,7 +178,8 @@
 				</ol>
 				<p style="font-size: 20px; font-weight: bold; color: #000069; margin-top: 50px">분야별 키워드 빈도수</p>
 				<div>
-					<div id="kwrdcloud" style="width: 1200px; height: 800px; margin-left: 130px"></div>
+					<div id="kwrdcloud" style="width: 1200px; height: 800px; margin-left: 130px;
+					background-color:#fafafa;"></div>
 				</div>
 				<script>
 					var chartLabels = [];
@@ -202,17 +205,18 @@
 							var formatter = "{%value}";
 							var tooltip = chart.tooltip();		
 							
+							
 							chart.angles([15,90,30]);
 							chart.mode('spiral');
 							chart.container("kwrdcloud");
-							chart.draw();	
+							chart.background().fill("#fafafa");
+							chart.draw();
 							tooltip.format(formatter);
 							
 							chart.listen("pointClick", function(e) {
 								
 								var url = "키워드 해당 논문 경로" + e.point.get("x");
 								//alert(e.point.get("x"));
-								console.log(e.point.get("x"));
 								
 								var formObj = $("#frm");
 								
@@ -241,7 +245,6 @@
 
 							
 						}); 
-						
 					}	
 				</script>
 			</div>

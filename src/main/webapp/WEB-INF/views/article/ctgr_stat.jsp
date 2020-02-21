@@ -32,40 +32,20 @@
 		$("#${tab_option}").addClass("active");
 		$("a[name='${tab_option}']").addClass("active");
 		$('#ctgrselect option[value="${ctgr_option}"]').attr("selected",true);
-		
 		$('#cnt2 option[value="${sort_option}"]').attr("selected",true);
 		
-		var so = "${sort_option}";
-		var m_data = [];
-		var chartLabels = [];
-		var ctgrList = [];
-		<c:choose>
-			<c:when test="${not empty ctgrList}">
-				<c:forEach items="${ctgrList }" var="vo" varStatus="g">
-					
-					chartLabels.push("${vo.subj_nm}");
-					
-					if(so==1){
-						m_data.push("${vo.arti_cnt}");
-					}else if(so==2){
-						
-						m_data.push("${vo.auth_cnt}");
-						
-					}else if(so==3){
-						m_data.push("${vo.arti_cnt}");
-					}else if(so==4){
-						m_data.push("${vo.jrnl_cnt}");
-					}else if(so==5){
-						m_data.push("${vo.refr_cnt}");
-					}else{
-						
-					}
-				</c:forEach>
-			</c:when>
-		</c:choose>
 		
+		createChart();
 		
-		createChart(chartLabels,m_data);
+		$('a[data-toggle="tab"]').on('hidden.bs.tab', function(e){
+			
+			$("#div_canvas_ctgr").html("");
+			
+			$("#div_canvas_ctgr").html("<canvas id='canvas_ctgr'></canvas>");
+			
+			createChart();
+			
+		});
 		
 		var th_option_html = $('#cnt2 option[value="${sort_option}"]').html();
 		//console.log(th_option_html);
@@ -572,7 +552,7 @@
 										</div>
 									</div>
 									<!-- 연구분야의 주제별 상위 통계를 보여줄 차트 캔버스 정의 -->
-									<div class="col-lg-7">
+									<div class="col-lg-7" id="div_canvas_ctgr">
 										<canvas id="canvas_ctgr"></canvas>
 									</div>
 								</div>
@@ -589,23 +569,36 @@
 						            var jrnlCnt = [];
 						            var refrCnt = [];
 						            
-						            ////진행중....
-						            /*
-						            $.getJSON("/article/subjcnt", function(data){	
-										$.each(data, function(inx, obj){	
-											chartLabels.push(obj.subj_nm);
-											artiCnt.push(obj.arti_cnt);
-											authCnt.push(obj.auth_cnt);
-											jrnlCnt.push(obj.jrnl_cnt);
-											refrCnt.push(obj.refr_cnt);
-										});	
-										
-							            createChart();
-						            });
-						            */
 						            							            	
-						            function createChart(chartLabels,m_data)
+						            function createChart()
 						            {
+						        		var so = "${sort_option}";
+						        		var m_data = [];
+						        		var chartLabels = [];
+						        		var ctgrList = [];
+						        		<c:choose>
+						        			<c:when test="${not empty ctgrList}">
+						        				<c:forEach items="${ctgrList }" var="vo" varStatus="g">
+						        					
+						        					chartLabels.push("${vo.subj_nm}");
+						        					
+						        					if(so==1){
+						        						m_data.push("${vo.arti_cnt}");
+						        					}else if(so==2){
+						        						m_data.push("${vo.auth_cnt}");
+						        					}else if(so==3){
+						        						m_data.push("${vo.arti_cnt}");
+						        					}else if(so==4){
+						        						m_data.push("${vo.jrnl_cnt}");
+						        					}else if(so==5){
+						        						m_data.push("${vo.refr_cnt}");
+						        					}else{
+						        						
+						        					}
+						        				</c:forEach>
+						        			</c:when>
+						        		</c:choose>
+						            	
 						            	
 							            var chart = new Chart(document.getElementById("canvas_ctgr"), {
 										            	type : 'bar',
@@ -647,7 +640,9 @@
 					                                          fontSize : 15,
 					                                          fontStyle : 'Helvetica'
 					                                       },
-					                                       animation : false,
+					                                       animation : {
+					                                    	 easing:'easeOutCubic'  
+					                                       },
 					                                       legend : {
 					                                          display : false
 					                                       }

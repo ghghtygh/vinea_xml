@@ -202,7 +202,7 @@ function search_orgn(orgn_nm){
 					<!--  소속기관별 통계: 테이블 -->
 					<div id="orgn_stat1" style="margin-top: 20px">
 						<p style="font-size: 20px; font-weight: bold; color: #000069">소속기관별 데이터 통계</p>
-						
+
 						<div class="row">
 							<div class="col-lg-12">
 								<ol class="breadcrumb">
@@ -222,8 +222,7 @@ function search_orgn(orgn_nm){
 										<p style="font-size: 15px; font-weight: bold; margin-left: 15px; margin-right: 10px; margin-top: 10px">기관명</p>
 									</li>
 									<form id="frm" class="form-inline my-2 my-lg-0">
-										<input type="hidden" name="search" value=""> <input class="form-control" id="input_search" type="text" placeholder="기관명 검색.."
-										 style="margin-right: 10px" onKeyDown="return inputKey()" onsubmit="return false" value="" maxlength="30">
+										<input type="hidden" name="search" value=""> <input class="form-control" id="input_search" type="text" placeholder="기관명 검색.." style="margin-right: 10px" onKeyDown="return inputKey()" onsubmit="return false" value="" maxlength="30">
 										<button class="btn btn-primary" type="button" id="btn_search">검색</button>
 									</form>
 									<!-- 정렬방식: 어떤 기준으로 몇건씩 볼것인지 정함 
@@ -265,16 +264,16 @@ function search_orgn(orgn_nm){
 							<div class="col-lg-12">
 								<table style="text-align: center;" class="table table-hover">
 									<thead>
-										<colgroup>
-											<col width="20%;">
-											<col width="*">
-											<col width="20%;">
-											<col width="20%;">
-										</colgroup>
+									<colgroup>
+										<col width="20%;">
+										<col width="*">
+										<col width="20%;">
+										<col width="20%;">
+									</colgroup>
 									</thead>
 									<tbody>
 										<th style="border-top: 2px solid #000069">순번</th>
-										<th style="border-top: 2px solid #000069;text-align:center">소속기관명</th>
+										<th style="border-top: 2px solid #000069; text-align: center">소속기관명</th>
 										<th style="border-top: 2px solid #000069">논문수</th>
 										<th style="border-top: 2px solid #000069">인용수</th>
 										<c:choose>
@@ -285,11 +284,9 @@ function search_orgn(orgn_nm){
 															<!-- 순번 -->
 															${orgnVO.num }
 														</td>
-														<td style="text-align:left;padding-left:5%">
+														<td style="text-align: left; padding-left: 5%">
 															<!-- 소속기관명 -->
-															<a class="mb-0" href="#" style="color:black;"  onClick="search_orgn('${orgnVO.orgn_nm}')">
-															${orgnVO.orgn_nm}
-															</a>
+															<a class="mb-0" href="#" style="color: black;" onClick="search_orgn('${orgnVO.orgn_nm}')"> ${orgnVO.orgn_nm} </a>
 														</td>
 														<td>
 															<!-- 논문수 -->
