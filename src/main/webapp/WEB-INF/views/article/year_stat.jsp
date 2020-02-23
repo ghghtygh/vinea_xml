@@ -229,7 +229,6 @@
 					    /** option이 변경될때마다 차트 업데이트 **/
 			            $('#yearOption').on('change', updateChart)
 			            updateChart();	
-						//console.log("create Chart")
 					});
 			
 		            	/** 위에 생성한 SelectBox의 옵션에 따른 차트 변경 **/

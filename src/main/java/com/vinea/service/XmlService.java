@@ -13,17 +13,27 @@ import com.vinea.dto.YearVO;
 
 public interface XmlService {
 
+	/* 파싱된 정보 DB 저장 */
 	/** 파싱된 논문 건수 반환 **/
 	public int countXml(Map<String,Object> map) throws Exception;
 	
+	/** 논문 정보 VO 객체 DB 에 저장**/
+	public void createVO(ArtiVO vo) throws Exception;
+	
+	/** 논문 정보 리스트 DB에 저장 **/
+	public void insertVOList(List<ArtiVO> list) throws Exception;
+	
+	/* 메인페이지_논문 목록 */
 	/** 요청 페이지에 따른 논문 목록 조회 **/
 	public List<ArtiVO> selectXmlList(Map<String, Object> map);
 	
-	/** 파싱된 논문 데이터 DB에 저장 **/
-	public void createListVO(String filePath) throws Exception;
-	
+	/* 상세페이지 */
 	/** 논문 상세보기 **/
 	public ArtiVO article_detail(String uid) throws Exception;
+	
+	/* XML 파일 파싱 부분 */
+	/** 파싱된 논문 데이터 DB에 저장 **/
+	public void createListVO(String filePath) throws Exception;
 	
 	/** chk 동작  **/
 	public List<ArtiVO> checkList(String filePath) throws Exception;
@@ -33,12 +43,6 @@ public interface XmlService {
 	
 	/** XML 파일 DB 저장 **/	
 	public void articleTest(String filePath) throws Exception;
-
-	/** 논문 정보 VO 객체 DB 에 저장**/
-	public void createVO(ArtiVO vo) throws Exception;
-	
-	/** 논문 정보 리스트 DB에 저장 **/
-	public void insertVOList(List<ArtiVO> list) throws Exception;
 	
 	/** 파싱 현황 불러오기 **/
 	public List<XmlFileVO> selectXmlFileCount() throws Exception;
@@ -58,27 +62,29 @@ public interface XmlService {
 	/** 저장에러 반영 **/
 	public void updateError(String uid) throws Exception;
 	
-	/** 키워드 빈도 **/
+	/* 파싱된 결과 통계 부분 */
+	/** 분야별 키워드 빈도 수 (워드클라우드 생성) **/
+	public List<CtgrKwrdVO> kwrdCloudList(Map<String, Object> map);
+	
+	/** 분야별 키워드 빈도 수 **/
 	public List<CtgrKwrdVO> getKwrdCnt() throws Exception;
 	
-	/** 연도별 논문,참고문헌,학술지,도서 수 **/
+	/** 연도별 논문수, 도서수, 참고문헌수, 학술지수 통계 **/
 	public List<YearVO> getYearCnt() throws Exception;
 
-	/** 논문 리스트 조회 - COUNT **/
+	/** 소속기관별 데이터 통계(기관수) **/
 	public int countOrg(Map<String, Object> map) throws Exception;
 
-	/** 논문 리스트 조회  - SELECT **/
+	/** 소속기관별 데이터 통계(기관목록) **/
 	public List<OrgnVO> selectOrgList(Map<String, Object> map) throws Exception;
 
-	/** 카테고리 통계 조회 - COUNT **/
+	/** 연구분야별 저자수, 논문수, 학술지, 참고문헌수 **/
 	public int countCtgrStat(Map<String, Object> map);
 	
-	/** 분야별 주제의 저자수, 논문수, 학술지, 참고문헌수 **/
+	/** 연구분야별 저자수, 논문수, 학술지, 참고문헌수 통계1 */
 	public List<CtgrStatVO> getCtgrStatList() throws Exception;
 	
-	/** 카테고리 통계 조회 - SELECT **/
+	/** 연구분야별 저자수, 논문수, 학술지, 참고문헌수 통계2 **/
 	public List<CtgrStatVO> selectCtgrStatList(Map<String, Object> map);
-
-	public List<CtgrKwrdVO> kwrdCloudList(Map<String, Object> map);
 	
 }
