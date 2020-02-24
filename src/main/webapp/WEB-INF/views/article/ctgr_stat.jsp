@@ -236,7 +236,7 @@
                      <li class="nav-item"><a class="nav-link" href="#ctgr2" name="ctgr2" data-toggle="tab">연구분야별 상위통계</a></li>
                   </ul>
                   <div class="tab-content">
-                     <p style="font-size: 20px; font-weight: bold; color: #000069">연구분야별 데이터 통계</p>
+                     <p style="font-size: 20px; font-weight: bold; color: #000069; margin-top: 20px">연구분야별 데이터 통계</p>
                      <div class="row">
                         <div class="col-lg-12">
                            <ol class="breadcrumb">
@@ -382,9 +382,9 @@
                      <!-- 첫번째 tab에 들어갈 내용(끝) -->
                      <!-- 두번째 tab에 들어갈 내용(시작) -->
                      <div class="tab-pane" id="ctgr2">
+                     <p style="font-size: 20px; font-weight: bold; color: #000069; margin-top: 20px">주제별 상위 통계</p>
                         <!-- 연구분야의 주제별 상위 통계 : 테이블, 차트 -->
                         <!-- 연구분야의 주제별 상위 통계: 테이블 부분 -->
-                        <!-- 저자수 통계 -->
                         <div class="row">
                            <div class="col-lg-5">
                               <table style="text-align: center;" class="table table-hover">

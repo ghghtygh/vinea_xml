@@ -121,10 +121,10 @@
 							</c:when>
 						</c:choose>
 						<!-- 논문수, 도서수, 학술지수, 참고문헌수 각각 합계 나타낼 부분 -->
-						<th style="border-top: 2px solid #000069">합계</th>				
+						<th style="border-top: 2px solid #000069;"><font color="#000069">합계</font></th>				
 						<tr>
 							<!-- 논문수 통계 -->
-							<td style="border-top: 1px solid #b4b4b4">논문</td>
+							<td style="border-top: 1px solid #b4b4b4"><strong>논문</strong></td>
 							<c:choose>
 								<c:when test="${not empty yearVOList}">
 									<c:set var = "sum" value = "0" />
@@ -132,13 +132,13 @@
 										<td style="border-top: 1px solid #b4b4b4">${vo.arti_cnt}</td>
 										<c:set var="sum" value="${sum+vo.arti_cnt}" />
 									</c:forEach>
-									<td style="border-top: 1px solid #b4b4b4"><c:out value="${sum}"/></td>
+									<td style="border-top: 1px solid #b4b4b4"><font color="#28288C"><strong><c:out value="${sum}"/></strong></font></td>
 								</c:when>
 							</c:choose>
 						</tr>		
 						<tr>
 							<!-- 도서수 통계 -->
-							<td style="">도서</td>
+							<td style=""><strong>도서</strong></td>
 							<c:choose>
 								<c:when test="${not empty yearVOList}">
 									<c:set var = "sum" value = "0" />
@@ -146,13 +146,13 @@
 										<td style="">${vo.book_cnt}</td>
 										<c:set var="sum" value="${sum+vo.book_cnt}" />
 									</c:forEach>
-									<td style=""><c:out value="${sum}"/></td>
+									<td style=""><font color="#28288C"><strong><c:out value="${sum}"/></strong></font></td>
 								</c:when>
 							</c:choose>
 						</tr>
 						<tr>
 							<!-- 학술지수 통계 -->
-							<td style="">학술지</td>
+							<td style=""><strong>학술지</strong></td>
 							<c:choose>
 								<c:when test="${not empty yearVOList}">
 									<c:set var = "sum" value = "0" />
@@ -160,13 +160,13 @@
 										<td style="">${vo.jrnl_cnt}</td>
 										<c:set var="sum" value="${sum+vo.jrnl_cnt}" />
 									</c:forEach>
-									<td style=""><c:out value="${sum}"/></td>
+									<td style=""><font color="#28288C"><strong><c:out value="${sum}"/></strong></font></td>
 								</c:when>
 							</c:choose>
 						</tr>						
 						<tr>
 							<!-- 참고문헌수 통계 -->
-							<td style="">참고문헌</td>
+							<td style=""><strong>참고문헌</strong></td>
 							<c:choose>
 								<c:when test="${not empty yearVOList}">
 									<c:set var = "sum" value = "0" />
@@ -174,7 +174,7 @@
 										<td style="">${vo.refr_cnt}</td>
 										<c:set var="sum" value="${sum+vo.refr_cnt}" />
 									</c:forEach>
-									<td style=""><c:out value="${sum}"/></td>
+									<td style=""><font color="#28288C"><strong><c:out value="${sum}"/></strong></font></td>
 								</c:when>
 							</c:choose>
 						</tr>
