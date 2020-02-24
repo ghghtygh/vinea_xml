@@ -207,12 +207,19 @@
 							</c:forEach>
 							
 							/* 워드클라우드 옵션 설정 */
-							var chart = anychart.tagCloud(data);
+							var chart = anychart.tagCloud();
+							chart.data(
+								data,{mode:"by-word"}
+							);
 							var formatter = "{%value}";
 							var tooltip = chart.tooltip();		
 							
-							chart.angles([15,90,30]);
+							chart.angles([0]);
+							//chart.angles([0, 30, 90, 0]);
+							
 							chart.mode('spiral');
+							//chart.mode('rect');
+
 							chart.background().fill("#fafafafa");
 							chart.container("kwrdcloud");
 							chart.draw();	
