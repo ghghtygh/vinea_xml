@@ -122,7 +122,7 @@ a:hover {
 		
 		var formObj = $("#frm");
 		
-		if(confirm(orgn_nm + "기관의 논문 목록을 보시겠습니까?") == true)
+		if(confirm(orgn_nm + " " + "기관의 논문 목록을 보시겠습니까?") == true)
 		{
 		$("input[name='search']").val(orgn_nm);
 		var input_option = document.createElement("input");

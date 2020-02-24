@@ -244,7 +244,6 @@
 	                                       label : "논문수",
 	                                       fillColor : "rgba(102,153,255,0.5)",
 	                                       strokeColor : "rgba(000,051,153,0.8)",
-	                                       highlightFill : "rgba(220,220,220,0.75)",
 	                                       highlightStroke : "rgba(220,220,220,1)",
 	                                       data : artiCnt
 	                                    } ],

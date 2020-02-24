@@ -133,7 +133,7 @@ a:hover.tip span {
 		
 		var formObj = $("#frm");
 		
-		if(confirm(title + "학술지의 논문 목록을 보시겠습니까?") == true)
+		if(confirm(title + " " +  "학술지의 논문 목록을 보시겠습니까?") == true)
 		{
 		formObj.attr("action", "/article");
 		formObj.attr("method", "get");
@@ -152,7 +152,7 @@ a:hover.tip span {
 		$("input[name='search_option']").val(5);
 		
 		var formObj = $("#frm");
-		if(confirm(auth + "의 논문 목록을 보시겠습니까?") == true)
+		if(confirm(auth + " " +  "의 논문 목록을 보시겠습니까?") == true)
 		{
 		formObj.attr("action", "/article");
 		formObj.attr("method", "get");
