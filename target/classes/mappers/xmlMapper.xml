@@ -1286,8 +1286,7 @@
 			)	A 
 			ORDER BY 
 				PUB_YEAR 
-			ASC
-			
+			ASCS		
 	</select>
 	
 	<select id="countOrg" resultType="java.lang.Integer" parameterType="hashMap">
@@ -1458,7 +1457,7 @@
 			SUBJ_NM = #{subjnm}
 		ORDER BY KWRD_CNT 
 		DESC
-		LIMIT 10
+		LIMIT 30
 	</select>
 
 	<select id="getKwrdCnt" resultType="com.vinea.dto.CtgrKwrdVO">	

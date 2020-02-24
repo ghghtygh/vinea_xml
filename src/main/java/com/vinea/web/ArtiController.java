@@ -343,10 +343,24 @@ public class ArtiController {
 		List<CtgrKwrdVO> kwrdList = service.kwrdCloudList(map);
 		
 		/* 워드 클라우드 생성을 위해 {"키워드명":"키워드명 데이터", 값: "키워드빈도수"} 와 같은 JSON 형태로 변환 */
+		
+		int max = -1, min = 100000;
+		for (CtgrKwrdVO vo:kwrdList) {
+			
+			int tmp = vo.getKwrd_cnt();
+			
+			if(min>=tmp)
+				min = tmp;
+			
+			if(max<=tmp)
+				max = tmp;
+			
+		}
+		
 		for (CtgrKwrdVO vo:kwrdList) {
 			Map<String,Object> map2 = new HashMap<String,Object>();
 			map2.put("x", vo.getKwrd_nm());
-			map2.put("value", vo.getKwrd_cnt());
+			map2.put("value", (int)(vo.getKwrd_cnt()-min)*100/max);
 			
 			Gson gson = new Gson();
 			String json = gson.toJson(map2);
