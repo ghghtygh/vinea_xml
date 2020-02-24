@@ -35,9 +35,10 @@ import com.vinea.dto.YearVO;
 @Service
 public class XmlServiceImpl implements XmlService{
 	
-	
+	/* 파싱 파일 정보 관련 VO 객체 선언 */
 	private XmlFileVO xmlFileVO;
 	
+	/* 파싱 동작 */
 	private NjhParser parser;
 	
 	private FileReader fr;
@@ -51,75 +52,12 @@ public class XmlServiceImpl implements XmlService{
 	@Inject
 	private XmlDAO dao;
 	
-	
+	/* 파싱된 정보 DB 저장 */
 	/** 파싱된 논문 건수 반환 **/
 	@Override
 	public int countXml(Map<String,Object> map) throws Exception{
 		
 		return dao.countXml(map);
-	}
-	
-	
-	/** 요청 페이지에 따른 논문 목록 조회 **/
-	@Override
-	public List<ArtiVO> selectXmlList(Map<String,Object> map){
-	
-		
-		
-		List<ArtiVO> list_artiVO = new ArrayList<ArtiVO>();
-		
-		list_artiVO = dao.selectXmlList(map);
-		
-		for (ArtiVO vo : list_artiVO){
-			
-			vo.setList_auth(dao.selectAuthList(vo.getUid()));
-		}
-		
-		
-
-		return list_artiVO;
-	}
-	
-	/** 논문 상세보기  **/
-	@Override
-	public ArtiVO article_detail(String uid) throws Exception{
-		
-		ArtiVO vo = dao.selectOneXml(uid);
-		
-		/* 키워드 정보  */
-		vo.setList_kwrd(dao.selectKwrdList(vo.getUid()));		
-		/* 저자 정보  */
-		vo.setList_auth(dao.selectAuthList(vo.getUid()));		
-		/* 참고문헌 정보  */
-		vo.setList_refr(dao.selectRefrList(vo.getUid()));		
-		/* 저자 연구기관 정보  */
-	    vo.setList_orgn(dao.selectOrgnList(vo.getUid()));	    
-	    /* 발행기관 정보 */
-	    vo.setList_publ(dao.selectPublList(vo.getUid()));
-		
-		return vo;
-	}
-	
-	/** 파싱된 논문 데이터 DB에 저장 **/
-	@Override
-	public void createListVO(String filePath) throws Exception{
-		
-		parser = new NjhParser(filePath);
-		
-		if(!parser.CanParse()){
-			return;
-		}
-		
-		parser.DoParse();
-		
-		List<ArtiVO> list = parser.returnList();
-		
-		for(ArtiVO vo : list){
-			
-			createVO(vo);
-			
-		}
-		
 	}
 	
 	/** 논문 정보 VO 객체 DB 에 저장 **/
@@ -212,7 +150,7 @@ public class XmlServiceImpl implements XmlService{
 		/* 파싱은 됬는데 INSERT 에러 검출 (보통 컬럼 길이문제 ) */
 			
 			for(ArtiVO vo : list){
-				/* INSERT 에러 누구 때문인지 검출 */
+				/* INSERT 에러: 어디에서 에러나는지 검출 */
 				
 				createVO(vo);
 				
@@ -222,6 +160,71 @@ public class XmlServiceImpl implements XmlService{
 		
 		
 	}
+		
+	/** 요청 페이지에 따른 논문 목록 조회 **/
+	@Override
+	public List<ArtiVO> selectXmlList(Map<String,Object> map){
+	
+		
+		
+		List<ArtiVO> list_artiVO = new ArrayList<ArtiVO>();
+		
+		list_artiVO = dao.selectXmlList(map);
+		
+		for (ArtiVO vo : list_artiVO){
+			
+			vo.setList_auth(dao.selectAuthList(vo.getUid()));
+		}
+		
+		
+
+		return list_artiVO;
+	}
+	
+	/* 상세페이지 */
+	/** 논문 상세보기  **/
+	@Override
+	public ArtiVO article_detail(String uid) throws Exception{
+		
+		ArtiVO vo = dao.selectOneXml(uid);
+		
+		/* 키워드 정보  */
+		vo.setList_kwrd(dao.selectKwrdList(vo.getUid()));		
+		/* 저자 정보  */
+		vo.setList_auth(dao.selectAuthList(vo.getUid()));		
+		/* 참고문헌 정보  */
+		vo.setList_refr(dao.selectRefrList(vo.getUid()));		
+		/* 저자 연구기관 정보  */
+	    vo.setList_orgn(dao.selectOrgnList(vo.getUid()));	    
+	    /* 발행기관 정보 */
+	    vo.setList_publ(dao.selectPublList(vo.getUid()));
+		
+		return vo;
+	}
+	
+	/* XML 파일 파싱 부분 */
+	/** 파싱된 논문 데이터 DB에 저장 **/
+	@Override
+	public void createListVO(String filePath) throws Exception{
+		
+		parser = new NjhParser(filePath);
+		
+		if(!parser.CanParse()){
+			return;
+		}
+		
+		parser.DoParse();
+		
+		List<ArtiVO> list = parser.returnList();
+		
+		for(ArtiVO vo : list){
+			
+			createVO(vo);
+			
+		}
+		
+	}
+	
 	
 	/** chk 동작 부분 **/
 	@Override
@@ -327,8 +330,6 @@ public class XmlServiceImpl implements XmlService{
 					
 					recStr+=str;
 					
-					/* UID 세팅 */
-					//if(str.contains("<UID>")){
 					if(recLineCnt==2){
 						
 						beginIndex = str.indexOf("WOS");
@@ -336,9 +337,7 @@ public class XmlServiceImpl implements XmlService{
 						uidStr = str.substring(beginIndex, (str.substring(beginIndex).indexOf("</UID>")+beginIndex));
 						
 						vo.setUid(uidStr);
-						
-						/* UID 확인*/
-						//logger.info("<UID> : "+vo.getUid());
+
 						
 					}
 					
@@ -348,10 +347,7 @@ public class XmlServiceImpl implements XmlService{
 						
 						vo.setContent(recStr);
 						vo.setFile_name(fileName);
-						
-						/* VO 확인*/
-						//logger.info(vo.getUid());
-						
+
 						/* VO 데이터베이스에 저장 */
 						dao.insertXmlFile(vo);
 						
@@ -360,7 +356,6 @@ public class XmlServiceImpl implements XmlService{
 						vo = null;
 						
 						recLineCnt = 0;
-						//break;
 					}
 				}
 			}
@@ -406,22 +401,15 @@ public class XmlServiceImpl implements XmlService{
 	/** XML파일의 REC 태그 한개 불러와서 파싱 하기 **/
 	@Override
 	public XmlFileVO parseOneXml(String file_name) throws Exception{
-		//return dao.selectOneXmlFile(file_name);
 		
 		xmlFileVO = new XmlFileVO();
 		parser = new NjhParser();
 		
-		//stopWatch = new StopWatch();
-		//stopWatch.start();
 		
 		if((xmlFileVO = dao.selectOneXmlFile(file_name)) != null){
 			
 			
 			createVO(parser.parseRecStr(xmlFileVO.getContent()));
-				
-			//stopWatch.stop();
-			
-			//logger.info("parseOneXml - 수행시간 : {}",stopWatch.getTotalTimeSeconds());
 				
 			return xmlFileVO;
 			
@@ -441,9 +429,6 @@ public class XmlServiceImpl implements XmlService{
 		xmlFileVO = new XmlFileVO();
 		parser = new NjhParser();
 		
-		//stopWatch = new StopWatch();
-		//stopWatch.start();
-		
 		List<ArtiVO> list = new ArrayList<ArtiVO>();
 		
 		for(XmlFileVO vo : dao.selectXmlFileList(map)){
@@ -461,11 +446,7 @@ public class XmlServiceImpl implements XmlService{
 		}
 		
 		insertVOList(list);
-		
-		
-		
-		//stopWatch.stop();
-		//logger.info("parseXmlList insert 수행시간 : {}",stopWatch.getTotalTimeSeconds());
+
 	}
 	
 	/** 파싱 완료 태그 업데이트 **/
@@ -474,55 +455,63 @@ public class XmlServiceImpl implements XmlService{
 		
 		dao.updateParseYN(uid);
 	}
+	
 	/** 파싱 에러 태그 업데이트 **/
 	@Override
 	public void updateError(String uid) throws Exception{
 	
 		dao.updateErrorYN(uid);
 	}
-	/** 카테고리&키워드 통계 조회**/
+	
+	/* 파싱된 결과 통계 부분 */
+	/** 분야별 키워드 빈도 수 (워드클라우드 생성) **/
+	@Override
+	public List<CtgrKwrdVO> kwrdCloudList(Map<String,Object> map) {
+		return dao.kwrdCloudList(map);
+	}
+	
+	/** 분야별 키워드 빈도 수 **/
 	@Override
 	public List<CtgrKwrdVO> getKwrdCnt() throws Exception{
 	
 		return dao.getKwrdCnt();
 	}
-	/** 연도별 통계 목록 조회 **/
+	
+	/** 연도별 논문수, 도서수, 참고문헌수, 학술지수 통계 **/
 	@Override
 	public List<YearVO> getYearCnt() throws Exception{
 	
 		return dao.getYearCnt();
 	}
-	/** 기관 목록 개수 조회**/
+	
+	/** 소속기관별 데이터 통계(기관수) **/
 	@Override
 	public int countOrg(Map<String,Object> map) throws Exception{
 		return dao.countOrg(map);
 	}
-	/** 기관 목록 조회**/
+	
+	/** 소속기관별 데이터 통계(기관목록) **/
 	@Override
 	public List<OrgnVO> selectOrgList(Map<String,Object> map) throws Exception{
 		return dao.selectOrgList(map);
 	}
 	
-	/** 카테고리 통계 개수 조회 **/
+	/** 연구분야별 저자수, 논문수, 학술지, 참고문헌수 **/
 	@Override
 	public int countCtgrStat(Map<String,Object> map){
 		return dao.countCtgrStat(map);
 	}
 	
-	/** 분야별 저자수, 학술지, 논문, 참고문헌 수 */
+	/** 연구분야별 저자수, 논문수, 학술지, 참고문헌수 통계1 */
 	@Override
 	public List<CtgrStatVO> getCtgrStatList() throws Exception {
 		return dao.getCtgrStatList();
 	}
 
-	/** 카테고리 통계목록 조회 **/
+	/** 연구분야별 저자수, 논문수, 학술지, 참고문헌수 통계2 **/
 	@Override
 	public List<CtgrStatVO> selectCtgrStatList(Map<String,Object> map){
 		return dao.selectCtgrStatList(map);
 	}
-	
-	@Override
-	public List<CtgrKwrdVO> kwrdCloudList(Map<String,Object> map) {
-		return dao.kwrdCloudList(map);
-	}
+
 }

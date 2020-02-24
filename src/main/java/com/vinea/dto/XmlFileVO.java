@@ -3,19 +3,29 @@ package com.vinea.dto;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+/** 파싱 정보_VO 객체  **/
 public class XmlFileVO {
 	
+	//논문 UID
 	private String uid;
+	//논문내용(REC시작~REC끝)
 	private String content;
+	//등록일(파싱날짜)
 	private String regist_date;
+	//등록자
 	private String registr_id;
+	//파일명
 	private String file_name;
+	//파싱여부(완료, 미완료)
 	private String parse_yn;
+	//삭제여부
 	private String del_yn;
+	//파싱완료된 논문개수
 	private int y_cnt;
+	//총 논문개수
 	private int all_cnt;
 	
-	
+	/* getter/setter 작성 */
 	public int getY_cnt() {
 		return y_cnt;
 	}
@@ -71,10 +81,9 @@ public class XmlFileVO {
 		this.del_yn = del_yn;
 	}
 	
+	/* VO객체에 담긴 데이터들을  로그로 확인할 때 사용 */	
 	public String toStringMultiline() {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
-	
-	
 	
 }

@@ -208,21 +208,20 @@
 							
 							chart.angles([15,90,30]);
 							chart.mode('spiral');
+							chart.background().fill("#fafafafa");
 							chart.container("kwrdcloud");
 							chart.background().fill("#fafafa");
 							chart.draw();
 							tooltip.format(formatter);
 							
 							chart.listen("pointClick", function(e) {
-								
-								var url = "키워드 해당 논문 경로" + e.point.get("x");
-								//alert(e.point.get("x"));
+			
+								//console.log(e.point.get("x"));
 								
 								var formObj = $("#frm");
 								
-								//$("input[name='search']").val(e.point.get("x"));
-								
-								
+								if(confirm(e.point.get("x") + "의 논문 목록을 보시겠습니까?") == true)
+								{
 								var input_search = document.createElement("input");
 								$(input_search).attr("type","hidden");
 								$(input_search).attr("name","search");
@@ -234,12 +233,16 @@
 								$(input_option).attr("name","search_option");
 								$(input_option).attr("value","7");
 								formObj.append(input_option);
-								
-								
+																
 								
 								formObj.attr("action", "/article");
 								formObj.attr("method", "get");
 								formObj.submit();
+								}
+								else
+									{
+										return false;
+									}
 								
 							});
 

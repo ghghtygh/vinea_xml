@@ -43,12 +43,11 @@ public class PostPager {
     	setRangeCnt(pageCnt);
     	
     	/* 현재 블럭 및 이전,다음 페이지 설정 */
-    	rangeSetting(nowPage);
-    	
-    	
+    	rangeSetting(nowPage);    	
     	setStartIndex(nowPage);
     	
     }
+    
     public void rangeSetting(int nowPage) {
     	
     	setNowRange(nowPage);
@@ -62,6 +61,7 @@ public class PostPager {
         this.nextPage = nowPage + 1;
     }
     
+    /* getter/setter 작성 */
 	public int getPageSize() {
 		return pageSize;
 	}

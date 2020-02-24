@@ -3,14 +3,21 @@ package com.vinea.dto;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+/** 연도별 통계 관련_VO 객체 **/
 public class YearVO {
 	
+	//발행연도
 	private String pub_year;
+	//논문수
 	private int arti_cnt;
+	//도서수
 	private int book_cnt;
+	//학술지수
 	private int jrnl_cnt;
+	//참고문헌수
 	private int refr_cnt;
 	
+	/* getter/setter 작성 */
 	public String getPub_year() {
 		return pub_year;
 	}
@@ -42,6 +49,7 @@ public class YearVO {
 		this.refr_cnt = refr_cnt;
 	}
 	
+	/* VO객체에 담긴 데이터들을  로그로 확인할 때 사용 */	
 	public String toStringMultiline() {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}

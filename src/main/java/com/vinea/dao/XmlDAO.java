@@ -35,12 +35,14 @@ public class XmlDAO {
 
 	Logger logger = LoggerFactory.getLogger(XmlDAO.class);
 	
+
+	/* 파싱된 정보 DB 저장 */
 	/** 파싱된 논문 건수 반환 **/
 	public int countXml(Map<String, Object> map) {
 
 		return sqlSession.selectOne(Namespace + ".countXml", map);
 	}
-
+	
 	/** 논문 정보 DB 저장 **/
 	public void insertArti(ArtiVO vo) {
 
@@ -62,7 +64,6 @@ public class XmlDAO {
 		sqlSession.insert(Namespace + ".insertConf", vo);
 	}
 	
-
 	/** 문서유형 정보 DB 저장 **/
 	public void insertDtype(DtypeVO vo) {
 		sqlSession.insert(Namespace + ".insertDtype", vo);
@@ -98,62 +99,70 @@ public class XmlDAO {
 		
 		sqlSession.insert(Namespace+".insertXmlFile", vo);
 	}
-	
-	
+		
 	/** 논문 정보리스트 DB 저장 **/
 	public void insertArtiList(List<ArtiVO> list){
 		if(list.isEmpty())
 			return;
 		sqlSession.insert(Namespace+".insertArtiList", list);
 	}
+	
 	/** 저자 정보리스트 DB 저장 **/
 	public void insertAuthList(List<AuthVO> list){
 		if(list.isEmpty())
 			return;
 		sqlSession.insert(Namespace+".insertAuthList", list);
 	}
+	
 	/** 북노트 정보리스트 DB 저장 **/
 	public void insertBooknoteList(List<BooknoteVO> list){
 		if(list.isEmpty())
 			return;
 		sqlSession.insert(Namespace+".insertBooknoteList", list);
 	}
+	
 	/** 학회 정보리스트 DB 저장 **/
 	public void insertConfList(List<ConfVO> list){
 		if(list.isEmpty())
 			return;
 		sqlSession.insert(Namespace+".insertConfList", list);
 	}
+	
 	/** 문서유형 정보리스트 DB 저장 **/
 	public void insertDtypeList(List<DtypeVO> list){
 		if(list.isEmpty())
 			return;
 		sqlSession.insert(Namespace+".insertDtypeList", list);
 	}
+	
 	/** 보조금 정보리스트 DB 저장 **/
 	public void insertGrntList(List<GrntVO> list){
 		if(list.isEmpty())
 			return;
 		sqlSession.insert(Namespace+".insertGrntList", list);
 	}
+	
 	/** 키워드 정보리스트 DB 저장 **/
 	public void insertKwrdList(List<KwrdVO> list){
 		if(list.isEmpty())
 			return;
 		sqlSession.insert(Namespace+".insertKwrdList", list);
 	}
+	
 	/** 저자 연구기관 정보리스트 DB 저장 **/
 	public void insertOrgnList(List<OrgnVO> list){
 		if(list.isEmpty())
 			return;
 		sqlSession.insert(Namespace+".insertOrgnList", list);
 	}
+	
 	/** 발행기관 정보리스트 DB 저장 **/
 	public void insertPublList(List<PublVO> list){
 		if(list.isEmpty())
 			return;
 		sqlSession.insert(Namespace+".insertPublList", list);
 	}
+	
 	/** 참고문헌 정보리스트 DB 저장 **/
 	public void insertRefrList(List<RefrVO> list){
 		if(list.isEmpty())
@@ -161,18 +170,14 @@ public class XmlDAO {
 		sqlSession.insert(Namespace+".insertRefrList", list);
 	}
 	
-	
-	
-	
-	
-	
+	/* 메인페이지_논문 목록 */
 	/** 페이징 처리된 논문 목록 조회  **/
 	public List<ArtiVO> selectXmlList(Map<String, Object> map) {
 
 		return sqlSession.selectList(Namespace + ".selectXmlList", map);
 	}
 	
-	
+	/* 상세페이지*/
 	/** 논문 상세보기 **/
 	public ArtiVO selectOneXml(String uid){
 		
@@ -209,6 +214,7 @@ public class XmlDAO {
 		return sqlSession.selectList(Namespace +".selectPublList", uid);
 	}
 	
+	/* XML 파일 파싱 부분 */
 	/** XML 파일명에 따른 REC태그 **/
 	public XmlFileVO selectOneXmlFile(String file_name){
 		
@@ -232,8 +238,7 @@ public class XmlDAO {
 		
 		return sqlSession.selectList(Namespace +".selectParseYN");
 	}
-	
-	
+		
 	/** XML 파일 파싱완료 표기 **/
 	public void updateParseYN(String uid){
 		
@@ -246,43 +251,45 @@ public class XmlDAO {
 		sqlSession.update(Namespace+".updateErrorYN", uid);
 	}
 	
-	/** 키워드 빈도 수 **/
+	/* 파싱된 결과 통계 부분 */
+	/** 분야별 키워드 빈도 수 (워드클라우드 생성) **/
+	public List<CtgrKwrdVO> kwrdCloudList(Map<String,Object> map) {
+		return sqlSession.selectList(Namespace + ".kwrdCloudList", map);
+	}
+	
+	/** 분야별 키워드 빈도 수 **/
 	public List<CtgrKwrdVO> getKwrdCnt() {
 		return sqlSession.selectList(Namespace + ".getKwrdCnt");
 	}
 	
-	/** 연도별 통계 조회 **/
+	/** 연도별 논문수, 도서수, 참고문헌수, 학술지수 통계 **/
 	public List<YearVO> getYearCnt() {
 		return sqlSession.selectList(Namespace + ".getYearCnt");
 	}
 	
-	/** 기관목록 조회 - COUNT **/
+	/** 소속기관별 데이터 통계(기관수) **/
 	public int countOrg(Map<String,Object> map) throws Exception{
 		return sqlSession.selectOne(Namespace + ".countOrg", map);
 	}
 	
-	/** 기관목록 조회 - SELECT **/
+	/** 소속기관별 데이터 통계(기관목록) **/
 	public List<OrgnVO> selectOrgList(Map<String,Object> map){
 		return sqlSession.selectList(Namespace + ".selectOrgList", map);
 	}
 	
-	/** 카테고리 통계 조회 - COUNT **/
+	/** 연구분야별 저자수, 논문수, 학술지, 참고문헌수 **/
 	public int countCtgrStat(Map<String,Object> map){
 		return sqlSession.selectOne(Namespace + ".countCtgrStat", map);
 	}
 	
+	/** 연구분야별 저자수, 논문수, 학술지, 참고문헌수 통계1 */
 	public List<CtgrStatVO> getCtgrStatList() {
 		return sqlSession.selectList(Namespace + ".getCtgrStatList");
 	}
 	
-	/** 카테고리 통계 조회 - SELECT **/
+	/** 연구분야별 저자수, 논문수, 학술지, 참고문헌수 통계2 **/
 	public List<CtgrStatVO> selectCtgrStatList(Map<String,Object> map){
 		return sqlSession.selectList(Namespace + ".selectCtgrStatList", map);
 	}
-	
-	
-	
-	public List<CtgrKwrdVO> kwrdCloudList(Map<String,Object> map) {
-		return sqlSession.selectList(Namespace + ".kwrdCloudList", map);
-	}
+		
 }
