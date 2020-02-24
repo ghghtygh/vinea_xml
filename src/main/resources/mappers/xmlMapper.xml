@@ -1286,8 +1286,7 @@
 			)	A 
 			ORDER BY 
 				PUB_YEAR 
-			ASC
-			
+			ASCS		
 	</select>
 	
 	<select id="countOrg" resultType="java.lang.Integer" parameterType="hashMap">

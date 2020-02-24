@@ -177,8 +177,9 @@
 				</ol>
 				<p style="font-size: 20px; font-weight: bold; color: #000069; margin-top: 50px">분야별 키워드 빈도수</p>
 				<!-- 분야별 키워드 빈도를 나타낼 워드클라우드  -->
-				<div>
-					<div id="kwrdcloud" style="width: 1200px; height: 800px; margin-left: 130px"></div>
+				<div align="center">
+					<!-- <div id="kwrdcloud" style="width: 1200px; height: 800px; margin-left: 130px"></div>-->
+					 <div id="kwrdcloud" style="width: 800px; height: 600px;"></div>
 				</div>
 				<script>
 					/* 키워드명 */
@@ -203,20 +204,19 @@
 							
 							/* 리스트 데이터를 JSON 형태로 변경하여 데이터에 넣음 */
 							<c:forEach items="${list2}" var="item">
+								//console.log(JSON.parse('${item}'));
 								data.push( JSON.parse('${item}'));
 							</c:forEach>
 							
 							/* 워드클라우드 옵션 설정 */
-							var chart = anychart.tagCloud();
-							chart.data(
-								data,{mode:"by-word"}
-							);
-							var formatter = "{%value}";
+							var chart = anychart.tagCloud(data);
+							var formatter = "{%yPercentOfTotal}% ({%value})";
 							var tooltip = chart.tooltip();		
 							
 							chart.angles([0]);
 							//chart.angles([0, 30, 90, 0]);
 							
+							chart.textSpacing(5);
 							chart.mode('spiral');
 							//chart.mode('rect');
 
