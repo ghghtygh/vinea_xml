@@ -452,26 +452,28 @@ input:read-only {
 																<c:if test="${a.count==1 }">${auth.auth_full_nm}</c:if>
 															</c:forEach>
 															<c:if test="${fn:length(ArtiVO.list_auth)>1}">
-																<c:out value="  외  ${fn:length(ArtiVO.list_auth)-1}명 "></c:out>
+																<c:out value="  외  ${fn:length(ArtiVO.list_auth)-1}명 |"></c:out>
 															</c:if>
 															<!-- 학술지명 -->
-															| ${ArtiVO.jrnl_title} |
+															 ${ArtiVO.jrnl_title}
 															<!-- 호번호가 공백이 아닐때 권(호)로 표시 -->
-															<c:if test="${ArtiVO.issue != ''}">
-																${ArtiVO.volume}(${ArtiVO.issue}) 
+															<c:if test="${ArtiVO.issue != '' and AriVO.volume != ''}">
+																| ${ArtiVO.volume}(${ArtiVO.issue}) |
 															</c:if>
 															<!-- 호번호가 공백일 때 권으로 표시 -->
-															<c:if test="${ArtiVO.issue == ''}">
-																${ArtiVO.volume} |
+															<c:if test="${ArtiVO.issue == '' and ArtiVO.volume != ''}">
+																 | ${ArtiVO.volume} |
 															</c:if>
 															<!-- 시작페이지와 끝페이지가 공백이 아닐때 '시작페이지~끝페이지'로 표시 -->
-															<c:if test="${ArtiVO.begin_page != '' && ArtiVO.end_page != ''}">
+															<c:if test="${ArtiVO.begin_page != '' and ArtiVO.end_page != '' and ArtiVO.issue == '' and ArtiVO.volume == ''}">
 																| pp.${ArtiVO.begin_page}~${ArtiVO.end_page} |
+															</c:if>
+															<c:if test="${ArtiVO.begin_page == '' and ArtiVO.end_page == ''}">
 															</c:if>
 															<!-- 년-월-일로 표시되있는 pub_date 데이터를 '-'로 구분하여 데이터 표기  -->
 															<c:set var="tmp_list" value="${fn:split(ArtiVO.pub_date,'-')}" />
 															<c:forEach var="tmp" items="${tmp_list}" varStatus="g">
-																<c:if test="${g.count == 2}">${ArtiVO.pub_year}.${tmp}</c:if>
+																<c:if test="${g.count == 2}"> ${ArtiVO.pub_year}.${tmp}</c:if>
 															</c:forEach>
 														</div>
 													</footer>
