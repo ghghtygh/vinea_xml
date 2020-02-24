@@ -22,24 +22,28 @@
 
 	var searchs = "${search}";
 	
-	/** document 로딩 **/
+	/** document 로딩 시작 **/
 	$(document).ready(function() {
 
+		/** 처음 파싱 모달창에서 로딩바 숨김 **/
 		$("#loading").hide();
 
+		/** 검색한 내용 **/
 		$("input[name='search']").val(searchs);
 		$("#input_search").val(searchs);
 		
+		/** 검색 옵션(제목, 저자, 키워드) **/
 		$('#search_option option[value="${search_option}"]').attr("selected",true);
-		
+		/** 정렬 옵션(UID, 발행일, 제목) **/
 		$('#sort_option option[value="${sort_option}"]').attr("selected",true);
 		
 		/** 정렬하기 **/
 		$("#sort_option").on('change',function(){
 			
+			/** 선택한 정렬 옵션 **/
 			var sort_option = $(this).val();
 			
-			
+			/** 선택된 옵션에 따라 페이지를 업데이트 **/
 			var formObj = $("#frm");
 			formObj.attr("action", "/article");
 			formObj.attr("method", "get");
@@ -51,10 +55,13 @@
 		$("#btn_search").on("click", function(e){
 			e.preventDefault();
 			
+			/** 선택한 검색 옵션 **/
 			var search = $("#input_search").val();
 			
+			/** 입력한 검색어 **/
 			$("input[name='search']").val(search);
 			
+			/** 검색된 내용에 따라 페이지 업데이트 **/
 			var formObj = $("#frm");
 			formObj.attr("action", "/article");
 			formObj.attr("method", "get");
@@ -72,8 +79,6 @@
 		/** 모달 닫힐때 modal remote 데이터 지우기 **/
 		$('body').on('hidden.bs.modal', '.modal', function () {
 			
-			//console.log("모달 닫힘");
-			//$(this).find('.modal-content').empty();
 		    $("#insertXML").removeData('bs.modal');
 		});
 
@@ -81,13 +86,11 @@
 		$("#btn_insertXML").on("click", function(e) {
 
 			e.preventDefault();
-
 			
 			$("#div_alert").hide();
 
 			input_chk();
-			
-			//$("#insertXML").modal();
+
 			$("#insertXML").modal({remote:"article/parsing"});
 			
 			
@@ -102,8 +105,8 @@
 
 			console.log(m_chk);
 
+			/** 파일 경로가 일치하지 않거나, 파일이 없을 때(validation 처리) **/
 			if (!m_chk) {
-
 				$("#alert_subject").html("XML 파일경로 미확인");
 				$("#alert_content").html("XML 파일이 확인되지 않았습니다<br>파싱 버튼을 눌러주세요");
 				$("#div_alert").show();
@@ -112,8 +115,8 @@
 
 			var result = confirm("파싱된 내용을 저장하시겠습니까?");
 
+			/** 파싱한 결과에 따라 업데이트 되면서 저장될 수 있도록 함 **/
 			if (result) {
-
 				var formObj = $("#frm");
 				formObj.attr("action", "/article/insert");
 				formObj.attr("method", "post");
@@ -133,8 +136,8 @@
 
 			var filePath = $("#filePath").val();
 
+			/** 파일 경로를 입력하지 않았을 때(validation 처리) **/
 			if (filePath == "") {
-
 				$("#alert_subject").html("XML 경로 미입력");
 				$("#alert_content").html("XML 경로를 입력하지 않았습니다");
 				$("#div_alert").show();
@@ -143,6 +146,7 @@
 			}
 			$("#div_alert").hide();
 
+			
 			$.ajax({
 				async : true,
 				url : "${pageContext.request.contextPath}/article/check",
@@ -188,7 +192,7 @@
 		});
 
 	});
-	/** document 로딩 끝 **/
+	/** document 로딩 종료 **/
 	
 	/** 페이지 이동  **/
 	function fn_paging(nowPage) {
@@ -206,18 +210,19 @@
 		formObj.submit();
 
 	}
+	
 	function input_chk() {
-
+		
 		clear_input();
-
 		m_chk = false;
-
+		
 	}
 	
 	
 	function clear_input() {
+		
 		$("#div_parse").html("");
-
+		
 	}
 	
 	/** input 태그에서 엔터 눌렀을 때 새로고침 방지 및 제출하기 **/
@@ -237,6 +242,7 @@
 	}
 </script>
 <style>
+/** 모달 창 백그라운드를 흐리게 함 **/
 .modal-backdrop {
 	position: fixed;
 	top: 0;
@@ -253,14 +259,13 @@ input:read-only {
 	width: 100%;
 }
 
+/** 사이드바 메뉴 에러 해결 **/
 .list-unstyled.show.collapse.in {
 	visibility: visible
 }
-
 .list-unstyled.show.collapse {
 	visibility: hidden
 }
-
 .list-unstyled.show.collapsing {
 	visibility: hidden
 }
@@ -273,10 +278,13 @@ input:read-only {
 			<div class="p-4 pt-5">
 				<a href="/article" class="img logo rounded-circle mb-5" style="background-image: url(/resources/image/analyticx.png);"></a>
 				<ul class="list-unstyled components mb-5">
-					<li class="active"><a href="#homeSubmenu" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">메인</a>
+					<li class="active">
+						<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">메인</a>
 						<ul class="list-unstyled collapse show in" id="homeSubmenu">
-							<li class="active"><a href="/article">논문보기</a></li>
-						</ul></li>
+							<li class="active">
+								<a href="/article">논문보기</a></li>
+						</ul>
+					</li>
 					<!-- 기관별 현황 페이지에서는 '현황>소속기관별 현황'을 선택상태로 둠 -->
 					<li><a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">현황</a>
 						<ul class="list-unstyled collapse show in" id="pageSubmenu">
@@ -284,17 +292,22 @@ input:read-only {
 							<li><a href="/article/orgnstat">소속기관별 현황</a></li>
 							<li><a href="/article/ctgrstat">분야별 현황</a></li>
 							<li><a href="/article/kwrdstat">키워드 현황</a></li>
-						</ul></li>
+						</ul>
+					</li>
 				</ul>
 				<div class="footer">
 					<p>
 						<script>
 							document.write(new Date().getFullYear());
 						</script>
-						About XML Parsing <i class="icon-heart" aria-hidden="true"></i>
+							About XML Parsing 
+							<i class="icon-heart" aria-hidden="true"></i>
 					</p>
 					<p>
-						made with by JuHyeon&Minjin <a href="https://github.com/ghghtygh/vinea_xml.git" style="font-size: 12px" target="_blank"> https://github.com/ghghtygh/vinea_xml.git </a>
+						made with by JuHyeon&Minjin 
+						<a href="https://github.com/ghghtygh/vinea_xml.git" style="font-size: 12px" target="_blank"> 
+							https://github.com/ghghtygh/vinea_xml.git 
+						</a>
 				</div>
 			</div>
 		</nav>
@@ -316,49 +329,64 @@ input:read-only {
 				</div>
 			</nav>
 			<form id="frm" enctype="multipart/form-data">
+				<!-- 검색기능 -->
 				<input type="hidden" name="search" value="">
-
 				<c:choose>
 					<c:when test="${search_option==4}">
+						<!-- 검색 옵션: 학술지명 -->
 						<input type="hidden" name="search_option" value="4">
+						<!--  정렬 옵션: UID 순 -->
 						<input type="hidden" name="sort_option" value="1">
+						<!-- 학술지명으로 검색하였을 때 결과 -->
 						<div>
 							<h5>학술지명 : ${search}</h5>
-							&nbsp;총 &nbsp;${cnt }&nbsp;건&nbsp;&nbsp; <a href="/">전체보기</a>
+								&nbsp;총 &nbsp;${cnt }&nbsp;건&nbsp;&nbsp; 
+							<a href="/">전체보기</a>
 						</div>
 					</c:when>
 					<c:when test="${search_option==5}">
+						<!-- 검색 옵션 : 저자명 -->
 						<input type="hidden" name="search_option" value="5">
+						<!--  정렬 옵션: UID 순 -->
 						<input type="hidden" name="sort_option" value="1">
+						<!-- 저자명으로 검색하였을 때 결과 -->
 						<div>
 							<h5>저자 : ${search}</h5>
-							&nbsp;총 &nbsp;${cnt }&nbsp;건&nbsp;&nbsp; <a href="/">전체보기</a>
+								&nbsp;총 &nbsp;${cnt }&nbsp;건&nbsp;&nbsp; 
+							<a href="/">전체보기</a>
 						</div>
 					</c:when>
 					<c:when test="${search_option==6}">
+						<!-- 검색 옵션: 기관명 -->
 						<input type="hidden" name="search_option" value="6">
+						<!-- 정렬 옵션: UID 순 -->
 						<input type="hidden" name="sort_option" value="1">
+						<!-- 기관명으로 검색하였을 때 결과 -->
 						<div>
 							<h5>기관명 : ${search}</h5>
 							&nbsp;총 &nbsp;${cnt }&nbsp;건&nbsp;&nbsp; <a href="/">전체보기</a>
 						</div>
 					</c:when>
 					<c:when test="${search_option==7}">
+						<!-- 검색 옵션: 키워드명 -->
 						<input type="hidden" name="search_option" value="7">
+						<!--  정렬 옵션: UID 순 -->
 						<input type="hidden" name="sort_option" value="1">
+						<!--  키워드명으로 검색하였을 때 결과 -->
 						<div>
 							<h5>키워드명 : ${search}</h5>
-							&nbsp;총 &nbsp;${cnt }&nbsp;건&nbsp;&nbsp; <a href="/">전체보기</a>
+								&nbsp;총 &nbsp;${cnt }&nbsp;건&nbsp;&nbsp; 
+							<a href="/">전체보기</a>
 						</div>
 					</c:when>
 					<c:otherwise>
-
 						<div class="row">
 							<div class="col-sm-9">
 								<div class="form-group row">
 									<div class="form-group">
 										<div class="input-group mb-3">
 											<div class="input-group-prepend">
+												<!-- 검색 옵션: 제목, 저자, 키워드 -->
 												<select class="form-control" id="search_option" name="search_option">
 													<option value="1">제목</option>
 													<option value="2">저자</option>
@@ -376,6 +404,7 @@ input:read-only {
 							<div class="col-sm-3">
 								<div class="form-group row">
 									<label class="col-sm-4 col-form-label" align="right">정렬</label>
+									<!-- 정렬 옵션: UID 순, 발행일순, 제목순 -->
 									<select class="col-sm-8 form-control" id="sort_option" name="sort_option">
 										<option value="1">UID 순</option>
 										<option value="2">발행일 순</option>
@@ -384,11 +413,14 @@ input:read-only {
 								</div>
 							</div>
 						</div>
+						<!-- 검색한 내용이 공백(null)이 아닐때 -->
 						<c:if test="${search ne ''}">
 							<div>
+								<!-- 총 검색된 논문 건수 -->
 								<div style="">
 									<h5>검색결과 : ${cnt }건</h5>
 								</div>
+								<!-- 전체 논문 목록 페이지로 이동 -->
 								<div style="">
 									<a href="/">전체보기</a>
 								</div>
@@ -396,7 +428,6 @@ input:read-only {
 						</c:if>
 					</c:otherwise>
 				</c:choose>
-
 				<div>
 					<table class="table table-hover">
 						<tbody>
@@ -405,6 +436,7 @@ input:read-only {
 								<c:when test="${not empty xmlList}">
 									<c:forEach items="${xmlList}" var="ArtiVO" varStatus="g">
 										<tr>
+											<!-- 논문 순번 -->
 											<td>
 												<p class="mb-0" style="margin-top: 5px;">${ArtiVO.num}</p>
 											</td>
@@ -413,25 +445,30 @@ input:read-only {
 													<!-- 논문 제목 클릭시, 논문상세페이지로 이동 -->
 													<a class="mb-0" style="color: black;" href='article/article_detail?uid=${ArtiVO.uid}'> ${ArtiVO.arti_title} </a>
 													<footer style="font-size: 70%; vertical-align: bottom;">
-														<!--  저자정보, 학회정보, 권(호), 시작~끝페이지, 발행일자, 연구분야  -->
 														<div align="left" class="text-secondary" style="margin-top: 10px;">
 															&nbsp;
+															<!-- 저자정보(주저자 외에 '외 ~명' 으로 표시) -->
 															<c:forEach var="auth" items="${ArtiVO.list_auth}" varStatus="a">
 																<c:if test="${a.count==1 }">${auth.auth_full_nm}</c:if>
 															</c:forEach>
 															<c:if test="${fn:length(ArtiVO.list_auth)>1}">
 																<c:out value="  외  ${fn:length(ArtiVO.list_auth)-1}명 "></c:out>
 															</c:if>
+															<!-- 학술지명 -->
 															| ${ArtiVO.jrnl_title} |
+															<!-- 호번호가 공백이 아닐때 권(호)로 표시 -->
 															<c:if test="${ArtiVO.issue != ''}">
-														${ArtiVO.volume}(${ArtiVO.issue}) 
-													</c:if>
+																${ArtiVO.volume}(${ArtiVO.issue}) 
+															</c:if>
+															<!-- 호번호가 공백일 때 권으로 표시 -->
 															<c:if test="${ArtiVO.issue == ''}">
-														${ArtiVO.volume} |
-													</c:if>
+																${ArtiVO.volume} |
+															</c:if>
+															<!-- 시작페이지와 끝페이지가 공백이 아닐때 '시작페이지~끝페이지'로 표시 -->
 															<c:if test="${ArtiVO.begin_page != '' && ArtiVO.end_page != ''}">
-														| pp.${ArtiVO.begin_page}~${ArtiVO.end_page} |
-													</c:if>
+																| pp.${ArtiVO.begin_page}~${ArtiVO.end_page} |
+															</c:if>
+															<!-- 년-월-일로 표시되있는 pub_date 데이터를 '-'로 구분하여 데이터 표기  -->
 															<c:set var="tmp_list" value="${fn:split(ArtiVO.pub_date,'-')}" />
 															<c:forEach var="tmp" items="${tmp_list}" varStatus="g">
 																<c:if test="${g.count == 2}">${ArtiVO.pub_year}.${tmp}</c:if>
@@ -493,20 +530,15 @@ input:read-only {
 								</c:choose>
 								<c:choose>
 									<c:when test="${pager.nowPage ne pager.pageCnt }">
-
 										<a class="btn btn-primary" href="#" onClick="fn_paging('${pager.pageCnt}')">끝</a>
-
-
 									</c:when>
 									<c:otherwise>
-
 										<a class="btn btn-primary disabled">끝</a>
-
 									</c:otherwise>
 								</c:choose>
-
 							</div>
 						</div>
+						<!-- 파싱 모달창으로 이동하는 부분 -->
 						<div>
 							<div style="position: relative; float: right; z-index: 10;">
 								<button id="btn_insertXML" type="button" class="btn btn-primary">XML추가</button>
@@ -514,7 +546,7 @@ input:read-only {
 						</div>
 					</div>
 				</div>
-				<!-- / 페이징처리 -->
+				<!-- 페이징 처리(종료) -->
 			</form>
 		</div>
 	</div>
@@ -525,8 +557,9 @@ input:read-only {
 		</div>
 	</div>
 	<!-- / [XML추가] 모달 -->
-	<!-- JQUERY, 필요한 JAVASCRIPT 파일 -->
-	<script src="/resources/js/popper.js"></script>
-	<script src="/resources/js/main.js"></script>
+	
+<!-- JQUERY, 필요한 JAVASCRIPT 파일 -->
+<script src="/resources/js/popper.js"></script>
+<script src="/resources/js/main.js"></script>
 </body>
 </html>

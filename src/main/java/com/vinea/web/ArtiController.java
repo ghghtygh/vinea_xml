@@ -294,6 +294,7 @@ public class ArtiController {
 	@RequestMapping(value = "/article/subjcnt", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
 	public @ResponseBody String subjlist(@RequestParam(defaultValue="1")String sort_option,Locale locale, Model model) throws Exception {
 		
+		/* 차트에 데이터를 JSON 방식으로 넘김 */
 		Gson gson = new Gson();
 		List<CtgrStatVO> list = service.getCtgrStatList();
 		for(CtgrStatVO vo :list){
@@ -364,6 +365,7 @@ public class ArtiController {
 	@RequestMapping(value = "/article/kwrdcnt", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
 	public @ResponseBody String incomeList(Locale locale, Model model) throws Exception {
 
+		/* 차트에 데이터를 JSON 방식으로 넘김 */
 		Gson gson = new Gson();
 		List<CtgrKwrdVO> list = service.getKwrdCnt();
 		return gson.toJson(list);

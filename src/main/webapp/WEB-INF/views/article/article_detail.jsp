@@ -23,7 +23,6 @@
 a.tip {
 	position: relative;
 }
-
 a.tip span {
 	display: none;
 	position: absolute;
@@ -44,6 +43,17 @@ a.tip span {
 a:hover.tip span {
 	display: block;
 }
+
+/** 사이드바 메뉴 에러 해결 **/
+.list-unstyled.show.collapse.in{
+	visibility:visible
+}
+.list-unstyled.show.collapse{
+	visibility:hidden
+}
+.list-unstyled.show.collapsing{
+	visibility:hidden
+}
 </style>
 
 <script>
@@ -58,7 +68,6 @@ a:hover.tip span {
 
 		/** open, close 일때 이미지를 변경시키면서 요약,상세를 표시 **/
 		/** slideUp과 slideDown 메소드를 사용하여 요약,상세 기능 **/
-
 		$(".articleBody h2").click(sectionToggle).keydown(function(e) {
 
 			if (e.which == 13 || e.keyCode == 13)
@@ -116,6 +125,7 @@ a:hover.tip span {
 
 	}
 	
+	/** 상세보기 페이지에서 학술지명을 클릭하였을 때, 학술지명에 해당하는 논문 목록페이지로 이동 **/
 	function search_jrnl(title){
 		
 		$("input[name='search']").val(title);
@@ -135,6 +145,7 @@ a:hover.tip span {
 			}
 	}
 	
+	/** 상세보기 페이지에서 저자명을 클릭하였을 때, 그 저자에 해당하는 논문 목록페이지로 이동 **/
 	function search_auth(auth){
 		
 		$("input[name='search']").val(auth);
@@ -154,6 +165,7 @@ a:hover.tip span {
 		
 	}
 	
+	/** 연구분야를 클릭하였을 때, 연구분야 동향페이지로 이동 전에 alert창으로 물어본다 **/
 	function goCtgrStat()
 	{
 		if(confirm("연구분야 동향을 확인해보시겠습니까?") == true)
@@ -166,20 +178,10 @@ a:hover.tip span {
 			}
 	}
 </script>
-<style>
-.list-unstyled.show.collapse.in{
-	visibility:visible
-}
-.list-unstyled.show.collapse{
-	visibility:hidden
-}
-.list-unstyled.show.collapsing{
-	visibility:hidden
-}
-</style>
 </head>
 <form id="frm">
 	<body>
+		<!-- 검색 기능을 위한 hidden 정의 -->
 		<input type="hidden" name="search" value="">
 		<input type="hidden" name="search_option" value="">
 		<div class="wrapper d-flex align-items-stretch">
@@ -197,6 +199,7 @@ a:hover.tip span {
 							</li>
 						</ul>
 					</li>
+						<!-- 사이드바 메뉴: 현황 메뉴 -->
 						<li>
 							<a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">현황</a>
 							<ul class="list-unstyled collapse show in" id="pageSubmenu" aria-expanded="false">

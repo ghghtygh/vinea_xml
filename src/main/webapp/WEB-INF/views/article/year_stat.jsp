@@ -24,15 +24,6 @@
 <!-- Chart.js 사용(라인, 바, 플롯, 레이더 등 사용) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.js'></script>
-
-<script>
-	
-	$(document).ready(function(){
-	
-	});
-	
-
-</script>
 </head>
 <form>
 <body>
@@ -104,6 +95,7 @@
 			</nav>
 			<!-- tab 정의 -->
 			<ul class="nav nav-tabs">
+				<!-- 연도별 통계(논문수, 도서수, 참고문헌수, 학술지수) -->
 				<li class="nav-item">
 					<a class="nav-link active" href="#year1" data-toggle="tab">연도별 통계</a>					
 				</li>
@@ -123,13 +115,15 @@
 						<c:choose>
 							<c:when test="${not empty yearVOList}">
 								<c:forEach items="${yearVOList}" var="vo" varStatus="g">
+									<!-- 구분: 발행연도 -->
 									<th style="border-top: 2px solid #000069">${vo.pub_year}</th>
 								</c:forEach>
 							</c:when>
 						</c:choose>
-						<th style="border-top: 2px solid #000069">합계</th>
-					
+						<!-- 논문수, 도서수, 학술지수, 참고문헌수 각각 합계 나타낼 부분 -->
+						<th style="border-top: 2px solid #000069">합계</th>				
 						<tr>
+							<!-- 논문수 통계 -->
 							<td style="border-top: 1px solid #b4b4b4">논문</td>
 							<c:choose>
 								<c:when test="${not empty yearVOList}">
@@ -141,9 +135,9 @@
 									<td style="border-top: 1px solid #b4b4b4"><c:out value="${sum}"/></td>
 								</c:when>
 							</c:choose>
-						</tr>
-						
+						</tr>		
 						<tr>
+							<!-- 도서수 통계 -->
 							<td style="">도서</td>
 							<c:choose>
 								<c:when test="${not empty yearVOList}">
@@ -156,8 +150,8 @@
 								</c:when>
 							</c:choose>
 						</tr>
-						
 						<tr>
+							<!-- 학술지수 통계 -->
 							<td style="">학술지</td>
 							<c:choose>
 								<c:when test="${not empty yearVOList}">
@@ -169,9 +163,9 @@
 									<td style=""><c:out value="${sum}"/></td>
 								</c:when>
 							</c:choose>
-						</tr>
-						
+						</tr>						
 						<tr>
+							<!-- 참고문헌수 통계 -->
 							<td style="">참고문헌</td>
 							<c:choose>
 								<c:when test="${not empty yearVOList}">
@@ -212,12 +206,18 @@
 		            ctx.canvas.width = 800;
 		            ctx.canvas.height = 400;
 		            
+		            /** x축에 들어갈 발행연도 데이터 **/
 		            var chartLabels = [];
+		            /** 논문수 데이터 **/
 		            var artiCnt = [];
+		            /** 도서수 데이터 **/
 		            var bookCnt = [];
+		            /** 학술지수 데이터 **/
 		            var jrnlCnt = [];
+		            /** 참고문헌수 데이터 **/
 		            var refrCnt = [];
 		            
+		            /** 발행연도, 논문수, 도서수, 학술지수, 참고문헌수 각각 데이터를 JSON 방식으로 불러옴 **/
 		            $.getJSON("/article/yearcnt", function(data){	
 						$.each(data, function(inx, obj){	
 							chartLabels.push(obj.pub_year);	

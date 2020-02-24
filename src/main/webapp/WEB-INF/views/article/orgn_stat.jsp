@@ -49,18 +49,19 @@
 	z-index
 	=1;
 }
-
+/** a태그에 해당하는 부분 마우스를 올려놓았을 경우 글씨 색깔 변하도록 함 **/
 a:hover {
 	color: #000069
 }
 </style>
-
 <script>
 
+	/** document 로딩 시작 **/ 
 	$(document).ready(function() {
 		
 		var searchs = "${search}";
 		
+		/* 검색어 입력 */
 		$("input[name='search']").val(searchs);
 		$("#input_search").val(searchs);
 		
@@ -77,75 +78,69 @@ a:hover {
 			formObj.attr("action", "/article/orgnstat");
 			formObj.attr("method", "get");
 			formObj.submit();
-		});
-		
-		
-		
-		
+		});		
 	});
-/** 페이지 이동  **/
-function fn_paging(nowPage) {
-
-	var formObj = $("#frm");
+	/** document 로딩 종료 **/ 
 	
-	var input_page = document.createElement("input");
-	$(input_page).attr("type","hidden");
-	$(input_page).attr("name","page");
-	$(input_page).attr("value",nowPage);
-	formObj.append(input_page);
+	/** 소속기관별 데이터 통계(목록형 데이터 통계: 페이징 처리) **/
+	function fn_paging(nowPage) {
 	
-	formObj.attr("action", "/article/orgnstat");
-	formObj.attr("method", "get");
-	formObj.submit();
-
-}
-/** input 태그에서 엔터 눌렀을 때 새로고침 방지 및 제출하기 **/
-function inputKey(){
-	if(event.keyCode==13){
-		
-		var search = $("#input_search").val();
-		
-		$("input[name='search']").val(search);
-		
 		var formObj = $("#frm");
+		
+		var input_page = document.createElement("input");
+		$(input_page).attr("type","hidden");
+		$(input_page).attr("name","page");
+		$(input_page).attr("value",nowPage);
+		formObj.append(input_page);
+		
 		formObj.attr("action", "/article/orgnstat");
 		formObj.attr("method", "get");
 		formObj.submit();
-	}else{
-		return true;
+	
 	}
-}
-
-function search_orgn(orgn_nm){
 	
-	
-	var formObj = $("#frm");
-	
-	if(confirm(orgn_nm + "기관의 논문 목록을 보시겠습니까?") == true)
-	{
-	$("input[name='search']").val(orgn_nm);
-	var input_option = document.createElement("input");
-	
-	$(input_option).attr("type","hidden");
-	
-	$(input_option).attr("name","search_option");
-	
-	$(input_option).attr("value","6");
-	
-	formObj.append(input_option);
-	
-	
-	
-	formObj.attr("action", "/article");
-	formObj.attr("method", "get");
-	formObj.submit();
-	}
-	else
-		{
-		return false;
+	/** input 태그에서 엔터 눌렀을 때 새로고침 방지 및 제출하기 **/
+	function inputKey(){
+		if(event.keyCode==13){
+			
+			var search = $("#input_search").val();
+			
+			$("input[name='search']").val(search);
+			
+			var formObj = $("#frm");
+			formObj.attr("action", "/article/orgnstat");
+			formObj.attr("method", "get");
+			formObj.submit();
+		}else{
+			return true;
 		}
-}
-
+	}
+	
+	/** 통계 목록에서 기관명 클릭하였을 때 페이지 이동 **/
+	function search_orgn(orgn_nm){
+		
+		
+		var formObj = $("#frm");
+		
+		if(confirm(orgn_nm + "기관의 논문 목록을 보시겠습니까?") == true)
+		{
+		$("input[name='search']").val(orgn_nm);
+		var input_option = document.createElement("input");
+		
+		$(input_option).attr("type","hidden");		
+		$(input_option).attr("name","search_option");		
+		$(input_option).attr("value","6");
+		
+		formObj.append(input_option);				
+		formObj.attr("action", "/article");
+		formObj.attr("method", "get");
+		formObj.submit();
+		}
+		else
+		{
+			return false;
+		}
+	}
 </script>
 </head>
 <body>
@@ -157,8 +152,11 @@ function search_orgn(orgn_nm){
 				<ul class="list-unstyled components mb-5">
 					<li><a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">메인</a>
 						<ul class="collapse list-unstyled" id="homeSubmenu">
-							<li><a href="/article">논문보기</a></li>
-						</ul></li>
+							<li>
+								<a href="/article">논문보기</a>
+							</li>
+						</ul>
+					</li>
 					<!-- 기관별 현황 페이지에서는 '현황>소속기관별 현황'을 선택상태로 둠 -->
 					<li class="active"><a href="#pageSubmenu" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">현황</a>
 						<ul class="list-unstyled collapse show in" id="pageSubmenu" aria-expanded="true">
@@ -173,10 +171,14 @@ function search_orgn(orgn_nm){
 						<script>
 							document.write(new Date().getFullYear());
 						</script>
-						About XML Parsing <i class="icon-heart" aria-hidden="true"></i>
+							About XML Parsing 
+							<i class="icon-heart" aria-hidden="true"></i>
 					</p>
 					<p>
-						made with by JuHyeon&Minjin <a href="https://github.com/ghghtygh/vinea_xml.git" style="font-size: 12px" target="_blank"> https://github.com/ghghtygh/vinea_xml.git </a>
+						made with by JuHyeon&Minjin 
+						<a href="https://github.com/ghghtygh/vinea_xml.git" style="font-size: 12px" target="_blank"> 
+							https://github.com/ghghtygh/vinea_xml.git 
+						</a>
 				</div>
 			</div>
 		</nav>
@@ -199,6 +201,7 @@ function search_orgn(orgn_nm){
 			</nav>
 			<!-- tab 정의 -->
 			<ul class="nav nav-tabs">
+				<!-- 소속기관별 데이터 통계 -->
 				<li class="nav-item">
 					<a class="nav-link active" href="#orgn1" data-toggle="tab">소속기관별 통계</a>					
 				</li>
@@ -209,8 +212,7 @@ function search_orgn(orgn_nm){
 				<div class="tab-pane active" id="orgn1">
 					<!--  소속기관별 통계: 테이블 -->
 					<div id="orgn_stat1" style="margin-top: 20px">
-						<p style="font-size: 20px; font-weight: bold; color: #000069">소속기관별 데이터 통계</p>
-
+						<p style="font-size: 20px; font-weight: bold; color: #000069">소속기관별 데이터 통계</p>				
 						<div class="row">
 							<div class="col-lg-12">
 								<ol class="breadcrumb">
@@ -219,7 +221,8 @@ function search_orgn(orgn_nm){
 										<p style="font-size: 15px; font-weight: bold; margin-left: 15px; margin-right: 10px; margin-top: 10px">기관명</p>
 									</li>
 									<form id="frm" class="form-inline my-2 my-lg-0">
-										<input type="hidden" name="search" value=""> <input class="form-control" id="input_search" type="text" placeholder="기관명 검색.." style="margin-right: 10px" onKeyDown="return inputKey()" onsubmit="return false" value="" maxlength="30">
+										<input type="hidden" name="search" value=""> <input class="form-control" id="input_search" type="text" placeholder="기관명 검색.."
+										 style="margin-right: 10px" onKeyDown="return inputKey()" onsubmit="return false" value="" maxlength="30">
 										<button class="btn btn-primary" type="button" id="btn_search">검색</button>
 									</form>
 								</ol>
@@ -243,16 +246,16 @@ function search_orgn(orgn_nm){
 							<div class="col-lg-12">
 								<table style="text-align: center;" class="table table-hover">
 									<thead>
-									<colgroup>
-										<col width="20%;">
-										<col width="*">
-										<col width="20%;">
-										<col width="20%;">
-									</colgroup>
+										<colgroup>
+											<col width="20%;">
+											<col width="*">
+											<col width="20%;">
+											<col width="20%;">
+										</colgroup>
 									</thead>
 									<tbody>
 										<th style="border-top: 2px solid #000069">순번</th>
-										<th style="border-top: 2px solid #000069; text-align: center">소속기관명</th>
+										<th style="border-top: 2px solid #000069;text-align:center">소속기관명</th>
 										<th style="border-top: 2px solid #000069">논문수</th>
 										<th style="border-top: 2px solid #000069">인용수</th>
 										<c:choose>
@@ -263,9 +266,11 @@ function search_orgn(orgn_nm){
 															<!-- 순번 -->
 															${orgnVO.num }
 														</td>
-														<td style="text-align: left; padding-left: 5%">
+														<td style="text-align:left;padding-left:5%">
 															<!-- 소속기관명 -->
-															<a class="mb-0" href="#" style="color: black;" onClick="search_orgn('${orgnVO.orgn_nm}')"> ${orgnVO.orgn_nm} </a>
+															<a class="mb-0" href="#"  onClick="search_orgn('${orgnVO.orgn_nm}')">
+															${orgnVO.orgn_nm}
+															</a>
 														</td>
 														<td>
 															<!-- 논문수 -->
@@ -290,7 +295,7 @@ function search_orgn(orgn_nm){
 							</div>
 						</div>
 					</div>
-					<!-- 페이징 처리 시작 -->
+					<!-- 페이징 처리(시작) -->
 					<div style="width: 100%;">
 						<div align="right" style="position: relative;">
 							<div style="position: absolute; text-align: center; width: 100%;">
@@ -341,16 +346,16 @@ function search_orgn(orgn_nm){
 							</div>
 						</div>
 					</div>
-					<!-- 페이징 처리 끝 -->
+					<!-- 페이징 처리(종료) -->
 				</div>
 				<!-- 첫번째 tab에 들어갈 내용(끝) -->
 			</div>
 		</div>
 	</div>
-	<!-- JQUERY, 필요한 JAVASCRIPT 파일 -->
-	<script src="/resources/js/jquery.min.js"></script>
-	<script src="/resources/js/popper.js"></script>
-	<script src="/resources/js/bootstrap.min.js"></script>
-	<script src="/resources/js/main.js"></script>
+<!-- JQUERY, 필요한 JAVASCRIPT 파일 -->
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/popper.js"></script>
+<script src="/resources/js/bootstrap.min.js"></script>
+<script src="/resources/js/main.js"></script>
 </body>
 </html>
