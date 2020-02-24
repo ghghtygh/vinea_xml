@@ -177,8 +177,7 @@
 		<result property="parse_yn"				column="PARSE_YN"/>	
 		<result property="del_yn"				column="DEL_YN"/>	
 		<result property="y_cnt"				column="Y_CNT"/>
-		<result property="all_cnt"				column="ALL_CNT"/>
-	
+		<result property="all_cnt"				column="ALL_CNT"/>	
 	</resultMap>
 	
 	
@@ -261,8 +260,7 @@
 			,#{modify_id}
 		)
 		ON DUPLICATE KEY UPDATE
-			REGIST_DATE = NOW()
-		
+			REGIST_DATE = NOW()		
 	</insert>
 	
 	<insert id="insertAuth"   parameterType="com.vinea.dto.AuthVO">
@@ -539,8 +537,7 @@
 			,#{file_name}
 			,'N'
 			,'N'
-		)
-		
+		)		
 	</insert>
 	
 	<insert id="insertArtiList"   parameterType="java.util.List">
@@ -586,6 +583,7 @@
 		)   		
 		VALUES	
 		<foreach collection="list" item="item" separator=" , ">
+		<!-- 논문 정보 리스트 ',' 로 구분 (다중 insert) -->		
 		(
 			 #{item.uid}			
 			,#{item.arti_no}     	
@@ -625,10 +623,12 @@
 		)
 		</foreach>
 		ON DUPLICATE KEY UPDATE
-			REGIST_DATE = NOW()
-			
+			REGIST_DATE = NOW()			
 	</insert>
+	
 	<insert id="insertAuthList" parameterType="java.util.List">
+	<!-- 중복 제거하고 저자 정보 리스트 DB에 저장 *path: src/main/resources/mappers/xmlMapper.xml *id: insertAuthList  -->
+	
 		INSERT IGNORE
 	    	INTO TB_AUTH
 	    (
@@ -648,6 +648,7 @@
 		) 		
 	    VALUES
 	    <foreach collection="list" item="item" separator=" , ">
+	    <!-- 저자 정보 리스트 ',' 로 구분 (다중 insert) -->	    
 	    (
 			 #{item.auth_id}
 			,#{item.auth_seq}    
@@ -677,6 +678,7 @@
 	    )
 	    VALUES
 		<foreach collection="list" item="item" separator=" , ">
+		<!-- 도서 정보 리스트 ',' 로 구분 (다중 insert) -->
 		(
 			 #{item.uid}
 			,#{item.note_nm}
@@ -703,6 +705,7 @@
 	    )
 	    VALUES
 		<foreach collection="list" item="item" separator=" , ">
+		<!-- 학회 정보 리스트 ',' 로 구분 (다중 insert) -->
 		(
 			 #{item.conf_id}
 			,#{item.uid}
@@ -730,6 +733,7 @@
 	    )
 	    VALUES
 		<foreach collection="list" item="item" separator=" , ">
+		<!-- 문서유형 정보 리스트 ',' 로 구분 (다중 insert) -->
 		(
 			 #{item.uid}
 			,#{item.dtype_nm}
@@ -750,6 +754,7 @@
 	    )
 	    VALUES
 		<foreach collection="list" item="item" separator=" , ">
+		<!-- 보조금 정보 리스트 ',' 로 구분 (다중 insert) -->
 		(
 			 #{item.uid}
 			,#{item.grnt_gid}
@@ -771,6 +776,7 @@
 		)
 		VALUES
 		<foreach collection="list" item="item" separator=" , ">
+		<!-- 키워드 정보 리스트 ',' 로 구분 (다중 insert) -->
 		(
 			 #{item.uid}
 			,#{item.kwrd_nm}
@@ -798,6 +804,7 @@
 	     )
 	    VALUES
 		<foreach collection="list" item="item" separator=" , ">
+		<!-- 저자 소속기관 정보 리스트 ',' 로 구분  (다중 insert)-->
 		(
 			 #{item.uid}
 			,#{item.orgn_addr_no}
@@ -829,6 +836,7 @@
 		)    
 		VALUES
 		<foreach collection="list" item="item" separator=" , ">
+		<!-- 발행기관 정보 리스트 ',' 로 구분  (다중 insert)-->
 		(
 			 #{item.uid}
 			,#{item.publ_addr}
@@ -867,6 +875,7 @@
 	    )   
 		VALUES
 		<foreach collection="list" item="item" separator=" , ">
+		<!-- 참고문헌 정보 리스트 ',' 로 구분 (다중 insert) -->
 		(
 			 #{item.refr_id}	
 			,#{item.refr_uid}
@@ -894,8 +903,7 @@
 	<select id="selectXmlList" parameterType="hashmap" resultMap="artiMap">
 	<!-- 요청 페이지에 따른 파싱된 논문 목록 조회  *path: src/main/resources/mappers/xmlMapper.xml *id: selectXmlList -->
 		
-		SELECT
-			 
+		SELECT			 
 			@ROWNUM:=@ROWNUM+1	AS ROWNUM
 			,TB_ARTI.UID		AS UID
 			,ARTI_NO
@@ -907,20 +915,17 @@
 			,PUB_YEAR
 			,BEGIN_PAGE
 			,END_PAGE
-			,PAGE_CNT
-			
-			FROM (SELECT @ROWNUM:=#{start_index}) R
-			
+			,PAGE_CNT			
+			FROM (SELECT @ROWNUM:=#{start_index}) R			
 			,(
 				SELECT TB_ARTI.UID
+		<!-- 검색옵션과 정렬 옵션 -->
 		<include refid="searchs"></include>
 		<include refid="sort"></include>
-		<!-- 정렬 처리 -->
-		
+		<!-- 정렬 처리 -->		
 				LIMIT
 					 #{start_index}
-					,#{page_size}
-					
+					,#{page_size}					
 			) C
 			INNER JOIN TB_ARTI
 			ON C.UID = TB_ARTI.UID
@@ -930,15 +935,13 @@
 	<!-- 논문 건수 카운팅  *path: src/main/resources/mappers/xmlMapper.xml *id: countXml -->
 	
 		<choose>
-			<when test='search!=null and search!=""'>
-			
+			<when test='search!=null and search!=""'>			
 				SELECT
 					COUNT(*)
 				FROM
 				(
 					SELECT
-						TB_ARTI.UID	AS UID
-					
+						TB_ARTI.UID	AS UID					
 					<include refid="searchs"></include>
 				) C
 			</when>
@@ -950,12 +953,9 @@
 				WHERE
 					TB_NM = 'TB_ARTI'
 			</otherwise>
-		</choose>
-		
+		</choose>		
 	</select>
-	
-	
-	
+		
 	<sql id="searchs">
 	<!-- 검색하기 -->
 		<choose>
@@ -1004,12 +1004,14 @@
 							</foreach>
 						</when>
 						<when test='search_option.equals("4")'>
+						<!--  search_option "4" : 학술지 해당 논문목록 (상세페이지: article_detail.jsp) -->
 							FROM
 								TB_ARTI
 							WHERE
 								JRNL_TITLE = #{search}
 						</when>
 						<when test='search_option.equals("5")'>
+						<!-- search_option "5" : 저자 해당 논문목록 (상세페이지: article_detail.jsp) -->
 							FROM
 								TB_ARTI
 							INNER JOIN
@@ -1020,6 +1022,7 @@
 								B.AUTH_FULL_NM = #{search}
 						</when>
 						<when test='search_option.equals("6")'>
+						<!-- search_option "6" : 소속기관 해당 논문목록 (소속기관 현황페이지: orgn_stat.jsp) -->
 							FROM
 								(SELECT * FROM TB_ARTI LIMIT 10000) TB_ARTI
 							INNER JOIN
@@ -1030,6 +1033,7 @@
 								B.ORGN_NM = #{search}
 						</when>
 						<when test='search_option.equals("7")'>
+						<!-- search_option "7" : 키워드 해당 논문목록 (분야별 키워드 빈도: kwrd_stat.jsp) -->
 							FROM
 								(SELECT * FROM TB_ARTI LIMIT 10000) TB_ARTI
 							INNER JOIN
@@ -1042,8 +1046,7 @@
 						<otherwise>
 						<!-- 검색어 없음 -->
 						FROM
-							TB_ARTI
-							
+							TB_ARTI							
 						</otherwise>
 				</choose>
 			</when>
@@ -1059,23 +1062,22 @@
 	<!-- 정렬하기 -->
 		<choose>
 			<when test='sort_option.equals("1")'>
-			<!-- UID -->
+			<!-- 메인페이지 => sort_option "1" : UID순 -->
 				<!-- USE INDEX(iii) -->
 				ORDER BY
 				TB_ARTI.UID
 				ASC
 			</when>
 			<when test='sort_option.equals("2")'>
-			<!-- 발행일 -->
+			<!-- 메인페이지 => sort_option "2" : 발행일순 -->
 				ORDER BY
 				TB_ARTI.PUB_DATE
 				ASC
 			</when>
 			<when test='sort_option.equals("3")'>
-			<!-- 제목 -->
+			<!--  메인페이지 => sort_option "3" :  제목순 -->
 			</when>
-		</choose>
-		
+		</choose>		
 	</sql>
 	
 	<select id="selectOneXml" parameterType="java.lang.String" resultMap="artiMap">
@@ -1101,7 +1103,6 @@
 			TB_ARTI		
 		WHERE
 			UID = #{UID}
-
 	</select>
 	
 	<select id ="selectKwrdList" parameterType="java.lang.String" resultMap="kwrdMap">
@@ -1112,8 +1113,7 @@
 		FROM
 			TB_KWRD		
 		WHERE
-			UID = #{uid}
-			
+			UID = #{uid}			
 	</select>
 	
 	<select id ="selectRefrList" parameterType="java.lang.String" resultMap="refrMap">
@@ -1134,8 +1134,7 @@
 			UID = #{uid}
 		ORDER BY
 			REFR_ID
-		ASC
-			
+		ASC			
 	</select>	
 	
 	<select id ="selectAuthList" parameterType="java.lang.String" resultMap="authMap">
@@ -1151,8 +1150,7 @@
 			UID = #{uid}
 		ORDER BY
 			AUTH_SEQ
-		ASC
-		
+		ASC		
 	</select>	
 	
    <select id ="selectOrgnList" parameterType="java.lang.String" resultMap="authOrgnMap">
@@ -1194,10 +1192,8 @@
 		AND
 			(PARSE_YN = 'N' OR PARSE_YN IS NULL)
 		AND
-			(ERROR_YN != 'Y' OR ERROR_YN IS NULL)
-			
-		LIMIT 1
-			
+			(ERROR_YN != 'Y' OR ERROR_YN IS NULL)			
+		LIMIT 1			
 	</select>
 	
 	<select id="selectXmlFileList" parameterType="hashMap" resultMap="xmlFileMap">
@@ -1213,10 +1209,8 @@
 		AND
 			(PARSE_YN = 'N' OR PARSE_YN IS NULL)
 		AND
-			(ERROR_YN != 'Y' OR ERROR_YN IS NULL)
-		
-		LIMIT #{file_cnt}
-		
+			(ERROR_YN != 'Y' OR ERROR_YN IS NULL)		
+		LIMIT #{file_cnt}		
 	</select>
 	
 	<select id="selectXmlFileCount" resultMap="xmlFileMap">
@@ -1227,12 +1221,9 @@
 			,Y_CNT
 			,ALL_CNT
 		FROM
-			FILE_STAT
-			
+			FILE_STAT			
 	</select>
-	
-	
-	
+		
 	<select id="selectParseYN" resultMap="xmlFileMap">
 	<!-- XML 파싱 완료 현황  *path: src/main/resources/mappers/xmlMapper.xml *id: selectParseYN -->
 	
@@ -1244,8 +1235,7 @@
 		WHERE
 			PARSE_YN = 'Y'
 		GROUP BY
-			FILE_NAME
-	
+			FILE_NAME	
 	</select>
 	
 	<update id="updateParseYN" parameterType="java.lang.String">
@@ -1256,8 +1246,7 @@
 		SET
 			PARSE_YN = 'Y'
 		WHERE
-			UID = #{uid}
-	
+			UID = #{uid}	
 	</update>
 	
 	<update id="updateErrorYN" parameterType="java.lang.String">
@@ -1268,34 +1257,55 @@
 		SET
 			ERROR_YN = 'Y'
 		WHERE
-			UID = #{uid}
-	
+			UID = #{uid}	
 	</update>
-	
-	
+		
 	<select id="getYearCnt" resultType="com.vinea.dto.YearVO">
+	<!-- 차트에 다음 데이터 불러오기(연도별 논문수, 도서수, 참고문헌수, 학술지수)  *path: src/main/resources/mappers/xmlMapper.xml *id: getYearCnt -->
+	
 			SELECT
 				 PUB_YEAR
 				,ARTI_CNT
 				,BOOK_CNT
 				,JRNL_CNT
-				,REFR_CNT
-				
-			FROM YEAR_STAT 
+				,REFR_CNT				
+			FROM
+			(
+				SELECT
+					 PUB_YEAR
+					,ARTI_CNT
+					,BOOK_CNT
+					,JRNL_CNT
+					,REFR_CNT
+				FROM 
+					YEAR_STAT
+				ORDER BY
+					PUB_YEAR
+				DESC
+				LIMIT 5
+			)	A 
+			ORDER BY 
+				PUB_YEAR 
+			ASC
+			
 	</select>
 	
 	<select id="countOrg" resultType="java.lang.Integer" parameterType="hashMap">
 	<!-- 기관 목록 조회 -COUNT *path: src/main/resources/mappers/xmlMapper.xml *id: countOrg -->
+	
 		SELECT
 			COUNT(*)
 		FROM
 			ORGN_STAT
 		WHERE
 			PUB_YEAR=#{search_year}
+		<!-- 소속기관명 검색하기 -->
 		<include refid="searchOrg"></include>
 	</select>
+	
 	<select id="selectOrgList" parameterType="hashMap" resultType="com.vinea.dto.OrgnVO">
 	<!-- 기관 목록 조회 -SELECT *path: src/main/resources/mappers/xmlMapper.xml *id: selectOrgList -->
+	
 		SELECT
 			 @ROWNUM:=@ROWNUM+1	AS NUM
 			,ORGN_NM
@@ -1306,12 +1316,14 @@
 			,ORGN_STAT
 		WHERE
 			PUB_YEAR=#{search_year}
+		<!-- 소속기관명 검색하기 -->
 		<include refid="searchOrg"></include>
 		ORDER BY ARTI_CNT DESC
 		LIMIT
 			 #{start_index}
 			,#{page_size}
 	</select>
+	
 	<sql id="searchOrg">
 		<choose>
 			<when test='search!=null and search!=""'>
@@ -1324,16 +1336,19 @@
 	</sql>
 	
 	<select id="countCtgrStat" parameterType="hashMap" resultType="java.lang.Integer">
+	<!-- 연구분야별 통계 데이터 카운팅 *path: src/main/resources/mappers/xmlMapper.xml *id: countCtgrStat  -->
 	
 	SELECT
-		COUNT(*)
-		
+		COUNT(*)		
 	FROM
 		CTGR_STAT
+		<!-- 연구분야 선택 -->
 		<include refid="searchCtgr"></include>
 	</select>
 	
 	<select id="getCtgrStatList" resultType="com.vinea.dto.CtgrStatVO">
+	<!-- 분야에 대한 주제별 통계 *path: src/main/resources/mappers/xmlMapper.xml *id: getCtgrStatList -->
+	
 		SELECT
 			 SUBJ_NM
 			,ARTI_CNT
@@ -1342,12 +1357,16 @@
 			,AUTH_CNT
 		FROM
 			CTGR_STAT
+		<!-- 연구분야 선택 -->
 		<include refid="searchCtgr"></include>
+		<!-- 정렬기준 선택(저자, 논문, 학술지, 참고문헌) -->
 		<include refid="ctgrStatSort"></include>		
 		LIMIT 10
 	</select>
 	
 	<select id="selectCtgrStatList" parameterType="hashMap" resultType="com.vinea.dto.CtgrStatVO">
+	<!-- 연구분야별 저자수, 논문수, 학술지수, 참고문헌수 (전체 통계) *path: src/main/resources/mappers/xmlMapper.xml *id: selectCtgrStatList -->
+	
 		SELECT
 			 @ROWNUM:=@ROWNUM+1	AS NUM
 			,CTGR_NM
@@ -1359,55 +1378,64 @@
 		FROM
 			(SELECT @ROWNUM:=#{start_index}) R
 			,CTGR_STAT
+		<!-- 연구분야 선택 -->
 		<include refid="searchCtgr"></include>
-		<include refid="ctgrStatSort"></include>
-		
+		<!-- 정렬기준 선택(저자, 논문, 학술지, 참고문헌) -->
+		<include refid="ctgrStatSort"></include>		
 		LIMIT
 			 #{start_index}
 			,#{page_size}	
 	</select>
+	
+	<!-- 연구분야 선택 -->
 	<sql id="searchCtgr">
 		<choose>
 			<when test='ctgr_option=="1"'>
+			<!-- 연구분야 선택옵션 "1" : 전체목록 -->
 			</when>
-			<when test='ctgr_option=="2"'>
-			
+			<when test='ctgr_option=="2"'>	
+			<!-- 연구분야 선택옵션 "2" : 'Science'를 포함하고 있는 분야 선택 -->		
 				WHERE
-					CTGR_NM LIKE CONCAT('Science','%')
-					
+					CTGR_NM LIKE CONCAT('Science','%')				
 			</when>
-			<when test='ctgr_option=="3"'>
-				
+			<when test='ctgr_option=="3"'>	
+			<!-- 연구분야 선택옵션 "3" : 'Arts'를 포함하고 있는 분야 선택 -->				
 				WHERE
-					CTGR_NM LIKE CONCAT('Arts','%')
-					
+					CTGR_NM LIKE CONCAT('Arts','%')					
 			</when>
 			<when test='ctgr_option=="4"'>
+			<!-- 연구분야 선택옵션 "4" : 연구분야명이 'Social Sciences'인 분야 선택 -->	
 				WHERE
 					CTGR_NM = 'Social Sciences'
 			</when>
 			<otherwise>
 			</otherwise>
-		</choose>
-		
+		</choose>		
 	</sql>
+	
+	<!-- 조회시, 정렬기준 선택 -->
 	<sql id="ctgrStatSort">
 	ORDER BY
 		<choose>
 			<when test='sort_option==1'>
+			<!-- 정렬기준 옵션 "1" : 분야명, 주제명에 대하여 정렬 -->
 			CTGR_NM
 			,SUBJ_NM
 			</when>
 			<when test='sort_option==2'>
+			<!-- 정렬기준 옵션 "2" : 저자수 기준으로 정렬 -->
 			AUTH_CNT
 			</when>
 			<when test='sort_option==3'>
+			<!-- 정렬기준 옵션 "3" : 논문수 기준으로 정렬 -->
 			ARTI_CNT
 			</when>
 			<when test='sort_option==4'>
+			<!-- 정렬기준 옵션 "4" : 학술지수 기준으로 정렬 -->
 			JRNL_CNT
 			</when>
 			<when test='sort_option==5'>
+			<!-- 정렬기준 옵션 "5" : 참고문헌수 기준으로 정렬 -->
 			REFR_CNT
 			</when>
 			<otherwise>
@@ -1417,20 +1445,25 @@
 		</choose>
 	DESC
 	</sql>
+	
 	<select id="kwrdCloudList" parameterType="hashMap" resultType="com.vinea.dto.CtgrKwrdVO">
+	<!-- 분야별 키워드 빈도수 워드클라우스 생성  *path: src/main/resources/mappers/xmlMapper.xml *id: kwrdCloudList -->
 
 		SELECT
-		KWRD_NM,
-		KWRD_CNT
+			KWRD_NM,
+			KWRD_CNT
 		FROM
-		CTGR_KWRD_STAT
+			CTGR_KWRD_STAT
 		WHERE
-		SUBJ_NM = #{subjnm}
-		ORDER BY KWRD_CNT DESC
+			SUBJ_NM = #{subjnm}
+		ORDER BY KWRD_CNT 
+		DESC
 		LIMIT 10
 	</select>
 
 	<select id="getKwrdCnt" resultType="com.vinea.dto.CtgrKwrdVO">	
+	<!-- 분야별 키워드 빈도수 조회(분야별로 상위 10개만 조회)  *path: src/main/resources/mappers/xmlMapper.xml *id: getKwrdCnt -->
+	
 	<![CDATA[
 		SELECT
 		   A.CTGR_NM,
@@ -1460,4 +1493,5 @@
 		   ROWNUM <= 10
 	]]>
 	</select>
+	
  </mapper>

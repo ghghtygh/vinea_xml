@@ -1269,7 +1269,25 @@
 				,BOOK_CNT
 				,JRNL_CNT
 				,REFR_CNT				
-			FROM YEAR_STAT 
+			FROM
+			(
+				SELECT
+					 PUB_YEAR
+					,ARTI_CNT
+					,BOOK_CNT
+					,JRNL_CNT
+					,REFR_CNT
+				FROM 
+					YEAR_STAT
+				ORDER BY
+					PUB_YEAR
+				DESC
+				LIMIT 5
+			)	A 
+			ORDER BY 
+				PUB_YEAR 
+			ASC
+			
 	</select>
 	
 	<select id="countOrg" resultType="java.lang.Integer" parameterType="hashMap">
