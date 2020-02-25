@@ -36,6 +36,12 @@
 	border: 1px solid #999;
 	z-index=1;
 }
+#cnt_option {
+	position: relative;
+	width: 150px;
+	border: 1px solid #999;
+	z-index=1
+}
 </style>
 <script>
 
@@ -46,7 +52,7 @@
 		 $('#ctgrnm option[value="${ctgrnm}"]').attr("selected",true);
 		 $('#subjnm option[value="${subjnm}"]').attr("selected",true);
 		 
-		
+	
 		 /* 분야명을 클릭하였을 때 페이지 업데이트 */
 		 $("#ctgrnm").change(function() {
 				
@@ -124,30 +130,13 @@
 		<div id="content" class="p-4 p-md-5">
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
 				<div class="container-fluid">
-					<button type="button" id="sidebarCollapse" class="btn btn-primary">
-						<i class="fa fa-bars"></i> <span class="sr-only">Toggle Menu</span>
-					</button>
-					<button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-						<i class="fa fa-bars"></i>
-					</button>
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="nav navbar-nav ml-auto">
-							<li class="nav-item active"><a class="nav-link" href="/article">Home</a></li>
+							<li class="nav-item active"><a class="nav-link" target="_blank" href="/article"><img src="/resources/image/home.png" alt="HOME"></a></li>
 						</ul>
 					</div>
 				</div>
 			</nav>
-			<!-- tab 정의 -->
-			<ul class="nav nav-tabs">
-				<!-- 분야별 키워드 빈도수 보기 -->
-				<li class="nav-item">
-					<a class="nav-link active" href="#kwrd1" data-toggle="tab">분야별 키워드</a>
-				</li>
-			</ul>
-			<div class="tab-content">
-			<!-- 첫번째 tab에 들어갈 내용(시작) -->
-			<!-- tab 정의 부분에서의 href 속성과 동일하게 id를 각각 지정 -->
-			<div class="tab-pane active" id="kwrd1">
 			<div id="ctgr_kwrd1" style="margin-top: 20px">
 				<ol class="breadcrumb">
 					<!--분야 선택-->
@@ -174,11 +163,19 @@
 								<option value = "${sub}">${sub}</option>
 							</c:forEach>
 					</select>
+					<li class="breadcrumb-item">
+						<p style="font-size: 15px; font-weight: bold; margin-left: 20px; margin-right: 10px; color: #000">개수</p>
+					</li>
+					<!-- 주제명 리스트 데이터 -->
+					<select class="form-control" id="cnt_option" name="cnt_option">
+							<option value="1">10</option>
+							<option value="2">30</option>
+							<option value="3">50</option>
+					</select>	
 				</ol>
 				<p style="font-size: 20px; font-weight: bold; color: #000069; margin-top: 50px">분야별 키워드 빈도수</p>
 				<!-- 분야별 키워드 빈도를 나타낼 워드클라우드  -->
 				<div align="center">
-					<!-- <div id="kwrdcloud" style="width: 1200px; height: 800px; margin-left: 130px"></div>-->
 					 <div id="kwrdcloud" style="width: 800px; height: 600px;"></div>
 				</div>
 				<script>
@@ -186,7 +183,7 @@
 					var chartLabels = [];
 					/* 키워드 빈도수 */
 					var chartData = [];
-		
+											
 					/* JSON 방식으로 데이터를 가져옴 */
 					$.getJSON("/article/kwrdcnt", function(data){	
 						$.each(data, function(inx, obj){
@@ -231,8 +228,6 @@
 								var formObj = $("#frm");
 								
 								/* 각 키워드에 해당하는 논문 목록 페이지로 이동 */
-								if(confirm(e.point.get("x") + "의 논문 목록을 보시겠습니까?") == true)
-								{
 								var input_search = document.createElement("input");
 								$(input_search).attr("type","hidden");
 								$(input_search).attr("name","search");
@@ -248,17 +243,11 @@
 								formObj.attr("action", "/article");
 								formObj.attr("method", "get");
 								formObj.submit();
-								}
-								else
-								{
-									return false;
-								}								
+								});
+							
 							});							
-						}); 						
-					}	
+					}						
 				</script>
-			</div>
-			</div>
 			</div>
 		</div>
 	</div>

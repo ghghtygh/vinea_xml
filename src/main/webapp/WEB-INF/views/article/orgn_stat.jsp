@@ -122,8 +122,6 @@ a:hover {
 		
 		var formObj = $("#frm");
 		
-		if(confirm(orgn_nm + " " + "기관의 논문 목록을 보시겠습니까?") == true)
-		{
 		$("input[name='search']").val(orgn_nm);
 		var input_option = document.createElement("input");
 		
@@ -136,10 +134,7 @@ a:hover {
 		formObj.attr("method", "get");
 		formObj.submit();
 		}
-		else
-		{
-			return false;
-		}
+
 	}
 </script>
 </head>
@@ -186,30 +181,13 @@ a:hover {
 		<div id="content" class="p-4 p-md-5">
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
 				<div class="container-fluid">
-					<button type="button" id="sidebarCollapse" class="btn btn-primary">
-						<i class="fa fa-bars"></i> <span class="sr-only">Toggle Menu</span>
-					</button>
-					<button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-						<i class="fa fa-bars"></i>
-					</button>
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="nav navbar-nav ml-auto">
-							<li class="nav-item active"><a class="nav-link" href="/article">Home</a></li>
+							<li class="nav-item active"><a class="nav-link" target="_blank" href="/article"><img src="/resources/image/home.png" alt="HOME"></a></li>
 						</ul>
 					</div>
 				</div>
 			</nav>
-			<!-- tab 정의 -->
-			<ul class="nav nav-tabs">
-				<!-- 소속기관별 데이터 통계 -->
-				<li class="nav-item">
-					<a class="nav-link active" href="#orgn1" data-toggle="tab">소속기관별 통계</a>					
-				</li>
-			</ul>
-			<div class="tab-content">
-				<!-- 첫번째 tab에 들어갈 내용(시작) -->
-				<!-- tab 정의 부분에서의 href 속성과 동일하게 id를 각각 지정 -->
-				<div class="tab-pane active" id="orgn1">
 					<!--  소속기관별 통계: 테이블 -->
 					<div id="orgn_stat1" style="margin-top: 20px">
 						<p style="font-size: 20px; font-weight: bold; color: #000069">소속기관별 데이터 통계</p>				
@@ -274,11 +252,11 @@ a:hover {
 														</td>
 														<td>
 															<!-- 논문수 -->
-															${orgnVO.arti_cnt}
+															<fmt:formatNumber value="${orgnVO.arti_cnt}" pattern="#,###,###"/>
 														</td>
 														<td>
 															<!-- 인용수 -->
-															${orgnVO.cite_cnt}
+															<fmt:formatNumber value="${orgnVO.cite_cnt}" pattern="#,###,###"/>
 														</td>
 													</tr>
 												</c:forEach>
@@ -347,9 +325,6 @@ a:hover {
 						</div>
 					</div>
 					<!-- 페이징 처리(종료) -->
-				</div>
-				<!-- 첫번째 tab에 들어갈 내용(끝) -->
-			</div>
 		</div>
 	</div>
 <!-- JQUERY, 필요한 JAVASCRIPT 파일 -->

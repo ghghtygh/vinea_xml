@@ -133,16 +133,10 @@ a:hover.tip span {
 		
 		var formObj = $("#frm");
 		
-		if(confirm(title + " " +  "학술지의 논문 목록을 보시겠습니까?") == true)
-		{
 		formObj.attr("action", "/article");
 		formObj.attr("method", "get");
 		formObj.submit();
-		}
-		else
-			{
-				return false;
-			}
+
 	}
 	
 	/** 상세보기 페이지에서 저자명을 클릭하였을 때, 그 저자에 해당하는 논문 목록페이지로 이동 **/
@@ -152,31 +146,14 @@ a:hover.tip span {
 		$("input[name='search_option']").val(5);
 		
 		var formObj = $("#frm");
-		if(confirm(auth + " " +  "의 논문 목록을 보시겠습니까?") == true)
-		{
+		
 		formObj.attr("action", "/article");
 		formObj.attr("method", "get");
 		formObj.submit();
 		}
-		else
-			{
-			return false;
-			}
 		
 	}
 	
-	/** 연구분야를 클릭하였을 때, 연구분야 동향페이지로 이동 전에 alert창으로 물어본다 **/
-	function goCtgrStat()
-	{
-		if(confirm("연구분야 동향을 확인해보시겠습니까?") == true)
-			{
-				location.href = '/article/ctgrstat';
-			}
-		else
-			{
-				return false;
-			}
-	}
 </script>
 </head>
 <form id="frm">
@@ -238,15 +215,9 @@ a:hover.tip span {
 		<div id="content" class="p-4 p-md-5">
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
 				<div class="container-fluid">
-					<button type="button" id="sidebarCollapse" class="btn btn-primary">
-						<i class="fa fa-bars"></i> <span class="sr-only">Toggle Menu</span>
-					</button>
-					<button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-						<i class="fa fa-bars"></i>
-					</button>
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="nav navbar-nav ml-auto">
-							<li class="nav-item active"><a class="nav-link" href="/article">Home</a></li>
+							<li class="nav-item active"><a class="nav-link" target="_blank" href="/article"><img src="/resources/image/home.png" alt="HOME"></a></li>
 						</ul>
 					</div>
 				</div>
@@ -278,7 +249,7 @@ a:hover.tip span {
 					<!-- 연구분야: 주제목 -->
 					<p style="font-size: 13px; font-style: oblique;">
 					<c:if test="${ArtiVO.ctgry_nm != ''}">
-						<a href="javascript:goCtgrStat()" class="tip"> ${ArtiVO.ctgry_nm}
+						<a href="/article/ctgrstat" class="tip"> ${ArtiVO.ctgry_nm}
 							<span>연구분야 동향<br>Click</span>
 						</a>
 						<!-- 연구분야: 소제목 -->
@@ -286,7 +257,7 @@ a:hover.tip span {
 						<!-- DB에 저장된 소제목 데이터가  | 구분자로 저장됨: jstl문법의 split 메소드를 사용하여 잘라냄 -->
 						<c:set var="tmp_list" value="${fn:split(ArtiVO.ctgry_sub_title,'|') }" />
 						<c:forEach var="tmp" items="${tmp_list}" varStatus="g">
-							<a href="javascript:goCtgrStat()" class="tip"> ${tmp}
+							<a href="/article/ctgrstat" class="tip"> ${tmp}
 								<span>연구분야 동향<br>Click</span>
 							</a>
 							<c:if test="${g.count !=fn:length(tmp_list) }">,</c:if>

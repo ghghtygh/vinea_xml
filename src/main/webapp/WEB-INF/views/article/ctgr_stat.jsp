@@ -213,15 +213,9 @@
          <div id="content" class="p-4 p-md-5">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                <div class="container-fluid">
-                  <button type="button" id="sidebarCollapse" class="btn btn-primary">
-                     <i class="fa fa-bars"></i> <span class="sr-only">Toggle Menu</span>
-                  </button>
-                  <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                     <i class="fa fa-bars"></i>
-                  </button>
                   <div class="collapse navbar-collapse" id="navbarSupportedContent">
                      <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item active"><a class="nav-link" href="/article">Home</a></li>
+                        <li class="nav-item active"><a class="nav-link" target="_blank" href="/article"><img src="/resources/image/home.png" alt="HOME"></a></li>
                      </ul>
                   </div>
                </div>
@@ -304,10 +298,10 @@
                                                       <td style="border-top: 1px solid #b4b4b4">${vo.num}</td>
                                                       <td style="border-top: 1px solid #b4b4b4; text-align: left;">${vo.ctgr_nm}</td>
                                                       <td style="border-top: 1px solid #b4b4b4; text-align: left;">${vo.subj_nm}</td>
-                                                      <td style="border-top: 1px solid #b4b4b4">${vo.auth_cnt}</td>
-                                                      <td style="border-top: 1px solid #b4b4b4">${vo.arti_cnt}</td>
-                                                      <td style="border-top: 1px solid #b4b4b4">${vo.jrnl_cnt}</td>
-                                                      <td style="border-top: 1px solid #b4b4b4">${vo.refr_cnt}</td>
+                                                      <td style="border-top: 1px solid #b4b4b4"><fmt:formatNumber value="${vo.auth_cnt}" pattern="#,###,###"/></td>
+                                                      <td style="border-top: 1px solid #b4b4b4"><fmt:formatNumber value="${vo.arti_cnt}" pattern="#,###,###"/></td>
+                                                      <td style="border-top: 1px solid #b4b4b4"><fmt:formatNumber value="${vo.jrnl_cnt}" pattern="#,###,###"/></td>
+                                                      <td style="border-top: 1px solid #b4b4b4"><fmt:formatNumber value="${vo.refr_cnt}" pattern="#,###,###"/></td>
                                                    </tr>
                                                 </c:forEach>
                                              </c:when>
@@ -402,22 +396,22 @@
                                                 <td style="border-top: 1px solid #b4b4b4">
                                                    <c:choose>
                                                       <c:when test='${sort_option==1 }'>
-                                                         ${vo.arti_cnt}
+                                                         <fmt:formatNumber value="${vo.arti_cnt}" pattern="#,###,###"/>
                                                          </c:when>
                                                       <c:when test='${sort_option==2 }'>
-                                                         ${vo.auth_cnt}
+                                                         <fmt:formatNumber value="${vo.auth_cnt}" pattern="#,###,###"/>
                                                          </c:when>
                                                       <c:when test='${sort_option==3 }'>
-                                                         ${vo.arti_cnt}
+                                                        <fmt:formatNumber value="${vo.arti_cnt}" pattern="#,###,###"/>
                                                          </c:when>
                                                       <c:when test='${sort_option==4 }'>
-                                                         ${vo.jrnl_cnt}
+                                                         <fmt:formatNumber value="${vo.jrnl_cnt}" pattern="#,###,###"/>
                                                          </c:when>
                                                       <c:when test='${sort_option==5 }'>
-                                                         ${vo.refr_cnt}
+                                                         <fmt:formatNumber value="${vo.refr_cnt}" pattern="#,###,###"/>
                                                          </c:when>
                                                       <c:otherwise>
-                                                         ${vo.arti_cnt}
+                                                         <fmt:formatNumber value="${vo.arti_cnt}" pattern="#,###,###"/>
                                                          </c:otherwise>
                                                    </c:choose>
                                                 </td>
