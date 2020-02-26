@@ -80,30 +80,13 @@
 		<div id="content" class="p-4 p-md-5">
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
 				<div class="container-fluid">
-					<button type="button" id="sidebarCollapse" class="btn btn-primary">
-						<i class="fa fa-bars"></i> <span class="sr-only">Toggle Menu</span>
-					</button>
-					<button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-						<i class="fa fa-bars"></i>
-					</button>
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="nav navbar-nav ml-auto">
-							<li class="nav-item active"><a class="nav-link" href="/article">Home</a></li>
+							<li class="nav-item active"><a class="nav-link" target="_blank" href="/article"><img src="/resources/image/home.png" alt="HOME"></a></li>
 						</ul>
 					</div>
 				</div>
 			</nav>
-			<!-- tab 정의 -->
-			<ul class="nav nav-tabs">
-				<!-- 연도별 통계(논문수, 도서수, 참고문헌수, 학술지수) -->
-				<li class="nav-item">
-					<a class="nav-link active" href="#year1" data-toggle="tab">연도별 통계</a>					
-				</li>
-			</ul>
-			<!-- 해당 tab 안에 들어갈 내용  -->
-			<div class="tab-content">
-			<!-- tab 정의 부분에서의 href 속성과 동일하게 id를 지정 -->
-			<div class="tab-pane active" id="year1">
 			<!--  연도별 통계: 테이블, 차트 -->
 			<div id="year_stat" style="margin-top: 20px">
 				<p style="font-size: 20px; font-weight: bold; color: #000069">연도별 데이터 통계</p>
@@ -129,10 +112,10 @@
 								<c:when test="${not empty yearVOList}">
 									<c:set var = "sum" value = "0" />
 									<c:forEach items="${yearVOList}" var="vo" varStatus="g">
-										<td style="border-top: 1px solid #b4b4b4">${vo.arti_cnt}</td>
+										<td style="border-top: 1px solid #b4b4b4"><fmt:formatNumber value="${vo.arti_cnt}" pattern="#,###,###"/></td>
 										<c:set var="sum" value="${sum+vo.arti_cnt}" />
 									</c:forEach>
-									<td style="border-top: 1px solid #b4b4b4"><font color="#28288C"><strong><c:out value="${sum}"/></strong></font></td>
+									<td style="border-top: 1px solid #b4b4b4"><font color="#28288C"><strong><fmt:formatNumber value="${sum}" pattern="#,###,###"/></strong></font></td>
 								</c:when>
 							</c:choose>
 						</tr>		
@@ -143,10 +126,10 @@
 								<c:when test="${not empty yearVOList}">
 									<c:set var = "sum" value = "0" />
 									<c:forEach items="${yearVOList}" var="vo" varStatus="g">
-										<td style="">${vo.book_cnt}</td>
+										<td style=""><fmt:formatNumber value="${vo.book_cnt}" pattern="#,###,###"/></td>
 										<c:set var="sum" value="${sum+vo.book_cnt}" />
 									</c:forEach>
-									<td style=""><font color="#28288C"><strong><c:out value="${sum}"/></strong></font></td>
+									<td style=""><font color="#28288C"><strong><fmt:formatNumber value="${sum}" pattern="#,###,###"/></strong></font></td>
 								</c:when>
 							</c:choose>
 						</tr>
@@ -157,10 +140,10 @@
 								<c:when test="${not empty yearVOList}">
 									<c:set var = "sum" value = "0" />
 									<c:forEach items="${yearVOList}" var="vo" varStatus="g">
-										<td style="">${vo.jrnl_cnt}</td>
+										<td style=""><fmt:formatNumber value="${vo.jrnl_cnt}" pattern="#,###,###"/></td>
 										<c:set var="sum" value="${sum+vo.jrnl_cnt}" />
 									</c:forEach>
-									<td style=""><font color="#28288C"><strong><c:out value="${sum}"/></strong></font></td>
+									<td style=""><font color="#28288C"><strong><fmt:formatNumber value="${sum}" pattern="#,###,###"/></strong></font></td>
 								</c:when>
 							</c:choose>
 						</tr>						
@@ -171,10 +154,10 @@
 								<c:when test="${not empty yearVOList}">
 									<c:set var = "sum" value = "0" />
 									<c:forEach items="${yearVOList}" var="vo" varStatus="g">
-										<td style="">${vo.refr_cnt}</td>
+										<td style=""><fmt:formatNumber value="${vo.refr_cnt}" pattern="#,###,###"/></td>
 										<c:set var="sum" value="${sum+vo.refr_cnt}" />
 									</c:forEach>
-									<td style=""><font color="#28288C"><strong><c:out value="${sum}"/></strong></font></td>
+									<td style=""><font color="#28288C"><strong><fmt:formatNumber value="${sum}" pattern="#,###,###"/></strong></font></td>
 								</c:when>
 							</c:choose>
 						</tr>
@@ -230,8 +213,9 @@
 			            $('#yearOption').on('change', updateChart)
 			            updateChart();	
 					});
-			
-		            	/** 위에 생성한 SelectBox의 옵션에 따른 차트 변경 **/
+		            		            		            
+		       		
+		          /** 위에 생성한 SelectBox의 옵션에 따른 차트 변경 **/
 		                var dataMap = {
 		            			/* 논문 선택 */
 		                		'arti' : {
@@ -250,9 +234,37 @@
 	                                 },
 	                                 /* 차트 옵션 정하는 부분(클릭 이벤트, 차트 제목 등..여러가지 기능) */
 	                                 options : {
+	                                	responsive: true,
 	                                    title : {
 	                                       display : true,
 	                                       text : '연도별 논문(건)수'
+	                                    },
+	                                    tooltips: {
+	                                    	mode: 'index',
+	                                    	intersect: false,
+	                                    },
+	                                    hover: {
+	                                    	mode: 'nearest',
+	                                    	intersect: true
+	                                    },
+	                                    scales: {
+	                                        xAxes: [{
+	                                            display: true,
+	                                            scaleLabel: {
+	                                                display: true,
+	                                                labelString: '논문건수'
+	                                            },
+	                                        }],
+	                                        yAxes: [{
+	                                            display: true,
+	                                            ticks: {
+	                                                autoSkip: false,
+	                                            },
+	                                            scaleLabel: {
+	                                                display: true,
+	                                                labelString: '발행연도'
+	                                            }
+	                                        }]
 	                                    }
 	                                 }
 	                              },
@@ -328,7 +340,7 @@
 	                                    }
 	                                 }
 	                              }
-	                           };
+	                           }; 
 	         
 		              /** 현재 차트를 정의  **/
 		              var currentChart;	
@@ -347,8 +359,6 @@
 			              currentChart = new Chart(ctx)[params.method](params.data, {});
 		              }	            
 				</script>
-			</div>
-			</div>
 			</div>
 		</div>
 	</div>		

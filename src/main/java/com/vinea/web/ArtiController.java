@@ -351,7 +351,7 @@ public class ArtiController {
 		
 		/* 워드 클라우드 생성을 위해 {"키워드명":"키워드명 데이터", 값: "키워드빈도수"} 와 같은 JSON 형태로 변환 */
 		
-		int max = -1, min = 100000;
+		int max = -1, min = 10000;
 		for (CtgrKwrdVO vo:kwrdList) {
 			
 			int tmp = vo.getKwrd_cnt();

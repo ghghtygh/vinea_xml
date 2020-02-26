@@ -1285,8 +1285,8 @@
 				LIMIT 5
 			)	A 
 			ORDER BY 
-				PUB_YEAR 
-			ASC	
+				PUB_YEAR
+			ASC
 	</select>
 	
 	<select id="countOrg" resultType="java.lang.Integer" parameterType="hashMap">
