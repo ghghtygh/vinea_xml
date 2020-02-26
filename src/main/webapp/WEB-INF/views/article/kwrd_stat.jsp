@@ -51,7 +51,7 @@
 		 /** 키워드 빈도 탭에서 분야명과 주제명을 선택하는 옵션들의  selected(선택상태) 속성을 가져옴 **/
 		 $('#ctgrnm option[value="${ctgrnm}"]').attr("selected",true);
 		 $('#subjnm option[value="${subjnm}"]').attr("selected",true);
-		 
+		 $('#cnt_option option[value="${cnt_option}"]').attr("selected",true);
 
 		 /* 분야명을 클릭하였을 때 페이지 업데이트 */
 		$("#ctgrnm").change(function() {
@@ -65,6 +65,13 @@
 		
 		/* 주제명을 클릭하였을 때 페이지 업데이트 */
 		$("#subjnm").change(function() {
+				
+			var formObj = $("#frm");
+			formObj.attr("action", "/article/kwrdstat");
+			formObj.attr("method", "get");
+			formObj.submit();				
+		});
+		$("#cnt_option").change(function() {
 				
 			var formObj = $("#frm");
 			formObj.attr("action", "/article/kwrdstat");
@@ -168,15 +175,21 @@
 					</li>
 					<!-- 주제명 리스트 데이터 -->
 					<select class="form-control" id="cnt_option" name="cnt_option">
-							<option value="1">10</option>
-							<option value="2">30</option>
-							<option value="3">50</option>
+							<option value="10">10</option>
+							<option value="30">30</option>
+							<option value="50">50</option>
 					</select>	
 				</ol>
 				<p style="font-size: 20px; font-weight: bold; color: #000069; margin-top: 50px">분야별 키워드 빈도수</p>
 				<!-- 분야별 키워드 빈도를 나타낼 워드클라우드  -->
 				<div align="center">
-					 <div id="kwrdcloud" style="width: 800px; height: 600px;"></div>
+					 <div id="kwrdcloud" style="width: 800px; height: 600px;">
+					 	<div style="margin-top: 350px" id="loading" class="text-center">
+							<div class="spinner-border text-dark" style="width: 5rem; height: 5rem;" role="status">
+								<span class="sr-only">Loading...</span>
+					  		</div>
+					 	</div>
+					</div>
 				</div>
 				<script>
 					/* 키워드명 */
@@ -184,14 +197,15 @@
 					/* 키워드 빈도수 */
 					var chartData = [];
 					/* JSON 방식으로 데이터를 가져옴 */
-					$.getJSON("/article/kwrdcnt", function(data){	
-						
+					$.getJSON("/article/kwrdcnt", function(data){		
+						$("#loading").show();
 						createChart();
 					});
 			
 					/* 워드클라우드 생성 */
 					function createChart(){
-						anychart.onDocumentReady(function(){							
+						anychart.onDocumentReady(function(){
+							$("#loading").hide();
 							/* 새로운 배열 생성 */
 							var data = new Array(); 
 							
@@ -206,13 +220,9 @@
 							var formatter = "{%value}";
 							var tooltip = chart.tooltip();		
 							
-							chart.angles([0]);
-							//chart.angles([0, 30, 90, 0]);
-							
+							chart.angles([0]);						
 							chart.textSpacing(5);
 							chart.mode('spiral');
-							//chart.mode('rect');
-
 							chart.background().fill("#fafafafa");
 							chart.container("kwrdcloud");
 							chart.draw();	

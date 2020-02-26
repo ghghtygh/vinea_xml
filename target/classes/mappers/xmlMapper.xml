@@ -1457,11 +1457,12 @@
 			SUBJ_NM = #{subjnm}
 		ORDER BY KWRD_CNT 
 		DESC
-		LIMIT 30
+		LIMIT
+		#{cnt_option}
 	</select>
 
 	<select id="getKwrdCnt" resultType="com.vinea.dto.CtgrKwrdVO">	
-	<!-- 분야별 키워드 빈도수 조회(분야별로 상위 10개만 조회)  *path: src/main/resources/mappers/xmlMapper.xml *id: getKwrdCnt -->
+	<!-- 분야별 키워드 빈도수 조회(분야별로 상위 10개만 조회)  *path: src/main/resources/mappers/xmlMapper.xml *id: getKwrdCnt 
 	
 	<![CDATA[
 		SELECT
@@ -1489,8 +1490,23 @@
 		      KWRD_CNT DESC 
 		   ) A 
 		WHERE
-		   ROWNUM <= 10
+		   ROWNUM <= 1
 	]]>
+	SELECT
+		   CTGR_NM,
+		   SUBJ_NM
+	FROM
+		CTGR_KWRD_STAT
+	WHERE
+		KWRD_CNT>20
+	GROUP BY
+		CTGR_NM,
+		SUBJ_NM-->
+	SELECT
+		CTGR_NM,
+		SUBJ_NM
+	FROM
+		TB_CTGR_NM
 	</select>
 	
  </mapper>

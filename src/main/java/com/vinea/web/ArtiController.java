@@ -314,7 +314,9 @@ public class ArtiController {
 	/** 키워드 빈도 **/
 	@RequestMapping(value = "/article/kwrdstat", method = RequestMethod.GET)
 	public ModelAndView kwrdChart(@RequestParam(defaultValue="") String ctgrnm
-			,@RequestParam(defaultValue="Materials Science, Multidisciplinary") String subjnm) throws Exception {
+			,@RequestParam(defaultValue="Materials Science, Multidisciplinary") String subjnm
+			,@RequestParam(defaultValue="10") String cnt_option
+			) throws Exception {
 
 		/* view로 데이터 넘김 */
 		ModelAndView mav = new ModelAndView("article/kwrd_stat");
@@ -342,11 +344,12 @@ public class ArtiController {
 		
 		List<String> list2 = new ArrayList<String>();
 		
+		
 		/** 키워드 빈도수 워드클라우드 생성 **/
 		/* 서비스로 주제명을 보내기 위한 map 생성 */
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("subjnm", subjnm);
-		
+		map.put("cnt_option", Integer.parseInt(cnt_option));
 		List<CtgrKwrdVO> kwrdList = service.kwrdCloudList(map);
 		
 		/* 워드 클라우드 생성을 위해 {"키워드명":"키워드명 데이터", 값: "키워드빈도수"} 와 같은 JSON 형태로 변환 */
@@ -376,6 +379,7 @@ public class ArtiController {
 				
 		mav.addObject("ctgrnm",ctgrnm);
 		mav.addObject("subjnm",subjnm);
+		mav.addObject("cnt_option",cnt_option);
 		/* 워드클라우드를 그리기 위한 배열 */
 		mav.addObject("list2",list2);
 		return mav;
@@ -388,7 +392,8 @@ public class ArtiController {
 
 		/* 차트에 데이터를 JSON 방식으로 넘김 */
 		Gson gson = new Gson();
-		List<CtgrKwrdVO> list = service.getKwrdCnt();
+		//List<CtgrKwrdVO> list = service.getKwrdCnt();
+		List<CtgrKwrdVO> list = null;
 		return gson.toJson(list);
 
 	}		

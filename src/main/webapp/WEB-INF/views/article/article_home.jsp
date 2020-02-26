@@ -553,21 +553,6 @@ input:read-only {
 								<button id="btn_insertXML" type="button" class="btn btn-primary">XML추가</button>
 							</div>
 						</div>
-						
-						<!-- <div>
-							<div class="form-group row" style="width:200px;position: relative; float: left; z-index: 10;">
-								<label class="col-sm-8 col-form-label">
-								페이지보기
-								</label>
-								<select class="col-sm-4 form-control" id="" name="">
-									<option value="1">10</option>
-									<option value="2">20</option>
-									<option value="3">30</option>
-									<option value="3">50</option>
-									<option value="3">100</option>
-								</select>
-							</div>
-						</div> -->
 					</div>
 				</div>
 				<!-- 페이징 처리(종료) -->

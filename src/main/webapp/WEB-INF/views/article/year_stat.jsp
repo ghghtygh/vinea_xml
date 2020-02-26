@@ -23,7 +23,6 @@
 
 <!-- Chart.js 사용(라인, 바, 플롯, 레이더 등 사용) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.js'></script>
 </head>
 <form>
 <body>
@@ -89,7 +88,19 @@
 			</nav>
 			<!--  연도별 통계: 테이블, 차트 -->
 			<div id="year_stat" style="margin-top: 20px">
+				<div class="row">
+				<div class="col-lg-10">
 				<p style="font-size: 20px; font-weight: bold; color: #000069">연도별 데이터 통계</p>
+				</div>
+				<div class="col-lg-2">
+				<select class="form-control" id="yearOption">
+					<option value="1">2015</option>
+					<option value="2">2016</option>
+					<option value="3">2017</option>
+					<option value="4">2018</option>
+				</select>
+				</div>
+				</div>
 				<div class="row">
 				<div class="col-lg-12">
 				<table id="table1" style="text-align: center;" class="table table-hover">
@@ -168,39 +179,40 @@
 				<!-- 논문, 도서, 학술지, 참고문헌으로 옵션으로 두는 SelectBox 생성 -->
 				<div class="row">
 				<div class="col-lg-12">
-				<select class="form-control" id="yearOption">
+				<!-- <select class="form-control" id="yearOption">
 					<option value="arti">논문</option>
 					<option value="book">도서</option>
 					<option value="jrnl">학술지</option>
 					<option value="refr">참고문헌</option>
-				</select>
+				</select> -->
 				</div>
 				</div>
 				<!-- 차트를 그릴 canvas 정의 -->
 				<div class="row" align="center" style="margin-top: 15px">
 					<div class="col-lg-12">
-						<canvas id="yearStat"></canvas>
+						<canvas id="yearStats" width="800px" height="400px"></canvas>
 					</div>
 				</div>
 				<script>
 					/** 위에 정의한 canvas 아이디를 가져와 차트를 정의 **/
-					var ctx = document.getElementById("yearStat").getContext("2d");
-					/** 차트의 크기 정의 **/
-		            ctx.canvas.width = 800;
-		            ctx.canvas.height = 400;
+					//var ctx = document.getElementById("yearStat").getContext("2d");
+					/** 차트의 크기 정의   **/
+		            //ctx.canvas.width = 800;
+		           // ctx.canvas.height = 400;
 		            
-		            /** x축에 들어갈 발행연도 데이터 **/
+		             
+		            /** x축에 들어갈 발행연도 데이터  **/
 		            var chartLabels = [];
-		            /** 논문수 데이터 **/
+		            /** 논문수 데이터  **/
 		            var artiCnt = [];
-		            /** 도서수 데이터 **/
+		            /** 도서수 데이터  **/
 		            var bookCnt = [];
-		            /** 학술지수 데이터 **/
+		            /** 학술지수 데이터  **/
 		            var jrnlCnt = [];
-		            /** 참고문헌수 데이터 **/
+		            /** 참고문헌수 데이터  **/
 		            var refrCnt = [];
 		            
-		            /** 발행연도, 논문수, 도서수, 학술지수, 참고문헌수 각각 데이터를 JSON 방식으로 불러옴 **/
+		            /** 발행연도, 논문수, 도서수, 학술지수, 참고문헌수 각각 데이터를 JSON 방식으로 불러옴  **/
 		            $.getJSON("/article/yearcnt", function(data){	
 						$.each(data, function(inx, obj){	
 							chartLabels.push(obj.pub_year);	
@@ -208,33 +220,54 @@
 							bookCnt.push(obj.book_cnt);
 							jrnlCnt.push(obj.jrnl_cnt);
 							refrCnt.push(obj.refr_cnt);
-						});	
+						});
 					    /** option이 변경될때마다 차트 업데이트 **/
-			            $('#yearOption').on('change', updateChart)
-			            updateChart();	
-					});
-		            		            		            
-		       		
-		          /** 위에 생성한 SelectBox의 옵션에 따른 차트 변경 **/
+			            //$('#yearOption').on('change', updateChart)
+			            //updateChart();	
+					}); 
+
+					function createChart(){
+		        	   new Chart(document.getElementById("yearStats"), {
+		        		    type: 'horizontalBar',
+		        		    data: {
+		        		      labels: ["논문", "도서", "학술지", "참고문헌"],
+		        		      datasets: [
+		        		        {
+		        		          label: chartLabels[0],
+		        		          backgroundColor: "#3e95cd",
+		        		          data: [artiCnt[0], bookCnt[0], jrnlCnt[0], refrCnt[0]]
+		        		        }
+		        		      ]
+		        		    },
+		        		    options: {
+		        		      legend: { display: false },		        		     
+		        		    }
+		        		});
+		        	   
+					}
+		        	   
+	
+		          /** 위에 생성한 SelectBox의 옵션에 따른 차트 변경 
 		                var dataMap = {
-		            			/* 논문 선택 */
-		                		'arti' : {
-	                                 method : 'Bar',
+		            			/* 논문 선택  
+		                		'1' : {
+	                                 type : 'horizontalBar',
+	                                 //type : 'Bar',
 	                                 data : {
-	                                	/* 연도 */
+	                                	/* 	 연도  
 	                                    labels : chartLabels,
-	                                    /* 논문 수 데이터가 들어갈 부분 */
+	                                    /* 	논문 수 데이터가 들어갈 부분  
 	                                    datasets : [ {
 	                                       label : "논문수",
 	                                       fillColor : "rgba(102,153,255,0.5)",
 	                                       strokeColor : "rgba(000,051,153,0.8)",
 	                                       highlightStroke : "rgba(220,220,220,1)",
 	                                       data : artiCnt
-	                                    } ],
+	                                    }],
 	                                 },
-	                                 /* 차트 옵션 정하는 부분(클릭 이벤트, 차트 제목 등..여러가지 기능) */
+	                                /* 차트 옵션 정하는 부분(클릭 이벤트, 차트 제목 등..여러가지 기능) 
 	                                 options : {
-	                                	responsive: true,
+	                                    responsive: true,
 	                                    title : {
 	                                       display : true,
 	                                       text : '연도별 논문(건)수'
@@ -258,23 +291,24 @@
 	                                        yAxes: [{
 	                                            display: true,
 	                                            ticks: {
-	                                                autoSkip: false,
+	                                                autoSkip: false
 	                                            },
-	                                            scaleLabel: {
-	                                                display: true,
-	                                                labelString: '발행연도'
+	                                            scaleLabel: function(label) {
+	                                                //display: true,
+	                                                //labelString: '발행연도',
+	                                                return value.toLocaleString("en-US",{style:"currency", currency:"USD"});
 	                                            }
 	                                        }]
-	                                    }
+	                                    } 
 	                                 }
 	                              },
-	                              /* 도서 선택 */
-	                              'book' : {
-	                                 method : 'Bar',
+	                              /* 	도서 선택  
+	                              '2' : {
+	                            	 type : 'Bar',
 	                                 data : {
-	                                	/* 연도 */
+	                                	/* 연도  
 	                                    labels : chartLabels,
-	                                    /* 도서 수 데이터가 들어갈 부분 */
+	                                    /* 	도서 수 데이터가 들어갈 부분  
 	                                    datasets : [ {
 	                                       label : "도서수",
 	                                       fillColor : "rgba(102,153,255,0.5)",
@@ -284,7 +318,7 @@
 	                                       data : bookCnt
 	                                    } ],
 	                                 },
-	                                 /* 차트 옵션 정하는 부분(클릭 이벤트, 차트 제목 등..여러가지 기능) */
+	                                 /* 차트 옵션 정하는 부분(클릭 이벤트, 차트 제목 등..여러가지 기능)  
 	                                 options : {
 	                                    title : {
 	                                       display : true,
@@ -292,13 +326,13 @@
 	                                    }
 	                                 }
 	                              },
-	                              /* 학술지 선택 */
-	                              'jrnl' : {
-	                                 method : 'Bar',
+	                             /*  	학술지 선택  
+	                              '3' : {
+	                            	 type : 'Bar',
 	                                 data : {
-	                                	/* 연도 */
+	                                	/* 	연도  
 	                                    labels : chartLabels,
-	                                    /* 학술지 수 데이터가 들어갈 부분 */
+	                                    /* 	학술지 수 데이터가 들어갈 부분 
 	                                    datasets : [ {
 	                                       label : "학술지",
 	                                       fillColor : "rgba(102,153,255,0.5)",
@@ -308,7 +342,7 @@
 	                                       data : jrnlCnt
 	                                    } ],
 	                                 },
-	                                 /* 차트 옵션 정하는 부분(클릭 이벤트, 차트 제목 등..여러가지 기능) */
+	                                 /* 차트 옵션 정하는 부분(클릭 이벤트, 차트 제목 등..여러가지 기능) 
 	                                 options : {
 	                                    title : {
 	                                       display : true,
@@ -316,13 +350,13 @@
 	                                    }
 	                                 }
 	                              },
-	                              /* 참고문헌 선택 */
-	                              'refr' : {
-	                                 method : 'Bar',
+	                             /*  참고문헌 선택 
+	                              '4' : {
+	                                 type : 'Bar',
 	                                 data : {
-	                                	/* 연도 */
+	                                	/* 연도  
 	                                    labels : chartLabels,
-	                                    /* 참고문헌 수 데이터가 들어갈 부분 */
+	                                    /* 	참고문헌 수 데이터가 들어갈 부분 
 	                                    datasets : [ {
 	                                       label : "yearly statistics of reference",
 	                                       fillColor : "rgba(102,153,255,0.5)",
@@ -332,7 +366,7 @@
 	                                       data : refrCnt
 	                                    } ]
 	                                 },
-	                                 /* 차트 옵션 정하는 부분(클릭 이벤트, 차트 제목 등..여러가지 기능) */
+	                                 /* 차트 옵션 정하는 부분(클릭 이벤트, 차트 제목 등..여러가지 기능) 
 	                                 options : {
 	                                    title : {
 	                                       display : true,
@@ -340,24 +374,21 @@
 	                                    }
 	                                 }
 	                              }
-	                           }; 
-	         
-		              /** 현재 차트를 정의  **/
+	                           }; **/
+	                           
+        
+		             /*  현재 차트를 정의  
 		              var currentChart;	
 		              
 		              function updateChart() {
-		            	  /** 차트가 업데이트 될때 에는 현재 차트를 지움 **/
 		                  if (currentChart) {
 		                     currentChart.destroy();
 		                   }
 		
-		            	  /** 위에 정의한 SelectBox의 id를 가지고 옵션의 value값을 차트를 결정하는 기준으로 둠 **/
 			           	  var determineChart = $("#yearOption").val();
-		            	  /** 선택한 option에 따른 차트를 params라는 변수에 정의 **/
 			              var params = dataMap[determineChart]
-		            	  /** 차트를 생성 **/
-			              currentChart = new Chart(ctx)[params.method](params.data, {});
-		              }	            
+		            	  currentChart = new Chart(ctx)["horizontalBar"](params.data, {});
+		              }	   */          
 				</script>
 			</div>
 		</div>
