@@ -332,56 +332,50 @@ input:read-only {
 					</div>
 			</nav>
 			<form id="frm" enctype="multipart/form-data">
+
+			
+			
 				<!-- 검색기능 -->
 				<input type="hidden" name="search" value="">
+				<fmt:parseNumber value="${search_option}" var="so"/>
 				<c:choose>
-					<c:when test="${search_option==4}">
-						<!-- 검색 옵션: 학술지명 -->
-						<input type="hidden" name="search_option" value="4">
-						<!--  정렬 옵션: UID 순 -->
+					<c:when test="${so >= 4 }">
+						<input type="hidden" name="search_option" value="${search_option}">
 						<input type="hidden" name="sort_option" value="1">
-						<!-- 학술지명으로 검색하였을 때 결과 -->
 						<div>
-							<h5>학술지명 : ${search}</h5>
-								&nbsp;총 &nbsp;${cnt }&nbsp;건&nbsp;&nbsp; 
-							<a href="/">전체보기</a>
+							<div class="form-inline">
+								<c:choose>
+									<c:when test="${search_option==4}">
+										<h5>학술지명 : ${search}</h5>
+									</c:when>
+
+									<c:when test="${search_option==5}">
+										<h5>저자 : ${search}</h5>
+									</c:when>
+
+									<c:when test="${search_option==6}">
+										<h5>기관명 : ${search}</h5>
+									</c:when>
+
+									<c:when test="${search_option==7}">
+										<h5>키워드명 : ${search}</h5>
+									</c:when>
+								</c:choose>
+							</div>
+							<div>
+								&nbsp;총 &nbsp;${cnt }&nbsp;건&nbsp;&nbsp; <a href="/">전체보기</a>
+								<select class="form-control form-control-sm" style="float: right; width: 150px;" id="cnt_option" name="cnt_option">
+									<option value="10">10개씩 보기</option>
+									<option value="20">20개씩 보기</option>
+									<option value="30">30개씩 보기</option>
+									<option value="50">50개씩 보기</option>
+									<option value="100">100개씩 보기</option>
+								</select>
+							</div>
 						</div>
+						
 					</c:when>
-					<c:when test="${search_option==5}">
-						<!-- 검색 옵션 : 저자명 -->
-						<input type="hidden" name="search_option" value="5">
-						<!--  정렬 옵션: UID 순 -->
-						<input type="hidden" name="sort_option" value="1">
-						<!-- 저자명으로 검색하였을 때 결과 -->
-						<div>
-							<h5>저자 : ${search}</h5>
-								&nbsp;총 &nbsp;${cnt }&nbsp;건&nbsp;&nbsp; 
-							<a href="/">전체보기</a>
-						</div>
-					</c:when>
-					<c:when test="${search_option==6}">
-						<!-- 검색 옵션: 기관명 -->
-						<input type="hidden" name="search_option" value="6">
-						<!-- 정렬 옵션: UID 순 -->
-						<input type="hidden" name="sort_option" value="1">
-						<!-- 기관명으로 검색하였을 때 결과 -->
-						<div>
-							<h5>기관명 : ${search}</h5>
-							&nbsp;총 &nbsp;${cnt }&nbsp;건&nbsp;&nbsp; <a href="/">전체보기</a>
-						</div>
-					</c:when>
-					<c:when test="${search_option==7}">
-						<!-- 검색 옵션: 키워드명 -->
-						<input type="hidden" name="search_option" value="7">
-						<!--  정렬 옵션: UID 순 -->
-						<input type="hidden" name="sort_option" value="1">
-						<!--  키워드명으로 검색하였을 때 결과 -->
-						<div>
-							<h5>키워드명 : ${search}</h5>
-								&nbsp;총 &nbsp;${cnt }&nbsp;건&nbsp;&nbsp; 
-							<a href="/">전체보기</a>
-						</div>
-					</c:when>
+					
 					<c:otherwise>
 						<div class="row">
 							<div class="col-sm-7">
@@ -416,19 +410,6 @@ input:read-only {
 								</div>
 							</div>
 							<div class="col-sm-2">
-								<!-- 
-								<div class="form-group row" style="width:200px;position: relative; float: left; z-index: 10;">
-									<label class="col-sm-8 col-form-label">
-									페이지보기
-									</label>
-									<select class="col-sm-4 form-control" id="" name="">
-										<option value="1">10</option>
-										<option value="2">20</option>
-										<option value="3">30</option>
-										<option value="3">50</option>
-										<option value="3">100</option>
-									</select>
-								</div> -->
 								<select class="form-control" id="cnt_option" name="cnt_option">
 									<option value="10">10개씩 보기</option>
 									<option value="20">20개씩 보기</option>

@@ -142,7 +142,7 @@ a:hover {
 		formObj.attr("action", "/article");
 		formObj.attr("method", "get");
 		formObj.submit();
-		}
+		
 
 	}
 </script>
