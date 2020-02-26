@@ -30,24 +30,21 @@
 	position: relative;
 	width: 130px;
 	border: 1px solid #999;
-	z-index
-	=1;
+	z-index:1;
 }
 /** 기관 선택 SelectBox **/
 #orgnselect {
 	position: relative;
 	width: 170px;
 	border: 1px solid #999;
-	z-index
-	=1;
+	z-index:1;
 }
 /** 정렬기준(한페이지에 보여줄 목록수) SelectBox **/
 #objectCnt {
 	position: relative;
 	width: 170px;
 	border: 1px solid #999;
-	z-index
-	=1;
+	z-index:1;
 }
 /** a태그에 해당하는 부분 마우스를 올려놓았을 경우 글씨 색깔 변하도록 함 **/
 a:hover {
@@ -65,6 +62,18 @@ a:hover {
 		$("input[name='search']").val(searchs);
 		$("#input_search").val(searchs);
 		
+		$('#cnt_option option[value="${cnt_option}"]').attr("selected",true);
+		
+		$("#cnt_option").on('change',function(){
+			
+			
+			/** 선택된 옵션에 따라 페이지를 업데이트 **/
+			var formObj = $("#frm");
+			formObj.attr("action", "/article/orgnstat");
+			formObj.attr("method", "get");
+			formObj.submit();
+			
+		});
 		
 		/** 검색하기 **/
 		$("#btn_search").on("click", function(e){
@@ -144,6 +153,7 @@ a:hover {
 </script>
 </head>
 <body>
+<form id="frm">
 	<div class="wrapper d-flex align-items-stretch">
 		<!-- 전체 메뉴 사이드바 -->
 		<nav id="sidebar">
@@ -216,15 +226,32 @@ a:hover {
 						<div class="row">
 							<div class="col-lg-12">
 								<ol class="breadcrumb">
-									<!-- 소속기관명 검색 -->
+									<!-- 소속기관명 검색
 									<li class="breadcrumb-item">
 										<p style="font-size: 15px; font-weight: bold; margin-left: 15px; margin-right: 10px; margin-top: 10px">기관명</p>
-									</li>
-									<form id="frm" class="form-inline my-2 my-lg-0">
-										<input type="hidden" name="search" value=""> <input class="form-control" id="input_search" type="text" placeholder="기관명 검색.."
-										 style="margin-right: 10px" onKeyDown="return inputKey()" onsubmit="return false" value="" maxlength="30">
-										<button class="btn btn-primary" type="button" id="btn_search">검색</button>
-									</form>
+									</li> -->
+									
+									<input type="hidden" name="search" value="">
+									<div class="row" style="width:100%;">
+										<div class="col-sm-6">
+											<div class="form-inline">
+												<input class="form-control" id="input_search" type="text" placeholder="기관명 검색.."
+												 style="margin-right: 10px" onKeyDown="return inputKey()" onsubmit="return false" value="" maxlength="30">
+												<button class="form-control btn btn-primary" type="button" id="btn_search">검색</button>
+											</div>
+										</div>
+										<div class="col-sm-6" align="right">
+											<select style="width:30%;"class="form-control" id="cnt_option" name="cnt_option">
+												<option value="10">10개씩 보기</option>
+												<option value="20">20개씩 보기</option>
+												<option value="30">30개씩 보기</option>
+												<option value="50">50개씩 보기</option>
+												<option value="100">100개씩 보기</option>
+											</select>
+										</div>
+									</div>
+									
+									
 								</ol>
 							</div>
 						</div>
@@ -352,6 +379,7 @@ a:hover {
 			</div>
 		</div>
 	</div>
+</form>
 <!-- JQUERY, 필요한 JAVASCRIPT 파일 -->
 <script src="/resources/js/jquery.min.js"></script>
 <script src="/resources/js/popper.js"></script>

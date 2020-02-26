@@ -45,14 +45,16 @@ public class ArtiController {
 	public ModelAndView xmlList(@RequestParam(defaultValue = "1") int page,
 			@RequestParam(defaultValue="") String search,
 			@RequestParam(defaultValue="0")String search_option,
-			@RequestParam(defaultValue="0")String sort_option) throws Exception
+			@RequestParam(defaultValue="0")String sort_option,
+			@RequestParam(defaultValue="10")String cnt_option) throws Exception
 	{
+		
 		
 		/* 데이터 넘길 JSP 경로 */
 		ModelAndView mav = new ModelAndView("article/article_home");
 	
 		/* 한페이지에 보여질 요소 개수 */
-		int pageSize = 10;
+		int pageSize = Integer.parseInt(cnt_option);
 		
 		/* 사용할 데이터를 저장할 map 선언 */
 		Map<String,Object> map = new HashMap<String,Object>();
@@ -80,12 +82,14 @@ public class ArtiController {
 		map.put("page_size", pageSize);
 		
 		List<ArtiVO> xmlList = service.selectXmlList(map);
+		
 		mav.addObject("xmlList", xmlList);
 		mav.addObject("pager", pager);
 		mav.addObject("cnt", xmlCount);
 		mav.addObject("search", search);
 		mav.addObject("search_option",search_option);
 		mav.addObject("sort_option",sort_option);
+		mav.addObject("cnt_option",cnt_option);
 		
 		return mav;
 	}
@@ -212,6 +216,7 @@ public class ArtiController {
 	@RequestMapping(value = "/article/orgnstat")
 	public ModelAndView orgnChart(@RequestParam(defaultValue = "1") int page,
 			@RequestParam(defaultValue="") String search,
+			@RequestParam(defaultValue="10")String cnt_option,
 			@RequestParam(defaultValue="2017")String year) throws Exception {
 		
 		/* 소속기관별 통계: 논문수, 인용수, 소속기관별 연구분야 비율 */
@@ -219,7 +224,7 @@ public class ArtiController {
 		
 		
 		/* 한페이지에 보여질 요소 개수 */
-		int pageSize = 10;
+		int pageSize = Integer.parseInt(cnt_option);
 		
 		Map<String,Object> map = new HashMap<String,Object>();
 		
@@ -248,6 +253,7 @@ public class ArtiController {
 		mav.addObject("pager", pager);
 		mav.addObject("cnt", orgCnt);
 		mav.addObject("search", search);
+		mav.addObject("cnt_option",cnt_option);
 		
 		return mav;
 	}
@@ -255,9 +261,10 @@ public class ArtiController {
 	/** 연구분야별 저자수, 논문수, 학술지, 참고문헌수 **/
 	@RequestMapping(value = "/article/ctgrstat")
 	public ModelAndView ctgrChart(@RequestParam(defaultValue = "1") int page
-			,@RequestParam(defaultValue="1")String sort_option
+			,@RequestParam(defaultValue="3")String sort_option
 			,@RequestParam(defaultValue="1")String ctgr_option
 			,@RequestParam(defaultValue="ctgr1") String tab_option
+			,@RequestParam(defaultValue="10")String cnt_option
 			) throws Exception {
 		
 		
@@ -267,7 +274,7 @@ public class ArtiController {
 		map.put("ctgr_option", ctgr_option);
 		
 		
-		int pageSize = 10;
+		int pageSize = Integer.parseInt(cnt_option);
 		int ctgrCount = service.countCtgrStat(map);
 		
 		PostPager pager = new PostPager(ctgrCount, page, pageSize);
@@ -283,7 +290,7 @@ public class ArtiController {
 		mav.addObject("cnt", ctgrCount);
 		mav.addObject("sort_option", sort_option);
 		mav.addObject("ctgr_option", ctgr_option);
-		
+		mav.addObject("cnt_option",cnt_option);
 		mav.addObject("tab_option",tab_option);
 		
 		return mav;

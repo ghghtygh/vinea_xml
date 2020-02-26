@@ -14,6 +14,7 @@ td{
 	overflow:hidden;
 	white-space:nowrap;
 }
+
 </style>
 </head>
 <script>
@@ -48,12 +49,12 @@ td{
 					var tb_str = "";
 					
 					/* 인덱스 */
-					tb_str+="<tr>";					
+					tb_str+="<tr>";
 					tb_str+="<td>";
 					tb_str+=index;
 					tb_str+="</td>";
 					/* 파일명 */
-					tb_str+="<td>";
+					tb_str+="<td title='"+item['file_name']+"'>";
 					tb_str+=item['file_name'];
 					tb_str+="</td>";					
 					tb_str+="<td name='"+item['file_name']+"'>";
@@ -68,6 +69,13 @@ td{
 					/* 파싱을 위한 버튼 정의 */
 					tb_str+="<button type='button' class='btn btn-primary btn-sm' name='btn_parse' value="+item['file_name']+">파싱";
 					tb_str+="</button>";
+					/*
+					"<div id='loading' class='text-center'>"
+					"<div class='spinner-border' role='status'>"
+					"<span class='sr-only'>Loading...</span>"
+					"</div>"
+					</div>*/
+					
 					tb_str+="</td>";					
 					tb_str+="</tr>";
 					

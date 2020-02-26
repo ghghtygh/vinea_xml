@@ -37,11 +37,13 @@
 		/** 정렬 옵션(UID, 발행일, 제목) **/
 		$('#sort_option option[value="${sort_option}"]').attr("selected",true);
 		
+		$('#cnt_option option[value="${cnt_option}"]').attr("selected",true);
+		
 		/** 정렬하기 **/
 		$("#sort_option").on('change',function(){
 			
 			/** 선택한 정렬 옵션 **/
-			var sort_option = $(this).val();
+			//var sort_option = $(this).val();
 			
 			/** 선택된 옵션에 따라 페이지를 업데이트 **/
 			var formObj = $("#frm");
@@ -50,7 +52,16 @@
 			formObj.submit();
 			
 		});
-		
+		$("#cnt_option").on('change',function(){
+			
+			
+			/** 선택된 옵션에 따라 페이지를 업데이트 **/
+			var formObj = $("#frm");
+			formObj.attr("action", "/article");
+			formObj.attr("method", "get");
+			formObj.submit();
+			
+		});
 		/** 검색하기 **/
 		$("#btn_search").on("click", function(e){
 			e.preventDefault();
@@ -381,7 +392,7 @@ input:read-only {
 					</c:when>
 					<c:otherwise>
 						<div class="row">
-							<div class="col-sm-9">
+							<div class="col-sm-7">
 								<div class="form-group row">
 									<div class="form-group">
 										<div class="input-group mb-3">
@@ -408,9 +419,31 @@ input:read-only {
 									<select class="col-sm-8 form-control" id="sort_option" name="sort_option">
 										<option value="1">UID 순</option>
 										<option value="2">발행일 순</option>
-										<option value="3">제목 순</option>
+										<!-- <option value="3">제목 순</option>  -->
 									</select>
 								</div>
+							</div>
+							<div class="col-sm-2">
+								<!-- 
+								<div class="form-group row" style="width:200px;position: relative; float: left; z-index: 10;">
+									<label class="col-sm-8 col-form-label">
+									페이지보기
+									</label>
+									<select class="col-sm-4 form-control" id="" name="">
+										<option value="1">10</option>
+										<option value="2">20</option>
+										<option value="3">30</option>
+										<option value="3">50</option>
+										<option value="3">100</option>
+									</select>
+								</div> -->
+								<select class="form-control" id="cnt_option" name="cnt_option">
+									<option value="10">10개씩 보기</option>
+									<option value="20">20개씩 보기</option>
+									<option value="30">30개씩 보기</option>
+									<option value="50">50개씩 보기</option>
+									<option value="100">100개씩 보기</option>
+								</select>
 							</div>
 						</div>
 						<!-- 검색한 내용이 공백(null)이 아닐때 -->
@@ -493,6 +526,7 @@ input:read-only {
 				</div>
 				<!-- 페이징 처리(시작) -->
 				<div style="width: 100%;">
+				
 					<div align="right" style="position: relative;">
 						<div style="position: absolute; text-align: center; width: 100%;">
 							<div class="btn-group mr-2">
@@ -546,6 +580,21 @@ input:read-only {
 								<button id="btn_insertXML" type="button" class="btn btn-primary">XML추가</button>
 							</div>
 						</div>
+						
+						<!-- <div>
+							<div class="form-group row" style="width:200px;position: relative; float: left; z-index: 10;">
+								<label class="col-sm-8 col-form-label">
+								페이지보기
+								</label>
+								<select class="col-sm-4 form-control" id="" name="">
+									<option value="1">10</option>
+									<option value="2">20</option>
+									<option value="3">30</option>
+									<option value="3">50</option>
+									<option value="3">100</option>
+								</select>
+							</div>
+						</div> -->
 					</div>
 				</div>
 				<!-- 페이징 처리(종료) -->

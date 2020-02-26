@@ -46,9 +46,28 @@
 		 $('#ctgrnm option[value="${ctgrnm}"]').attr("selected",true);
 		 $('#subjnm option[value="${subjnm}"]').attr("selected",true);
 		 
+		 /*
+		 $.getJSON("/article/kwrdcnt", function(data){	
+						
+			createChart();
+		});
+		$.ajax({
+			url:"/article/kwrdcnt",
+			data: {
+				
+			},
+			dataType:"json",
+			success:function(data){
+				console.log(data);
+				createChart();
+			},
+			error :function(request,error){
+				alert("실패");
+			}
+		});*/
 		
 		 /* 분야명을 클릭하였을 때 페이지 업데이트 */
-		 $("#ctgrnm").change(function() {
+		$("#ctgrnm").change(function() {
 				
 			var formObj = $("#frm");
 			formObj.attr("action", "/article/kwrdstat");
@@ -186,13 +205,10 @@
 					var chartLabels = [];
 					/* 키워드 빈도수 */
 					var chartData = [];
-		
+					
 					/* JSON 방식으로 데이터를 가져옴 */
 					$.getJSON("/article/kwrdcnt", function(data){	
-						$.each(data, function(inx, obj){
-							chartLabels.push(obj.kwrd_nm);	
-							chartData.push(obj.kwrd_cnt);	
-						});	
+						
 						createChart();
 					});
 			
@@ -210,7 +226,7 @@
 							
 							/* 워드클라우드 옵션 설정 */
 							var chart = anychart.tagCloud(data);
-							var formatter = "{%yPercentOfTotal}% ({%value})";
+							var formatter = "{%value}";
 							var tooltip = chart.tooltip();		
 							
 							chart.angles([0]);
