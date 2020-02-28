@@ -3,31 +3,37 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>메인 페이지</title>
-<!-- JQUERY, JAVASCRIPT -->
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
-
-<!--  CSS -->
-<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>메인페이지</title>
+<!-- CSS -->
+<link href="/resources/css1/styles.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/resources/css/style.css">
+<link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
 <link href="/resources/css/_bootswatch.scss" rel="stylesheet">
 <link href="/resources/css/_variables.scss" rel="stylesheet">
+
+<!-- JAVSCRIPT, JQUERY -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
+<!-- 파싱, DB, 검색, 정렬  -->
 <script>
 	var m_chk = false;
-
+	
 	var searchs = "${search}";
 	
 	/** document 로딩 시작 **/
 	$(document).ready(function() {
-
+	
 		/** 처음 파싱 모달창에서 로딩바 숨김 **/
 		$("#loading").hide();
-
+	
 		/** 검색한 내용 **/
 		$("input[name='search']").val(searchs);
 		$("#input_search").val(searchs);
@@ -39,11 +45,8 @@
 		
 		$('#cnt_option option[value="${cnt_option}"]').attr("selected",true);
 		
-		/** 정렬하기 **/
+		/** 정렬하기(UID순, 발행일순) **/
 		$("#sort_option").on('change',function(){
-			
-			/** 선택한 정렬 옵션 **/
-			//var sort_option = $(this).val();
 			
 			/** 선택된 옵션에 따라 페이지를 업데이트 **/
 			var formObj = $("#frm");
@@ -52,9 +55,10 @@
 			formObj.submit();
 			
 		});
+		
+		/** 목록에 보여질 논문건수 선택 **/
 		$("#cnt_option").on('change',function(){
-			
-			
+					
 			/** 선택된 옵션에 따라 페이지를 업데이트 **/
 			var formObj = $("#frm");
 			formObj.attr("action", "/article");
@@ -81,10 +85,10 @@
 		
 		/** 알림창 닫기 **/
 		$("#btn_alert_hide").on("click", function(e) {
-
+	
 			e.preventDefault();
 			$("#div_alert").hide();
-
+	
 		});
 		
 		/** 모달 닫힐때 modal remote 데이터 지우기 **/
@@ -92,30 +96,30 @@
 			
 		    $("#insertXML").removeData('bs.modal');
 		});
-
+	
 		/** 메인 - [XML추가]버튼 : XML 데이터 파일 추가 창 열기_BootStrap Modal 활용  **/
 		$("#btn_insertXML").on("click", function(e) {
-
+	
 			e.preventDefault();
 			
 			$("#div_alert").hide();
-
+	
 			input_chk();
-
+	
 			$("#insertXML").modal({remote:"article/parsing"});
 			
 			
 		});
-
+	
 		/** 파싱모달 - [저장] 버튼 : insertXML - 파싱 후, xml(논문데이터) DB 저장  **/
 		$("#btn_saveXml").click(function(e) {
-
+	
 			e.preventDefault();
-
+	
 			var filePath = $("#filePath").val();
-
+	
 			console.log(m_chk);
-
+	
 			/** 파일 경로가 일치하지 않거나, 파일이 없을 때(validation 처리) **/
 			if (!m_chk) {
 				$("#alert_subject").html("XML 파일경로 미확인");
@@ -123,9 +127,9 @@
 				$("#div_alert").show();
 				return;
 			}
-
+	
 			var result = confirm("파싱된 내용을 저장하시겠습니까?");
-
+	
 			/** 파싱한 결과에 따라 업데이트 되면서 저장될 수 있도록 함 **/
 			if (result) {
 				var formObj = $("#frm");
@@ -133,20 +137,20 @@
 				formObj.attr("method", "post");
 				formObj.submit();
 			}
-
+	
 		});
-
+	
 		/** insertXml: ArtiParser.java에서 파싱코드 가져와서 xml(논문)데이터 파싱 **/
 		$("#btn_chk").click(function(e) {
-
+	
 			$("#loading").show();
-
+	
 			e.preventDefault();
-
+	
 			clear_input();
-
+	
 			var filePath = $("#filePath").val();
-
+	
 			/** 파일 경로를 입력하지 않았을 때(validation 처리) **/
 			if (filePath == "") {
 				$("#alert_subject").html("XML 경로 미입력");
@@ -156,7 +160,7 @@
 				return;
 			}
 			$("#div_alert").hide();
-
+	
 			
 			$.ajax({
 				async : true,
@@ -167,31 +171,31 @@
 				},
 				dataType : "json",
 				success : function(data) {
-
+	
 					if (data == null) {
-
+	
 						$("#alert_subject").html("XML 파싱 실패");
 						$("#alert_content").html("올바른 XML파일 경로를 입력하세요");
 						$("#div_alert").show();
 						m_chk = false;
 						return;
 					}
-
+	
 					var item_html = "";
-
+	
 					$.each(data, function(index, item) {
 						item_html+=item['uid']+"<br>";
 					});
-
+	
 					m_chk = true;
-
+	
 					$("#div_parse").html(item_html);
-
+	
 					$("#loading").hide();
-
+	
 				},
 				error : function(request, error) {
-
+	
 					$("#alert_subject").html("XML 파싱 실패");
 					$("#alert_content").html("올바른 XML파일 경로를 입력하세요");
 					$("#div_alert").show();
@@ -199,15 +203,15 @@
 					return;
 				}
 			});
-
+	
 		});
-
+	
 	});
 	/** document 로딩 종료 **/
 	
 	/** 페이지 이동  **/
 	function fn_paging(nowPage) {
-
+	
 		var formObj = $("#frm");
 		
 		var input_page = document.createElement("input");
@@ -219,7 +223,7 @@
 		formObj.attr("action", "/article");
 		formObj.attr("method", "get");
 		formObj.submit();
-
+	
 	}
 	
 	function input_chk() {
@@ -282,161 +286,175 @@ input:read-only {
 }
 </style>
 </head>
-<body>
-	<div class="wrapper d-flex align-items-stretch">
-		<!-- 전체 메뉴 사이드바 -->
-		<nav id="sidebar">
-			<div class="p-4 pt-5">
-				<a href="/article" class="img logo rounded-circle mb-5" style="background-image: url(/resources/image/analyticx.png);"></a>
-				<ul class="list-unstyled components mb-5">
-					<li class="active">
-						<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">메인</a>
-						<ul class="list-unstyled collapse show in" id="homeSubmenu">
-							<li class="active">
-								<a href="/article">논문보기</a></li>
-						</ul>
-					</li>
-					<!-- 기관별 현황 페이지에서는 '현황>소속기관별 현황'을 선택상태로 둠 -->
-					<li><a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">현황</a>
-						<ul class="list-unstyled collapse show in" id="pageSubmenu">
-							<li><a href="/article/yearstat">연도별 현황</a></li>
-							<li><a href="/article/orgnstat">소속기관별 현황</a></li>
-							<li><a href="/article/ctgrstat">분야별 현황</a></li>
-							<li><a href="/article/kwrdstat">키워드 현황</a></li>
-						</ul>
-					</li>
+<body class="sb-nav-fixed">
+	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+		<a class="navbar-brand" href="/">XML Statics</a>
+			<button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#">
+				<i class="fas fa-bars"></i>
+			</button>
+			<!-- 홈버튼-->
+			<div style="margin-left: 1600px">
+				<ul class="navbar-nav ml-auto ml-md-0">
+				<li class="nav-item dropdown">
+					<a class="nav-link" id="userDropdown" href="/" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-home"></i></a>
+				</li>
 				</ul>
-				<div class="footer">
-					<p>
-						<script>
-							document.write(new Date().getFullYear());
-						</script>
-							About XML Parsing 
-							<i class="icon-heart" aria-hidden="true"></i>
-					</p>
-					<p>
-						made with by JuHyeon&Minjin 
+			</div>
+	</nav>
+		<div id="layoutSidenav">
+			<div id="layoutSidenav_nav">
+			<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+				<div class="sb-sidenav-menu">
+					<div class="nav">
+						<div class="sb-sidenav-menu-heading" style="color: #fff">MainPage</div>
+							<a style="font-weight: bold; color: #fff" class="nav-link" href="/article">
+								<div class="sb-nav-link-icon">
+									<i class="far fa-sticky-note"></i>
+								</div>
+								논문보기
+							</a>
+						<div class="sb-sidenav-menu-heading" style="color: #fff">Statics</div>
+							<a class="nav-link" href="/article/yearstat">
+								<div class="sb-nav-link-icon">
+									<i class="fas fa-chart-bar"></i>
+								</div>
+								연도별 현황
+							</a>
+							<a class="nav-link" href="/article/orgnstat">
+								<div class="sb-nav-link-icon">
+									<i class="fa fa-table"></i>
+								</div>
+								소속기관별 현황
+							</a>
+							<a class="nav-link" href="/article/ctgrstat">
+								<div class="sb-nav-link-icon">
+									<i class="fas fa-chart-area"></i>
+								</div>
+								분야별 현황
+							</a>
+							<a class="nav-link" href="/article/kwrdstat">
+								<div class="sb-nav-link-icon">
+									<i class="fa fa-cloud"></i>
+								</div>
+								키워드 현황
+							</a>	                          
+					</div>
+				</div>
+				<div class="sb-sidenav-footer">
+					<div class="small">Made with by NJH&SMJ</div>
 						<a href="https://github.com/ghghtygh/vinea_xml.git" style="font-size: 12px" target="_blank"> 
-							https://github.com/ghghtygh/vinea_xml.git 
+							<i class="fab fa-github"></i>
+							View Source
+							<i class="fab fa-github"></i>
+							=> Click
 						</a>
 				</div>
-			</div>
-		</nav>
-		<!-- 메인 페이지  -->
-		<div id="content" class="p-4 p-md-5">
-			 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-						<ul class="nav navbar-nav ml-auto">
-							<li class="nav-item active"><a class="nav-link" target="_blank" href="/article"><img src="/resources/image/home.png" alt="HOME"></a></li>
-						</ul>
-					</div>
 			</nav>
-			<form id="frm" enctype="multipart/form-data">
-
-			
-			
-				<!-- 검색기능 -->
-				<input type="hidden" name="search" value="">
-				<fmt:parseNumber value="${search_option}" var="so"/>
-				<c:choose>
-					<c:when test="${so >= 4 }">
-						<input type="hidden" name="search_option" value="${search_option}">
-						<input type="hidden" name="sort_option" value="1">
-						<div>
-							<div class="form-inline">
-								<c:choose>
-									<c:when test="${search_option==4}">
-										<h5>학술지명 : ${search}</h5>
-									</c:when>
-
-									<c:when test="${search_option==5}">
-										<h5>저자 : ${search}</h5>
-									</c:when>
-
-									<c:when test="${search_option==6}">
-										<h5>기관명 : ${search}</h5>
-									</c:when>
-
-									<c:when test="${search_option==7}">
-										<h5>키워드명 : ${search}</h5>
-									</c:when>
-								</c:choose>
-							</div>
-							<div>
-								&nbsp;총 &nbsp;${cnt }&nbsp;건&nbsp;&nbsp; <a href="/">전체보기</a>
-								<select class="form-control form-control-sm" style="float: right; width: 150px;" id="cnt_option" name="cnt_option">
-									<option value="10">10개씩 보기</option>
-									<option value="20">20개씩 보기</option>
-									<option value="30">30개씩 보기</option>
-									<option value="50">50개씩 보기</option>
-									<option value="100">100개씩 보기</option>
-								</select>
-							</div>
+			</div>
+			<div id="layoutSidenav_content">
+				<form id="frm">
+				<main>
+					<div class="container-fluid"> 
+						<div style="margin-top: 45px">
+							<p style="font-size: 30px; font-weight: bold; color: #000069; margin-top: 50px">논문 목록</p>						
 						</div>
-						
-					</c:when>
-					
-					<c:otherwise>
-						<div class="row">
-							<div class="col-sm-7">
-								<div class="form-group row">
-									<div class="form-group">
-										<div class="input-group mb-3">
-											<div class="input-group-prepend">
-												<!-- 검색 옵션: 제목, 저자, 키워드 -->
-												<select class="form-control" id="search_option" name="search_option">
-													<option value="1">제목</option>
-													<option value="2">저자</option>
-													<option value="3">키워드</option>
-												</select>
-											</div>
-											<input type="text" class="form-control" id="input_search" onKeyDown="return inputKey()" onsubmit="return false" value="" maxlength="30">
-											<div class="input-group-append">
-												<button class="btn btn-primary" type="button" id="btn_search">검색</button>
+						<hr>                     
+						<!-- 검색기능 -->
+						<input type="hidden" name="search" value="">
+						<fmt:parseNumber value="${search_option}" var="so"/>
+						<c:choose>
+							<c:when test="${so >= 4 }">
+								<input type="hidden" name="search_option" value="${search_option}">
+								<input type="hidden" name="sort_option" value="1">
+								<div>
+									<div class="form-inline">
+									<c:choose>
+										<c:when test="${search_option==4}">
+											<h5>학술지명 : ${search}</h5>
+										</c:when>
+										<c:when test="${search_option==5}">
+											<h5>저자 : ${search}</h5>
+										</c:when>
+										<c:when test="${search_option==6}">
+											<h5>기관명 : ${search}</h5>
+										</c:when>
+										<c:when test="${search_option==7}">
+											<h5>키워드명 : ${search}</h5>
+										</c:when>
+									</c:choose>
+									</div>
+									<div style="margin-bottom: 20px">
+										&nbsp;총 &nbsp;<strong>${cnt }</strong>&nbsp;건&nbsp;&nbsp; <a href="/">전체보기</a>
+										<select class="form-control" style="float: right; width: 150px;" id="cnt_option" name="cnt_option">
+											<option value="10">10건씩 보기</option>
+											<option value="20">20건씩 보기</option>
+											<option value="30">30건씩 보기</option>
+											<option value="50">50건씩 보기</option>
+											<option value="100">100건씩 보기</option>
+										</select>
+									</div>
+								</div>						
+							</c:when>					
+							<c:otherwise>
+								<div class="row">
+									<div class="col-sm-7">
+										<div class="form-group row">
+											<div class="form-group">
+												<div class="input-group mb-3">
+													<div class="input-group-prepend">
+													<!-- 검색 옵션: 제목, 저자, 키워드 -->
+													<select class="form-control" id="search_option" name="search_option">
+														<option value="1">제목</option>
+														<option value="2">저자</option>
+														<option value="3">키워드</option>
+													</select>
+													</div>
+													<input type="text" class="form-control" id="input_search" onKeyDown="return inputKey()" onsubmit="return false" value="" maxlength="30">
+													<div class="input-group-append">
+														<button class="btn btn-primary" type="button" id="btn_search">검색</button>
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>
+									<div class="col-sm-3">
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label" align="right">정렬</label>
+											<!-- 정렬 옵션: UID 순, 발행일순, 제목순 -->
+											<select class="col-sm-8 form-control" id="sort_option" name="sort_option">
+												<option value="1">UID 순</option>
+												<option value="2">발행일 순</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-sm-2">
+										<select class="form-control" id="cnt_option" name="cnt_option">
+											<option value="10">10건씩 보기</option>
+											<option value="20">20건씩 보기</option>
+											<option value="30">30건씩 보기</option>
+											<option value="50">50건씩 보기</option>
+											<option value="100">100건씩 보기</option>
+										</select>
+									</div>
 								</div>
-							</div>
-							<div class="col-sm-3">
-								<div class="form-group row">
-									<label class="col-sm-4 col-form-label" align="right">정렬</label>
-									<!-- 정렬 옵션: UID 순, 발행일순, 제목순 -->
-									<select class="col-sm-8 form-control" id="sort_option" name="sort_option">
-										<option value="1">UID 순</option>
-										<option value="2">발행일 순</option>
-										<!-- <option value="3">제목 순</option>  -->
-									</select>
-								</div>
-							</div>
-							<div class="col-sm-2">
-								<select class="form-control" id="cnt_option" name="cnt_option">
-									<option value="10">10개씩 보기</option>
-									<option value="20">20개씩 보기</option>
-									<option value="30">30개씩 보기</option>
-									<option value="50">50개씩 보기</option>
-									<option value="100">100개씩 보기</option>
-								</select>
-							</div>
-						</div>
-						<!-- 검색한 내용이 공백(null)이 아닐때 -->
-						<c:if test="${search ne ''}">
-							<div>
-								<!-- 총 검색된 논문 건수 -->
-								<div style="">
-									<h5>검색결과 : ${cnt }건</h5>
-								</div>
-								<!-- 전체 논문 목록 페이지로 이동 -->
-								<div style="">
-									<a href="/">전체보기</a>
-								</div>
-							</div>
-						</c:if>
-					</c:otherwise>
-				</c:choose>
-				<div>
-					<table class="table table-hover">
-						<tbody>
+								<!-- 검색한 내용이 공백(null)이 아닐때 -->
+								<c:if test="${search ne ''}">
+									<div>
+										<!-- 총 검색된 논문 건수 -->
+										<div style="">
+											<h5>검색결과 : ${cnt }건</h5>
+										</div>
+										<!-- 전체 논문 목록 페이지로 이동 -->
+										<div style="">
+											<a href="/article">전체보기</a>
+										</div>
+									</div>
+								</c:if>
+							</c:otherwise>
+						</c:choose>
+						<div>
+						<table class="table table-hover">
+							<tbody>
 							<!--  논문 정보가 없는지 있는지 판단 -->
 							<c:choose>
 								<c:when test="${not empty xmlList}">
@@ -497,11 +515,10 @@ input:read-only {
 						</tbody>
 					</table>
 				</div>
-				<!-- 페이징 처리(시작) -->
-				<div style="width: 100%;">
-				
+				 <!-- 페이징 처리(시작) -->
+				<div style="width: 100%;">				
 					<div align="right" style="position: relative;">
-						<div style="position: absolute; text-align: center; width: 100%;">
+						<div style="position: absolute; text-align: center; width: 100%; margin-bottom: 20px">
 							<div class="btn-group mr-2">
 								<c:choose>
 									<c:when test="${pager.nowPage ne 1 }">
@@ -555,20 +572,20 @@ input:read-only {
 						</div>
 					</div>
 				</div>
-				<!-- 페이징 처리(종료) -->
-			</form>
+				<!-- 페이징 처리(종료) -->                             
+              </div>
+            </main>
+            </form>
+            </div>
+      </div>
+       <!-- [XML추가] 모달 -->
+		<div id="insertXML" class="modal">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content"></div>
+			</div>
 		</div>
-	</div>
-	<!-- [XML추가] 모달 -->
-	<div id="insertXML" class="modal">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content"></div>
-		</div>
-	</div>
-	<!-- / [XML추가] 모달 -->
-	
-<!-- JQUERY, 필요한 JAVASCRIPT 파일 -->
-<script src="/resources/js/popper.js"></script>
-<script src="/resources/js/main.js"></script>
-</body>
+		<!-- / [XML추가] 모달 -->      
+<script src="/resources/js/scripts.js"></script>
+</body> 
 </html>
+

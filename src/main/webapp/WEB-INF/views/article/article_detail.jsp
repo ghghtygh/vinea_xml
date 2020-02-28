@@ -5,19 +5,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
 <title>상세 페이지</title>
-<!-- JQUERY, JAVASCRIPT -->
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
-	
-<!--  CSS -->
-<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+<!-- CSS -->
+<link href="/resources/css1/styles.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/resources/css/style.css">
+<link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
 <link href="/resources/css/_bootswatch.scss" rel="stylesheet">
 <link href="/resources/css/_variables.scss" rel="stylesheet">
 
+<!-- JAVSCRIPT, JQUERY -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
 <style>
 /** tootip 스타일 적용 **/
 a.tip {
@@ -43,22 +47,9 @@ a.tip span {
 a:hover.tip span {
 	display: block;
 }
-
-/** 사이드바 메뉴 에러 해결 **/
-.list-unstyled.show.collapse.in{
-	visibility:visible
-}
-.list-unstyled.show.collapse{
-	visibility:hidden
-}
-.list-unstyled.show.collapsing{
-	visibility:hidden
-}
 </style>
-
 <script>
-	/** 초록, 키워드, 참고문헌  요약보기, 상세보기 기능 **/
-	
+	/** 초록, 키워드, 참고문헌  요약보기, 상세보기 기능 **/	
 	$(document).ready(function() {
 
 		$("p.title span:gt(0)").css({
@@ -150,79 +141,83 @@ a:hover.tip span {
 		formObj.attr("action", "/article");
 		formObj.attr("method", "get");
 		formObj.submit();
-		}
-		
 	}
-	
 </script>
 </head>
 <form id="frm">
-	<body>
-		<!-- 검색 기능을 위한 hidden 정의 -->
-		<input type="hidden" name="search" value="">
-		<input type="hidden" name="search_option" value="">
-		<div class="wrapper d-flex align-items-stretch">
-	    <!-- 전체 메뉴 사이드바 -->
-		<nav id="sidebar">
-			<div class="p-4 pt-5">
-				<a href="/article" class="img logo rounded-circle mb-5" style="background-image: url(/resources/image/analyticx.png);"></a>
-				<ul class="list-unstyled components mb-5">
-					<!-- 상세페이지: 논문보기 메뉴를 선택 상태로 둠 -->
-					<li class="active">
-						<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">메인</a>
-						<ul class="list-unstyled collapse show in" id="homeSubmenu" aria-expanded="true">
-							<li class="active">
-								<a href="/article">논문보기</a>
-							</li>
-						</ul>
-					</li>
-						<!-- 사이드바 메뉴: 현황 메뉴 -->
-						<li>
-							<a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">현황</a>
-							<ul class="list-unstyled collapse show in" id="pageSubmenu" aria-expanded="false">
-								<li>
-									<a href="/article/yearstat">연도별 현황</a>
-								</li>
-								<li>
-									<a href="/article/orgnstat">소속기관별 현황</a>
-								</li>
-								<li>
-									<a href="/article/ctgrstat">분야별 현황</a>
-								</li>
-								<li>
-									<a href="/article/kwrdstat">키워드 현황</a>
-								</li>
-							</ul>
-						</li>
+<body class="sb-nav-fixed">
+	<!-- 검색 기능을 위한 hidden 정의 -->
+	<input type="hidden" name="search" value="">
+	<input type="hidden" name="search_option" value="">
+	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+		<a class="navbar-brand" href="/">XML Statics</a>
+			<button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#">
+				<i class="fas fa-bars"></i>
+			</button>			
+			<!-- 홈버튼-->
+			<div style="margin-left: 1600px">
+				<ul class="navbar-nav ml-auto ml-md-0">
+				<li class="nav-item dropdown">
+					<a class="nav-link" id="userDropdown" href="/" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-home"></i></a>
+				</li>
 				</ul>
-				<div class="footer">
-					<p>
-						<script>
-							document.write(new Date().getFullYear());
-						</script>
-							About XML Parsing
-							<i class="icon-heart" aria-hidden="true"></i>
-					</p>
-					<p>
-						made with by JuHyeon&Minjin 
-						<a href="https://github.com/ghghtygh/vinea_xml.git" style="font-size: 12px" target="_blank">
-							https://github.com/ghghtygh/vinea_xml.git
-						</a>
-				</div>
 			</div>
-		</nav>
-		<!-- 상세 페이지  -->
-		<div id="content" class="p-4 p-md-5">
-			<nav class="navbar navbar-expand-lg navbar-light bg-light">
-				<div class="container-fluid">
-					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-						<ul class="nav navbar-nav ml-auto">
-							<li class="nav-item active"><a class="nav-link" target="_blank" href="/article"><img src="/resources/image/home.png" alt="HOME"></a></li>
-						</ul>
+	</nav>
+	<div id="layoutSidenav">
+		<div id="layoutSidenav_nav">
+			<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+				<div class="sb-sidenav-menu">
+					<div class="nav">
+						<div class="sb-sidenav-menu-heading" style="color: #fff">MainPage</div>
+							<a style="font-weight: bold; color: #fff" class="nav-link" href="/">
+								<div class="sb-nav-link-icon">
+									<i class="far fa-sticky-note"></i>
+								</div>
+								논문보기
+							</a>
+						<div class="sb-sidenav-menu-heading" style="color: #fff">Statics</div>
+							<a class="nav-link" href="/article/yearstat">
+								<div class="sb-nav-link-icon">
+									<i class="fas fa-chart-bar"></i>
+								</div>
+								연도별 현황
+							</a>
+							<a class="nav-link" href="/article/orgnstat">
+								<div class="sb-nav-link-icon">
+									<i class="fa fa-table"></i>
+								</div>
+								소속기관별 현황
+							</a>
+							<a class="nav-link" href="/article/ctgrstat">
+								<div class="sb-nav-link-icon">
+									<i class="fas fa-chart-area"></i>
+								</div>
+								분야별 현황
+							</a>
+							<a class="nav-link" href="/article/kwrdstat">
+								<div class="sb-nav-link-icon">
+									<i class="fa fa-cloud"></i>
+								</div>
+								키워드 현황
+							</a>	                          
 					</div>
 				</div>
+				<div class="sb-sidenav-footer">
+					<div class="small">Made with by NJH&SMJ</div>
+						<a href="https://github.com/ghghtygh/vinea_xml.git" style="font-size: 12px" target="_blank"> 
+							<i class="fab fa-github"></i>
+							View Source
+							<i class="fab fa-github"></i>
+							=> Click
+						</a>
+				</div>
 			</nav>
-			<!-- 논문 제목 -->
+		</div>
+		<div id="layoutSidenav_content">
+			<main>
+				<div class="container-fluid"> 
+					<div style="margin-top: 45px"></div> 
+					<!-- 논문 제목 -->
 					<p style="font-size: 35px; font-weight: bold">${ArtiVO.arti_title}</p>
 					<hr style="border-bottom: 0.5px dotted #b4b4b4">
 					<!-- 학술지 명 -->
@@ -380,11 +375,11 @@ a:hover.tip span {
 							<hr style="border-bottom: 0.5px dotted #b4b4b4">
 						</div>
 					</div>
-			</div>
-		</div>
-	</body>
-<!-- JQUERY, 필요한 JAVASCRIPT 파일 -->	
-<script src="/resources/js/popper.js"></script>
-<script src="/resources/js/main.js"></script>
-<form>
+				</div>
+			</main> 
+		</div>   
+	</div>
+<script src="/resources/js/scripts.js"></script>
+</body>
+</form>
 </html>

@@ -6,24 +6,22 @@
 <html lang="en">
 <head>
 <title>현황분석 페이지</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<!-- JQUERY, JAVASCRIPT -->
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<!--  CSS -->
-<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<!-- CSS -->
+<link href="/resources/css1/styles.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/resources/css/style.css">
+<link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
 <link href="/resources/css/_bootswatch.scss" rel="stylesheet">
 <link href="/resources/css/_variables.scss" rel="stylesheet">
 
-<!-- Chart.js 사용(라인, 바, 플롯, 레이더 등 사용) -->
-<!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
+<!-- JAVSCRIPT, JQUERY -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
 
 <!-- 워드클라우드(anychar_Tagcloud 활용) -->
 <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
@@ -44,7 +42,6 @@
 }
 </style>
 <script>
-
 	 /** document 로딩 시작 **/  
 	 $(document).ready(function() {
 		 
@@ -82,185 +79,191 @@
 	/** document 로딩 종료 **/ 
 </script>
 </head>
-<form id="frm">
-<body>
-	<div class="wrapper d-flex align-items-stretch">
-		<!-- 전체 메뉴 사이드바 -->
-		<nav id="sidebar">
-			<div class="p-4 pt-5">
-				<a href="/article" class="img logo rounded-circle mb-5" style="background-image: url(/resources/image/analyticx.png);"></a>
-				<ul class="list-unstyled components mb-5">
-					<li>
-						<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">메인</a>
-						<ul class="collapse list-unstyled" id="homeSubmenu">
-						<li>
-							<a href="/article">논문보기</a>
-						</li>
-						</ul>
-					</li>
-						<!-- 키워드 동향 페이지에서는 '현황>키워드 현황'을 선택상태로 둠 -->
-						<li class="active">
-							<a href="#pageSubmenu" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">현황</a>
-							<ul class="list-unstyled collapse show in" id="pageSubmenu" aria-expanded="true">
-								<li>
-									<a href="/article/yearstat">연도별 현황</a>
-								</li>
-								<li>
-									<a href="/article/orgnstat">소속기관별 현황</a>
-								</li>
-								<li>
-									<a href="/article/ctgrstat">분야별 현황</a>
-								</li>
-								<li class="active">
-									<a href="/article/kwrdstat">키워드 현황</a>
-								</li>
-							</ul>
-						</li>
+<body class="sb-nav-fixed">
+	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+		<a class="navbar-brand" href="/">XML Statics</a>
+			<button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#">
+				<i class="fas fa-bars"></i>
+			</button>
+			<!-- 홈버튼-->
+			<div style="margin-left: 1600px">
+				<ul class="navbar-nav ml-auto ml-md-0">
+				<li class="nav-item dropdown">
+					<a class="nav-link" id="userDropdown" href="/" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-home"></i></a>
+				</li>
 				</ul>
-				<div class="footer">
-					<p>
-						<script>
-							document.write(new Date().getFullYear());
-						</script>
-							About XML Parsing
-							<i class="icon-heart" aria-hidden="true"></i>
-					</p>
-					<p>
-						made with by JuHyeon&Minjin 
-						<a href="https://github.com/ghghtygh/vinea_xml.git" style="font-size: 12px" target="_blank">
-							https://github.com/ghghtygh/vinea_xml.git
+			</div>
+	</nav>
+	<div id="layoutSidenav">
+			<div id="layoutSidenav_nav">
+			<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+				<div class="sb-sidenav-menu">
+					<div class="nav">
+						<div class="sb-sidenav-menu-heading" style="color: #fff">MainPage</div>
+							<a  class="nav-link" href="/">
+								<div class="sb-nav-link-icon">
+									<i class="far fa-sticky-note"></i>
+								</div>
+								논문보기
+							</a>
+						<div class="sb-sidenav-menu-heading" style="color: #fff">Statics</div>
+							<a class="nav-link" href="/article/yearstat">
+								<div class="sb-nav-link-icon">
+									<i class="fas fa-chart-bar"></i>
+								</div>
+								연도별 현황
+							</a>
+							<a class="nav-link" href="/article/orgnstat">
+								<div class="sb-nav-link-icon">
+									<i class="fa fa-table"></i>
+								</div>
+								소속기관별 현황
+							</a>
+							<a class="nav-link" href="/article/ctgrstat">
+								<div class="sb-nav-link-icon">
+									<i class="fas fa-chart-area"></i>
+								</div>
+								분야별 현황
+							</a>
+							<a style="font-weight: bold; color: #fff" class="nav-link" href="/article/kwrdstat">
+								<div class="sb-nav-link-icon">
+									<i class="fa fa-cloud"></i>
+								</div>
+								키워드 현황
+							</a>	                          
+					</div>
+				</div>
+				<div class="sb-sidenav-footer">
+					<div class="small">Made with by NJH&SMJ</div>
+						<a href="https://github.com/ghghtygh/vinea_xml.git" style="font-size: 12px" target="_blank"> 
+							<i class="fab fa-github"></i>
+							View Source
+							<i class="fab fa-github"></i>
+							=> Click
 						</a>
 				</div>
-			</div>
-		</nav>
-		<!-- 메뉴에서 키워드 현황을 클릭하였을 때 결과 페이지  -->
-		<div id="content" class="p-4 p-md-5">
-			<nav class="navbar navbar-expand-lg navbar-light bg-light">
-				<div class="container-fluid">
-					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-						<ul class="nav navbar-nav ml-auto">
-							<li class="nav-item active"><a class="nav-link" target="_blank" href="/article"><img src="/resources/image/home.png" alt="HOME"></a></li>
-						</ul>
-					</div>
-				</div>
 			</nav>
-			<div id="ctgr_kwrd1" style="margin-top: 20px">
-				<ol class="breadcrumb">
-					<!--분야 선택-->
-					<li class="breadcrumb-item">
-						<p style="font-size: 15px; font-weight: bold; margin-right: 10px; color: #000">분야</p>
-					</li>
-					<!-- 분야정보가 들어간 리스트가 비어있지 않은 경우 -->
-					<c:if test="${!empty ctgrList}">
-					<select class="form-control" id="ctgrnm" name="ctgrnm">
-						<!-- 전체 -->
-						<option value="">ALL</option>
-						<!-- 분야 리스트 데이터 -->
-						<c:forEach var="list" items="${ctgrList}" varStatus="c">
-								<option value="${list}">${list}</option>
-						</c:forEach>
-					</select>
-					</c:if>
-					<li class="breadcrumb-item">
-						<p style="font-size: 15px; font-weight: bold; margin-left: 20px; margin-right: 10px; color: #000">주제</p>
-					</li>
-					<!-- 주제명 리스트 데이터 -->
-					<select class="form-control" name="subjnm" id="subjnm">
-							<c:forEach var="sub" items= "${subList}" varStatus = "c">
-								<option value = "${sub}">${sub}</option>
-							</c:forEach>
-					</select>
-					<li class="breadcrumb-item">
-						<p style="font-size: 15px; font-weight: bold; margin-left: 20px; margin-right: 10px; color: #000">개수</p>
-					</li>
-					<!-- 주제명 리스트 데이터 -->
-					<select class="form-control" id="cnt_option" name="cnt_option">
-							<option value="10">10</option>
-							<option value="30">30</option>
-							<option value="50">50</option>
-					</select>	
-				</ol>
-				<p style="font-size: 20px; font-weight: bold; color: #000069; margin-top: 50px">분야별 키워드 빈도수</p>
-				<!-- 분야별 키워드 빈도를 나타낼 워드클라우드  -->
-				<div align="center">
-					 <div id="kwrdcloud" style="width: 800px; height: 600px;">
-					 	<div style="margin-top: 350px" id="loading" class="text-center">
-							<div class="spinner-border text-dark" style="width: 5rem; height: 5rem;" role="status">
-								<span class="sr-only">Loading...</span>
-					  		</div>
-					 	</div>
-					</div>
-				</div>
-				<script>
-					/* 키워드명 */
-					var chartLabels = [];
-					/* 키워드 빈도수 */
-					var chartData = [];
-					/* JSON 방식으로 데이터를 가져옴 */
-					$.getJSON("/article/kwrdcnt", function(data){		
-						$("#loading").show();
-						createChart();
-					});
-			
-					/* 워드클라우드 생성 */
-					function createChart(){
-						anychart.onDocumentReady(function(){
-							$("#loading").hide();
-							/* 새로운 배열 생성 */
-							var data = new Array(); 
-							
-							/* 리스트 데이터를 JSON 형태로 변경하여 데이터에 넣음 */
-							<c:forEach items="${list2}" var="item">
-								//console.log(JSON.parse('${item}'));
-								data.push( JSON.parse('${item}'));
-							</c:forEach>
-							
-							/* 워드클라우드 옵션 설정 */
-							var chart = anychart.tagCloud(data);
-							var formatter = "{%value}";
-							var tooltip = chart.tooltip();		
-							
-							chart.angles([0]);						
-							chart.textSpacing(5);
-							chart.mode('spiral');
-							chart.background().fill("#fafafafa");
-							chart.container("kwrdcloud");
-							chart.draw();	
-							tooltip.format(formatter);
-							
-							/* 각 키워드를 클릭하였을 때 일어나는 이벤트 */
-							chart.listen("pointClick", function(e) {
-								
-								var formObj = $("#frm");
-								
-								/* 각 키워드에 해당하는 논문 목록 페이지로 이동 */
-								var input_search = document.createElement("input");
-								$(input_search).attr("type","hidden");
-								$(input_search).attr("name","search");
-								$(input_search).attr("value",e.point.get("x"));
-								formObj.append(input_search);
-								
-								var input_option = document.createElement("input");
-								$(input_option).attr("type","hidden");
-								$(input_option).attr("name","search_option");
-								$(input_option).attr("value","7");
-								formObj.append(input_option);
-																								
-								formObj.attr("action", "/article");
-								formObj.attr("method", "get");
-								formObj.submit();
+			</div>
+			<div id="layoutSidenav_content">
+				<form id="frm">
+				<main>
+					<div class="container-fluid"> 
+						<div style="margin-top: 45px"></div>
+							<p style="font-size: 25px; font-weight: bold; color: #000069; margin-top: 50px">분야별 키워드 빈도수</p>
+							<hr>
+							<ol class="breadcrumb">
+								<!--분야 선택-->
+								<li class="breadcrumb-item">
+									<p style="font-size: 15px; font-weight: bold; margin-right: 10px; color: #000">분야</p>
+								</li>
+								<!-- 분야정보가 들어간 리스트가 비어있지 않은 경우 -->
+								<c:if test="${!empty ctgrList}">
+								<select class="form-control" id="ctgrnm" name="ctgrnm">
+									<!-- 전체 -->
+									<option value="">ALL</option>
+									<!-- 분야 리스트 데이터 -->
+									<c:forEach var="list" items="${ctgrList}" varStatus="c">
+											<option value="${list}">${list}</option>
+									</c:forEach>
+								</select>
+								</c:if>
+								<li class="breadcrumb-item">
+									<p style="font-size: 15px; font-weight: bold; margin-left: 20px; margin-right: 10px; color: #000">주제</p>
+								</li>
+								<!-- 주제명 리스트 데이터 -->
+								<select class="form-control" name="subjnm" id="subjnm">
+										<c:forEach var="sub" items= "${subList}" varStatus = "c">
+											<option value = "${sub}">${sub}</option>
+										</c:forEach>
+								</select>
+								<li class="breadcrumb-item">
+									<p style="font-size: 15px; font-weight: bold; margin-left: 20px; margin-right: 10px; color: #000">개수</p>
+								</li>
+								<!-- 주제명 리스트 데이터 -->
+								<select class="form-control" id="cnt_option" name="cnt_option">
+										<option value="10">10</option>
+										<option value="30">30</option>
+										<option value="50">50</option>
+								</select>	
+							</ol>
+							<!-- 분야별 키워드 빈도를 나타낼 워드클라우드  -->
+							<div align="center">
+								 <div id="kwrdcloud" style="width: 1000px; height: 700px;">
+								 	<div style="margin-top: 350px" id="loading" class="text-center">
+										<div class="spinner-border text-dark" style="width: 5rem; height: 5rem;" role="status">
+											<span class="sr-only">Loading...</span>
+								  		</div>
+								 	</div>
+								</div>
+							</div>
+							<script>
+								/* 키워드명 */
+								var chartLabels = [];
+								/* 키워드 빈도수 */
+								var chartData = [];
+								/* JSON 방식으로 데이터를 가져옴 */
+								$.getJSON("/article/kwrdcnt", function(data){		
+									$("#loading").show();
+									createChart();
 								});
-							
-							});							
-					}						
-				</script>
+						
+								/* 워드클라우드 생성 */
+								function createChart(){
+									anychart.onDocumentReady(function(){
+										$("#loading").hide();
+										/* 새로운 배열 생성 */
+										var data = new Array(); 
+										
+										/* 리스트 데이터를 JSON 형태로 변경하여 데이터에 넣음 */
+										<c:forEach items="${list2}" var="item">
+											//console.log(JSON.parse('${item}'));
+											data.push( JSON.parse('${item}'));
+										</c:forEach>
+										
+										/* 워드클라우드 옵션 설정 */
+										var chart = anychart.tagCloud(data);
+										var formatter = "{%value}"+"%";
+										var tooltip = chart.tooltip();		
+										
+										chart.angles([0]);						
+										chart.textSpacing(5);
+										chart.mode('spiral');
+										chart.background().fill("#fafafafa");
+										chart.container("kwrdcloud");
+										chart.draw();	
+										tooltip.format(formatter);
+										
+										/* 각 키워드를 클릭하였을 때 일어나는 이벤트 */
+										chart.listen("pointClick", function(e) {
+											
+											var formObj = $("#frm");
+											
+											/* 각 키워드에 해당하는 논문 목록 페이지로 이동 */
+											var input_search = document.createElement("input");
+											$(input_search).attr("type","hidden");
+											$(input_search).attr("name","search");
+											$(input_search).attr("value",e.point.get("x"));
+											formObj.append(input_search);
+											
+											var input_option = document.createElement("input");
+											$(input_option).attr("type","hidden");
+											$(input_option).attr("name","search_option");
+											$(input_option).attr("value","7");
+											formObj.append(input_option);
+																											
+											formObj.attr("action", "/article");
+											formObj.attr("method", "get");
+											formObj.submit();
+											});
+										
+										});							
+									}						
+							</script>
+						</div> 
+					</main>
+				</form>
 			</div>
 		</div>
-	</div>
-<!-- JQUERY, 필요한 JAVASCRIPT 파일 -->
-<script src="/resources/js/jquery.min.js"></script>
-<script src="/resources/js/popper.js"></script>
-<script src="/resources/js/bootstrap.min.js"></script>
-<script src="/resources/js/main.js"></script>
+<script src="/resources/js/scripts.js"></script>	
 </body>
 </html>

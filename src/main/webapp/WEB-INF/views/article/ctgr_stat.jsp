@@ -6,20 +6,22 @@
 <html lang="en">
 <head>
 <title>현황분석 페이지</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<!-- JQUERY, JAVASCRIPT -->
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<!--  CSS -->
-<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<!-- CSS -->
+<link href="/resources/css1/styles.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/resources/css/style.css">
+<link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
 <link href="/resources/css/_bootswatch.scss" rel="stylesheet">
 <link href="/resources/css/_variables.scss" rel="stylesheet">
+
+<!-- JAVSCRIPT, JQUERY -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
 
 <!-- Chart.js 사용(라인, 바, 플롯, 레이더 등 사용) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
@@ -185,58 +187,76 @@
 }
 </style>
 </head>
-<body>
-	<form id="frm">
-		<div class="wrapper d-flex align-items-stretch">
-			<!-- 전체 메뉴 사이드바 -->
-			<nav id="sidebar">
-				<div class="p-4 pt-5">
-					<a href="/article" class="img logo rounded-circle mb-5" style="background-image: url(/resources/image/analyticx.png);"></a>
-					<ul class="list-unstyled components mb-5">
-						<li><a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">메인</a>
-							<ul class="collapse list-unstyled" id="homeSubmenu">
-								<li><a href="/article">논문보기</a></li>
-							</ul></li>
-						<!-- 분야별 현황 페이지에서는 '현황>분야별 현황'을 선택상태로 둠 -->
-						<li class="active"><a href="#pageSubmenu" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">현황</a>
-							<ul class="list-unstyled collapse show in" id="pageSubmenu" aria-expanded="true">
-								<li><a href="/article/yearstat">연도별 현황</a></li>
-								<li><a href="/article/orgnstat">소속기관별 현황</a></li>
-								<li class="active"><a href="/article/ctgrstat">분야별 현황</a></li>
-								<li><a href="/article/kwrdstat">키워드 현황</a></li>
-							</ul></li>
-					</ul>
-					<div class="footer">
-						<p>
-							<script>
-								document.write(new Date().getFullYear());
-							</script>
-							About XML Parsing <i class="icon-heart" aria-hidden="true"></i>
-						</p>
-						<p>
-							made with by JuHyeon&Minjin <a href="https://github.com/ghghtygh/vinea_xml.git" style="font-size: 12px" target="_blank"> https://github.com/ghghtygh/vinea_xml.git </a>
+<body class="sb-nav-fixed">
+	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+		<a class="navbar-brand" href="/">XML Statics</a>
+			<button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#">
+				<i class="fas fa-bars"></i>
+			</button>
+			<!-- 홈버튼-->
+			<div style="margin-left: 1600px">
+				<ul class="navbar-nav ml-auto ml-md-0">
+				<li class="nav-item dropdown">
+					<a class="nav-link" id="userDropdown" href="/" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-home"></i></a>
+				</li>
+				</ul>
+			</div>
+	</nav>
+	<div id="layoutSidenav">
+			<div id="layoutSidenav_nav">
+			<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+				<div class="sb-sidenav-menu">
+					<div class="nav">
+						<div class="sb-sidenav-menu-heading" style="color: #fff">MainPage</div>
+							<a class="nav-link" href="/">
+								<div class="sb-nav-link-icon">
+									<i class="far fa-sticky-note"></i>
+								</div>
+								논문보기
+							</a>
+						<div class="sb-sidenav-menu-heading" style="color: #fff">Statics</div>
+							<a class="nav-link" href="/article/yearstat">
+								<div class="sb-nav-link-icon">
+									<i class="fas fa-chart-bar"></i>
+								</div>
+								연도별 현황
+							</a>
+							<a class="nav-link" href="/article/orgnstat">
+								<div class="sb-nav-link-icon">
+									<i class="fa fa-table"></i>
+								</div>
+								소속기관별 현황
+							</a>
+							<a  style="font-weight: bold; color: #fff"  class="nav-link" href="/article/ctgrstat">
+								<div  class="sb-nav-link-icon">
+									<i class="fas fa-chart-area"></i>
+								</div>
+								분야별 현황
+							</a>
+							<a class="nav-link" href="/article/kwrdstat">
+								<div class="sb-nav-link-icon">
+									<i class="fa fa-cloud"></i>
+								</div>
+								키워드 현황
+							</a>	                          
 					</div>
 				</div>
+				<div class="sb-sidenav-footer">
+					<div class="small">Made with by NJH&SMJ</div>
+						<a href="https://github.com/ghghtygh/vinea_xml.git" style="font-size: 12px" target="_blank"> 
+							<i class="fab fa-github"></i>
+							View Source
+							<i class="fab fa-github"></i>
+							=> Click
+						</a>
+				</div>
 			</nav>
-			<!-- 메뉴에서 분야별 현황 눌렀을때 결과 페이지  -->
-			<div id="content" class="p-4 p-md-5">
-				<nav class="navbar navbar-expand-lg navbar-light bg-light">
-					<div class="container-fluid">
-						<button type="button" id="sidebarCollapse" class="btn btn-primary">
-							<i class="fa fa-bars"></i> <span class="sr-only">Toggle Menu</span>
-						</button>
-						<button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-							<i class="fa fa-bars"></i>
-						</button>
-						<div class="collapse navbar-collapse" id="navbarSupportedContent">
-							<ul class="nav navbar-nav ml-auto">
-								<li class="nav-item active"><a class="nav-link" href="/article">Home</a></li>
-							</ul>
-						</div>
-					</div>
-				</nav>
-				<section>
-					<article>
+			</div>
+			<div id="layoutSidenav_content">
+				<form id="frm">
+				<main>
+					<div class="container-fluid"> 
+						<div style="margin-top: 45px"></div>  
 						<!-- tab 정의 -->
 						<ul class="nav nav-tabs">
 							<!-- 연구분야별 통계 -->
@@ -246,54 +266,54 @@
 						</ul>
 						<div class="tab-content">
 							<p style="font-size: 20px; font-weight: bold; color: #000069; margin-top: 20px">연구분야별 데이터 통계</p>
-							<div class="row">
-								<div class="col-lg-12">
-									<ol class="breadcrumb">
-										<!-- 연구분야별로 검색 -->
-										<li class="breadcrumb-item">
-											<p style="font-size: 15px; font-weight: bold; margin-right: 10px; margin-left: 15px">연구분야</p>
-										</li>
-										<!-- 연구분야 선택옵션 -->
-										<select class="form-control" id="ctgrselect" name="ctgr_option">
-											<option value="1">전체</option>
-											<option value="2">Science & Technology</option>
-											<option value="3">Arts & Humanities</option>
-											<option value="4">Social Sciences</option>
-										</select>
-										<!-- 정렬 기준 선택 -->
-										<li class="breadcrumb-item">
-											<p style="font-size: 15px; font-weight: bold; margin-left: 20px; margin-right: 10px;">정렬</p>
-										</li>
-										<select class="form-control" name="sort_option" id="sort_option">
-											<option value="1">분야명</option>
-											<option value="2">저자</option>
-											<option value="3">논문</option>
-											<option value="4">학술지</option>
-											<option value="5">참고문헌</option>
-										</select>
-										<!-- 정렬 기준 선택 -->
-										<li class="breadcrumb-item">
-											<p style="font-size: 15px; font-weight: bold; margin-left: 20px; margin-right: 10px;">&nbsp;</p>
-										</li>
-										<select class="form-control" name="cnt_option" id="cnt_option">
-											<option value="10">10개씩 보기</option>
-											<option value="20">20개씩 보기</option>
-											<option value="30">30개씩 보기</option>
-											<option value="50">50개씩 보기</option>
-											<option value="100">100개씩 보기</option>
-										</select>
-										<p style="margin-left: 15px"></p>
-									</ol>
+								<div class="row">
+									<div class="col-sm-12">
+										<ol class="breadcrumb">
+											<!-- 연구분야별로 검색 -->
+											<li class="breadcrumb-item">
+												<p style="font-size: 15px; font-weight: bold; margin-right: 10px; margin-left: 15px">연구분야</p>
+											</li>
+											<!-- 연구분야 선택옵션 -->
+											<select class="form-control" id="ctgrselect" name="ctgr_option">
+												<option value="1">전체</option>
+												<option value="2">Science & Technology</option>
+												<option value="3">Arts & Humanities</option>
+												<option value="4">Social Sciences</option>
+											</select>
+											<!-- 정렬 기준 선택 -->
+											<li class="breadcrumb-item">
+												<p style="font-size: 15px; font-weight: bold; margin-left: 20px; margin-right: 10px;">정렬</p>
+											</li>
+											<select class="form-control" name="sort_option" id="sort_option">
+												<option value="1">전체</option>
+												<option value="2">저자</option>
+												<option value="3">논문</option>
+												<option value="4">학술지</option>
+												<option value="5">참고문헌</option>
+											</select>
+											<!-- 정렬 기준 선택 -->
+											<li class="breadcrumb-item">
+												<p style="font-size: 15px; font-weight: bold; margin-left: 20px; margin-right: 10px;">&nbsp;</p>
+											</li>
+											<select class="form-control" name="cnt_option" id="cnt_option">
+												<option value="10">10개씩 보기</option>
+												<option value="20">20개씩 보기</option>
+												<option value="30">30개씩 보기</option>
+												<option value="50">50개씩 보기</option>
+												<option value="100">100개씩 보기</option>
+											</select>
+											<p style="margin-left: 15px"></p>
+										</ol>
+									</div>
 								</div>
-							</div>
-							<!-- 첫번째 tab에 들어갈 내용(시작) -->
+								<!-- 첫번째 tab에 들어갈 내용(시작) -->
 							<!-- tab 정의 부분에서의 href 속성과 동일하게 id를 각각 지정 -->
 							<div class="tab-pane" id="ctgr1">
 								<!-- 연구분야별 데이터 통계 : 테이블 -->
 								<div id="ctgr_stat1" style="margin-top: 20px">
 									<!-- 연구분야별 데이터 통계: 전체 -->
 									<div class="row">
-										<div class="col-lg-12">
+										<div class="col-sm-12">
 											<div class="layer1">
 												<table style="text-align: center;" class="table table-hover">
 													<thead>
@@ -324,10 +344,10 @@
 																		<td style="border-top: 1px solid #b4b4b4">${vo.num}</td>
 																		<td style="border-top: 1px solid #b4b4b4; text-align: left;">${vo.ctgr_nm}</td>
 																		<td style="border-top: 1px solid #b4b4b4; text-align: left;">${vo.subj_nm}</td>
-																		<td style="border-top: 1px solid #b4b4b4">${vo.auth_cnt}</td>
-																		<td style="border-top: 1px solid #b4b4b4">${vo.arti_cnt}</td>
-																		<td style="border-top: 1px solid #b4b4b4">${vo.jrnl_cnt}</td>
-																		<td style="border-top: 1px solid #b4b4b4">${vo.refr_cnt}</td>
+																		<td style="border-top: 1px solid #b4b4b4"><fmt:formatNumber value="${vo.auth_cnt}" pattern="#,###,###"/></td>
+																		<td style="border-top: 1px solid #b4b4b4"><fmt:formatNumber value="${vo.arti_cnt}" pattern="#,###,###"/></td>
+																		<td style="border-top: 1px solid #b4b4b4"><fmt:formatNumber value="${vo.jrnl_cnt}" pattern="#,###,###"/></td>
+																		<td style="border-top: 1px solid #b4b4b4"><fmt:formatNumber value="${vo.refr_cnt}" pattern="#,###,###"/></td>
 																	</tr>
 																</c:forEach>
 															</c:when>
@@ -344,7 +364,7 @@
 										<!-- 페이징 처리(시작) -->
 										<div style="width: 100%;">
 											<div align="right" style="position: relative;">
-												<div style="position: absolute; text-align: center; width: 100%;">
+												<div style="position: absolute; text-align: center; width: 100%; margin-bottom: 20px">
 													<div class="btn-group mr-2">
 														<c:choose>
 															<c:when test="${pager.nowPage ne 1 }">
@@ -406,7 +426,7 @@
 								<!-- 연구분야의 주제별 상위 통계 : 테이블, 차트 -->
 								<!-- 연구분야의 주제별 상위 통계: 테이블 부분 -->
 								<div class="row">
-									<div class="col-lg-5">
+									<div class="col-sm-5">
 										<table style="text-align: center;" class="table table-hover">
 											<tbody>
 												<th style="border-top: 2px solid #000069">분야명</th>
@@ -416,29 +436,28 @@
 													<c:when test="${not empty ctgrList}">
 														<c:forEach items="${ctgrList }" var="vo" varStatus="g" end="10">
 															<tr>
-
 																<td style="border-top: 1px solid #b4b4b4">${vo.ctgr_nm}</td>
 																<td style="border-top: 1px solid #b4b4b4">${vo.subj_nm }</td>
 																<td style="border-top: 1px solid #b4b4b4">
 																	<c:choose>
 																		<c:when test='${sort_option==1 }'>
-                                                         ${vo.arti_cnt}
-                                                         </c:when>
+                                                         					<fmt:formatNumber value="${vo.arti_cnt}" pattern="#,###,###"/>
+                                                         				</c:when>
 																		<c:when test='${sort_option==2 }'>
-                                                         ${vo.auth_cnt}
-                                                         </c:when>
+                                                         					<fmt:formatNumber value="${vo.auth_cnt}" pattern="#,###,###"/>
+                                                         				</c:when>
 																		<c:when test='${sort_option==3 }'>
-                                                         ${vo.arti_cnt}
-                                                         </c:when>
+                                                         					<fmt:formatNumber value="${vo.arti_cnt}" pattern="#,###,###"/>
+                                                        				 </c:when>
 																		<c:when test='${sort_option==4 }'>
-                                                         ${vo.jrnl_cnt}
-                                                         </c:when>
+                                                         					<fmt:formatNumber value="${vo.jrnl_cnt}" pattern="#,###,###"/>
+                                                         				</c:when>
 																		<c:when test='${sort_option==5 }'>
-                                                         ${vo.refr_cnt}
-                                                         </c:when>
+                                                         					<fmt:formatNumber value="${vo.refr_cnt}" pattern="#,###,###"/>
+                                                         				</c:when>
 																		<c:otherwise>
-                                                         ${vo.arti_cnt}
-                                                         </c:otherwise>
+                                                         					<fmt:formatNumber value="${vo.arti_cnt}" pattern="#,###,###"/>
+                                                         				</c:otherwise>
 																	</c:choose>
 																</td>
 															</tr>
@@ -455,7 +474,7 @@
 										</table>
 									</div>
 									<!-- 연구분야의 주제별 상위 통계를 보여줄 차트 캔버스 정의 -->
-									<div class="col-lg-7" id="div_canvas_ctgr">
+									<div class="col-sm-7" id="div_canvas_ctgr">
 										<canvas id="canvas_ctgr"></canvas>
 									</div>
 								</div>
@@ -464,7 +483,7 @@
 									var ctx = document.getElementById(
 											"canvas_ctgr").getContext("2d");
 									/** 차트의 크기 정의 **/
-									ctx.canvas.width = 800;
+									ctx.canvas.width = 700;
 									ctx.canvas.height = 400;
 
 									/** 차트 그리는 부분 **/
@@ -513,10 +532,7 @@
 										</c:choose>
 
 										/* 실제 차트 생성 부분(믹스 차트: 바+라인) */
-										var chart = new Chart(
-												document
-														.getElementById("canvas_ctgr"),
-												{
+										var chart = new Chart(document.getElementById("canvas_ctgr"), {
 													type : 'bar',
 													data : {
 														/** 해당 연구분야의 주제명 **/
@@ -538,6 +554,18 @@
 													},
 													options : {
 														responsive : true,
+														tooltips: {
+									        		          callbacks: {
+									        		                label: function(tooltipItem, data) {
+									        		                    var value = data.datasets[0].data[tooltipItem.index];
+									        		                    if(parseInt(value) >= 1000){
+									        		                               return  value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+									        		                            } else {
+									        		                               return  value;
+									        		                            }
+									        		                }
+									        		          } 
+									        		     },
 														scales : {
 															yAxes : [ {
 																stacked : true,
@@ -580,17 +608,14 @@
 												(params.data, {});
 									}
 								</script>
-							</div>
 						</div>
-					</article>
-				</section>
-			</div>
-		</div>
-	</form>
-	<!-- JQUERY, 필요한 JAVASCRIPT 파일 -->
-	<script src="/resources/js/jquery.min.js"></script>
-	<script src="/resources/js/popper.js"></script>
-	<script src="/resources/js/bootstrap.min.js"></script>
-	<script src="/resources/js/main.js"></script>
+						<!-- 두번째 tab에 들어갈 내용(종료) -->
+					</div>
+				</div>
+			</main>
+		</form>			
+	</div>
+</div>
+<script src="/resources/js/scripts.js"></script>	
 </body>
 </html>
