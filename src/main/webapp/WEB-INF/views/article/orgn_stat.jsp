@@ -223,7 +223,7 @@ a:hover {
 								<ol class="breadcrumb">
 									<input type="hidden" name="search" value="">
 									<div class="row" style="width:100%;">
-										<div class="col-sm-6">
+										<div class="col-lg-9">
 											<div class="form-inline">
 												<p style="font-size: 15px; font-weight: bold; margin-right: 15px">기관명</p>
 												<input class="form-control" id="input_search" type="text" placeholder="기관명 검색.."
@@ -231,15 +231,15 @@ a:hover {
 												<button class="form-control btn btn-primary" type="button" id="btn_search">검색</button>
 											</div>
 										</div>
-										<div class="col-sm-6" >
+										<div class="col-lg-3" style="margin_left: 20pxs">
 										<div class="form-inline">
 											<p style="font-size: 15px; font-weight: bold; margin-right: 15px">정렬</p>
 											<select style="width:30%;"class="form-control" id="cnt_option" name="cnt_option">
-												<option value="10">10개씩 보기</option>
-												<option value="20">20개씩 보기</option>
-												<option value="30">30개씩 보기</option>
-												<option value="50">50개씩 보기</option>
-												<option value="100">100개씩 보기</option>
+												<option value="10">10개</option>
+												<option value="20">20개</option>
+												<option value="30">30개</option>
+												<option value="50">50개</option>
+												<option value="100">100개</option>
 											</select>
 										</div>
 										</div>

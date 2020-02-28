@@ -177,13 +177,13 @@
 										</c:forEach>
 								</select>
 								<li class="breadcrumb-item">
-									<p style="font-size: 15px; font-weight: bold; margin-left: 20px; margin-right: 10px; color: #000">개수</p>
+									<p style="font-size: 15px; font-weight: bold; margin-left: 20px; margin-right: 10px; color: #000">키워드수</p>
 								</li>
 								<!-- 주제명 리스트 데이터 -->
 								<select class="form-control" id="cnt_option" name="cnt_option">
-										<option value="10">10</option>
-										<option value="30">30</option>
-										<option value="50">50</option>
+										<option value="10">10개</option>
+										<option value="30">30개</option>
+										<option value="50">50개</option>
 								</select>	
 							</ol>
 							<!-- 분야별 키워드 빈도를 나타낼 워드클라우드  -->

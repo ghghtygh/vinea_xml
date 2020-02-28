@@ -386,11 +386,11 @@ input:read-only {
 									<div style="margin-bottom: 20px">
 										&nbsp;총 &nbsp;<strong><fmt:formatNumber value="${cnt}" pattern="#,###,###"/></strong>&nbsp;건&nbsp;&nbsp; <a href="/">전체보기</a>
 										<select class="form-control" style="float: right; width: 150px;" id="cnt_option" name="cnt_option">
-											<option value="10">10건씩 보기</option>
-											<option value="20">20건씩 보기</option>
-											<option value="30">30건씩 보기</option>
-											<option value="50">50건씩 보기</option>
-											<option value="100">100건씩 보기</option>
+											<option value="10">10건</option>
+											<option value="20">20건</option>
+											<option value="30">30건</option>
+											<option value="50">50건</option>
+											<option value="100">100건</option>
 										</select>
 									</div>
 								</div>						
@@ -429,11 +429,11 @@ input:read-only {
 									</div>
 									<div class="col-sm-2">
 										<select class="form-control" id="cnt_option" name="cnt_option">
-											<option value="10">10건씩 보기</option>
-											<option value="20">20건씩 보기</option>
-											<option value="30">30건씩 보기</option>
-											<option value="50">50건씩 보기</option>
-											<option value="100">100건씩 보기</option>
+											<option value="10">10건</option>
+											<option value="20">20건</option>
+											<option value="30">30건</option>
+											<option value="50">50건</option>
+											<option value="100">100건</option>
 										</select>
 									</div>
 								</div>

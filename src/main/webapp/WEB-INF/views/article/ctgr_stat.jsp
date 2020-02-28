@@ -139,7 +139,7 @@
 }
 #cnt_option {
 	position: relative;
-	width: 170px;
+	width: 120px;
 	border: 1px solid #999;
 	z-index:1;
 }
@@ -296,11 +296,11 @@
 												<p style="font-size: 15px; font-weight: bold; margin-left: 20px; margin-right: 10px;">&nbsp;</p>
 											</li>
 											<select class="form-control" name="cnt_option" id="cnt_option">
-												<option value="10">10개씩 보기</option>
-												<option value="20">20개씩 보기</option>
-												<option value="30">30개씩 보기</option>
-												<option value="50">50개씩 보기</option>
-												<option value="100">100개씩 보기</option>
+												<option value="10">10개</option>
+												<option value="20">20개</option>
+												<option value="30">30개</option>
+												<option value="50">50개</option>
+												<option value="100">100개</option>
 											</select>
 											<p style="margin-left: 15px"></p>
 										</ol>
