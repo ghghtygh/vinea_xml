@@ -228,7 +228,7 @@
 										chart.angles([0]);						
 										chart.textSpacing(5);
 										chart.mode('spiral');
-										chart.background().fill("#fafafafa");
+										chart.background().fill("#fff");
 										chart.container("kwrdcloud");
 										chart.draw();	
 										tooltip.format(formatter);
