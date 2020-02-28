@@ -384,7 +384,7 @@ input:read-only {
 									</c:choose>
 									</div>
 									<div style="margin-bottom: 20px">
-										&nbsp;총 &nbsp;<strong>${cnt }</strong>&nbsp;건&nbsp;&nbsp; <a href="/">전체보기</a>
+										&nbsp;총 &nbsp;<strong><fmt:formatNumber value="${cnt}" pattern="#,###,###"/></strong>&nbsp;건&nbsp;&nbsp; <a href="/">전체보기</a>
 										<select class="form-control" style="float: right; width: 150px;" id="cnt_option" name="cnt_option">
 											<option value="10">10건씩 보기</option>
 											<option value="20">20건씩 보기</option>
@@ -442,7 +442,7 @@ input:read-only {
 									<div>
 										<!-- 총 검색된 논문 건수 -->
 										<div style="">
-											<h5>검색결과 : ${cnt }건</h5>
+											<h5>검색결과 : <fmt:formatNumber value="${cnt}" pattern="#,###,###"/>건</h5>
 										</div>
 										<!-- 전체 논문 목록 페이지로 이동 -->
 										<div style="">

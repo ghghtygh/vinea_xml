@@ -251,12 +251,12 @@ a:hover {
 							<c:when test="${search ne ''}">
 								<div>
 									<div style="">
-										<p>총 건수 :<strong style="margin-left: 15px">${cnt}건</strong></p>
+										<p>총 건수 :<strong style="margin-left: 15px"><fmt:formatNumber value="${cnt}" pattern="#,###,###"/>건</strong></p>
 									</div>
 								</div>
 							</c:when>
 							<c:otherwise>
-								<p>총 기관 수 :<strong style="margin-left: 15px">${cnt}</strong>개</p>
+								<p>총 기관 수 :<strong style="margin-left: 15px"><fmt:formatNumber value="${cnt}" pattern="#,###,###"/></strong>개</p>
 							</c:otherwise> 
 						</c:choose>
 						<!-- 소속기관별 논문수, 인용수 목록형 통계 부분 -->

@@ -228,22 +228,18 @@
 							function createChart(){
 								
 				            	/* SelectBox 옵션중 전체를 선택했을 경우 논문수, 도서수, 학술지수, 참고문헌수 합계를 차트에 나타내도록 함 */
-				            	//논문수
 								<c:set var = "sum1" value = "0" />
 								<c:forEach items="${yearVOList}" var="vo" varStatus="g">
 								<c:set var="sum1" value="${sum1+vo.arti_cnt}" />
 								</c:forEach>
-								//도서수
 								<c:set var = "sum2" value = "0" />
 								<c:forEach items="${yearVOList}" var="vo" varStatus="g">
 								<c:set var="sum2" value="${sum2+vo.book_cnt}" />
 								</c:forEach>
-								//학술지수
 								<c:set var = "sum3" value = "0" />	
 								<c:forEach items="${yearVOList}" var="vo" varStatus="g">
 								<c:set var="sum3" value="${sum3+vo.jrnl_cnt}" />
 								</c:forEach>
-								//참고문헌수
 								<c:set var = "sum4" value = "0" />	
 								<c:forEach items="${yearVOList}" var="vo" varStatus="g">
 								<c:set var="sum4" value="${sum4+vo.refr_cnt}" />
