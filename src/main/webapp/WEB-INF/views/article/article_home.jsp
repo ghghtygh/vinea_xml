@@ -437,6 +437,9 @@ input:read-only {
 										</select>
 									</div>
 								</div>
+								<div style="">
+											<p>총 논문수 : <strong><fmt:formatNumber value="${cnt}" pattern="#,###,###"/></strong>건</p>
+								</div>
 								<!-- 검색한 내용이 공백(null)이 아닐때 -->
 								<c:if test="${search ne ''}">
 									<div>
