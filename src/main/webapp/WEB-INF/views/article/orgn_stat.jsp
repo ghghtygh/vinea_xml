@@ -234,7 +234,7 @@ a:hover {
 										<div class="col-lg-3" style="margin_left: 20pxs">
 										<div class="form-inline">
 											<p style="font-size: 15px; font-weight: bold; margin-right: 15px">정렬</p>
-											<select style="width:30%;"class="form-control" id="cnt_option" name="cnt_option">
+											<select style="width:150px;"class="form-control" id="cnt_option" name="cnt_option">
 												<option value="10">10개</option>
 												<option value="20">20개</option>
 												<option value="30">30개</option>

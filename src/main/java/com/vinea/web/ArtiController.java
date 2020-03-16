@@ -37,7 +37,7 @@ public class ArtiController {
 	@Inject
 	private XmlService service;
 
-	Logger logger = LoggerFactory.getLogger(ArtiController.class);
+	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	/* 메인페이지_논문 목록 */
 	/** 메인화면으로 이동_논문 목록 페이지 **/

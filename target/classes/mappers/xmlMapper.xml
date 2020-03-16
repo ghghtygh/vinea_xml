@@ -1024,7 +1024,7 @@
 						<when test='search_option.equals("6")'>
 						<!-- search_option "6" : 소속기관 해당 논문목록 (소속기관 현황페이지: orgn_stat.jsp) -->
 							FROM
-								(SELECT * FROM TB_ARTI LIMIT 10000) TB_ARTI
+								(SELECT * FROM TB_ARTI WHERE SUBSTRING_INDEX(SUBSTRING_INDEX(PUB_DATE, '-', 2), '-', -1) >= '05' and PUB_YEAR='2017') TB_ARTI
 							INNER JOIN
 								TB_AUTH_ORGN AS B
 							ON
@@ -1035,7 +1035,7 @@
 						<when test='search_option.equals("7")'>
 						<!-- search_option "7" : 키워드 해당 논문목록 (분야별 키워드 빈도: kwrd_stat.jsp) -->
 							FROM
-								(SELECT * FROM TB_ARTI LIMIT 10000) TB_ARTI
+								(SELECT * FROM TB_ARTI WHERE SUBSTRING_INDEX(SUBSTRING_INDEX(PUB_DATE, '-', 2), '-', -1) >= '05' and PUB_YEAR='2017') TB_ARTI
 							INNER JOIN
 								TB_KWRD AS B
 							ON
@@ -1462,51 +1462,52 @@
 	</select>
 
 	<select id="getKwrdCnt" resultType="com.vinea.dto.CtgrKwrdVO">	
-	<!-- 분야별 키워드 빈도수 조회(분야별로 상위 10개만 조회)  *path: src/main/resources/mappers/xmlMapper.xml *id: getKwrdCnt 
+	<!-- 분야별 키워드 빈도수 조회(분야별로 상위 10개만 조회)  *path: src/main/resources/mappers/xmlMapper.xml *id: getKwrdCnt -->
 	
-	<![CDATA[
 		SELECT
-		   A.CTGR_NM,
-		   A.SUBJ_NM,
-		   A.KWRD_NM,
-		   A.KWRD_CNT 
+			CTGR_NM,
+			SUBJ_NM
 		FROM
-		   (
-		   SELECT
-		      CTGR_NM,
-		      SUBJ_NM,
-		      KWRD_NM,
-		      KWRD_CNT,
-		   CASE	         
-		         WHEN @GRP = CTGR_NM THEN
-		         @ROWNUM := @ROWNUM + 1 ELSE @ROWNUM := 1 
-		      END AS ROWNUM,
-		      ( @GRP := CTGR_NM ) AS DUM 
-		   FROM
-		      ( SELECT D.CTGR_NM, D.SUBJ_NM, D.KWRD_NM, D.KWRD_CNT FROM CTGR_KWRD_STAT D WHERE D.KWRD_CNT > 6 ) CTGR_KWRD_STAT,
-		      ( SELECT @ROWNUM := 0, @GRP := '' ) R 
-		   ORDER BY
-		      CTGR_NM,
-		      KWRD_CNT DESC 
-		   ) A 
-		WHERE
-		   ROWNUM <= 1
-	]]>
-	SELECT
-		   CTGR_NM,
-		   SUBJ_NM
-	FROM
-		CTGR_KWRD_STAT
-	WHERE
-		KWRD_CNT>20
-	GROUP BY
-		CTGR_NM,
-		SUBJ_NM-->
-	SELECT
-		CTGR_NM,
-		SUBJ_NM
-	FROM
-		TB_CTGR_NM
+			TB_CTGR_NM
+	<!-- <![CDATA[
+				SELECT
+				   A.CTGR_NM,
+				   A.SUBJ_NM,
+				   A.KWRD_NM,
+				   A.KWRD_CNT 
+				FROM
+				   (
+				   SELECT
+				      CTGR_NM,
+				      SUBJ_NM,
+				      KWRD_NM,
+				      KWRD_CNT,
+				   CASE	         
+				         WHEN @GRP = CTGR_NM THEN
+				         @ROWNUM := @ROWNUM + 1 ELSE @ROWNUM := 1 
+				      END AS ROWNUM,
+				      ( @GRP := CTGR_NM ) AS DUM 
+				   FROM
+				      ( SELECT D.CTGR_NM, D.SUBJ_NM, D.KWRD_NM, D.KWRD_CNT FROM CTGR_KWRD_STAT D WHERE D.KWRD_CNT > 6 ) CTGR_KWRD_STAT,
+				      ( SELECT @ROWNUM := 0, @GRP := '' ) R 
+				   ORDER BY
+				      CTGR_NM,
+				      KWRD_CNT DESC 
+				   ) A 
+				WHERE
+				   ROWNUM <= 1
+			]]>
+			SELECT
+				   CTGR_NM,
+				   SUBJ_NM
+			FROM
+				CTGR_KWRD_STAT
+			WHERE
+				KWRD_CNT>20
+			GROUP BY
+				CTGR_NM,
+				SUBJ_NM
+	-->
 	</select>
 	
  </mapper>
