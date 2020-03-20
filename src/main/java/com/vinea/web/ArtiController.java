@@ -32,6 +32,7 @@ import com.vinea.service.PostPager;
 import com.google.gson.Gson;
 
 @Controller
+@RequestMapping("/article")
 public class ArtiController {
 	
 	@Inject
@@ -41,7 +42,7 @@ public class ArtiController {
 	
 	/* 메인페이지_논문 목록 */
 	/** 메인화면으로 이동_논문 목록 페이지 **/
-	@RequestMapping(value = "/article", method=RequestMethod.GET)
+	@RequestMapping(value = "", method=RequestMethod.GET)
 	public ModelAndView xmlList(@RequestParam(defaultValue = "1") int page,
 			@RequestParam(defaultValue="") String search,
 			@RequestParam(defaultValue="0")String search_option,
@@ -96,7 +97,7 @@ public class ArtiController {
 	
 	/* 상세페이지 */
 	/** 파싱된 XML(논문) 내용 상세보기 **/
-	@RequestMapping(value="/article/article_detail", method=RequestMethod.GET)
+	@RequestMapping(value="/article_detail", method=RequestMethod.GET)
 	public ModelAndView article_detail(@RequestParam("uid")String uid) throws Exception{
 		
 		ModelAndView mav = new ModelAndView("article/article_detail");
@@ -109,7 +110,7 @@ public class ArtiController {
 	
 	/* XML 파일 파싱 부분 */
 	/** 메인 페이지(article_home.jsp)에서 Ajax파싱 부분 불러오기 **/
-	@RequestMapping(value = "/article/check", method = RequestMethod.POST)
+	@RequestMapping(value = "/check", method = RequestMethod.POST)
 	@ResponseBody
 	public List<ArtiVO> xmlCheck(@RequestParam(defaultValue = "") String filePath) throws Exception {
 
@@ -119,7 +120,7 @@ public class ArtiController {
 	}
 	
 	/** 메인 페이지(article_home.jsp)에서 파싱해온 결과 DB에 저장 **/
-	@RequestMapping(value = "/article/insert", method = RequestMethod.POST)
+	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	public String xmlInsert(@RequestParam(defaultValue = "") String filePath) throws Exception {
 
 		service.createListVO(filePath);
@@ -128,14 +129,14 @@ public class ArtiController {
 	}
 	
 	/** 원본 논문 데이터 파싱 테스트(DB 저장) **/
-	@RequestMapping(value = "/article/test")
+	@RequestMapping(value = "/test")
 	public void articleTest() throws Exception{
 		
 		service.articleTestList();
 	}
 	
 	/** 원본 논문 데이터 파싱 테스트(DB 저장) **/
-	@RequestMapping(value = "/article/test/insert")
+	@RequestMapping(value = "/test/insert")
 	public String testInsert() throws Exception{
 		
 		
@@ -143,7 +144,7 @@ public class ArtiController {
 	}
 	
 	/** 원본 논문 데이터 파싱 테스트(DB 저장) **/
-	@RequestMapping(value = "/article/parsing")
+	@RequestMapping(value = "/parsing")
 	public String parsingMapping() throws Exception{
 		
 		
@@ -151,7 +152,7 @@ public class ArtiController {
 	}
 	
 	/** 파싱 현황 불러오기 **/
-	@RequestMapping(value="/article/parsing/check")
+	@RequestMapping(value="/parsing/check")
 	@ResponseBody
 	public List<XmlFileVO> xmlParsingCheck() throws Exception{
 		
@@ -159,7 +160,7 @@ public class ArtiController {
 	}
 	
 	/** 파싱 현황 불러오기 **/
-	@RequestMapping(value="/article/parsing/check2")
+	@RequestMapping(value="/parsing/check2")
 	@ResponseBody
 	public List<XmlFileVO> xmlParsingCheck2() throws Exception{
 		
@@ -167,7 +168,7 @@ public class ArtiController {
 	}
 	
 	/** XML 파일명에 따라 파싱 **/
-	@RequestMapping(value="/article/parsing/test")
+	@RequestMapping(value="/parsing/test")
 	@ResponseBody
 	public XmlFileVO xmlParsingTest(@RequestParam(defaultValue="") String file_name) throws Exception{
 				
@@ -175,7 +176,7 @@ public class ArtiController {
 	}
 	
 	/** XML 파일명에 따라 파싱 **/
-	@RequestMapping(value="/article/parsing/test2")
+	@RequestMapping(value="/parsing/test2")
 	@ResponseBody
 	public Boolean xmlParsingTest2(@RequestParam(defaultValue="") String file_name,
 			@RequestParam(defaultValue="1")int file_cnt) throws Exception{
@@ -191,7 +192,7 @@ public class ArtiController {
 
 	/* 파싱된 결과 통계 부분 */
 	/** 연도별 논문수, 도서수, 참고문헌수, 학술지수 통계(페이지) **/
-	@RequestMapping(value = "/article/yearstat", method = RequestMethod.GET)
+	@RequestMapping(value = "/yearstat", method = RequestMethod.GET)
 	public ModelAndView yearlyChart() throws Exception {
 				
 		 List<YearVO> list = service.getYearCnt();	
@@ -203,7 +204,7 @@ public class ArtiController {
 	}
 	
 	/** 연도별 논문수, 도서수, 참고문헌수, 학술지수 통계(차트데이터) **/
-	@RequestMapping(value = "/article/yearcnt", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
+	@RequestMapping(value = "/yearcnt", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
 	public @ResponseBody String yearList(Locale locale, Model model) throws Exception {
 
 		Gson gson = new Gson();
@@ -213,7 +214,7 @@ public class ArtiController {
 	}	
 		
 	/** 소속기관별 데이터 통계(페이지) **/
-	@RequestMapping(value = "/article/orgnstat")
+	@RequestMapping(value = "/orgnstat")
 	public ModelAndView orgnChart(@RequestParam(defaultValue = "1") int page,
 			@RequestParam(defaultValue="") String search,
 			@RequestParam(defaultValue="10")String cnt_option,
@@ -259,7 +260,7 @@ public class ArtiController {
 	}
 	
 	/** 연구분야별 저자수, 논문수, 학술지, 참고문헌수 **/
-	@RequestMapping(value = "/article/ctgrstat")
+	@RequestMapping(value = "/ctgrstat")
 	public ModelAndView ctgrChart(@RequestParam(defaultValue = "1") int page
 			,@RequestParam(defaultValue="3")String sort_option
 			,@RequestParam(defaultValue="1")String ctgr_option
@@ -298,7 +299,7 @@ public class ArtiController {
 	
 	
 	/** 연구분야별 논문, 저자, 학술지, 참고문헌수 통계에 따른 현황->차트 **/
-	@RequestMapping(value = "/article/subjcnt", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
+	@RequestMapping(value = "/subjcnt", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
 	public @ResponseBody String subjlist(@RequestParam(defaultValue="1")String sort_option,Locale locale, Model model) throws Exception {
 		
 		/* 차트에 데이터를 JSON 방식으로 넘김 */
@@ -312,7 +313,7 @@ public class ArtiController {
 	}
 		
 	/** 키워드 빈도 **/
-	@RequestMapping(value = "/article/kwrdstat", method = RequestMethod.GET)
+	@RequestMapping(value = "/kwrdstat", method = RequestMethod.GET)
 	public ModelAndView kwrdChart(@RequestParam(defaultValue="") String ctgrnm
 			,@RequestParam(defaultValue="Materials Science, Multidisciplinary") String subjnm
 			,@RequestParam(defaultValue="10") String cnt_option
@@ -387,7 +388,7 @@ public class ArtiController {
 	} 
 	
 	/** 키워드 빈도 데이터 리스트 **/
-	@RequestMapping(value = "/article/kwrdcnt", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
+	@RequestMapping(value = "/kwrdcnt", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
 	public @ResponseBody String incomeList(Locale locale, Model model) throws Exception {
 
 		/* 차트에 데이터를 JSON 방식으로 넘김 */
