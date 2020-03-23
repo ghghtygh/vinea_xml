@@ -45,9 +45,13 @@ public class EsController {
 	
 
 	@RequestMapping("/search")
-	public void search(@RequestParam(defaultValue = "") String nm, @RequestParam(defaultValue = "0") String sp,
+	public void search(@RequestParam(defaultValue = "") String search, @RequestParam(defaultValue = "0") String sp,
 			@RequestParam(defaultValue = "10") String ps) throws Exception {
 
+		String nm = search;
+		logger.info("nm : {}", nm);
+		logger.info("nm.trim() : {}",nm.trim());
+		
 		String aliasName = "logstash_leftjoin_mysql";
 		
 		RestHighLevelClient client = createConnection();
@@ -84,11 +88,11 @@ public class EsController {
 			
 			ArtiVO artiVO = mapper.convertValue(sourceAsMap, ArtiVO.class);
 			
-			logger.info("========={}============", i++);
+			/*logger.info("========={}============", i++);
 			logger.info(sourceAsMap.get("uid").toString());
 			logger.info(sourceAsMap.get("orgn_nm").toString());
 			logger.info("----------------------");
-			logger.info(artiVO.toStringMultiline());
+			logger.info(artiVO.toStringMultiline());*/
 		}
 		
 		if(client!=null){
