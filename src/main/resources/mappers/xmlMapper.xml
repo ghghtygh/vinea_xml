@@ -1324,6 +1324,7 @@
 			,#{page_size}
 	</select>
 	
+	<!-- 검색 쿼리 수정 부분(200325) -->
 	<sql id="searchOrg">
 		<choose>
 			<when test='search!=null and search!=""'>
