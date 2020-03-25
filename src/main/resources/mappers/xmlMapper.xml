@@ -1302,6 +1302,7 @@
 		<include refid="searchOrg"></include>
 	</select>
 	
+	<!-- 기관 검색하기: 200325(쿼리 수정하기) -->
 	<select id="selectOrgList" parameterType="hashMap" resultType="com.vinea.dto.OrgnVO">
 	<!-- 기관 목록 조회 -SELECT *path: src/main/resources/mappers/xmlMapper.xml *id: selectOrgList -->
 	
@@ -1329,6 +1330,13 @@
 				AND
 					<foreach collection="search_list" item="item" open="(" close=")" separator="or">
 						ORGN_NM LIKE CONCAT('%',#{item},'%')
+						<!-- ORGN NM IN (
+											SELECT o.ORGN_NM
+											FROM TB_ORGN_NM AS o INNER JOIN TB_ORGN_PREF_NM AS p
+											ON o.ID = p.NM_ID
+											WHERE p.ORGN_PREF_NM LIKE (#{item}, '%')
+										)
+						-->
 					</foreach>
 			</when>
 		</choose>

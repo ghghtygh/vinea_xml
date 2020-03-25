@@ -529,7 +529,25 @@ public class NjhParser {
 			/* 기관명 풀네임 */
 			orgnVO.setOrgn_full_nm((String) xpath.evaluate("./full_address", node, XPathConstants.STRING));
 			/* 세부 기관명 */
-			orgnVO.setOrgn_pref_nm((String) xpath.evaluate("./organizations/organization[@pref = 'Y']", node, XPathConstants.STRING));
+			//수정
+	         /* 세부 기관명 (파싱 코드 수정_200325)*/         
+	         String pref_names = "";
+	         
+	         NodeList prefList = (NodeList) xpath.evaluate("./organizations/organization[@pref='Y']", node, XPathConstants.NODESET);
+	         
+	         for (int i1= 0, n1 = prefList.getLength(); i1 < n1; i1++)
+	         {
+	            Node prefNode = prefList.item(i1);
+	            
+	            String pref_name = (String) xpath.evaluate("./text()", prefNode, XPathConstants.STRING);
+	            
+	            pref_names += pref_name;
+	            
+	            pref_names += "|";
+	         }
+	         
+	         orgnVO.setOrgn_pref_nm(pref_names);
+			//orgnVO.setOrgn_pref_nm((String) xpath.evaluate("./organizations/organization[@pref = 'Y']", node, XPathConstants.STRING));
 			/* 기관 주소정보_도시명 */
 			orgnVO.setCity((String) xpath.evaluate("./city", node, XPathConstants.STRING));
 			/* 기관 주소정보_국가명 */
