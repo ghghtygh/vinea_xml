@@ -457,8 +457,10 @@ public class NjhParser {
 			refrVO.setPub_year((String) xpath.evaluate("./year", node, XPathConstants.STRING));
 			/* 참고문헌(논문) 저자 */
 			refrVO.setAuthor((String) xpath.evaluate("./citedAuthor", node, XPathConstants.STRING));
+			/* 학술지명 */
+			refrVO.setJrnl_title((String) xpath.evaluate("./citedWork", node, XPathConstants.STRING));
 			/* 연구기관 */
-			refrVO.setOrgn_nm((String) xpath.evaluate("./citedWork", node, XPathConstants.STRING));
+			refrVO.setOrgn_nm("");
 			/* 참고문헌(논문) 권번호 */
 			refrVO.setVolume((String) xpath.evaluate("./volume", node, XPathConstants.STRING));
 			/* 참고문헌(논문) 호번호 */

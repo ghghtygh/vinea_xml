@@ -87,4 +87,6 @@ public interface XmlService {
 	/** 연구분야별 저자수, 논문수, 학술지, 참고문헌수 통계2 **/
 	public List<CtgrStatVO> selectCtgrStatList(Map<String, Object> map);
 	
+	//추가
+	public List<OrgnVO> getCountry(Map<String, Object> map) throws Exception;	
 }

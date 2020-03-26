@@ -513,5 +513,12 @@ public class XmlServiceImpl implements XmlService{
 	public List<CtgrStatVO> selectCtgrStatList(Map<String,Object> map){
 		return dao.selectCtgrStatList(map);
 	}
+	
+	//추가
+	@Override
+	public List<OrgnVO> getCountry(Map<String, Object> map) throws Exception{
+	
+		return dao.getCountry(map);
+	}
 
 }

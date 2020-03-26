@@ -397,7 +397,7 @@ input:read-only {
 							</c:when>					
 							<c:otherwise>
 								<div class="row">
-									<div class="col-sm-7">
+									<div class="col-sm-6">
 										<div class="form-group row">
 											<div class="form-group">
 												<div class="input-group mb-3">
@@ -417,7 +417,22 @@ input:read-only {
 											</div>
 										</div>
 									</div>
-									<div class="col-sm-3">
+									<!-- 국가 추가 -->
+									<div class="col-sm-2">
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label" align="right">국가</label>
+											<select style="width:150px; margin-right: 10px" class="form-control" id="country" name="country">
+											<!-- 전체 -->
+											<option value="">ALL</option>
+											<!-- 국가명 데이터 -->
+											<c:forEach var="list" items="${ctryList}" varStatus="c">
+												<option value="${list}">${list}</option>
+											</c:forEach>
+										</select>
+										</div>
+									</div>
+									<!-- 국가 추가 끝 -->
+									<div class="col-sm-2">
 										<div class="form-group row">
 											<label class="col-sm-4 col-form-label" align="right">정렬</label>
 											<!-- 정렬 옵션: UID 순, 발행일순, 제목순 -->

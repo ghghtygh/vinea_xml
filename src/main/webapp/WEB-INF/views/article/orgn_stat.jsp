@@ -60,12 +60,22 @@ a:hover {
 		/* 검색어 입력 */
 		$("input[name='search']").val(searchs);
 		$("#input_search").val(searchs);
-		
+			
+		$('#country option[value="${country}"]').attr("selected",true);
 		$('#cnt_option option[value="${cnt_option}"]').attr("selected",true);
 		
-		$("#cnt_option").on('change',function(){
+		$("#country").change(function() {
 			
-			
+			var formObj = $("#frm");
+			formObj.attr("action", "/article/orgnstat");
+			formObj.attr("method", "get");
+			formObj.submit();
+				
+		});
+		
+		
+		$("#cnt_option").change(function(){
+						
 			/** 선택된 옵션에 따라 페이지를 업데이트 **/
 			var formObj = $("#frm");
 			formObj.attr("action", "/article/orgnstat");
@@ -81,11 +91,12 @@ a:hover {
 			var search = $("#input_search").val();
 			
 			$("input[name='search']").val(search);
-			
+				
 			var formObj = $("#frm");
 			formObj.attr("action", "/article/orgnstat");
 			formObj.attr("method", "get");
 			formObj.submit();
+			
 		});		
 	});
 	/** document 로딩 종료 **/ 
@@ -223,7 +234,7 @@ a:hover {
 								<ol class="breadcrumb">
 									<input type="hidden" name="search" value="">
 									<div class="row" style="width:100%;">
-										<div class="col-lg-9">
+										<div class="col-lg-8">
 											<div class="form-inline">
 												<p style="font-size: 15px; font-weight: bold; margin-right: 15px">기관명</p>
 												<input class="form-control" id="input_search" type="text" placeholder="기관명 검색.."
@@ -231,8 +242,21 @@ a:hover {
 												<button class="form-control btn btn-primary" type="button" id="btn_search">검색</button>
 											</div>
 										</div>
-										<div class="col-lg-3" style="margin_left: 20pxs">
+										<div class="col-lg-4" style="margin_left: 20pxs">
 										<div class="form-inline">
+										<!-- 추가 -->
+										<c:if test="${!empty ctryList}">
+										<p style="font-size: 15px; font-weight: bold; margin-right: 15px">국가</p>
+										<select style="width:150px; margin-right: 10px" class="form-control" id="country" name="country">
+											<!-- 전체 -->
+											<option value="">ALL</option>
+											<!-- 국가명 데이터 -->
+											<c:forEach var="list" items="${ctryList}" varStatus="c">
+												<option value="${list}">${list}</option>
+											</c:forEach>
+										</select>
+										</c:if>
+										<!-- 추가 끝 -->
 											<p style="font-size: 15px; font-weight: bold; margin-right: 15px">정렬</p>
 											<select style="width:150px;"class="form-control" id="cnt_option" name="cnt_option">
 												<option value="10">10개</option>

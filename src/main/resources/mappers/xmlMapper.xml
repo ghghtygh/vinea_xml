@@ -922,6 +922,9 @@
 		<!-- 검색옵션과 정렬 옵션 -->
 		<include refid="searchs"></include>
 		<include refid="sort"></include>
+		<!-- 국가별 추가 -->
+		<include refid="ctrySort"></include>
+		<!-- 국가별 추가 끝 -->
 		<!-- 정렬 처리 -->		
 				LIMIT
 					 #{start_index}
@@ -930,6 +933,28 @@
 			INNER JOIN TB_ARTI
 			ON C.UID = TB_ARTI.UID
 	</select>
+	
+	<sql id="sort">
+	<!-- 정렬하기 -->
+		<choose>
+			<when test='sort_option.equals("1")'>
+			<!-- 메인페이지 => sort_option "1" : UID순 -->
+				<!-- USE INDEX(iii) -->
+				ORDER BY
+				TB_ARTI.UID
+				ASC
+			</when>
+			<when test='sort_option.equals("2")'>
+			<!-- 메인페이지 => sort_option "2" : 발행일순 -->
+				ORDER BY
+				TB_ARTI.PUB_DATE
+				ASC
+			</when>
+			<when test='sort_option.equals("3")'>
+			<!--  메인페이지 => sort_option "3" :  제목순 -->
+			</when>
+		</choose>		
+	</sql>
 	
 	<select id="countXml" parameterType="hashMap" resultType="java.lang.Integer">
 	<!-- 논문 건수 카운팅  *path: src/main/resources/mappers/xmlMapper.xml *id: countXml -->
@@ -1056,28 +1081,6 @@
 				TB_ARTI
 			</otherwise>
 		</choose>
-	</sql>
-	
-	<sql id="sort">
-	<!-- 정렬하기 -->
-		<choose>
-			<when test='sort_option.equals("1")'>
-			<!-- 메인페이지 => sort_option "1" : UID순 -->
-				<!-- USE INDEX(iii) -->
-				ORDER BY
-				TB_ARTI.UID
-				ASC
-			</when>
-			<when test='sort_option.equals("2")'>
-			<!-- 메인페이지 => sort_option "2" : 발행일순 -->
-				ORDER BY
-				TB_ARTI.PUB_DATE
-				ASC
-			</when>
-			<when test='sort_option.equals("3")'>
-			<!--  메인페이지 => sort_option "3" :  제목순 -->
-			</when>
-		</choose>		
 	</sql>
 	
 	<select id="selectOneXml" parameterType="java.lang.String" resultMap="artiMap">
@@ -1297,12 +1300,70 @@
 		FROM
 			ORGN_STAT
 		WHERE
-			PUB_YEAR=#{search_year}
+			PUB_YEAR=#{search_year} 
 		<!-- 소속기관명 검색하기 -->
 		<include refid="searchOrg"></include>
 	</select>
 	
-	<!-- 기관 검색하기: 200325(쿼리 수정하기) -->
+	<!-- 추가 -->
+	<select id="getCountry" parameterType="hashMap" resultType="com.vinea.dto.OrgnVO">
+	
+		SELECT
+			 @ROWNUM:=@ROWNUM+1	AS NUM
+			,ORGN_NM
+			,ARTI_CNT
+			,CITE_CNT
+			,COUNTRY
+		FROM
+			(SELECT @ROWNUM:=#{start_index}) R
+			,ORGN_STAT
+		WHERE
+			PUB_YEAR=#{search_year}
+		<include refid="ctryOption"></include>
+		ORDER BY ARTI_CNT DESC
+		LIMIT
+			 #{start_index}
+			,#{page_size}	
+	</select>
+	
+	
+	<sql id="ctryOption">
+		<choose>
+			<when test='search!=null and search!=""'>
+				AND 
+					<foreach collection="search_list" item="item" open="(" close=")" separator="or">
+						 ORGN_NM IN(
+											SELECT 
+												TB_ORGN_NM.ORGN_NM
+											FROM 
+												TB_ORGN_NM 
+											INNER JOIN 
+												TB_ORGN_PREF_NM
+											ON 
+												TB_ORGN_NM.ID = TB_ORGN_PREF_NM.NM_ID
+											WHERE 
+												TB_ORGN_PREF_NM.ORGN_PREF_NM LIKE CONCAT (#{item}, '%')
+										)					
+					</foreach>	
+			</when>	
+			<when test='country!=null and country!=""'>
+				AND 
+					<foreach collection="ctryList" item="item" open="(" close=")" separator="or">
+						COUNTRY IN(
+						 			SELECT
+						 				COUNTRY
+						 			FROM 
+						 				ORGN_STAT
+						 			WHERE 
+						 				COUNTRY LIKE CONCAT(#{item}, '%')
+						)					
+					</foreach>	
+			</when>											
+		</choose>
+	</sql>
+	<!-- 추가 끝 -->
+	
+	
 	<select id="selectOrgList" parameterType="hashMap" resultType="com.vinea.dto.OrgnVO">
 	<!-- 기관 목록 조회 -SELECT *path: src/main/resources/mappers/xmlMapper.xml *id: selectOrgList -->
 	
@@ -1323,7 +1384,7 @@
 			 #{start_index}
 			,#{page_size}
 	</select>
-	
+
 	<!-- 검색 쿼리 수정 부분(200325) -->
 	<sql id="searchOrg">
 		<choose>
@@ -1342,12 +1403,13 @@
 												TB_ORGN_NM.ID = TB_ORGN_PREF_NM.NM_ID
 											WHERE 
 												TB_ORGN_PREF_NM.ORGN_PREF_NM LIKE CONCAT (#{item}, '%')
-										)						
-					</foreach>
-			</when>
+										)					
+					</foreach>	
+			</when>						
 		</choose>
 	</sql>
-	
+
+		
 	<select id="countCtgrStat" parameterType="hashMap" resultType="java.lang.Integer">
 	<!-- 연구분야별 통계 데이터 카운팅 *path: src/main/resources/mappers/xmlMapper.xml *id: countCtgrStat  -->
 	

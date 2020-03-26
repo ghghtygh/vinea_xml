@@ -46,6 +46,7 @@ public class ArtiController {
 			@RequestParam(defaultValue="") String search,
 			@RequestParam(defaultValue="0")String search_option,
 			@RequestParam(defaultValue="0")String sort_option,
+			@RequestParam(defaultValue = "") String country, //추가 부분(국가선택)
 			@RequestParam(defaultValue="10")String cnt_option) throws Exception
 	{
 		
@@ -213,16 +214,17 @@ public class ArtiController {
 	}	
 		
 	/** 소속기관별 데이터 통계(페이지) **/
-	@RequestMapping(value = "/article/orgnstat")
+	@RequestMapping(value = "/article/orgnstat", method = RequestMethod.GET)
 	public ModelAndView orgnChart(@RequestParam(defaultValue = "1") int page,
 			@RequestParam(defaultValue="") String search,
+			@RequestParam(defaultValue = "") String country, //추가 부분(국가선택)
 			@RequestParam(defaultValue="10")String cnt_option,
 			@RequestParam(defaultValue="2017")String year) throws Exception {
 		
+		
 		/* 소속기관별 통계: 논문수, 인용수, 소속기관별 연구분야 비율 */
 		ModelAndView mav = new ModelAndView("article/orgn_stat");
-		
-		
+				
 		/* 한페이지에 보여질 요소 개수 */
 		int pageSize = Integer.parseInt(cnt_option);
 		
@@ -239,6 +241,10 @@ public class ArtiController {
 		map.put("search_list", searchList);
 		map.put("search_year", year);
 		
+		//추가 		
+		map.put("country", country);
+		//추가 끝
+				
 		/* 기관 목록의 건수 */
 		int orgCnt = service.countOrg(map);
 		
@@ -247,6 +253,7 @@ public class ArtiController {
 		map.put("start_index", pager.getStartIndex());
 		map.put("page_size", pageSize);
 		
+		
 		List<OrgnVO> orgList = service.selectOrgList(map);
 		
 		mav.addObject("orgList", orgList);
@@ -254,6 +261,20 @@ public class ArtiController {
 		mav.addObject("cnt", orgCnt);
 		mav.addObject("search", search);
 		mav.addObject("cnt_option",cnt_option);
+		
+		//추가
+		List<OrgnVO> ctryList = service.getCountry(map);
+		List<String> strList = new ArrayList<String>();
+		for(OrgnVO vo: ctryList)
+		{
+			strList.add(vo.getCountry());
+		}
+		HashSet<String> hashset = new HashSet<String>(strList);
+		
+		mav.addObject("ctryList", new ArrayList<String>(hashset));
+		
+		mav.addObject("country", country);
+		//추가끝
 		
 		return mav;
 	}

@@ -262,6 +262,7 @@ public class XmlDAO {
 		return sqlSession.selectList(Namespace + ".getKwrdCnt");
 	}
 	
+	
 	/** 연도별 논문수, 도서수, 참고문헌수, 학술지수 통계 **/
 	public List<YearVO> getYearCnt() {
 		return sqlSession.selectList(Namespace + ".getYearCnt");
@@ -290,6 +291,11 @@ public class XmlDAO {
 	/** 연구분야별 저자수, 논문수, 학술지, 참고문헌수 통계2 **/
 	public List<CtgrStatVO> selectCtgrStatList(Map<String,Object> map){
 		return sqlSession.selectList(Namespace + ".selectCtgrStatList", map);
+	}
+	
+	//추가
+	public List<OrgnVO> getCountry(Map<String,Object> map) {
+		return sqlSession.selectList(Namespace + ".getCountry", map);
 	}
 		
 }
