@@ -462,6 +462,8 @@ public class XmlParser {
 			refrVO.setAuthor((String) xpath.evaluate("./citedAuthor", node, XPathConstants.STRING));
 			/* 학술지명 */
 			refrVO.setJrnl_title((String) xpath.evaluate("./citedWork", node, XPathConstants.STRING));
+			/* 기관명 */
+			refrVO.setOrgn_nm("");
 			/* 참고문헌(논문) 권번호 */
 			refrVO.setVolume((String) xpath.evaluate("./volume", node, XPathConstants.STRING));
 			/* 참고문헌(논문) 호번호 */

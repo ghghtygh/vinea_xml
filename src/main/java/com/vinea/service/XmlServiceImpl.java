@@ -505,6 +505,7 @@ public class XmlServiceImpl implements XmlService{
       return dao.selectOrgList(map);
    }
    
+   
    /** 연구분야별 저자수, 논문수, 학술지, 참고문헌수 **/
    @Override
    public int countCtgrStat(Map<String,Object> map){

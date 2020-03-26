@@ -307,6 +307,7 @@ public class ArtiController {
 	@RequestMapping(value = "/orgnstat")
 	public ModelAndView orgnChart(@RequestParam(defaultValue = "1") int page,
 			@RequestParam(defaultValue="") String search,
+			@RequestParam(defaultValue = "") String country, //추가 부분(국가선택)
 			@RequestParam(defaultValue="10")String cnt_option,
 			@RequestParam(defaultValue="2017")String year) throws Exception {
 		
@@ -330,6 +331,12 @@ public class ArtiController {
 		map.put("search_list", searchList);
 		map.put("search_year", year);
 		
+		
+		
+		/* 국가 추가 */ 		
+		map.put("country", country);
+		/* 국가 추가(끝) */
+		
 		/* 기관 목록의 건수 */
 		int orgCnt = service.countOrg(map);
 		
@@ -345,6 +352,18 @@ public class ArtiController {
 		mav.addObject("cnt", orgCnt);
 		mav.addObject("search", search);
 		mav.addObject("cnt_option",cnt_option);
+		
+		List<String> strList = new ArrayList<String>();
+		for(OrgnVO vo: orgList)
+		{
+			strList.add(vo.getCountry());
+		}
+		HashSet<String> hashset = new HashSet<String>(strList);
+		
+		mav.addObject("ctryList", new ArrayList<String>(hashset));
+		
+		mav.addObject("country", country);
+		/* 국가 추가 끝 */
 		
 		return mav;
 	}
@@ -405,7 +424,7 @@ public class ArtiController {
 	/** 키워드 빈도 **/
 	@RequestMapping(value = "/kwrdstat", method = RequestMethod.GET)
 	public ModelAndView kwrdChart(@RequestParam(defaultValue="") String ctgrnm
-			,@RequestParam(defaultValue="Materials Science, Multidisciplinary") String subjnm
+			,@RequestParam(defaultValue="") String subjnm
 			,@RequestParam(defaultValue="10") String cnt_option
 			) throws Exception {
 
@@ -439,6 +458,9 @@ public class ArtiController {
 		/** 키워드 빈도수 워드클라우드 생성 **/
 		/* 서비스로 주제명을 보내기 위한 map 생성 */
 		Map<String,Object> map = new HashMap<String,Object>();
+		if (subjnm.equals("")) {
+			subjnm = subList.get(0);
+		}
 		map.put("subjnm", subjnm);
 		map.put("cnt_option", Integer.parseInt(cnt_option));
 		List<CtgrKwrdVO> kwrdList = service.kwrdCloudList(map);

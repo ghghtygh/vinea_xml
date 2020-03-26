@@ -1308,7 +1308,7 @@
 				PUB_YEAR
 			ASC
 	</select>
-	
+		
 	<select id="countOrg" resultType="java.lang.Integer" parameterType="hashMap">
 	<!-- 기관 목록 조회 -COUNT *path: src/main/resources/mappers/xmlMapper.xml *id: countOrg -->
 	
@@ -1330,6 +1330,7 @@
 			,ORGN_NM
 			,ARTI_CNT
 			,CITE_CNT
+			,COUNTRY
 		FROM
 			(SELECT @ROWNUM:=#{start_index}) R
 			,ORGN_STAT
@@ -1348,7 +1349,32 @@
 			<when test='search!=null and search!=""'>
 				AND
 					<foreach collection="search_list" item="item" open="(" close=")" separator="or">
-						ORGN_NM LIKE CONCAT('%',#{item},'%')
+						<!-- ORGN_NM LIKE CONCAT('%',#{item},'%') -->
+						 ORGN_NM IN(
+											SELECT 
+												TB_ORGN_NM.ORGN_NM
+											FROM 
+												TB_ORGN_NM 
+											INNER JOIN 
+												TB_ORGN_PREF_NM
+											ON 
+												TB_ORGN_NM.ID = TB_ORGN_PREF_NM.NM_ID
+											WHERE 
+												TB_ORGN_PREF_NM.ORGN_PREF_NM LIKE CONCAT (#{item}, '%')
+						)
+					</foreach>
+			</when>
+			<when test='search == null and search == "" and country != null and country != ""'>
+				AND
+					<foreach collection="ctryList" item="item" open="(" close=")" separator="or">						
+						 COUNTRY IN(
+											SELECT 
+												COUNTRY
+											FROM 
+												ORGN_STAT 
+											WHERE 
+												COUNTRY LIKE CONCAT (#{item}, '%')
+						)
 					</foreach>
 			</when>
 		</choose>

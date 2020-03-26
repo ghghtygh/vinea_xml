@@ -278,8 +278,6 @@
 					        		    	  xAxes: [{
 					        		    		  ticks: {
 					        		    			  beginAtZero: true, 
-					        		    			  min: 0,
-					        		    			  max: 500000,
 					        		    			  fontSize: 14
 					        		    		  }
 					        		    	  }]
@@ -328,8 +326,6 @@
 						        		    	  xAxes: [{
 						        		    		  ticks: {
 						        		    			  beginAtZero: true, 
-						        		    			  min: 0,
-						        		    			  max: 500000,
 						        		    			  fontSize: 14
 						        		    		  }
 						        		    	  }]
@@ -380,8 +376,6 @@
 						        		    	  xAxes: [{
 						        		    		  ticks: {
 						        		    			  beginAtZero: true, 
-						        		    			  min: 0,
-						        		    			  max: 500000,
 						        		    			  fontSize: 14
 						        		    		  }
 						        		    	  }]
@@ -432,8 +426,6 @@
 						        		    	  xAxes: [{
 						        		    		  ticks: {
 						        		    			  beginAtZero: true, 
-						        		    			  min: 0,
-						        		    			  max: 500000,
 						        		    			  fontSize: 14
 						        		    		  }
 						        		    	  }]
@@ -484,8 +476,6 @@
 						        		    	  xAxes: [{
 						        		    		  ticks: {
 						        		    			  beginAtZero: true, 
-						        		    			  min: 0,
-						        		    			  max: 500000,
 						        		    			  fontSize: 14
 						        		    		  }
 						        		    	  }]
@@ -536,8 +526,6 @@
 						        		    	  xAxes: [{
 						        		    		  ticks: {
 						        		    			  beginAtZero: true, 
-						        		    			  min: 0,
-						        		    			  max: 500000,
 						        		    			  fontSize: 14          
 						        		    		  }
 						        		    	  }]

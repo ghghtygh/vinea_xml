@@ -77,6 +77,7 @@ public interface XmlService {
 
 	/** 소속기관별 데이터 통계(기관목록) **/
 	public List<OrgnVO> selectOrgList(Map<String, Object> map) throws Exception;
+	
 
 	/** 연구분야별 저자수, 논문수, 학술지, 참고문헌수 **/
 	public int countCtgrStat(Map<String, Object> map);
