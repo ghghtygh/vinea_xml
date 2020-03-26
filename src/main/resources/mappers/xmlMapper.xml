@@ -1330,12 +1330,18 @@
 			<when test='search!=null and search!=""'>
 				AND 
 					<foreach collection="search_list" item="item" open="(" close=")" separator="or">
-						<!--  ORGN_NM LIKE CONCAT('%',#{item},'%') -->
+					<!-- 	 ORGN_NM LIKE CONCAT('%',#{item},'%') -->
 						 ORGN_NM IN(
-											SELECT TB_ORGN_NM.ORGN_NM
-											FROM TB_ORGN_NM INNER JOIN TB_ORGN_PREF_NM
-											ON TB_ORGN_NM.ID = TB_ORGN_PREF_NM.NM_ID
-											WHERE TB_ORGN_PREF_NM.ORGN_PREF_NM LIKE CONCAT (#{item}, '%')
+											SELECT 
+												TB_ORGN_NM.ORGN_NM
+											FROM 
+												TB_ORGN_NM 
+											INNER JOIN 
+												TB_ORGN_PREF_NM
+											ON 
+												TB_ORGN_NM.ID = TB_ORGN_PREF_NM.NM_ID
+											WHERE 
+												TB_ORGN_PREF_NM.ORGN_PREF_NM LIKE CONCAT (#{item}, '%')
 										)						
 					</foreach>
 			</when>
