@@ -7,7 +7,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.vinea.common.NjhParser;
+import com.vinea.common.XmlParser;
 import com.vinea.dto.ArtiVO;
 import com.vinea.dto.AuthVO;
 import com.vinea.dto.DtypeVO;
@@ -16,14 +16,14 @@ public class TestNJH {
 
 	Logger logger = LoggerFactory.getLogger(TestNJH.class);
 	String filepath;
-	NjhParser np;
+	XmlParser np;
 	List<ArtiVO> list;
 	Iterator it;
 
 	public TestNJH() throws Exception {
 
 		
-		np = new NjhParser(filepath);
+		np = new XmlParser(filepath);
 		
 		String filePath = "D:\\2017_CORE\\WR_2017_20180509131811_CORE_0001.xml";
 		

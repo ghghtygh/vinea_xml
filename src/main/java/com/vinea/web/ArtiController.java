@@ -216,15 +216,6 @@ public class ArtiController {
 		return artiList;
 	}
 	
-	/** 메인 페이지(article_home.jsp)에서 파싱해온 결과 DB에 저장 **/
-	@RequestMapping(value = "/insert", method = RequestMethod.POST)
-	public String xmlInsert(@RequestParam(defaultValue = "") String filePath) throws Exception {
-
-		service.createListVO(filePath);
-		
-		return "redirect:/article";
-	}
-	
 	/** 원본 논문 데이터 파싱 테스트(DB 저장) **/
 	@RequestMapping(value = "/test")
 	public void articleTest() throws Exception{
@@ -256,24 +247,26 @@ public class ArtiController {
 		return service.selectXmlFileCount();
 	}
 	
-	/** 파싱 현황 불러오기 **/
+	/** 파싱 현황 불러오기 
 	@RequestMapping(value="/parsing/check2")
 	@ResponseBody
 	public List<XmlFileVO> xmlParsingCheck2() throws Exception{
 		
 		return service.selectParseYN();
 	}
+	**/
 	
-	/** XML 파일명에 따라 파싱 **/
+	/** XML 파일명에 따라 파싱
 	@RequestMapping(value="/parsing/test")
 	@ResponseBody
 	public XmlFileVO xmlParsingTest(@RequestParam(defaultValue="") String file_name) throws Exception{
 				
 		return service.parseOneXml(file_name);
 	}
+	 **/
 	
 	/** XML 파일명에 따라 파싱 **/
-	@RequestMapping(value="/parsing/test2")
+	@RequestMapping(value="/parsing/do")
 	@ResponseBody
 	public Boolean xmlParsingTest2(@RequestParam(defaultValue="") String file_name,
 			@RequestParam(defaultValue="1")int file_cnt) throws Exception{

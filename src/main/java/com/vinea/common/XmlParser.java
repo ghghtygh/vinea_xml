@@ -22,6 +22,7 @@ import com.vinea.dto.ArtiVO;
 import com.vinea.dto.AuthVO;
 import com.vinea.dto.BooknoteVO;
 import com.vinea.dto.ConfVO;
+import com.vinea.dto.CtgryVO;
 import com.vinea.dto.DtypeVO;
 import com.vinea.dto.GrntVO;
 import com.vinea.dto.KwrdVO;
@@ -31,9 +32,9 @@ import com.vinea.dto.RefrVO;
 import com.vinea.dto.XmlFileVO;
 
 
-public class NjhParser {
+public class XmlParser {
 
-	Logger logger = LoggerFactory.getLogger(NjhParser.class);
+	Logger logger = LoggerFactory.getLogger(XmlParser.class);
 
 	private List<ArtiVO> listvo;
 
@@ -46,14 +47,14 @@ public class NjhParser {
 	private String strpath = "";
 	private String filePath = "";
 
-	public NjhParser(String filePath) throws Exception {
+	public XmlParser(String filePath) throws Exception {
 
 		this.filePath = filePath;
 		listvo = new ArrayList<ArtiVO>();
 		xpath = XPathFactory.newInstance().newXPath();
 
 	}
-	public NjhParser(){
+	public XmlParser(){
 		
 		xpath = XPathFactory.newInstance().newXPath();
 	}
@@ -129,13 +130,9 @@ public class NjhParser {
 		/* 참고문헌수 */
 		/** 각 API(XML) 파일이  노드명이 달라서 조건문 사용 **/
 		if (((String) xpath.evaluate(".//references/@count", rec, XPathConstants.STRING)).equals("")) {
-
 			vo.setCite_cnt((String) xpath.evaluate(".//refs/@count", rec, XPathConstants.STRING));
-
 		} else {
-
 			vo.setCite_cnt((String) xpath.evaluate(".//references/@count", rec, XPathConstants.STRING));
-
 		}
 
 		/* 논문 페이지수 */
@@ -173,39 +170,44 @@ public class NjhParser {
 		vo.setBook_prepay((String) xpath.evaluate("./static_data/item/book_desc/bk_prepay/text()", rec, XPathConstants.STRING));
 		
 		/* 카테고리(연구분야) */
-		vo.setCtgry_nm((String) xpath.evaluate("./static_data/fullrecord_metadata/category_info/headings/heading", rec, XPathConstants.STRING));
+		String ctgry_nm = (String) xpath.evaluate("./static_data/fullrecord_metadata/category_info/headings/heading", rec, XPathConstants.STRING);
+		vo.setCtgry_nm(ctgry_nm);
 
 		/* 카테고리(연구분야) 소제목 */
 		NodeList subList = (NodeList) xpath.evaluate("./static_data/fullrecord_metadata/category_info/subheadings/subheading", rec, XPathConstants.NODESET);
-
 		String subhs = "";
 		String subjs = "";
 		for (int i = 0, n = subList.getLength(); i < n; i++) {
-
 			String subh = subList.item(i).getTextContent();
-
 			/** 소제목은 2개 이상이 나올 수 있으므로 구분자 '|'로 구분 **/
 			subhs += (subh + "|");
-
 		}
-		
 		vo.setCtgry_sub_title(subhs);
-
 		/* 카테고리(연구분야) 주제 */
 		NodeList subjList = (NodeList) xpath.evaluate(
 				"./static_data/fullrecord_metadata/category_info/subjects/subject[@ascatype='traditional']", rec,
 				XPathConstants.NODESET);
-
+		
+		List<CtgryVO> list_ctgry = new ArrayList<CtgryVO>();
+		
 		for (int i = 0, n = subjList.getLength(); i < n; i++) {
-
 			String subj = subjList.item(i).getTextContent();
-			
 			/** 연구분야 당 주제는 2개 이상이 나올 수 있으므로 구분자 '|'로 구분 **/
 			subjs += (subj + "|");
-	
+			
+			CtgryVO ctgryVO = new CtgryVO();
+			
+			ctgryVO.setUid(vo.getUid());
+			ctgryVO.setCtgry_nm(ctgry_nm);
+			ctgryVO.setCtgry_sub_title(subhs);
+			ctgryVO.setCtgry_subject(subj);
+			
+			list_ctgry.add(ctgryVO);
 		}
+		vo.setList_ctgry(list_ctgry);
 		
-		vo.setCtgry_subject(subjs);		
+		vo.setCtgry_subject(subjs);
+		
 		/** TB_ARTI(논문정보) 테이블에 저장할 내용 파싱  종료 **/
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -346,6 +348,7 @@ public class NjhParser {
 
 			list_dtype.add(dtypeVO);
 		}
+		
 
 		vo.setList_dtype(list_dtype);
 		/** TB_DTYPE(문서유형) 테이블에 저장할 내용 파싱  종료 **/
@@ -457,8 +460,8 @@ public class NjhParser {
 			refrVO.setPub_year((String) xpath.evaluate("./year", node, XPathConstants.STRING));
 			/* 참고문헌(논문) 저자 */
 			refrVO.setAuthor((String) xpath.evaluate("./citedAuthor", node, XPathConstants.STRING));
-			/* 연구기관 */
-			refrVO.setOrgn_nm((String) xpath.evaluate("./citedWork", node, XPathConstants.STRING));
+			/* 학술지명 */
+			refrVO.setJrnl_title((String) xpath.evaluate("./citedWork", node, XPathConstants.STRING));
 			/* 참고문헌(논문) 권번호 */
 			refrVO.setVolume((String) xpath.evaluate("./volume", node, XPathConstants.STRING));
 			/* 참고문헌(논문) 호번호 */
@@ -525,11 +528,28 @@ public class NjhParser {
 			orgnVO.setOrgn_addr_no((String) xpath.evaluate("./@addr_no", node, XPathConstants.STRING));
 			/* 기관명 */
 			/** 속성이 없는 노드의 정보를 가져오기 위한 정규표현 **/
-			orgnVO.setOrgn_nm((String) xpath.evaluate("./organizations/organization[count(@*)=0]", node, XPathConstants.STRING));
+			orgnVO.setOrgn_nm(
+					(String) xpath.evaluate("./organizations/organization[count(@*)=0]", node, XPathConstants.STRING));
 			/* 기관명 풀네임 */
 			orgnVO.setOrgn_full_nm((String) xpath.evaluate("./full_address", node, XPathConstants.STRING));
-			/* 세부 기관명 */
-			orgnVO.setOrgn_pref_nm((String) xpath.evaluate("./organizations/organization[@pref = 'Y']", node, XPathConstants.STRING));
+			
+			/* 세부 기관명 (파싱 코드 수정_200325) */
+			String pref_names = "";
+
+			NodeList prefList = (NodeList) xpath.evaluate("./organizations/organization[@pref='Y']", node,
+					XPathConstants.NODESET);
+
+			for (int i1 = 0, n1 = prefList.getLength(); i1 < n1; i1++) {
+				Node prefNode = prefList.item(i1);
+
+				String pref_name = (String) xpath.evaluate("./text()", prefNode, XPathConstants.STRING);
+
+				pref_names += pref_name;
+
+				pref_names += "|";
+			}
+
+			orgnVO.setOrgn_pref_nm(pref_names);
 			/* 기관 주소정보_도시명 */
 			orgnVO.setCity((String) xpath.evaluate("./city", node, XPathConstants.STRING));
 			/* 기관 주소정보_국가명 */

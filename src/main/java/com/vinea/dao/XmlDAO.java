@@ -16,6 +16,7 @@ import com.vinea.dto.BooknoteVO;
 import com.vinea.dto.ConfVO;
 import com.vinea.dto.CtgrKwrdVO;
 import com.vinea.dto.CtgrStatVO;
+import com.vinea.dto.CtgryVO;
 import com.vinea.dto.DtypeVO;
 import com.vinea.dto.GrntVO;
 import com.vinea.dto.KwrdVO;
@@ -39,16 +40,20 @@ public class XmlDAO {
 	/* 파싱된 정보 DB 저장 */
 	/** 파싱된 논문 건수 반환 **/
 	public int countXml(Map<String, Object> map) {
-
-		return sqlSession.selectOne(Namespace + ".countXml", map);
+		try{
+			return sqlSession.selectOne(Namespace + ".countXml", map);
+		}catch(Exception e){
+			return 0;
+		}
 	}
 	
 	/** 논문 정보 DB 저장 **/
 	public void insertArti(ArtiVO vo) {
-
 		sqlSession.insert(Namespace + ".insertArti", vo);
 	}
-
+	public void insertCtgry(CtgryVO vo){
+		sqlSession.insert(Namespace+".insertCtgry", vo);
+	}
 	/** 저자 정보 DB 저장 **/
 	public void insertAuth(AuthVO vo) {
 		sqlSession.insert(Namespace + ".insertAuth", vo);

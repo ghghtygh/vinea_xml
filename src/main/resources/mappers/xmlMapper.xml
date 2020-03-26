@@ -262,6 +262,26 @@
 		ON DUPLICATE KEY UPDATE
 			REGIST_DATE = NOW()		
 	</insert>
+	<insert id="insertCtgry" parameterType="com.vinea.dto.CtgryVO">
+	<!-- 파싱한 카테고리정보 DB에 저장 *path: src/main/resources/mappers/xmlMapper.xml *id: insertCtgry -->
+		INSERT IGNORE
+			INTO TB_CTGRY
+		(
+			 UID
+			,CTGRY_NM
+			,CTGRY_SUB_TITLE
+			,CTGRY_SUBJECT
+		
+		)
+		VALUES
+		(
+			 #{uid}
+			,#{ctgry_nm}
+			,#{ctgry_sub_title}
+			,#{ctgry_subject}
+		
+		)
+	</insert>
 	
 	<insert id="insertAuth"   parameterType="com.vinea.dto.AuthVO">
 	<!-- 파싱한 저자정보 DB에 저장 *path: src/main/resources/mappers/xmlMapper.xml *id: insertAuth -->
@@ -1463,12 +1483,26 @@
 
 	<select id="getKwrdCnt" resultType="com.vinea.dto.CtgrKwrdVO">	
 	<!-- 분야별 키워드 빈도수 조회(분야별로 상위 10개만 조회)  *path: src/main/resources/mappers/xmlMapper.xml *id: getKwrdCnt -->
-	
+	<!--
 		SELECT
 			CTGR_NM,
 			SUBJ_NM
 		FROM
 			TB_CTGR_NM
+			
+	-->
+		SELECT
+			 CTGR_NM
+			,SUBJ_NM
+		FROM
+			CTGR_KWRD_STAT
+		GROUP BY
+			 CTGR_NM
+			,SUBJ_NM
+		ORDER BY
+			 CTGR_NM
+			,SUBJ_NM
+			
 	<!-- <![CDATA[
 				SELECT
 				   A.CTGR_NM,

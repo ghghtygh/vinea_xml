@@ -353,7 +353,7 @@
 															</c:when>
 															<c:otherwise>
 																<tr>
-																	<td colspan="5" style="border-top: 1px solid #b4b4b4; border-bottom: 1px solid #b4b4b4; text-align: center">등록된 논문이 없습니다</td>
+																	<td colspan="7" style="border-top: 1px solid #b4b4b4; border-bottom: 1px solid #b4b4b4; text-align: center">등록된 논문이 없습니다</td>
 																</tr>
 															</c:otherwise>
 														</c:choose>

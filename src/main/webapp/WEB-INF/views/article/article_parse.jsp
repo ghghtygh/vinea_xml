@@ -117,7 +117,7 @@ td{
 		
 		$.ajax({			
 			type:"POST",
-			url:"/article/parsing/test2",
+			url:"/article/parsing/do",
 			data:{
 				"file_name":fileName,
 				"file_cnt":$("#file_cnt").val()

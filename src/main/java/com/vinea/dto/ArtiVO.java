@@ -79,6 +79,8 @@ public class ArtiVO {
 	//(논문) 수정자 아이디
 	private String modify_id;
 
+	//카테고리 정보 VO객체 리스트로 저장
+	private List<CtgryVO> list_ctgry;
 	//기관 정보 VO객체 리스트로 저장
 	private List<OrgnVO> list_orgn;
 	//저자 정보 VO객체 리스트로 저장
@@ -362,6 +364,14 @@ public class ArtiVO {
 
 	public void setModify_id(String modify_id) {
 		this.modify_id = modify_id;
+	}
+	
+	public List<CtgryVO> getList_ctgry() {
+		return list_ctgry;
+	}
+
+	public void setList_ctgry(List<CtgryVO> list_ctgry) {
+		this.list_ctgry = list_ctgry;
 	}
 
 	public List<OrgnVO> getList_orgn() {
