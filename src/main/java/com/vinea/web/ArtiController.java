@@ -112,7 +112,8 @@ public class ArtiController {
 		}else{
 		// 엘라스틱서치 검색	
 			
-			String aliasName = "logstash_leftjoin_mysql";
+			//String aliasName = "logstash_leftjoin_mysql";
+			String aliasName = "logstash_mysql_test04";
 			
 			RestHighLevelClient client = createConnection();
 			SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
@@ -121,9 +122,10 @@ public class ArtiController {
 			String[] fields = null;
 			
 			if(search_option.equals("1")){
-				//제목검색
+				// 제목검색
 				fields = new String[]{"arti_title"};
 			}else if(search_option.equals("2")){
+				// 기관검색
 				fields = new String[]{"orgn_nm","orgn_pref_nm"};
 			}
 			
