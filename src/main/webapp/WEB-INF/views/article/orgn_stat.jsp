@@ -68,7 +68,7 @@ a:hover {
 		$("#country").change(function() {
 			
 			var formObj = $("#frm");
-			formObj.attr("action", "/article/orgnstat");
+			formObj.attr("action", "/stat/orgn");
 			formObj.attr("method", "get");
 			formObj.submit();
 				
@@ -78,7 +78,7 @@ a:hover {
 						
 			/** 선택된 옵션에 따라 페이지를 업데이트 **/
 			var formObj = $("#frm");
-			formObj.attr("action", "/article/orgnstat");
+			formObj.attr("action", "/stat/orgn");
 			formObj.attr("method", "get");
 			formObj.submit();
 			
@@ -93,7 +93,7 @@ a:hover {
 			$("input[name='search']").val(search);
 			
 			var formObj = $("#frm");
-			formObj.attr("action", "/article/orgnstat");
+			formObj.attr("action", "/stat/orgn");
 			formObj.attr("method", "get");
 			formObj.submit();
 		});		
@@ -111,7 +111,7 @@ a:hover {
 		$(input_page).attr("value",nowPage);
 		formObj.append(input_page);
 		
-		formObj.attr("action", "/article/orgnstat");
+		formObj.attr("action", "/stat/orgn");
 		formObj.attr("method", "get");
 		formObj.submit();
 	
@@ -126,7 +126,7 @@ a:hover {
 			$("input[name='search']").val(search);
 			
 			var formObj = $("#frm");
-			formObj.attr("action", "/article/orgnstat");
+			formObj.attr("action", "/stat/orgn");
 			formObj.attr("method", "get");
 			formObj.submit();
 		}else{
@@ -184,25 +184,25 @@ a:hover {
 								논문보기
 							</a>
 						<div class="sb-sidenav-menu-heading" style="color: #fff">Statics</div>
-							<a class="nav-link" href="/article/yearstat">
+							<a class="nav-link" href="/stat/year">
 								<div class="sb-nav-link-icon">
 									<i class="fas fa-chart-bar"></i>
 								</div>
 								연도별 현황
 							</a>
-							<a style="font-weight: bold; color: #fff" class="nav-link" href="/article/orgnstat">
+							<a style="font-weight: bold; color: #fff" class="nav-link" href="/stat/orgn">
 								<div class="sb-nav-link-icon">
 									<i class="fa fa-table"></i>
 								</div>
 								소속기관별 현황
 							</a>
-							<a class="nav-link" href="/article/ctgrstat">
+							<a class="nav-link" href="/stat/ctgr">
 								<div class="sb-nav-link-icon">
 									<i class="fas fa-chart-area"></i>
 								</div>
 								분야별 현황
 							</a>
-							<a class="nav-link" href="/article/kwrdstat">
+							<a class="nav-link" href="/stat/kwrd">
 								<div class="sb-nav-link-icon">
 									<i class="fa fa-cloud"></i>
 								</div>

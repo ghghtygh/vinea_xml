@@ -171,18 +171,15 @@ public class XmlParser {
 		
 		/* 카테고리(연구분야) */
 		String ctgry_nm = (String) xpath.evaluate("./static_data/fullrecord_metadata/category_info/headings/heading", rec, XPathConstants.STRING);
-		vo.setCtgry_nm(ctgry_nm);
 
 		/* 카테고리(연구분야) 소제목 */
 		NodeList subList = (NodeList) xpath.evaluate("./static_data/fullrecord_metadata/category_info/subheadings/subheading", rec, XPathConstants.NODESET);
 		String subhs = "";
-		String subjs = "";
 		for (int i = 0, n = subList.getLength(); i < n; i++) {
 			String subh = subList.item(i).getTextContent();
 			/** 소제목은 2개 이상이 나올 수 있으므로 구분자 '|'로 구분 **/
 			subhs += (subh + "|");
 		}
-		vo.setCtgry_sub_title(subhs);
 		/* 카테고리(연구분야) 주제 */
 		NodeList subjList = (NodeList) xpath.evaluate(
 				"./static_data/fullrecord_metadata/category_info/subjects/subject[@ascatype='traditional']", rec,
@@ -193,7 +190,6 @@ public class XmlParser {
 		for (int i = 0, n = subjList.getLength(); i < n; i++) {
 			String subj = subjList.item(i).getTextContent();
 			/** 연구분야 당 주제는 2개 이상이 나올 수 있으므로 구분자 '|'로 구분 **/
-			subjs += (subj + "|");
 			
 			CtgryVO ctgryVO = new CtgryVO();
 			
@@ -206,7 +202,6 @@ public class XmlParser {
 		}
 		vo.setList_ctgry(list_ctgry);
 		
-		vo.setCtgry_subject(subjs);
 		
 		/** TB_ARTI(논문정보) 테이블에 저장할 내용 파싱  종료 **/
 

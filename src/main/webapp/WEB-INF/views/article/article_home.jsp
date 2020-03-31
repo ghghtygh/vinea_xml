@@ -130,7 +130,7 @@
 	
 			input_chk();
 	
-			$("#insertXML").modal({remote:"article/parsing"});
+			$("#insertXML").modal({remote:"/parsing"});
 			
 			
 		});
@@ -352,19 +352,19 @@ input:read-only {
 							</div> 논문보기
 						</a>
 						<div class="sb-sidenav-menu-heading" style="color: #fff">Statics</div>
-						<a class="nav-link" href="/article/yearstat">
+						<a class="nav-link" href="/stat/year">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-chart-bar"></i>
 							</div> 연도별 현황
-						</a> <a class="nav-link" href="/article/orgnstat">
+						</a> <a class="nav-link" href="/stat/orgn">
 							<div class="sb-nav-link-icon">
 								<i class="fa fa-table"></i>
 							</div> 소속기관별 현황
-						</a> <a class="nav-link" href="/article/ctgrstat">
+						</a> <a class="nav-link" href="/stat/ctgr">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-chart-area"></i>
 							</div> 분야별 현황
-						</a> <a class="nav-link" href="/article/kwrdstat">
+						</a> <a class="nav-link" href="/stat/kwrd">
 							<div class="sb-nav-link-icon">
 								<i class="fa fa-cloud"></i>
 							</div> 키워드 현황

@@ -176,25 +176,25 @@ a:hover.tip span {
 								논문보기
 							</a>
 						<div class="sb-sidenav-menu-heading" style="color: #fff">Statics</div>
-							<a class="nav-link" href="/article/yearstat">
+							<a class="nav-link" href="/stat/year">
 								<div class="sb-nav-link-icon">
 									<i class="fas fa-chart-bar"></i>
 								</div>
 								연도별 현황
 							</a>
-							<a class="nav-link" href="/article/orgnstat">
+							<a class="nav-link" href="/stat/orgn">
 								<div class="sb-nav-link-icon">
 									<i class="fa fa-table"></i>
 								</div>
 								소속기관별 현황
 							</a>
-							<a class="nav-link" href="/article/ctgrstat">
+							<a class="nav-link" href="/stat/ctgr">
 								<div class="sb-nav-link-icon">
 									<i class="fas fa-chart-area"></i>
 								</div>
 								분야별 현황
 							</a>
-							<a class="nav-link" href="/article/kwrdstat">
+							<a class="nav-link" href="/stat/kwrd">
 								<div class="sb-nav-link-icon">
 									<i class="fa fa-cloud"></i>
 								</div>
@@ -241,32 +241,39 @@ a:hover.tip span {
 									 ${pub.publ_nm}
 								</c:forEach>
 					</p>
-					<!-- 연구분야: 주제목 -->
+					<!-- 연구분야 -->
 					<p style="font-size: 13px; font-style: oblique;">
-					<c:if test="${ArtiVO.ctgry_nm != ''}">
-						<a href="/article/ctgrstat" class="tip"> ${ArtiVO.ctgry_nm}
-							<span>연구분야 동향<br>Click</span>
-						</a>
-						<!-- 연구분야: 소제목 -->
-						<c:if test="${not empty ArtiVO.ctgry_sub_title}">></c:if>
-						<!-- DB에 저장된 소제목 데이터가  | 구분자로 저장됨: jstl문법의 split 메소드를 사용하여 잘라냄 -->
-						<c:set var="tmp_list" value="${fn:split(ArtiVO.ctgry_sub_title,'|') }" />
-						<c:forEach var="tmp" items="${tmp_list}" varStatus="g">
-							<a href="/article/ctgrstat" class="tip"> ${tmp}
-								<span>연구분야 동향<br>Click</span>
-							</a>
-							<c:if test="${g.count !=fn:length(tmp_list) }">,</c:if>
-						</c:forEach> > 
-						<!-- DB에 저장된 주제 데이터가  | 구분자로 저장됨: jstl문법의 split 메소드를 사용하여 잘라냄 -->
-						<c:set var="tmp_list" value="${fn:split(ArtiVO.ctgry_subject,'|') }" />
-						<c:forEach var="tmp" items="${tmp_list}" varStatus="g">
-							<a href="/article/ctgrstat" class="tip"> ${tmp}
-								<span>연구분야 동향<br>Click</span>
-							</a>
-							<c:if test="${g.count !=fn:length(tmp_list) }">,</c:if>
+						연구분야:
+						
+						<c:forEach var="ctgry" items="${ArtiVO.list_ctgry}" varStatus="a">
+							<c:choose>
+								<c:when test="${a.count==1}">
+									<!-- 연구분야: 주제목 -->	
+									<a href="/stat/ctgr" class="tip"> ${ctgry.ctgry_nm}
+											<span>연구분야 동향<br>Click</span>
+									</a>
+									<!-- 연구분야: 소제목 -->
+									<c:if test="${not empty ctgry.ctgry_sub_title}">
+										&gt;
+										<a href="/stat/ctgr" class="tip"> ${fn:split(ctgry.ctgry_sub_title,'|')[0]}
+											<span>연구분야 동향<br>Click</span>
+										</a>
+									</c:if>
+									&gt;
+									<a href="/stat/ctgr" class="tip"> ${ctgry.ctgry_subject}
+										<span>연구분야 동향<br>Click</span>
+									</a>
+								</c:when>
+								<c:otherwise>
+									,
+									<a href="/stat/ctgr" class="tip"> ${ctgry.ctgry_subject}
+										<span>연구분야 동향<br>Click</span>
+									</a>
+								</c:otherwise>
+							</c:choose>
 						</c:forEach>
-					</c:if>
 					</p>
+					
 					<hr style="border-bottom: 0.5px dotted #b4b4b4">
 					<!-- 저자정보 -->
 					<p style="font-size: 13px; font-style: oblique;">

@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.statMapper">
+
+
+	<select id="getYearCnt" resultType="com.vinea.dto.YearVO">
+		<!-- 차트에 다음 데이터 불러오기(연도별 논문수, 도서수, 참고문헌수, 학술지수) *path: src/main/resources/mappers/xmlMapper.xml 
+			*id: getYearCnt -->
+			
+		SELECT
+		PUB_YEAR
+		,ARTI_CNT
+		,BOOK_CNT
+		,JRNL_CNT
+		,REFR_CNT
+		FROM
+		(
+		SELECT
+		PUB_YEAR
+		,ARTI_CNT
+		,BOOK_CNT
+		,JRNL_CNT
+		,REFR_CNT
+		FROM
+		YEAR_STAT
+		ORDER BY
+		PUB_YEAR
+		DESC
+		LIMIT 5
+		) A
+		ORDER BY
+		PUB_YEAR
+		ASC
+	</select>
+
+	<select id="countOrg" resultType="java.lang.Integer"
+		parameterType="hashMap">
+		<!-- 기관 목록 조회 -COUNT *path: src/main/resources/mappers/xmlMapper.xml *id: 
+			countOrg -->
+
+		SELECT
+		COUNT(*)
+		FROM
+		ORGN_STAT
+		WHERE
+		PUB_YEAR=#{search_year}
+		<!-- 소속기관명 검색하기 -->
+		<include refid="searchOrg"></include>
+	</select>
+
+	<select id="selectOrgList" parameterType="hashMap" resultType="com.vinea.dto.OrgnVO">
+		<!-- 기관 목록 조회 -SELECT *path: src/main/resources/mappers/xmlMapper.xml *id: 
+			selectOrgList -->
+
+		SELECT
+		@ROWNUM:=@ROWNUM+1 AS NUM
+		,ORGN_NM
+		,ARTI_CNT
+		,CITE_CNT
+		,COUNTRY
+		FROM
+		(SELECT @ROWNUM:=#{start_index}) R
+		,ORGN_STAT
+		WHERE
+		PUB_YEAR=#{search_year}
+		<!-- 소속기관명 검색하기 -->
+		<include refid="searchOrg"></include>
+		ORDER BY ARTI_CNT DESC
+		LIMIT
+		#{start_index}
+		,#{page_size}
+	</select>
+
+	<sql id="searchOrg">
+		<choose>
+			<when test='search!=null and search!=""'>
+				AND
+				<foreach collection="search_list" item="item" open="("
+					close=")" separator="or">
+					<!-- ORGN_NM LIKE CONCAT('%',#{item},'%') -->
+					ORGN_NM IN(
+					SELECT
+					TB_ORGN_NM.ORGN_NM
+					FROM
+					TB_ORGN_NM
+					INNER JOIN
+					TB_ORGN_PREF_NM
+					ON
+					TB_ORGN_NM.ID = TB_ORGN_PREF_NM.NM_ID
+					WHERE
+					TB_ORGN_PREF_NM.ORGN_PREF_NM LIKE CONCAT (#{item}, '%')
+					)
+				</foreach>
+			</when>
+			<when
+				test='search == null and search == "" and country != null and country != ""'>
+				AND
+				<foreach collection="ctryList" item="item" open="(" close=")"
+					separator="or">
+					COUNTRY IN(
+					SELECT
+					COUNTRY
+					FROM
+					ORGN_STAT
+					WHERE
+					COUNTRY LIKE CONCAT (#{item}, '%')
+					)
+				</foreach>
+			</when>
+		</choose>
+	</sql>
+
+	<select id="countCtgrStat" parameterType="hashMap" resultType="java.lang.Integer">
+		<!-- 연구분야별 통계 데이터 카운팅 *path: src/main/resources/mappers/xmlMapper.xml *id: 
+			countCtgrStat -->
+
+		SELECT
+		COUNT(*)
+		FROM
+		CTGR_STAT
+		<!-- 연구분야 선택 -->
+		<include refid="searchCtgr"></include>
+	</select>
+
+	<select id="getCtgrStatList" resultType="com.vinea.dto.CtgrStatVO">
+		<!-- 분야에 대한 주제별 통계 *path: src/main/resources/mappers/xmlMapper.xml *id: 
+			getCtgrStatList -->
+
+		SELECT
+			 SUBJ_NM
+			,ARTI_CNT
+			,JRNL_CNT
+			,REFR_CNT
+			,AUTH_CNT
+		FROM
+			CTGR_STAT
+		<!-- 연구분야 선택 -->
+		<include refid="searchCtgr"></include>
+		<!-- 정렬기준 선택(저자, 논문, 학술지, 참고문헌) -->
+		<include refid="ctgrStatSort"></include>
+		LIMIT 10
+	</select>
+
+	<select id="selectCtgrStatList" parameterType="hashMap"
+		resultType="com.vinea.dto.CtgrStatVO">
+		<!-- 연구분야별 저자수, 논문수, 학술지수, 참고문헌수 (전체 통계) *path: src/main/resources/mappers/xmlMapper.xml 
+			*id: selectCtgrStatList -->
+
+		SELECT
+		@ROWNUM:=@ROWNUM+1 AS NUM
+		,CTGR_NM
+		,SUBJ_NM
+		,ARTI_CNT
+		,JRNL_CNT
+		,REFR_CNT
+		,AUTH_CNT
+		FROM
+		(SELECT @ROWNUM:=#{start_index}) R
+		,CTGR_STAT
+		<!-- 연구분야 선택 -->
+		<include refid="searchCtgr"></include>
+		<!-- 정렬기준 선택(저자, 논문, 학술지, 참고문헌) -->
+		<include refid="ctgrStatSort"></include>
+		LIMIT
+		#{start_index}
+		,#{page_size}
+	</select>
+
+	<!-- 연구분야 선택 -->
+	<sql id="searchCtgr">
+		<choose>
+			<when test='ctgr_option=="1"'>
+				<!-- 연구분야 선택옵션 "1" : 전체목록 -->
+			</when>
+			<when test='ctgr_option=="2"'>
+				<!-- 연구분야 선택옵션 "2" : 'Science'를 포함하고 있는 분야 선택 -->
+				WHERE
+				CTGR_NM LIKE CONCAT('Science','%')
+			</when>
+			<when test='ctgr_option=="3"'>
+				<!-- 연구분야 선택옵션 "3" : 'Arts'를 포함하고 있는 분야 선택 -->
+				WHERE
+				CTGR_NM LIKE CONCAT('Arts','%')
+			</when>
+			<when test='ctgr_option=="4"'>
+				<!-- 연구분야 선택옵션 "4" : 연구분야명이 'Social Sciences'인 분야 선택 -->
+				WHERE
+				CTGR_NM = 'Social Sciences'
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</sql>
+
+	<!-- 조회시, 정렬기준 선택 -->
+	<sql id="ctgrStatSort">
+		ORDER BY
+		<choose>
+			<when test='sort_option==1'>
+				<!-- 정렬기준 옵션 "1" : 분야명, 주제명에 대하여 정렬 -->
+				CTGR_NM
+				,SUBJ_NM
+			</when>
+			<when test='sort_option==2'>
+				<!-- 정렬기준 옵션 "2" : 저자수 기준으로 정렬 -->
+				AUTH_CNT
+			</when>
+			<when test='sort_option==3'>
+				<!-- 정렬기준 옵션 "3" : 논문수 기준으로 정렬 -->
+				ARTI_CNT
+			</when>
+			<when test='sort_option==4'>
+				<!-- 정렬기준 옵션 "4" : 학술지수 기준으로 정렬 -->
+				JRNL_CNT
+			</when>
+			<when test='sort_option==5'>
+				<!-- 정렬기준 옵션 "5" : 참고문헌수 기준으로 정렬 -->
+				REFR_CNT
+			</when>
+			<otherwise>
+				CTGR_NM
+				,SUBJ_NM
+			</otherwise>
+		</choose>
+		DESC
+	</sql>
+
+	<select id="kwrdCloudList" parameterType="hashMap"
+		resultType="com.vinea.dto.CtgrKwrdVO">
+		<!-- 분야별 키워드 빈도수 워드클라우스 생성 *path: src/main/resources/mappers/xmlMapper.xml 
+			*id: kwrdCloudList -->
+
+		SELECT
+		KWRD_NM,
+		KWRD_CNT
+		FROM
+		CTGR_KWRD_STAT
+		WHERE
+		SUBJ_NM = #{subjnm}
+		ORDER BY KWRD_CNT
+		DESC
+		LIMIT
+		#{cnt_option}
+	</select>
+
+	<select id="getKwrdCnt" resultType="com.vinea.dto.CtgrKwrdVO">
+		<!-- 분야별 키워드 빈도수 조회(분야별로 상위 10개만 조회) *path: src/main/resources/mappers/xmlMapper.xml 
+			*id: getKwrdCnt -->
+		<!-- SELECT CTGR_NM, SUBJ_NM FROM TB_CTGR_NM -->
+		SELECT
+		CTGR_NM
+		,SUBJ_NM
+		FROM
+		CTGR_KWRD_STAT
+		GROUP BY
+		CTGR_NM
+		,SUBJ_NM
+		ORDER BY
+		CTGR_NM
+		,SUBJ_NM
+
+		<!-- <![CDATA[ SELECT A.CTGR_NM, A.SUBJ_NM, A.KWRD_NM, A.KWRD_CNT FROM 
+			( SELECT CTGR_NM, SUBJ_NM, KWRD_NM, KWRD_CNT, CASE WHEN @GRP = CTGR_NM THEN 
+			@ROWNUM := @ROWNUM + 1 ELSE @ROWNUM := 1 END AS ROWNUM, ( @GRP := CTGR_NM 
+			) AS DUM FROM ( SELECT D.CTGR_NM, D.SUBJ_NM, D.KWRD_NM, D.KWRD_CNT FROM CTGR_KWRD_STAT 
+			D WHERE D.KWRD_CNT > 6 ) CTGR_KWRD_STAT, ( SELECT @ROWNUM := 0, @GRP := '' 
+			) R ORDER BY CTGR_NM, KWRD_CNT DESC ) A WHERE ROWNUM <= 1 ]]> SELECT CTGR_NM, 
+			SUBJ_NM FROM CTGR_KWRD_STAT WHERE KWRD_CNT>20 GROUP BY CTGR_NM, SUBJ_NM -->
+	</select>
+
+
+
+
+</mapper>

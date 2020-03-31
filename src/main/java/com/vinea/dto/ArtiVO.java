@@ -62,12 +62,6 @@ public class ArtiVO {
 	private String book_publ;
 	//도서 주문정보
 	private String book_prepay;
-	//연구분야 명
-	private String ctgry_nm;
-	//연구분야 소제목
-	private String ctgry_sub_title;
-	//연구분야 주제
-	private String ctgry_subject;
 	//(논문) 삭제 여부
 	private String del_yn;
 	//(논문) 등록 일시
@@ -317,31 +311,7 @@ public class ArtiVO {
 	public void setBook_prepay(String book_prepay) {
 		this.book_prepay = book_prepay;
 	}
-
-	public String getCtgry_nm() {
-		return ctgry_nm;
-	}
-
-	public void setCtgry_nm(String ctgry_nm) {
-		this.ctgry_nm = ctgry_nm;
-	}
-
-	public String getCtgry_sub_title() {
-		return ctgry_sub_title;
-	}
-
-	public void setCtgry_sub_title(String ctgry_sub_title) {
-		this.ctgry_sub_title = ctgry_sub_title;
-	}
-
-	public String getCtgry_subject() {
-		return ctgry_subject;
-	}
-
-	public void setCtgry_subject(String ctgry_subject) {
-		this.ctgry_subject = ctgry_subject;
-	}
-
+	
 	public String getDel_yn() {
 		return del_yn;
 	}
