@@ -38,6 +38,8 @@ public class ParseDAO {
 	public void insertArti(ArtiVO vo) {
 		sqlSession.insert(Namespace + ".insertArti", vo);
 	}
+	
+	/** 카테고리 정보 DB 저장 **/
 	public void insertCtgry(CtgryVO vo){
 		sqlSession.insert(Namespace+".insertCtgry", vo);
 	}
@@ -96,9 +98,14 @@ public class ParseDAO {
 	public void insertArtiList(List<ArtiVO> list){
 		if(list.isEmpty())
 			return;
+		
 		sqlSession.insert(Namespace+".insertArtiList", list);
+		
 	}
-	
+	/** 카테고리 정보 DB 저장 **/
+	public void insertCtgryList(List<CtgryVO> list){
+		sqlSession.insert(Namespace+".insertCtgryList", list);
+	}
 	/** 저자 정보리스트 DB 저장 **/
 	public void insertAuthList(List<AuthVO> list){
 		if(list.isEmpty())

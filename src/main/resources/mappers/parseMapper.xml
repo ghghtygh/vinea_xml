@@ -20,8 +20,8 @@
 	<insert id="insertArti"   parameterType="com.vinea.dto.ArtiVO">
 	<!-- 파싱한 논문정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertArti -->
 	
-		INSERT INTO
-			TB_ARTI
+		INSERT IGNORE
+			INTO TB_ARTI
 		(
 			 UID
 			,ARTI_NO
@@ -49,9 +49,6 @@
 			,BOOK_BIND_YN
 			,BOOK_PUBL
 			,BOOK_PREPAY
-			,CTGRY_NM
-			,CTGRY_SUB_TITLE
-			,CTGRY_SUBJECT
 			,DEL_YN
 			,REGIST_DATE
 			,REGISTR_ID
@@ -86,9 +83,6 @@
 			,#{book_bind_yn} 
 			,#{book_publ} 
 			,#{book_prepay}
-			,#{ctgry_nm}
-			,#{ctgry_sub_title}
-			,#{ctgry_subject}
 			,#{del_yn}
 			,NOW()
 			,#{registr_id}
@@ -399,8 +393,8 @@
 	<insert id="insertArtiList"   parameterType="java.util.List">
 	<!-- 파싱한 논문정보리스트 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertArtiList -->
 	
-		INSERT INTO
-			TB_ARTI
+		INSERT IGNORE
+			INTO TB_ARTI
 		(
 			 UID
 			,ARTI_NO
@@ -481,7 +475,29 @@
 		ON DUPLICATE KEY UPDATE
 			REGIST_DATE = NOW()			
 	</insert>
+	<insert id="insertCtgryList" parameterType="java.util.List">
+	<!-- 파싱한 키워드정보리스트 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertKwrdList -->
 	
+		INSERT IGNORE
+			INTO TB_CTGRY
+		(
+			 UID
+			,CTGRY_NM
+			,CTGRY_SUB_TITLE
+			,CTGRY_SUBJECT
+		
+		)
+		VALUES
+		<foreach collection="list" item="item" separator=" , ">
+		<!-- 키워드 정보 리스트 ',' 로 구분 (다중 insert) -->
+		(
+			 #{item.uid}
+			,#{item.ctgry_nm}
+			,#{item.ctgry_sub_title}
+			,#{item.ctgry_subject}
+		)
+		</foreach>
+	</insert>
 	<insert id="insertAuthList" parameterType="java.util.List">
 	<!-- 중복 제거하고 저자 정보 리스트 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertAuthList  -->
 	
@@ -808,7 +824,8 @@
 			,Y_CNT
 			,ALL_CNT
 		FROM
-			FILE_STAT			
+			FILE_STAT
+			
 	</select>
 	<select id="selectParseYN" resultMap="xmlFileMap">
 	<!-- XML 파싱 완료 현황  *path: src/main/resources/mappers/xmlMapper.xml *id: selectParseYN -->

@@ -319,29 +319,32 @@ public class XmlParser {
 
 			Node node = (Node) nodelist5.item(i);
 
-			DtypeVO dtypeVO = new DtypeVO();
+			
 
 			/* TB_ARTI의 논문 UID를 가져와 DB 저장 */
-			dtypeVO.setUid(vo.getUid());
+			
 
 			String dtype_names = "";
 
 			NodeList doctypeList = (NodeList) xpath.evaluate("./doctype", node, XPathConstants.NODESET);
 
 			for (int i1 = 0, n1 = doctypeList.getLength(); i1 < n1; i1++) {
+				
+				DtypeVO dtypeVO = new DtypeVO();
+				
+				dtypeVO.setUid(vo.getUid());
+				
 				Node doctypeNode = doctypeList.item(i1);
 
 				String dtype_name = (String) xpath.evaluate("./text()", doctypeNode, XPathConstants.STRING);
 
-				dtype_names += dtype_name;
-				/** 문서유형은 논문당 2개 이상이 나올 수 있으므로 구분자 '|'로 구분 **/
-				dtype_names += "|";
+				dtypeVO.setDtype_nm(dtype_name);
+
+				list_dtype.add(dtypeVO);
 
 			}
 
-			dtypeVO.setDtype_nm(dtype_names);
-
-			list_dtype.add(dtypeVO);
+			
 		}
 		
 

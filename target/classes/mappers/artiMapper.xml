@@ -3,7 +3,7 @@
 <mapper namespace="mappers.artiMapper">
 
 	<resultMap id="artiMap" type="com.vinea.dto.ArtiVO">
- 		<!-- artiMapper.xml -> resultMap(id:artiMap) 논문정보 테이블의 컬럼 -->	
+ 		<!-- artiMapper.xml  resultMap(id:artiMap) 논문정보 테이블의 컬럼 -->	
  	
 		<result property="num"					column="ROWNUM"/>
 		<result property="uid"					column="UID"/>
