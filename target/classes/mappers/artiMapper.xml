@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.artiMapper">
+
+	<resultMap id="artiMap" type="com.vinea.dto.ArtiVO">
+ 		<!-- artiMapper.xml  resultMap(id:artiMap) 논문정보 테이블의 컬럼 -->	
+ 	
+		<result property="num"					column="ROWNUM"/>
+		<result property="uid"					column="UID"/>
+		<result property="arti_no"				column="ARTI_NO"/>
+		<result property="arti_title"    		column="ARTI_TITLE"/>
+		<result property="pub_year"    			column="PUB_YEAR"/>   	
+		<result property="pub_date"    			column="PUB_DATE"/>    	
+		<result property="volume"    			column="VOLUME"/>    	
+		<result property="issue"    			column="ISSUE"/>    	
+		<result property="doi"    				column="DOI"/>    		
+		<result property="abstr"    			column="ABSTR"/>    	
+		<result property="issn"    				column="ISSN"/>   		
+		<result property="eissn"    			column="EISSN"/>    	
+		<result property="cite_cnt"    			column="CITE_CNT"/>    	
+		<result property="jrnl_title"    		column="JRNL_TITLE"/>    
+		<result property="sup_cnt"    			column="SUP_CNT"/>    	
+		<result property="page_cnt"    			column="PAGE_CNT"/>    	
+		<result property="begin_page"    		column="BEGIN_PAGE"/>    
+		<result property="end_page"    			column="END_PAGE"/>   	
+		<result property="open_yn"    			column="OPEN_YN"/>    	
+		<result property="item_id"    			column="ITEM_ID"/>    	
+		<result property="item_avail_yn"    	column="ITEM_AVAIL_YN"/>   
+		<result property="item_type"    		column="ITEM_TYPE"/>    
+		<result property="item_page_cnt"    	column="ITEM_PAGE_CNT"/>   
+		<result property="book_page_cnt"    	column="BOOK_PAGE_CNT"/>   
+		<result property="book_bind_yn"    		column="BOOK_BIND_YN"/> 
+		<result property="book_publ"    		column="BOOK_PUBL"/>   	
+		<result property="book_prepay"    		column="BOOK_PREPAY"/>
+		<result property="del_yn"    			column="DEL_YN"/>    	
+		<result property="regist_date"    		column="REGIST_DATE"/>    
+		<result property="registr_id"    		column="REGISTR_ID"/>    
+		<result property="modify_date"    		column="MODIFY_DATE"/>    
+		<result property="modify_id"    		column="MODIFY_ID"/>
+		   				
+	</resultMap>
+	
+	
+	<resultMap id="ctgryMap" type="com.vinea.dto.CtgryVO">
+	
+		<result property="ctgry_pk"				column="CTGRY_PK"/>
+		<result property="uid"					column="UID"/>
+		<result property="ctgry_nm"				column="CTGRY_NM"/>
+		<result property="ctgry_sub_title"		column="CTGRY_SUB_TITLE"/>
+		<result property="ctgry_subject"		column="CTGRY_SUBJECT"/>
+		
+	</resultMap>
+	
+	<resultMap id="authMap" type="com.vinea.dto.AuthVO">
+	<!-- artiMapper.xml -> resultMap(id:authMap) 저자정보 테이블의 컬럼 -->	
+	
+			<result property="auth_pk"				column="AUTH_PK"/>
+			<result property="auth_id"				column="AUTH_ID"/>
+			<result property="auth_seq"				column="AUTH_SEQ_NO"/>
+			<result property="auth_addr_no"   		column="AUTH_ADDR_NO"/>
+			<result property="uid"   				column="UID"/>
+			<result property="auth_nm"  		 	column="AUTH_NM"/>
+			<result property="auth_full_nm"   		column="AUTH_FULL_NM"/>
+			<result property="auth_wos_nm"  		column="AUTH_WOS_NM"/>
+			<result property="auth_role"   			column="AUTH_ROLE"/>
+			<result property="lead_yn"  		 	column="LEAD_YN"/>
+			<result property="corres_yn"  		 	column="CORRES_YN"/>
+			<result property="auth_email_addr"  	column="AUTH_EMAIL_ADDR"/>
+			<result property="orcid_id" 		  	column="ORCID_ID"/>
+			<result property="auth_rid"   			column="AUTH_RID"/>		
+	</resultMap>
+	<resultMap id="kwrdMap" type="com.vinea.dto.KwrdVO">
+	<!-- artiMapper.xml -> resultMap(id:kwrdMap) 키워드 정보 테이블의 컬럼 -->	
+	
+		<result property="kwrd_pk"				column="KWRD_PK"/>	
+		<result property="uid"					column="UID"/>
+		<result property="kwrd_nm"				column="KWRD_NM"/>
+		<result property="kw_plus_yn"			column="KW_PLUS_YN"/>
+	</resultMap>
+	
+	<resultMap id="authOrgnMap" type="com.vinea.dto.OrgnVO">
+	<!-- artiMapper.xml -> resultMap(id:authOrgnMap) 저자 기관정보 테이블의 컬럼 -->	
+	
+		<result property="auth_orgn_pk"			column="AUTH_ORGN_PK"/>
+		<result property="uid"					column="UID"/>
+		<result property="orgn_addr_no"			column="ORGN_ADDR_NO"/>
+		<result property="orgn_full_nm"			column="ORGN_FULL_NM"/>
+		<result property="orgn_nm"			    column="ORGN_NM"/>
+		<result property="orgn_sub_nm"			column="ORGN_SUB_NM"/>
+		<result property="city"					column="CITY"/>
+		<result property="state"				column="STATE"/>
+		<result property="country"				column="COUNTRY"/>
+		<result property="street"				column="STREET"/>		
+	</resultMap>
+	
+	<resultMap id="orgnPrefMap" type="com.vinea.dto.OrgnPrefVO">
+	<!-- artiMapper.xml -> resultMap(id:orgnPrefMap) 저자 세부기관명 테이블의 컬럼 -->
+	
+		<result property="orgn_pref_pk"			column="ORGN_PREF_PK"/>
+		<result property="uid"					column="UID"/>
+		<result property="orgn_addr_no"			column="ORGN_ADDR_NO"/>
+		<result property="orgn_pref_nm"			column="ORGN_PREF_NM"/>
+	
+	</resultMap>
+	
+	
+	
+	<resultMap id="publMap" type="com.vinea.dto.PublVO">
+	<!-- artiMapper.xml -> resultMap(id:publMap) 발행기관 정보 테이블의 컬럼 -->	
+	
+		<result property="publ_pk"				column="PUBL_PK"/>
+		<result property="uid"					column="UID"/>
+		<result property="publ_addr"			column="PUBL_ADDR"/>
+		<result property="publ_full_nm"			column="PUBL_FULL_NM"/>
+		<result property="publ_nm"				column="PUBL_NM"/>
+		<result property="city"					column="CITY"/>
+		<result property="country"				column="COUNTRY"/>
+		<result property="state"				column="STATE"/>		
+	</resultMap>
+	
+	<resultMap id="refrMap" type="com.vinea.dto.RefrVO">
+	<!-- artiMapper.xml -> resultMap(id:refrMap) 참고문헌 정보 테이블의 컬럼 -->	
+	
+		<result property="refr_id"				column="REFR_ID"/>
+		<result property="refr_uid"				column="REFR_UID"/>
+		<result property="uid"				    column="UID"/>
+		<result property="author"				column="AUTHOR"/>
+		<result property="pub_year"				column="PUB_YEAR"/>
+		<result property="volume"				column="VOLUME"/>
+		<result property="issue"				column="ISSUE"/>
+		<result property="arti_title"			column="ARTI_TITLE"/>
+		<result property="doi"					column="DOI"/>
+		<result property="page"					column="PAGE"/>
+		<result property="orgn_nm"				column="ORGN_NM"/>
+		<result property="jrnl_title"			column="JRNL_TITLE"/>
+		<result property="del_yn"				column="DEL_YN"/>
+		<result property="regist_date"			column="REGIST_DATE"/>
+		<result property="registr_id"			column="REGISTR_ID"/>
+		<result property="modify_date"			column="MODIFY_DATE"/>	
+		<result property="modify_id"			column="MODIFY_ID"/>		
+	</resultMap>
+	
+
+	<select id="selectXmlList" parameterType="hashmap" resultMap="artiMap">
+	<!-- 요청 페이지에 따른 파싱된 논문 목록 조회  *path: src/main/resources/mappers/artiMapper.xml *id: selectXmlList -->
+		
+		SELECT			 
+			@ROWNUM:=@ROWNUM+1	AS ROWNUM
+			,TB_ARTI.UID		AS UID
+			,ARTI_NO
+			,ARTI_TITLE
+			,PUB_DATE
+			,JRNL_TITLE
+			,VOLUME
+			,ISSUE
+			,PUB_YEAR
+			,BEGIN_PAGE
+			,END_PAGE
+			,PAGE_CNT			
+			FROM (SELECT @ROWNUM:=#{start_index}) R			
+			,(
+				SELECT TB_ARTI.UID
+		<!-- 검색옵션과 정렬 옵션 -->
+		<include refid="searchs"></include>
+		<include refid="sort"></include>
+		<!-- 정렬 처리 -->		
+				LIMIT
+					 #{start_index}
+					,#{page_size}					
+			) C
+			INNER JOIN TB_ARTI
+			ON C.UID = TB_ARTI.UID
+	</select>
+	
+	<select id="countXml" parameterType="hashMap" resultType="java.lang.Integer">
+	<!-- 논문 건수 카운팅  *path: src/main/resources/mappers/artiMapper.xml *id: countXml -->
+	
+		<choose>
+			<when test='search!=null and search!=""'>			
+				SELECT
+					COUNT(*)
+				FROM
+				(
+					SELECT
+						TB_ARTI.UID	AS UID					
+					<include refid="searchs"></include>
+				) C
+			</when>
+			<otherwise>
+				SELECT
+					TB_CNT
+				FROM
+					CNT_STAT
+				WHERE
+					TB_NM = 'TB_ARTI'
+			</otherwise>
+		</choose>		
+	</select>
+		
+	<sql id="searchs">
+	<!-- 검색하기 -->
+		<choose>
+			<when test='search!=null and search!=""'>
+			<!-- 검색어 존재 -->
+				<choose>
+						<when test='search_option.equals("1")'>
+						<!-- search_option "1" : 제목 -->
+							FROM
+								<!--  TB_ARTI -->
+								(SELECT * FROM TB_ARTI LIMIT 10000) TB_ARTI
+								
+							WHERE
+							<foreach collection="search_list" item="item" open="(" close=")" separator="or">
+								ARTI_TITLE LIKE CONCAT('%',#{item},'%')
+							</foreach>
+						</when>
+						<when test='search_option.equals("2")'>
+						<!-- search_option "2" : 저자 -->
+							FROM 
+								(SELECT * FROM TB_ARTI LIMIT 10000) TB_ARTI
+							INNER JOIN
+								TB_AUTH AS B
+							ON
+								TB_ARTI.UID = B.UID
+							WHERE
+							<foreach collection="search_list" item="item" open="(" close=")" separator="or">
+								B.AUTH_FULL_NM
+							LIKE
+								CONCAT('%',#{item},'%')
+							</foreach>
+						</when>
+						<when test='search_option.equals("3")'>
+						<!-- search_option "3" : 키워드 -->
+							FROM 
+								(SELECT * FROM TB_ARTI LIMIT 10000) TB_ARTI
+							INNER JOIN
+								TB_KWRD AS B
+							ON
+								TB_ARTI.UID = B.UID
+							WHERE
+							<foreach collection="search_list" item="search" open="(" close=")" separator="or">
+								B.KWRD_NM
+							LIKE
+								CONCAT('%',#{search},'%')
+							</foreach>
+						</when>
+						<when test='search_option.equals("4")'>
+						<!--  search_option "4" : 학술지 해당 논문목록 (상세페이지: article_detail.jsp) -->
+							FROM
+								TB_ARTI
+							WHERE
+								JRNL_TITLE = #{search}
+						</when>
+						<when test='search_option.equals("5")'>
+						<!-- search_option "5" : 저자 해당 논문목록 (상세페이지: article_detail.jsp) -->
+							FROM
+								TB_ARTI
+							INNER JOIN
+								TB_AUTH AS B
+							ON
+								TB_ARTI.UID = B.UID
+							WHERE
+								B.AUTH_FULL_NM = #{search}
+						</when>
+						<when test='search_option.equals("6")'>
+						<!-- search_option "6" : 소속기관 해당 논문목록 (소속기관 현황페이지: orgn_stat.jsp) -->
+							FROM
+								(SELECT * FROM TB_ARTI WHERE SUBSTRING_INDEX(SUBSTRING_INDEX(PUB_DATE, '-', 2), '-', -1) >= '05' and PUB_YEAR='2017') TB_ARTI
+							INNER JOIN
+								TB_AUTH_ORGN AS B
+							ON
+								TB_ARTI.UID = B.UID
+							WHERE
+								B.ORGN_NM = #{search}
+						</when>
+						<when test='search_option.equals("7")'>
+						<!-- search_option "7" : 키워드 해당 논문목록 (분야별 키워드 빈도: kwrd_stat.jsp) -->
+							FROM
+								(SELECT * FROM TB_ARTI WHERE SUBSTRING_INDEX(SUBSTRING_INDEX(PUB_DATE, '-', 2), '-', -1) >= '05' and PUB_YEAR='2017') TB_ARTI
+							INNER JOIN
+								TB_KWRD AS B
+							ON
+								TB_ARTI.UID = B.UID
+							WHERE
+								B.KWRD_NM = #{search}
+						</when>
+						<otherwise>
+						<!-- 검색어 없음 -->
+						FROM
+							TB_ARTI							
+						</otherwise>
+				</choose>
+			</when>
+			<otherwise>
+			<!-- 검색어 없음 -->
+			FROM
+				TB_ARTI
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<sql id="sort">
+	<!-- 정렬하기 -->
+		<choose>
+			<when test='sort_option.equals("1")'>
+			<!-- 메인페이지 => sort_option "1" : UID순 -->
+				<!-- USE INDEX(iii) -->
+				ORDER BY
+				TB_ARTI.UID
+				ASC
+			</when>
+			<when test='sort_option.equals("2")'>
+			<!-- 메인페이지 => sort_option "2" : 발행일순 -->
+				ORDER BY
+				TB_ARTI.PUB_DATE
+				ASC
+			</when>
+			<when test='sort_option.equals("3")'>
+			<!--  메인페이지 => sort_option "3" :  제목순 -->
+			</when>
+		</choose>		
+	</sql>
+	
+	<select id="selectOneXml" parameterType="java.lang.String" resultMap="artiMap">
+	<!-- 논문 상세페이지에 들어갈 정보  *path: src/main/resources/mappers/artiMapper.xml *id: selectOneXml -->
+		
+		SELECT		
+			 UID
+			,ARTI_TITLE
+			,JRNL_TITLE
+			,VOLUME
+			,ISSUE
+			,PUB_YEAR
+			,BEGIN_PAGE
+			,END_PAGE
+			,DOI
+			,PAGE_CNT
+		    ,ABSTR
+		    ,CITE_CNT
+		FROM
+			TB_ARTI		
+		WHERE
+			UID = #{uid}
+	</select>
+	
+	<select id ="selectCtgryList" parameterType="java.lang.String" resultMap="ctgryMap">
+	<!-- 논문 상세페이지에 들어갈 정보  *path: src/main/resources/mappers/artiMapper.xml *id: selectCtgryList -->
+		SELECT
+			 CTGRY_NM
+			,CTGRY_SUB_TITLE
+			,CTGRY_SUBJECT
+		FROM
+			TB_CTGRY
+		WHERE
+			UID = #{uid}
+			
+	</select>
+	<select id ="selectKwrdList" parameterType="java.lang.String" resultMap="kwrdMap">
+	<!-- 논문 상세페이지에서 조회되는 논문키워드  *path: src/main/resources/mappers/artiMapper.xml *id: selectKwrdList -->
+		
+		SELECT DISTINCT
+			KWRD_NM
+		FROM
+			TB_KWRD		
+		WHERE
+			UID = #{uid}			
+	</select>
+	
+	<select id ="selectRefrList" parameterType="java.lang.String" resultMap="refrMap">
+	<!-- 논문 상세페이지에서 조회되는 참고문헌 목록  *path: src/main/resources/mappers/artiMapper.xml *id: selectRefrList -->
+	
+		SELECT DISTINCT
+			 AUTHOR
+			,ARTI_TITLE
+			,PUB_YEAR
+			,VOLUME
+			,ISSUE
+			,DOI
+			,PAGE
+			,ORGN_NM
+		FROM
+			TB_REFR			
+		WHERE
+			UID = #{uid}
+		ORDER BY
+			REFR_ID
+		ASC			
+	</select>	
+	
+	<select id ="selectAuthList" parameterType="java.lang.String" resultMap="authMap">
+	<!-- 논문 상세페이지에서 조회되는 저자정보  *path: src/main/resources/mappers/artiMapper.xml *id: selectAuthList -->
+	
+		SELECT DISTINCT
+			 AUTH_FULL_NM 
+			,LEAD_YN
+			,CORRES_YN
+		FROM
+			TB_AUTH			
+		WHERE
+			UID = #{uid}
+		ORDER BY
+			AUTH_SEQ
+		ASC		
+	</select>	
+	
+   <select id ="selectOrgnList" parameterType="java.lang.String" resultMap="authOrgnMap">
+   <!-- 논문 상세페이지에서 조회되는 기관정보  *path: src/main/resources/mappers/artiMapper.xml *id: selectOrgnList -->
+     
+      SELECT DISTINCT
+          ORGN_ADDR_NO
+         ,ORGN_FULL_NM
+         ,ORGN_NM
+      FROM
+         TB_AUTH_ORGN         
+      WHERE
+         UID = #{uid}   
+   </select>   
+   
+   <select id ="selectOrgnPrefList" parameterType="java.lang.String" resultMap="authOrgnMap">
+   <!-- 세부 기관명 정보 조회  *path: src/main/resources/mappers/artiMapper.xml *id: selectOrgnPrefList -->
+     
+      SELECT DISTINCT
+          UID
+         ,ORGN_ADDR_NO
+         ,ORGN_PREF_NM
+      FROM
+         TB_ORGN_PREF        
+      WHERE
+         UID = #{uid}
+         
+   </select>   
+   
+   
+   <select id ="selectPublList" parameterType="java.lang.String" resultMap="publMap">
+   <!-- 논문 상세페이지에서 조회되는 발행기관정보  *path: src/main/resources/mappers/artiMapper.xml *id: selectPublList -->
+     
+      SELECT DISTINCT
+          PUBL_NM
+         ,PUBL_FULL_NM
+         ,PUBL_ADDR
+      FROM
+         TB_PUBL         
+      WHERE
+         UID = #{uid}   
+   </select>
+
+</mapper>

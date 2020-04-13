@@ -62,12 +62,6 @@ public class ArtiVO {
 	private String book_publ;
 	//도서 주문정보
 	private String book_prepay;
-	//연구분야 명
-	private String ctgry_nm;
-	//연구분야 소제목
-	private String ctgry_sub_title;
-	//연구분야 주제
-	private String ctgry_subject;
 	//(논문) 삭제 여부
 	private String del_yn;
 	//(논문) 등록 일시
@@ -79,8 +73,12 @@ public class ArtiVO {
 	//(논문) 수정자 아이디
 	private String modify_id;
 
+	//카테고리 정보 VO객체 리스트로 저장
+	private List<CtgryVO> list_ctgry;
 	//기관 정보 VO객체 리스트로 저장
 	private List<OrgnVO> list_orgn;
+	//상세기관명 정보 VO객체 리스트로 저장
+	private List<OrgnPrefVO> list_pref;
 	//저자 정보 VO객체 리스트로 저장
 	private List<AuthVO> list_auth;
 	//도서기록 정보 VO객체 리스트로 저장
@@ -315,31 +313,7 @@ public class ArtiVO {
 	public void setBook_prepay(String book_prepay) {
 		this.book_prepay = book_prepay;
 	}
-
-	public String getCtgry_nm() {
-		return ctgry_nm;
-	}
-
-	public void setCtgry_nm(String ctgry_nm) {
-		this.ctgry_nm = ctgry_nm;
-	}
-
-	public String getCtgry_sub_title() {
-		return ctgry_sub_title;
-	}
-
-	public void setCtgry_sub_title(String ctgry_sub_title) {
-		this.ctgry_sub_title = ctgry_sub_title;
-	}
-
-	public String getCtgry_subject() {
-		return ctgry_subject;
-	}
-
-	public void setCtgry_subject(String ctgry_subject) {
-		this.ctgry_subject = ctgry_subject;
-	}
-
+	
 	public String getDel_yn() {
 		return del_yn;
 	}
@@ -363,6 +337,14 @@ public class ArtiVO {
 	public void setModify_id(String modify_id) {
 		this.modify_id = modify_id;
 	}
+	
+	public List<CtgryVO> getList_ctgry() {
+		return list_ctgry;
+	}
+
+	public void setList_ctgry(List<CtgryVO> list_ctgry) {
+		this.list_ctgry = list_ctgry;
+	}
 
 	public List<OrgnVO> getList_orgn() {
 		return list_orgn;
@@ -370,6 +352,14 @@ public class ArtiVO {
 
 	public void setList_orgn(List<OrgnVO> list_orgn) {
 		this.list_orgn = list_orgn;
+	}
+
+	public List<OrgnPrefVO> getList_pref() {
+		return list_pref;
+	}
+
+	public void setList_pref(List<OrgnPrefVO> list_pref) {
+		this.list_pref = list_pref;
 	}
 
 	public List<AuthVO> getList_auth() {

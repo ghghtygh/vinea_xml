@@ -54,7 +54,7 @@
 		$("#ctgrnm").change(function() {
 				
 			var formObj = $("#frm");
-			formObj.attr("action", "/article/kwrdstat");
+			formObj.attr("action", "/stat/kwrd");
 			formObj.attr("method", "get");
 			formObj.submit();
 				
@@ -64,14 +64,14 @@
 		$("#subjnm").change(function() {
 				
 			var formObj = $("#frm");
-			formObj.attr("action", "/article/kwrdstat");
+			formObj.attr("action", "/stat/kwrd");
 			formObj.attr("method", "get");
 			formObj.submit();				
 		});
 		$("#cnt_option").change(function() {
 				
 			var formObj = $("#frm");
-			formObj.attr("action", "/article/kwrdstat");
+			formObj.attr("action", "/stat/kwrd");
 			formObj.attr("method", "get");
 			formObj.submit();				
 		});
@@ -107,25 +107,25 @@
 								논문보기
 							</a>
 						<div class="sb-sidenav-menu-heading" style="color: #fff">Statics</div>
-							<a class="nav-link" href="/article/yearstat">
+							<a class="nav-link" href="/stat/year">
 								<div class="sb-nav-link-icon">
 									<i class="fas fa-chart-bar"></i>
 								</div>
 								연도별 현황
 							</a>
-							<a class="nav-link" href="/article/orgnstat">
+							<a class="nav-link" href="/stat/orgn">
 								<div class="sb-nav-link-icon">
 									<i class="fa fa-table"></i>
 								</div>
 								소속기관별 현황
 							</a>
-							<a class="nav-link" href="/article/ctgrstat">
+							<a class="nav-link" href="/stat/ctgr">
 								<div class="sb-nav-link-icon">
 									<i class="fas fa-chart-area"></i>
 								</div>
 								분야별 현황
 							</a>
-							<a style="font-weight: bold; color: #fff" class="nav-link" href="/article/kwrdstat">
+							<a style="font-weight: bold; color: #fff" class="nav-link" href="/stat/kwrd">
 								<div class="sb-nav-link-icon">
 									<i class="fa fa-cloud"></i>
 								</div>
@@ -202,7 +202,7 @@
 								/* 키워드 빈도수 */
 								var chartData = [];
 								/* JSON 방식으로 데이터를 가져옴 */
-								$.getJSON("/article/kwrdcnt", function(data){		
+								$.getJSON("/stat/kwrdcnt", function(data){		
 									$("#loading").show();
 									createChart();
 								});

@@ -115,8 +115,6 @@ public class OrgnVO {
 		this.street = street;
 	}
 	
-	
-	
 	public int getNum() {
 		return num;
 	}

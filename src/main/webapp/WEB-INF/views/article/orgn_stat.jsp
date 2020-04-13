@@ -61,14 +61,24 @@ a:hover {
 		$("input[name='search']").val(searchs);
 		$("#input_search").val(searchs);
 		
+		/* 국가명 선택 및 정렬 */
+		$('#country option[value="${country}"]').attr("selected",true);
 		$('#cnt_option option[value="${cnt_option}"]').attr("selected",true);
 		
-		$("#cnt_option").on('change',function(){
+		$("#country").change(function() {
 			
-			
+			var formObj = $("#frm");
+			formObj.attr("action", "/stat/orgn");
+			formObj.attr("method", "get");
+			formObj.submit();
+				
+		});
+				
+		$("#cnt_option").change(function(){
+						
 			/** 선택된 옵션에 따라 페이지를 업데이트 **/
 			var formObj = $("#frm");
-			formObj.attr("action", "/article/orgnstat");
+			formObj.attr("action", "/stat/orgn");
 			formObj.attr("method", "get");
 			formObj.submit();
 			
@@ -83,7 +93,7 @@ a:hover {
 			$("input[name='search']").val(search);
 			
 			var formObj = $("#frm");
-			formObj.attr("action", "/article/orgnstat");
+			formObj.attr("action", "/stat/orgn");
 			formObj.attr("method", "get");
 			formObj.submit();
 		});		
@@ -101,7 +111,7 @@ a:hover {
 		$(input_page).attr("value",nowPage);
 		formObj.append(input_page);
 		
-		formObj.attr("action", "/article/orgnstat");
+		formObj.attr("action", "/stat/orgn");
 		formObj.attr("method", "get");
 		formObj.submit();
 	
@@ -116,7 +126,7 @@ a:hover {
 			$("input[name='search']").val(search);
 			
 			var formObj = $("#frm");
-			formObj.attr("action", "/article/orgnstat");
+			formObj.attr("action", "/stat/orgn");
 			formObj.attr("method", "get");
 			formObj.submit();
 		}else{
@@ -174,25 +184,25 @@ a:hover {
 								논문보기
 							</a>
 						<div class="sb-sidenav-menu-heading" style="color: #fff">Statics</div>
-							<a class="nav-link" href="/article/yearstat">
+							<a class="nav-link" href="/stat/year">
 								<div class="sb-nav-link-icon">
 									<i class="fas fa-chart-bar"></i>
 								</div>
 								연도별 현황
 							</a>
-							<a style="font-weight: bold; color: #fff" class="nav-link" href="/article/orgnstat">
+							<a style="font-weight: bold; color: #fff" class="nav-link" href="/stat/orgn">
 								<div class="sb-nav-link-icon">
 									<i class="fa fa-table"></i>
 								</div>
 								소속기관별 현황
 							</a>
-							<a class="nav-link" href="/article/ctgrstat">
+							<a class="nav-link" href="/stat/ctgr">
 								<div class="sb-nav-link-icon">
 									<i class="fas fa-chart-area"></i>
 								</div>
 								분야별 현황
 							</a>
-							<a class="nav-link" href="/article/kwrdstat">
+							<a class="nav-link" href="/stat/kwrd">
 								<div class="sb-nav-link-icon">
 									<i class="fa fa-cloud"></i>
 								</div>
@@ -223,7 +233,7 @@ a:hover {
 								<ol class="breadcrumb">
 									<input type="hidden" name="search" value="">
 									<div class="row" style="width:100%;">
-										<div class="col-lg-9">
+										<div class="col-lg-8">
 											<div class="form-inline">
 												<p style="font-size: 15px; font-weight: bold; margin-right: 15px">기관명</p>
 												<input class="form-control" id="input_search" type="text" placeholder="기관명 검색.."
@@ -231,8 +241,21 @@ a:hover {
 												<button class="form-control btn btn-primary" type="button" id="btn_search">검색</button>
 											</div>
 										</div>
-										<div class="col-lg-3" style="margin_left: 20pxs">
+										<div class="col-lg-4" style="margin_left: 20pxs">
 										<div class="form-inline">
+										<!-- 추가 -->
+										<c:if test="${!empty ctryList}">
+											<p style="font-size: 15px; font-weight: bold; margin-right: 15px">국가</p>
+											<select style="width:150px; margin-right: 10px" class="form-control" id="country" name="country">
+												<!-- 전체 -->
+												<option value="">ALL</option>
+												<!-- 국가명 데이터 -->
+												<c:forEach var="list" items="${ctryList}" varStatus="c">
+													<option value="${list}">${list}</option>
+												</c:forEach>
+											</select>
+										</c:if>
+										<!-- 추가 끝 -->
 											<p style="font-size: 15px; font-weight: bold; margin-right: 15px">정렬</p>
 											<select style="width:150px;"class="form-control" id="cnt_option" name="cnt_option">
 												<option value="10">10개</option>
@@ -281,8 +304,7 @@ a:hover {
 												<c:forEach items="${orgList }" var="orgnVO" varStatus="g">
 													<tr>
 														<td>
-															<!-- 순번 -->
-															${orgnVO.num }
+															${pager.prevPage*pager.pageSize + (g.count)}
 														</td>
 														<td style="text-align:left;padding-left:5%">
 															<!-- 소속기관명 -->

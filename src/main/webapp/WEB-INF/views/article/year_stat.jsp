@@ -55,25 +55,25 @@
 								논문보기
 							</a>
 						<div class="sb-sidenav-menu-heading" style="color: #fff">Statics</div>
-							<a style="font-weight: bold; color: #fff" class="nav-link" href="/article/yearstat">
+							<a style="font-weight: bold; color: #fff" class="nav-link" href="/stat/year">
 								<div class="sb-nav-link-icon">
 									<i class="fas fa-chart-bar"></i>
 								</div>
 								연도별 현황
 							</a>
-							<a class="nav-link" href="/article/orgnstat">
+							<a class="nav-link" href="/stat/orgn">
 								<div class="sb-nav-link-icon">
 									<i class="fa fa-table"></i>
 								</div>
 								소속기관별 현황
 							</a>
-							<a class="nav-link" href="/article/ctgrstat">
+							<a class="nav-link" href="/stat/ctgr">
 								<div class="sb-nav-link-icon">
 									<i class="fas fa-chart-area"></i>
 								</div>
 								분야별 현황
 							</a>
-							<a class="nav-link" href="/article/kwrdstat">
+							<a class="nav-link" href="/stat/kwrd">
 								<div class="sb-nav-link-icon">
 									<i class="fa fa-cloud"></i>
 								</div>
@@ -208,7 +208,7 @@
 				            var refrCnt = [];
 				            
 				            /** 발행연도, 논문수, 도서수, 학술지수, 참고문헌수 각각 데이터를 JSON 방식으로 불러옴  **/
-				            $.getJSON("/article/yearcnt", function(data){	
+				            $.getJSON("/stat/yearcnt", function(data){	
 								$.each(data, function(inx, obj){	
 									chartLabels.push(obj.pub_year);	
 									artiCnt.push(obj.arti_cnt);
@@ -228,6 +228,7 @@
 							function createChart(){
 								
 				            	/* SelectBox 옵션중 전체를 선택했을 경우 논문수, 도서수, 학술지수, 참고문헌수 합계를 차트에 나타내도록 함 */
+				            	
 								<c:set var = "sum1" value = "0" />
 								<c:forEach items="${yearVOList}" var="vo" varStatus="g">
 								<c:set var="sum1" value="${sum1+vo.arti_cnt}" />
@@ -278,8 +279,6 @@
 					        		    	  xAxes: [{
 					        		    		  ticks: {
 					        		    			  beginAtZero: true, 
-					        		    			  min: 0,
-					        		    			  max: 500000,
 					        		    			  fontSize: 14
 					        		    		  }
 					        		    	  }]
@@ -328,8 +327,6 @@
 						        		    	  xAxes: [{
 						        		    		  ticks: {
 						        		    			  beginAtZero: true, 
-						        		    			  min: 0,
-						        		    			  max: 500000,
 						        		    			  fontSize: 14
 						        		    		  }
 						        		    	  }]
@@ -380,8 +377,6 @@
 						        		    	  xAxes: [{
 						        		    		  ticks: {
 						        		    			  beginAtZero: true, 
-						        		    			  min: 0,
-						        		    			  max: 500000,
 						        		    			  fontSize: 14
 						        		    		  }
 						        		    	  }]
@@ -432,8 +427,6 @@
 						        		    	  xAxes: [{
 						        		    		  ticks: {
 						        		    			  beginAtZero: true, 
-						        		    			  min: 0,
-						        		    			  max: 500000,
 						        		    			  fontSize: 14
 						        		    		  }
 						        		    	  }]
@@ -484,8 +477,6 @@
 						        		    	  xAxes: [{
 						        		    		  ticks: {
 						        		    			  beginAtZero: true, 
-						        		    			  min: 0,
-						        		    			  max: 500000,
 						        		    			  fontSize: 14
 						        		    		  }
 						        		    	  }]
@@ -536,8 +527,6 @@
 						        		    	  xAxes: [{
 						        		    		  ticks: {
 						        		    			  beginAtZero: true, 
-						        		    			  min: 0,
-						        		    			  max: 500000,
 						        		    			  fontSize: 14          
 						        		    		  }
 						        		    	  }]

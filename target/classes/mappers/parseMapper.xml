@@ -1,0 +1,873 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.parseMapper">
+
+
+	<resultMap id="xmlFileMap" type="com.vinea.dto.XmlFileVO">
+	<!-- xmlMapper.xml -> resultMap(id:xmlFileMap) XML 파일 테이블의 컬럼 -->	
+	
+		<result property="uid"					column="UID"/>	
+		<result property="content"				column="CONTENT"/>	
+		<result property="regist_date"			column="REGIST_DATE"/>	
+		<result property="registr_id"			column="REGISTR_ID"/>	
+		<result property="file_name"			column="FILE_NAME"/>	
+		<result property="parse_yn"				column="PARSE_YN"/>	
+		<result property="del_yn"				column="DEL_YN"/>	
+		<result property="y_cnt"				column="Y_CNT"/>
+		<result property="all_cnt"				column="ALL_CNT"/>	
+	</resultMap>
+
+	<insert id="insertArti"   parameterType="com.vinea.dto.ArtiVO">
+	<!-- 파싱한 논문정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertArti -->
+	
+		INSERT IGNORE
+			INTO TB_ARTI
+		(
+			 UID
+			,ARTI_NO
+			,ARTI_TITLE
+			,PUB_YEAR
+			,PUB_DATE
+			,VOLUME
+			,ISSUE
+			,DOI
+			,ABSTR
+			,ISSN
+			,EISSN
+			,CITE_CNT
+			,JRNL_TITLE
+			,SUP_CNT
+			,PAGE_CNT
+			,BEGIN_PAGE
+			,END_PAGE
+			,OPEN_YN
+			,ITEM_ID
+			,ITEM_AVAIL_YN
+			,ITEM_TYPE
+			,ITEM_PAGE_CNT
+			,BOOK_PAGE_CNT
+			,BOOK_BIND_YN
+			,BOOK_PUBL
+			,BOOK_PREPAY
+			,DEL_YN
+			,REGIST_DATE
+			,REGISTR_ID
+			,MODIFY_DATE
+			,MODIFY_ID
+		)   		
+		VALUES
+		(
+			 #{uid}			
+			,#{arti_no}     	
+			,#{arti_title}
+			,#{pub_year}
+			,#{pub_date}
+			,#{volume}  		
+			,#{issue} 		
+			,#{doi}   	
+			,#{abstr}		
+			,#{issn}  		
+			,#{eissn} 		
+			,#{cite_cnt}   		
+			,#{jrnl_title}   	
+			,#{sup_cnt}   
+			,#{page_cnt}   
+			,#{begin_page}   		
+			,#{end_page}   		
+			,#{open_yn}
+			,#{item_id}  	
+			,#{item_avail_yn} 
+			,#{item_type}  
+			,#{item_page_cnt}  
+			,#{book_page_cnt}  
+			,#{book_bind_yn} 
+			,#{book_publ} 
+			,#{book_prepay}
+			,#{del_yn}
+			,NOW()
+			,#{registr_id}
+			,#{modify_date}
+			,#{modify_id}
+		)
+		ON DUPLICATE KEY UPDATE
+			REGIST_DATE = NOW()		
+	</insert>
+	<insert id="insertCtgry" parameterType="com.vinea.dto.CtgryVO">
+	<!-- 파싱한 카테고리정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertCtgry -->
+		INSERT IGNORE
+			INTO TB_CTGRY
+		(
+			 UID
+			,CTGRY_NM
+			,CTGRY_SUB_TITLE
+			,CTGRY_SUBJECT
+		
+		)
+		VALUES
+		(
+			 #{uid}
+			,#{ctgry_nm}
+			,#{ctgry_sub_title}
+			,#{ctgry_subject}
+		
+		)
+	</insert>
+	
+	<insert id="insertAuth"   parameterType="com.vinea.dto.AuthVO">
+	<!-- 파싱한 저자정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertAuth -->
+	
+		INSERT IGNORE
+	    	INTO TB_AUTH
+	    (
+	    	 AUTH_PK
+			,AUTH_ID
+			,AUTH_SEQ
+			,AUTH_ADDR_NO
+			,UID
+			,AUTH_NM
+			,AUTH_FULL_NM
+			,AUTH_WOS_NM
+			,AUTH_ROLE
+			,LEAD_YN
+			,CORRES_YN
+			,AUTH_EMAIL_ADDR
+			,ORCID_ID
+			,AUTH_RID
+		) 		
+	    VALUES
+	    (
+			 #{auth_pk}
+			,#{auth_id}
+			,#{auth_seq}    
+			,#{auth_addr_no}  
+			,#{uid}   
+			,#{auth_nm} 
+			,#{auth_full_nm}  
+			,#{auth_wos_nm}   
+			,#{auth_role}   
+			,#{lead_yn}   
+			,#{corres_yn} 
+			,#{auth_email_addr} 
+			,#{orcid_id}
+			,#{auth_rid}
+	    )        
+	</insert>
+	
+	<insert id="insertBooknote" parameterType="com.vinea.dto.BooknoteVO">
+	<!-- 파싱한 도서기록정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertBooknote -->
+	
+		INSERT IGNORE
+	    	INTO TB_BOOK_NOTE
+	    (
+			 UID
+			,NOTE_NM
+	    )  
+	    VALUES
+	    (
+			 #{uid}
+			,#{note_nm}
+	    )    
+	</insert>
+	
+	<insert id="insertConf" parameterType="com.vinea.dto.ConfVO">
+	<!-- 파싱한 학회정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertConf -->
+	
+		INSERT IGNORE
+	    	INTO TB_CONF
+	    (
+			CONF_ID  
+			,UID  
+			,CONF_TITLE  
+			,CONF_DATE  
+			,START_DATE  
+			,END_DATE  
+			,CITY  
+			,STATE  
+			,COUNTRY
+		    ,SPON_NM
+	    )   
+	    VALUES
+	    (
+			 #{conf_id}
+			,#{uid}
+			,#{conf_title}
+			,#{conf_date}
+			,#{start_date}
+			,#{end_date}
+			,#{city}
+			,#{state}
+			,#{country}
+			,#{spon_nm}
+	    )     
+	</insert> 
+	
+	<insert id="insertDtype" parameterType="com.vinea.dto.DtypeVO">
+	<!-- 파싱한 문서유형정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertDtype -->
+	
+		INSERT IGNORE
+	    	INTO TB_DTYPE
+	    (
+			 UID
+			,DTYPE_NM
+			
+	    )
+	    VALUES
+	    (
+			 #{uid}
+			,#{dtype_nm}
+		
+	    )
+	</insert>
+	
+	<insert id="insertGrnt" parameterType="com.vinea.dto.GrntVO">
+	<!-- 파싱한 보조금정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertGrnt -->
+		
+		INSERT IGNORE
+	    	INTO TB_GRNT
+	    (
+	    	 UID
+			,GRNT_GID
+			,GRNT_TEXT
+			,GRNT_AGCY
+	    )
+	    VALUES
+	    (
+	    	 #{uid}
+			,#{grnt_gid}
+			,#{grnt_text}
+			,#{grnt_agcy}
+	    )
+	</insert>
+	
+	<insert id="insertKwrd" parameterType="com.vinea.dto.KwrdVO">
+	<!-- 파싱한 키워드정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertKwrd -->
+	
+		INSERT IGNORE
+			INTO TB_KWRD
+		(
+			 UID
+			,KWRD_NM
+			,KW_PLUS_YN
+		)
+		VALUES
+		(
+			 #{uid}
+			,#{kwrd_nm}
+			,#{kw_plus_yn}
+		
+		)
+	</insert>
+	
+	<insert id="insertOrgn" parameterType="com.vinea.dto.OrgnVO">
+	<!-- 파싱한 저자기관정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertOrgn -->
+	
+		INSERT IGNORE
+			INTO TB_AUTH_ORGN
+		(
+			 UID
+			,ORGN_ADDR_NO
+			,ORGN_FULL_NM
+			,ORGN_NM
+			,ORGN_SUB_NM
+			,CITY
+			,STATE
+			,COUNTRY
+	        ,STREET
+	     )
+	    VALUES
+	    (
+			 #{uid}
+			,#{orgn_addr_no}
+			,#{orgn_full_nm}
+			,#{orgn_nm}
+			,#{orgn_sub_nm}
+			,#{city}
+			,#{state}
+			,#{country}
+			,#{street}
+	    )     
+	</insert>
+	
+	<insert id="insertOrgnPref" parameterType="com.vinea.dto.OrgnPrefVO">
+	<!-- 파싱한 세부기관명정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertOrgnPref -->
+		INSERT IGNORE
+			INTO TB_ORGN_PREF
+		(
+			 UID
+			,ORGN_ADDR_NO
+			,ORGN_PREF_NM
+		)
+		VALUES
+		(
+			 #{uid}
+			,#{orgn_addr_no}
+			,#{orgn_pref_nm}
+		)
+	</insert>
+	<insert id="insertPubl" parameterType="com.vinea.dto.PublVO">
+	<!-- 파싱한 발행기관정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertPubl -->
+	
+		INSERT IGNORE
+			INTO TB_PUBL
+		(
+			 UID
+			,PUBL_ADDR
+			,PUBL_FULL_NM
+			,PUBL_NM
+			,CITY
+			,COUNTRY
+			,STATE
+		)    
+		VALUES
+	    (
+			 #{uid}
+			,#{publ_addr}
+			,#{publ_full_nm}
+			,#{publ_nm}
+			,#{city}
+			,#{country}
+			,#{state}
+	    )
+	</insert>
+	
+	<insert id="insertRefr" parameterType="com.vinea.dto.RefrVO">
+	<!-- 파싱한 참고문헌정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertRefr -->
+	
+		INSERT
+	    	INTO TB_REFR
+	    (
+			 REFR_ID
+			,REFR_UID
+			,UID
+			,AUTHOR
+			,PUB_YEAR
+			,VOLUME
+			,ISSUE
+			,ARTI_TITLE
+			,DOI
+			,PAGE
+			,ORGN_NM
+			,JRNL_TITLE
+			,DEL_YN
+			,REGIST_DATE
+			,REGISTR_ID
+			,MODIFY_DATE
+			,MODIFY_ID
+	    )   
+		VALUES
+	    (   
+			 #{refr_id}	
+			,#{refr_uid}
+			,#{uid}
+			,#{author}
+			,#{pub_year}
+			,#{volume}
+			,#{issue}
+			,#{arti_title}
+			,#{doi}
+			,#{page}
+			,#{orgn_nm}
+			,#{jrnl_title}
+			,#{del_yn}
+			,NOW()
+			,#{registr_id}
+			,#{modify_date}
+		    ,#{modify_id}   
+	    )
+	    ON DUPLICATE KEY UPDATE
+			REGIST_DATE = NOW()
+	</insert>
+	
+	<insert id="insertXmlFile" parameterType="com.vinea.dto.XmlFileVO">
+	<!-- 원본 데이터   *path: src/main/resources/mappers/parseMapper.xml *id: insertXmlFile -->
+	
+		INSERT IGNORE
+			INTO TB_XML_FILE
+		(
+			 UID
+			,CONTENT
+			,REGIST_DATE
+			,REGISTR_ID
+			,FILE_NAME
+			,PARSE_YN
+			,DEL_YN
+		)
+		VALUES
+		(
+			 #{uid}
+			,#{content}
+			,NOW()
+			,"none"
+			,#{file_name}
+			,'N'
+			,'N'
+		)		
+	</insert>
+	
+	<insert id="insertArtiList"   parameterType="java.util.List">
+	<!-- 파싱한 논문정보리스트 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertArtiList -->
+	
+		INSERT IGNORE
+			INTO TB_ARTI
+		(
+			 UID
+			,ARTI_NO
+			,ARTI_TITLE
+			,PUB_YEAR
+			,PUB_DATE
+			,VOLUME
+			,ISSUE
+			,DOI
+			,ABSTR
+			,ISSN
+			,EISSN
+			,CITE_CNT
+			,JRNL_TITLE
+			,SUP_CNT
+			,PAGE_CNT
+			,BEGIN_PAGE
+			,END_PAGE
+			,OPEN_YN
+			,ITEM_ID
+			,ITEM_AVAIL_YN
+			,ITEM_TYPE
+			,ITEM_PAGE_CNT
+			,BOOK_PAGE_CNT
+			,BOOK_BIND_YN
+			,BOOK_PUBL
+			,BOOK_PREPAY
+			,CTGRY_NM
+			,CTGRY_SUB_TITLE
+			,CTGRY_SUBJECT
+			,DEL_YN
+			,REGIST_DATE
+			,REGISTR_ID
+			,MODIFY_DATE
+			,MODIFY_ID
+		)   		
+		VALUES	
+		<foreach collection="list" item="item" separator=" , ">
+		<!-- 논문 정보 리스트 ',' 로 구분 (다중 insert) -->		
+		(
+			 #{item.uid}			
+			,#{item.arti_no}     	
+			,#{item.arti_title}
+			,#{item.pub_year}
+			,#{item.pub_date}
+			,#{item.volume}  		
+			,#{item.issue} 		
+			,#{item.doi}   	
+			,#{item.abstr}		
+			,#{item.issn}  		
+			,#{item.eissn} 		
+			,#{item.cite_cnt}   		
+			,#{item.jrnl_title}   	
+			,#{item.sup_cnt}   
+			,#{item.page_cnt}   
+			,#{item.begin_page}   		
+			,#{item.end_page}   		
+			,#{item.open_yn}
+			,#{item.item_id}  	
+			,#{item.item_avail_yn} 
+			,#{item.item_type}  
+			,#{item.item_page_cnt}  
+			,#{item.book_page_cnt}  
+			,#{item.book_bind_yn} 
+			,#{item.book_publ} 
+			,#{item.book_prepay}
+			,#{item.ctgry_nm}
+			,#{item.ctgry_sub_title}
+			,#{item.ctgry_subject}
+			,#{item.del_yn}
+			,NOW()
+			,#{item.registr_id}
+			,#{item.modify_date}
+			,#{item.modify_id}		
+		
+		)
+		</foreach>
+		ON DUPLICATE KEY UPDATE
+			REGIST_DATE = NOW()			
+	</insert>
+	<insert id="insertCtgryList" parameterType="java.util.List">
+	<!-- 파싱한 키워드정보리스트 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertKwrdList -->
+	
+		INSERT IGNORE
+			INTO TB_CTGRY
+		(
+			 UID
+			,CTGRY_NM
+			,CTGRY_SUB_TITLE
+			,CTGRY_SUBJECT
+		
+		)
+		VALUES
+		<foreach collection="list" item="item" separator=" , ">
+		<!-- 키워드 정보 리스트 ',' 로 구분 (다중 insert) -->
+		(
+			 #{item.uid}
+			,#{item.ctgry_nm}
+			,#{item.ctgry_sub_title}
+			,#{item.ctgry_subject}
+		)
+		</foreach>
+	</insert>
+	<insert id="insertAuthList" parameterType="java.util.List">
+	<!-- 중복 제거하고 저자 정보 리스트 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertAuthList  -->
+	
+		INSERT IGNORE
+	    	INTO TB_AUTH
+	    (
+			 AUTH_ID
+			,AUTH_SEQ
+			,AUTH_ADDR_NO
+			,UID
+			,AUTH_NM
+			,AUTH_FULL_NM
+			,AUTH_WOS_NM
+			,AUTH_ROLE
+			,LEAD_YN
+			,CORRES_YN
+			,AUTH_EMAIL_ADDR
+			,ORCID_ID
+			,AUTH_RID
+		) 		
+	    VALUES
+	    <foreach collection="list" item="item" separator=" , ">
+	    <!-- 저자 정보 리스트 ',' 로 구분 (다중 insert) -->	    
+	    (
+			 #{item.auth_id}
+			,#{item.auth_seq}    
+			,#{item.auth_addr_no}  
+			,#{item.uid}   
+			,#{item.auth_nm} 
+			,#{item.auth_full_nm}  
+			,#{item.auth_wos_nm}   
+			,#{item.auth_role}   
+			,#{item.lead_yn}   
+			,#{item.corres_yn} 
+			,#{item.auth_email_addr} 
+			,#{item.orcid_id}
+			,#{item.auth_rid}
+	    )
+	    </foreach>
+	</insert>
+	
+	<insert id="insertBooknoteList" parameterType="java.util.List">
+	<!-- 파싱한 도서기록정보리스트 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertBooknoteList -->
+	
+		INSERT IGNORE
+	    	INTO TB_BOOK_NOTE
+	    (
+			 UID
+			,NOTE_NM
+	    )
+	    VALUES
+		<foreach collection="list" item="item" separator=" , ">
+		<!-- 도서 정보 리스트 ',' 로 구분 (다중 insert) -->
+		(
+			 #{item.uid}
+			,#{item.note_nm}
+		)
+		</foreach>
+	</insert>
+	
+	<insert id="insertConfList" parameterType="java.util.List">
+	<!-- 파싱한 학회정보리스트 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertConfList -->
+		
+		INSERT IGNORE
+	    	INTO TB_CONF
+	    (
+			 CONF_ID  
+			,UID  
+			,CONF_TITLE  
+			,CONF_DATE  
+			,START_DATE  
+			,END_DATE  
+			,CITY  
+			,STATE  
+			,COUNTRY
+		    ,SPON_NM
+	    )
+	    VALUES
+		<foreach collection="list" item="item" separator=" , ">
+		<!-- 학회 정보 리스트 ',' 로 구분 (다중 insert) -->
+		(
+			 #{item.conf_id}
+			,#{item.uid}
+			,#{item.conf_title}
+			,#{item.conf_date}
+			,#{item.start_date}
+			,#{item.end_date}
+			,#{item.city}
+			,#{item.state}
+			,#{item.country}
+			,#{item.spon_nm}		
+		)
+		</foreach>
+	</insert>
+	
+	<insert id="insertDtypeList" parameterType="java.util.List">
+	<!-- 파싱한 문서유형정보리스트 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertDtypeList -->
+		
+		INSERT IGNORE
+	    	INTO TB_DTYPE
+	    (
+			 UID
+			,DTYPE_NM
+			
+	    )
+	    VALUES
+		<foreach collection="list" item="item" separator=" , ">
+		<!-- 문서유형 정보 리스트 ',' 로 구분 (다중 insert) -->
+		(
+			 #{item.uid}
+			,#{item.dtype_nm}
+		)
+		</foreach>
+	</insert>
+	
+	<insert id="insertGrntList" parameterType="java.util.List">
+	<!-- 파싱한 보조금정보리스트 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertGrntList -->
+	
+		INSERT IGNORE
+	    	INTO TB_GRNT
+	    (
+	    	 UID
+			,GRNT_GID
+			,GRNT_TEXT
+			,GRNT_AGCY
+	    )
+	    VALUES
+		<foreach collection="list" item="item" separator=" , ">
+		<!-- 보조금 정보 리스트 ',' 로 구분 (다중 insert) -->
+		(
+			 #{item.uid}
+			,#{item.grnt_gid}
+			,#{item.grnt_text}
+			,#{item.grnt_agcy}
+		)
+		</foreach>
+	</insert>
+	
+	<insert id="insertKwrdList" parameterType="java.util.List">
+	<!-- 파싱한 키워드정보리스트 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertKwrdList -->
+	
+		INSERT IGNORE
+			INTO TB_KWRD
+		(
+			 UID
+			,KWRD_NM
+			,KW_PLUS_YN
+		)
+		VALUES
+		<foreach collection="list" item="item" separator=" , ">
+		<!-- 키워드 정보 리스트 ',' 로 구분 (다중 insert) -->
+		(
+			 #{item.uid}
+			,#{item.kwrd_nm}
+			,#{item.kw_plus_yn}
+		)
+		</foreach>
+	</insert>
+	
+	<insert id="insertOrgnList" parameterType="java.util.List">
+	<!-- 파싱한 저자기관정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertOrgnList -->
+	
+		INSERT IGNORE
+			INTO TB_AUTH_ORGN
+		(
+			 UID
+			,ORGN_ADDR_NO
+			,ORGN_FULL_NM
+			,ORGN_NM
+			,ORGN_SUB_NM
+			,CITY
+			,STATE
+			,COUNTRY
+	        ,STREET
+	     )
+	    VALUES
+		<foreach collection="list" item="item" separator=" , ">
+		<!-- 저자 소속기관 정보 리스트 ',' 로 구분  (다중 insert)-->
+		(
+			 #{item.uid}
+			,#{item.orgn_addr_no}
+			,#{item.orgn_full_nm}
+			,#{item.orgn_nm}
+			,#{item.orgn_sub_nm}
+			,#{item.city}
+			,#{item.state}
+			,#{item.country}
+			,#{item.street}
+		)
+		</foreach>
+	</insert>
+	<insert id="insertOrgnPrefList" parameterType="java.util.List">
+	<!-- 파싱한 세부기관명정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertOrgnPrefList -->
+		INSERT IGNORE
+			INTO TB_ORGN_PREF
+		(
+			 UID
+			,ORGN_ADDR_NO
+			,ORGN_PREF_NM
+		)
+		VALUES
+		<foreach collection="list" item="item" separator=" , ">
+		<!-- 저자 세부기관명 정보 리스트 ',' 로 구분  (다중 insert)-->
+		(
+			 #{item.uid}
+			,#{item.orgn_addr_no}
+			,#{item.orgn_pref_nm}
+		)
+		</foreach>
+	</insert>
+	<insert id="insertPublList" parameterType="java.util.List">
+	<!-- 파싱한 발행기관정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertPublList -->
+		
+		INSERT IGNORE
+			INTO TB_PUBL
+		(
+			 UID
+			,PUBL_ADDR
+			,PUBL_FULL_NM
+			,PUBL_NM
+			,CITY
+			,COUNTRY
+			,STATE
+		)    
+		VALUES
+		<foreach collection="list" item="item" separator=" , ">
+		<!-- 발행기관 정보 리스트 ',' 로 구분  (다중 insert)-->
+		(
+			 #{item.uid}
+			,#{item.publ_addr}
+			,#{item.publ_full_nm}
+			,#{item.publ_nm}
+			,#{item.city}
+			,#{item.country}
+			,#{item.state}
+		)
+		</foreach>
+	</insert>
+	
+	<insert id="insertRefrList" parameterType="java.util.List">
+	<!-- 파싱한 참고문헌정보리스트 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertRefrList -->
+	
+		INSERT
+	    	INTO TB_REFR
+	    (
+			 REFR_ID
+			,REFR_UID
+			,UID
+			,AUTHOR
+			,PUB_YEAR
+			,VOLUME
+			,ISSUE
+			,ARTI_TITLE
+			,DOI
+			,PAGE
+			,ORGN_NM
+			,JRNL_TITLE
+			,DEL_YN
+			,REGIST_DATE
+			,REGISTR_ID
+			,MODIFY_DATE
+			,MODIFY_ID
+	    )   
+		VALUES
+		<foreach collection="list" item="item" separator=" , ">
+		<!-- 참고문헌 정보 리스트 ',' 로 구분 (다중 insert) -->
+		(
+			 #{item.refr_id}	
+			,#{item.refr_uid}
+			,#{item.uid}
+			,#{item.author}
+			,#{item.pub_year}
+			,#{item.volume}
+			,#{item.issue}
+			,#{item.arti_title}
+			,#{item.doi}
+			,#{item.page}
+			,#{item.orgn_nm}
+			,#{item.jrnl_title}
+			,#{item.del_yn}
+			,NOW()
+			,#{item.registr_id}
+			,#{item.modify_date}
+		    ,#{item.modify_id}
+		)
+		</foreach>
+		ON DUPLICATE KEY UPDATE
+			REGIST_DATE = NOW()
+	</insert>
+
+	<update id="updateErrorYN" parameterType="java.lang.String">
+	<!-- 에러 파일 표기 *path: src/main/resources/mappers/xmlMapper.xml *id: updateErrorYN -->
+		
+		UPDATE
+			TB_XML_FILE
+		SET
+			ERROR_YN = 'Y'
+		WHERE
+			UID = #{uid}	
+	</update>
+
+	<select id="selectOneXmlFile" parameterType="java.lang.String" resultMap="xmlFileMap">
+	<!-- 입력 파일명에 따른 파싱안된 XML<REC>태그내용  *path: src/main/resources/mappers/xmlMapper.xml *id: selectOneXmlFile -->	
+	
+		SELECT
+			 UID
+			,CONTENT
+		FROM
+			TB_XML_FILE
+		WHERE
+			FILE_NAME = #{file_name}
+		AND
+			(PARSE_YN = 'N' OR PARSE_YN IS NULL)
+		AND
+			(ERROR_YN != 'Y' OR ERROR_YN IS NULL)			
+		LIMIT 1			
+	</select>
+	
+	<select id="selectXmlFileList" parameterType="hashMap" resultMap="xmlFileMap">
+	<!-- 입력 파일명에 따른 파싱안된 XML<REC>태그내용 리스트  *path: src/main/resources/mappers/xmlMapper.xml *id: selectOneXmlFile -->
+	
+		SELECT
+			 UID
+			,CONTENT
+		FROM
+			TB_XML_FILE
+		WHERE
+			FILE_NAME = #{file_name}
+		AND
+			(PARSE_YN = 'N' OR PARSE_YN IS NULL)
+		AND
+			(ERROR_YN != 'Y' OR ERROR_YN IS NULL)		
+		LIMIT #{file_cnt}		
+	</select>
+	<select id="selectXmlFileCount" resultMap="xmlFileMap">
+	<!-- XML 파싱 현황 목록  *path: src/main/resources/mappers/xmlMapper.xml *id: selectXmlFileList -->
+	
+		SELECT
+			 FILE_NAME
+			,Y_CNT
+			,ALL_CNT
+		FROM
+			FILE_STAT
+			
+	</select>
+	<select id="selectParseYN" resultMap="xmlFileMap">
+	<!-- XML 파싱 완료 현황  *path: src/main/resources/mappers/xmlMapper.xml *id: selectParseYN -->
+	
+		SELECT
+			 FILE_NAME
+			,COUNT(*) AS Y_CNT
+		FROM
+			TB_XML_FILE
+		WHERE
+			PARSE_YN = 'Y'
+		GROUP BY
+			FILE_NAME	
+	</select>
+</mapper>

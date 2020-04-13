@@ -25,6 +25,7 @@
 <!-- 파싱, DB, 검색, 정렬  -->
 <script>
 	var m_chk = false;
+	var es = "0";
 	
 	var searchs = "${search}";
 	
@@ -37,6 +38,14 @@
 		/** 검색한 내용 **/
 		$("input[name='search']").val(searchs);
 		$("#input_search").val(searchs);
+		
+		es = "${es}";
+		$("input[name='es']").val(es);
+		if(es=='0'){
+			$("input:checkbox[id='customSwitch1']").attr("checked",false);
+		}else{
+			$("input:checkbox[id='customSwitch1']").attr("checked",true);
+		}
 		
 		/** 검색 옵션(제목, 저자, 키워드) **/
 		$('#search_option option[value="${search_option}"]').attr("selected",true);
@@ -70,6 +79,8 @@
 		$("#btn_search").on("click", function(e){
 			e.preventDefault();
 			
+			
+			
 			/** 선택한 검색 옵션 **/
 			var search = $("#input_search").val();
 			
@@ -81,6 +92,19 @@
 			formObj.attr("action", "/article");
 			formObj.attr("method", "get");
 			formObj.submit();
+		});
+		
+		/** 키워드검색 엘라스틱서치 사용 X **/
+		$("#search_option").on('change',function(){
+			
+			if($("#search_option").val()==3){
+				$("input:checkbox[id='customSwitch1']").attr("checked",false);
+				$("input:checkbox[id='customSwitch1']").attr("disabled",true);
+				$("input[name='es']").val("0");
+			}else{
+				$("input:checkbox[id='customSwitch1']").attr("disabled",false);
+			}
+			
 		});
 		
 		/** 알림창 닫기 **/
@@ -106,7 +130,7 @@
 	
 			input_chk();
 	
-			$("#insertXML").modal({remote:"article/parsing"});
+			$("#insertXML").modal({remote:"/parsing"});
 			
 			
 		});
@@ -118,7 +142,6 @@
 	
 			var filePath = $("#filePath").val();
 	
-			console.log(m_chk);
 	
 			/** 파일 경로가 일치하지 않거나, 파일이 없을 때(validation 처리) **/
 			if (!m_chk) {
@@ -238,6 +261,8 @@
 		
 		$("#div_parse").html("");
 		
+		
+		
 	}
 	
 	/** input 태그에서 엔터 눌렀을 때 새로고침 방지 및 제출하기 **/
@@ -254,6 +279,17 @@
 		}else{
 			return true;
 		}
+	}
+	
+	function fn_switch(){
+		
+		if($("input:checkbox[id='customSwitch1']").is(":checked")){
+			$("input[name='es']").val("1");
+		}else{
+			$("input[name='es']").val("0");
+		}
+		
+		console.log("es : "+$("input[name='es']").val());
 	}
 </script>
 <style>
@@ -278,96 +314,88 @@ input:read-only {
 .list-unstyled.show.collapse.in {
 	visibility: visible
 }
+
 .list-unstyled.show.collapse {
 	visibility: hidden
 }
+
 .list-unstyled.show.collapsing {
 	visibility: hidden
 }
+
+
+
 </style>
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
 		<a class="navbar-brand" href="/">XML Statics</a>
-			<button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#">
-				<i class="fas fa-bars"></i>
-			</button>
-			<!-- 홈버튼-->
-			<div style="margin-left: 1600px">
-				<ul class="navbar-nav ml-auto ml-md-0">
-				<li class="nav-item dropdown">
-					<a class="nav-link" id="userDropdown" href="/" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-home"></i></a>
-				</li>
-				</ul>
-			</div>
+		<button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#">
+			<i class="fas fa-bars"></i>
+		</button>
+		<!-- 홈버튼-->
+		<div style="margin-left: 1600px">
+			<ul class="navbar-nav ml-auto ml-md-0">
+				<li class="nav-item dropdown"><a class="nav-link" id="userDropdown" href="/" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-home"></i></a></li>
+			</ul>
+		</div>
 	</nav>
-		<div id="layoutSidenav">
-			<div id="layoutSidenav_nav">
+	<div id="layoutSidenav">
+		<div id="layoutSidenav_nav">
 			<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
 				<div class="sb-sidenav-menu">
 					<div class="nav">
 						<div class="sb-sidenav-menu-heading" style="color: #fff">MainPage</div>
-							<a style="font-weight: bold; color: #fff" class="nav-link" href="/article">
-								<div class="sb-nav-link-icon">
-									<i class="far fa-sticky-note"></i>
-								</div>
-								논문보기
-							</a>
+						<a style="font-weight: bold; color: #fff" class="nav-link" href="/article">
+							<div class="sb-nav-link-icon">
+								<i class="far fa-sticky-note"></i>
+							</div> 논문보기
+						</a>
 						<div class="sb-sidenav-menu-heading" style="color: #fff">Statics</div>
-							<a class="nav-link" href="/article/yearstat">
-								<div class="sb-nav-link-icon">
-									<i class="fas fa-chart-bar"></i>
-								</div>
-								연도별 현황
-							</a>
-							<a class="nav-link" href="/article/orgnstat">
-								<div class="sb-nav-link-icon">
-									<i class="fa fa-table"></i>
-								</div>
-								소속기관별 현황
-							</a>
-							<a class="nav-link" href="/article/ctgrstat">
-								<div class="sb-nav-link-icon">
-									<i class="fas fa-chart-area"></i>
-								</div>
-								분야별 현황
-							</a>
-							<a class="nav-link" href="/article/kwrdstat">
-								<div class="sb-nav-link-icon">
-									<i class="fa fa-cloud"></i>
-								</div>
-								키워드 현황
-							</a>	                          
+						<a class="nav-link" href="/stat/year">
+							<div class="sb-nav-link-icon">
+								<i class="fas fa-chart-bar"></i>
+							</div> 연도별 현황
+						</a> <a class="nav-link" href="/stat/orgn">
+							<div class="sb-nav-link-icon">
+								<i class="fa fa-table"></i>
+							</div> 소속기관별 현황
+						</a> <a class="nav-link" href="/stat/ctgr">
+							<div class="sb-nav-link-icon">
+								<i class="fas fa-chart-area"></i>
+							</div> 분야별 현황
+						</a> <a class="nav-link" href="/stat/kwrd">
+							<div class="sb-nav-link-icon">
+								<i class="fa fa-cloud"></i>
+							</div> 키워드 현황
+						</a>
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
 					<div class="small">Made with by NJH&SMJ</div>
-						<a href="https://github.com/ghghtygh/vinea_xml.git" style="font-size: 12px" target="_blank"> 
-							<i class="fab fa-github"></i>
-							View Source
-							<i class="fab fa-github"></i>
-							=> Click
-						</a>
+					<a href="https://github.com/ghghtygh/vinea_xml.git" style="font-size: 12px" target="_blank"> <i class="fab fa-github"></i> View Source <i class="fab fa-github"></i> => Click
+					</a>
 				</div>
 			</nav>
-			</div>
-			<div id="layoutSidenav_content">
-				<form id="frm">
+		</div>
+		<div id="layoutSidenav_content">
+			<form id="frm">
 				<main>
-					<div class="container-fluid"> 
-						<div style="margin-top: 45px">
-							<p style="font-size: 30px; font-weight: bold; color: #000069; margin-top: 50px">논문 목록</p>						
-						</div>
-						<hr>                     
-						<!-- 검색기능 -->
-						<input type="hidden" name="search" value="">
-						<fmt:parseNumber value="${search_option}" var="so"/>
-						<c:choose>
-							<c:when test="${so >= 4 }">
-								<input type="hidden" name="search_option" value="${search_option}">
-								<input type="hidden" name="sort_option" value="1">
-								<div>
-									<div class="form-inline">
+				<div class="container-fluid">
+					<div style="margin-top: 45px">
+						<p style="font-size: 30px; font-weight: bold; color: #000069; margin-top: 50px">논문 목록</p>
+					</div>
+					<hr>
+					<!-- 검색기능 -->
+					<input type="hidden" name="search" value="">
+					<input type="hidden" name="es" value="">
+					<fmt:parseNumber value="${search_option}" var="so" />
+					<c:choose>
+						<c:when test="${so >= 4 }">
+							<input type="hidden" name="search_option" value="${search_option}">
+							<input type="hidden" name="sort_option" value="1">
+							<div>
+								<div class="form-inline">
 									<c:choose>
 										<c:when test="${search_option==4}">
 											<h5>학술지명 : ${search}</h5>
@@ -382,213 +410,252 @@ input:read-only {
 											<h5>키워드명 : ${search}</h5>
 										</c:when>
 									</c:choose>
-									</div>
-									<div style="margin-bottom: 20px">
-										&nbsp;총 &nbsp;<strong><fmt:formatNumber value="${cnt}" pattern="#,###,###"/></strong>&nbsp;건&nbsp;&nbsp; <a href="/">전체보기</a>
-										<select class="form-control" style="float: right; width: 150px;" id="cnt_option" name="cnt_option">
-											<option value="10">10건</option>
-											<option value="20">20건</option>
-											<option value="30">30건</option>
-											<option value="50">50건</option>
-											<option value="100">100건</option>
-										</select>
-									</div>
-								</div>						
-							</c:when>					
-							<c:otherwise>
-								<div class="row">
-									<div class="col-sm-7">
-										<div class="form-group row">
-											<div class="form-group">
-												<div class="input-group mb-3">
-													<div class="input-group-prepend">
+								</div>
+								<div style="margin-bottom: 20px">
+									&nbsp;총 &nbsp;<strong><fmt:formatNumber value="${cnt}" pattern="#,###,###" /></strong>&nbsp;건&nbsp;&nbsp; <a href="/">전체보기</a>
+									<select class="form-control" style="float: right; width: 150px;" id="cnt_option" name="cnt_option">
+										<option value="10">10건</option>
+										<option value="20">20건</option>
+										<option value="30">30건</option>
+										<option value="50">50건</option>
+										<option value="100">100건</option>
+									</select>
+								</div>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="row">
+								<div class="col-sm-7">
+									<div class="form-group row">
+										<div class="form-group col-sm-7">
+											<div class="input-group mb-3">
+												<div class="input-group-prepend">
 													<!-- 검색 옵션: 제목, 저자, 키워드 -->
 													<select class="form-control" id="search_option" name="search_option">
 														<option value="1">제목</option>
 														<option value="2">저자</option>
 														<option value="3">키워드</option>
 													</select>
-													</div>
-													<input type="text" class="form-control" id="input_search" onKeyDown="return inputKey()" onsubmit="return false" value="" maxlength="30">
-													<div class="input-group-append">
-														<button class="btn btn-primary" type="button" id="btn_search">검색</button>
-													</div>
+												</div>
+												<input type="text" class="form-control" id="input_search" onKeyDown="return inputKey()" onsubmit="return false" value="" maxlength="30">
+												<div class="input-group-append">
+													<button class="btn btn-primary" type="button" id="btn_search">검색</button>
+												</div>
+
+											</div>
+											
+										</div>
+										<div class="form-group col-sm-5">
+											<div class="form-group">
+											
+												<!-- <div style="font-size:70%;font-style: oblique">Elastic Search</div>
+												<div class="custom-control custom-switch">
+													<input type="checkbox" class="custom-control-input" id="customSwitch" checked="">
+													<label class="custom-control-label" for="customSwitch"></label>
+												</div> -->
+												
+												<!-- div 가운데 수직 정렬 수정필요 -->
+												<div class="custom-control custom-switch" style="margin-top:6px;">
+													<input type="checkbox" class="custom-control-input" id="customSwitch1" checked="" onclick="fn_switch();">
+													<label class="custom-control-label" for="customSwitch1" style="font-size:70%;font-style: oblique;padding-top:5px;">Elastic Search</label>
 												</div>
 											</div>
 										</div>
 									</div>
-									<div class="col-sm-3">
-										<div class="form-group row">
-											<label class="col-sm-4 col-form-label" align="right">정렬</label>
-											<!-- 정렬 옵션: UID 순, 발행일순, 제목순 -->
-											<select class="col-sm-8 form-control" id="sort_option" name="sort_option">
-												<option value="1">UID 순</option>
-												<option value="2">발행일 순</option>
-											</select>
-										</div>
-									</div>
-									<div class="col-sm-2">
-										<select class="form-control" id="cnt_option" name="cnt_option">
-											<option value="10">10건</option>
-											<option value="20">20건</option>
-											<option value="30">30건</option>
-											<option value="50">50건</option>
-											<option value="100">100건</option>
+								</div>
+								<div class="col-sm-3">
+									<div class="form-group row">
+										<label class="col-sm-4 col-form-label" align="right">정렬</label>
+										<!-- 정렬 옵션: UID 순, 발행일순, 제목순 -->
+										<select class="col-sm-8 form-control" id="sort_option" name="sort_option">
+											<c:choose>
+												<c:when test="${es=='1'}">
+													<option value="1">정확도 순</option>
+													<option value="2">UID 순</option>
+													<option value="3">발행일 순</option>
+												</c:when>
+												<c:otherwise>
+													<option value="1">UID 순</option>
+													<option value="2">발행일 순</option>
+												</c:otherwise>
+											</c:choose>
 										</select>
 									</div>
 								</div>
-								<div style="">
-											<p>총 논문수 : <strong><fmt:formatNumber value="${cnt}" pattern="#,###,###"/></strong>건</p>
+								<div class="col-sm-2">
+									<select class="form-control" id="cnt_option" name="cnt_option">
+										<option value="10">10건</option>
+										<option value="20">20건</option>
+										<option value="30">30건</option>
+										<option value="50">50건</option>
+										<option value="100">100건</option>
+									</select>
 								</div>
-								<!-- 검색한 내용이 공백(null)이 아닐때 -->
-								<c:if test="${search ne ''}">
+							</div>
+							<c:choose>
+								<c:when test="${search ne ''}">
 									<div>
 										<!-- 총 검색된 논문 건수 -->
 										<div style="">
-											<h5>검색결과 : <fmt:formatNumber value="${cnt}" pattern="#,###,###"/>건</h5>
+											<h5>
+												검색결과 :
+												<fmt:formatNumber value="${cnt}" pattern="#,###,###" />
+												<c:if test="${cnt>=10000 && es==1}">
+												+
+												</c:if>
+												건
+											</h5>
 										</div>
 										<!-- 전체 논문 목록 페이지로 이동 -->
 										<div style="">
 											<a href="/article">전체보기</a>
 										</div>
 									</div>
-								</c:if>
-							</c:otherwise>
-						</c:choose>
-						<div>
-						<table class="table table-hover">
-							<tbody>
-							<!--  논문 정보가 없는지 있는지 판단 -->
-							<c:choose>
-								<c:when test="${not empty xmlList}">
-									<c:forEach items="${xmlList}" var="ArtiVO" varStatus="g">
-										<tr>
-											<!-- 논문 순번 -->
-											<td>
-												<p class="mb-0" style="margin-top: 5px;">${ArtiVO.num}</p>
-											</td>
-											<td>
-												<blockquote class="" style="font-size: 130%;">
-													<!-- 논문 제목 클릭시, 논문상세페이지로 이동 -->
-													<a class="mb-0" style="color: black;" href='article/article_detail?uid=${ArtiVO.uid}'> ${ArtiVO.arti_title} </a>
-													<footer style="font-size: 70%; vertical-align: bottom;">
-														<div align="left" class="text-secondary" style="margin-top: 10px;">
-															&nbsp;
-															<!-- 저자정보(주저자 외에 '외 ~명' 으로 표시) -->
-															<c:forEach var="auth" items="${ArtiVO.list_auth}" varStatus="a">
-																<c:if test="${a.count==1 }">${auth.auth_full_nm}</c:if>
-															</c:forEach>
-															<c:if test="${fn:length(ArtiVO.list_auth)>1}">
-																<c:out value="  외  ${fn:length(ArtiVO.list_auth)-1}명 |"></c:out>
-															</c:if>
-															<!-- 학술지명 -->
-															 ${ArtiVO.jrnl_title}
-															<!-- 호번호가 공백이 아닐때 권(호)로 표시 -->
-															<c:if test="${ArtiVO.issue != '' and AriVO.volume != ''}">
-																| ${ArtiVO.volume}(${ArtiVO.issue}) |
-															</c:if>
-															<!-- 호번호가 공백일 때 권으로 표시 -->
-															<c:if test="${ArtiVO.issue == '' and ArtiVO.volume != ''}">
-																 | ${ArtiVO.volume} |
-															</c:if>
-															<!-- 시작페이지와 끝페이지가 공백이 아닐때 '시작페이지~끝페이지'로 표시 -->
-															<c:if test="${ArtiVO.begin_page != '' and ArtiVO.end_page != '' and ArtiVO.issue == '' and ArtiVO.volume == ''}">
-																| pp.${ArtiVO.begin_page}~${ArtiVO.end_page} |
-															</c:if>
-															<c:if test="${ArtiVO.begin_page == '' and ArtiVO.end_page == ''}">
-															</c:if>
-															<!-- 년-월-일로 표시되있는 pub_date 데이터를 '-'로 구분하여 데이터 표기  -->
-															<c:set var="tmp_list" value="${fn:split(ArtiVO.pub_date,'-')}" />
-															<c:forEach var="tmp" items="${tmp_list}" varStatus="g">
-																<c:if test="${g.count == 2}"> ${ArtiVO.pub_year}.${tmp}</c:if>
-															</c:forEach>
-														</div>
-													</footer>
-												</blockquote>
-											</td>
-										</tr>
-									</c:forEach>
 								</c:when>
 								<c:otherwise>
-									<tr>
-										<td colspan="4" style="text-align: center">등록된 논문이 없습니다</td>
-									</tr>
+									<div style="">
+										<p>
+											총 논문수 : <strong><fmt:formatNumber value="${cnt}" pattern="#,###,###" /></strong>건
+										</p>
+									</div>
 								</c:otherwise>
 							</c:choose>
-						</tbody>
-					</table>
-				</div>
-				 <!-- 페이징 처리(시작) -->
-				<div style="width: 100%;">				
-					<div align="right" style="position: relative;">
-						<div style="position: absolute; text-align: center; width: 100%; margin-bottom: 20px">
-							<div class="btn-group mr-2">
+						</c:otherwise>
+					</c:choose>
+					<div>
+						<table class="table table-hover">
+							<tbody>
+								<!--  논문 정보가 없는지 있는지 판단 -->
 								<c:choose>
-									<c:when test="${pager.nowPage ne 1 }">
-										<a href='#' class="btn btn-primary" onClick="fn_paging(1)">처음</a>
+									<c:when test="${not empty xmlList}">
+										<c:forEach items="${xmlList}" var="ArtiVO" varStatus="g">
+											<tr>
+												<!-- 논문 순번 -->
+												<td>
+													<p class="mb-0" style="margin-top: 5px;">${ArtiVO.num}</p>
+												</td>
+												<td>
+													<blockquote class="" style="font-size: 130%;">
+														<!-- 논문 제목 클릭시, 논문상세페이지로 이동 -->
+														<a class="mb-0" style="color: black;" href='article/article_detail?uid=${ArtiVO.uid}'>${ArtiVO.arti_title}</a>
+														<footer style="font-size: 70%; vertical-align: bottom;">
+															<div align="left" class="text-secondary" style="margin-top: 10px;">
+																&nbsp;
+																<!-- 저자정보(주저자 외에 '외 ~명' 으로 표시) -->
+																<c:forEach var="auth" items="${ArtiVO.list_auth}" varStatus="a">
+																	<c:if test="${a.count==1 }">${auth.auth_full_nm}</c:if>
+																</c:forEach>
+																<c:if test="${fn:length(ArtiVO.list_auth)>1}">
+																	<c:out value="  외  ${fn:length(ArtiVO.list_auth)-1}명 |"></c:out>
+																</c:if>
+																<!-- 학술지명 -->
+																${ArtiVO.jrnl_title}
+																<!-- 호번호가 공백이 아닐때 권(호)로 표시 -->
+																<c:if test="${ArtiVO.issue != '' and AriVO.volume != ''}">
+																| ${ArtiVO.volume}(${ArtiVO.issue}) |
+															</c:if>
+																<!-- 호번호가 공백일 때 권으로 표시 -->
+																<c:if test="${ArtiVO.issue == '' and ArtiVO.volume != ''}">
+																 | ${ArtiVO.volume} |
+															</c:if>
+																<!-- 시작페이지와 끝페이지가 공백이 아닐때 '시작페이지~끝페이지'로 표시 -->
+																<c:if test="${ArtiVO.begin_page != '' and ArtiVO.end_page != '' and ArtiVO.issue == '' and ArtiVO.volume == ''}">
+																| pp.${ArtiVO.begin_page}~${ArtiVO.end_page} |
+															</c:if>
+																<c:if test="${ArtiVO.begin_page == '' and ArtiVO.end_page == ''}">
+																</c:if>
+																<!-- 년-월-일로 표시되있는 pub_date 데이터를 '-'로 구분하여 데이터 표기  -->
+																<c:set var="tmp_list" value="${fn:split(ArtiVO.pub_date,'-')}" />
+																<c:forEach var="tmp" items="${tmp_list}" varStatus="g">
+																	<c:if test="${g.count == 2}"> ${ArtiVO.pub_year}.${tmp}</c:if>
+																</c:forEach>
+															</div>
+														</footer>
+													</blockquote>
+												</td>
+											</tr>
+										</c:forEach>
 									</c:when>
 									<c:otherwise>
-										<a class="btn btn-primary disabled">처음</a>
+										<tr>
+											<td colspan="4" style="text-align: center">등록된 논문이 없습니다</td>
+										</tr>
 									</c:otherwise>
 								</c:choose>
-								<c:choose>
-									<c:when test="${pager.nowPage ne 1 }">
-										<a href="#" class="btn btn-primary" onClick="fn_paging('${pager.prevPage}')">&laquo;</a>
-									</c:when>
-									<c:otherwise>
-										<a class="btn btn-primary disabled">&laquo;</a>
-									</c:otherwise>
-								</c:choose>
-								<c:forEach begin="${pager.startPage}" end="${pager.endPage}" var="pageNum">
+							</tbody>
+						</table>
+					</div>
+					<!-- 페이징 처리(시작) -->
+					<div style="width: 100%;">
+						<div align="right" style="position: relative;">
+							<div style="position: absolute; text-align: center; width: 100%; margin-bottom: 20px">
+								<div class="btn-group mr-2">
 									<c:choose>
-										<c:when test="${pageNum eq pager.nowPage}">
-											<a href="#" class="btn btn-primary active" onClick="fn_paging('${pageNum}')">${pageNum }</a>
+										<c:when test="${pager.nowPage ne 1 }">
+											<a href='#' class="btn btn-primary" onClick="fn_paging(1)">처음</a>
 										</c:when>
 										<c:otherwise>
-											<a href="#" class="btn btn-primary" onClick="fn_paging('${pageNum}')">${pageNum}</a>
+											<a class="btn btn-primary disabled">처음</a>
 										</c:otherwise>
 									</c:choose>
-								</c:forEach>
-								<c:choose>
-									<c:when test="${pager.nowPage ne pager.pageCnt && pager.pageCnt > 0 }">
-										<a class="btn btn-primary" href="#" onClick="fn_paging('${pager.nextPage}')">&raquo;</a>
-									</c:when>
-									<c:otherwise>
-										<a class="btn btn-primary disabled">&raquo;</a>
-									</c:otherwise>
-								</c:choose>
-								<c:choose>
-									<c:when test="${pager.nowPage ne pager.pageCnt }">
-										<a class="btn btn-primary" href="#" onClick="fn_paging('${pager.pageCnt}')">끝</a>
-									</c:when>
-									<c:otherwise>
-										<a class="btn btn-primary disabled">끝</a>
-									</c:otherwise>
-								</c:choose>
+									<c:choose>
+										<c:when test="${pager.nowPage ne 1 }">
+											<a href="#" class="btn btn-primary" onClick="fn_paging('${pager.prevPage}')">&laquo;</a>
+										</c:when>
+										<c:otherwise>
+											<a class="btn btn-primary disabled">&laquo;</a>
+										</c:otherwise>
+									</c:choose>
+									<c:forEach begin="${pager.startPage}" end="${pager.endPage}" var="pageNum">
+										<c:choose>
+											<c:when test="${pageNum eq pager.nowPage}">
+												<a href="#" class="btn btn-primary active" onClick="fn_paging('${pageNum}')">${pageNum }</a>
+											</c:when>
+											<c:otherwise>
+												<a href="#" class="btn btn-primary" onClick="fn_paging('${pageNum}')">${pageNum}</a>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+									<c:choose>
+										<c:when test="${pager.nowPage ne pager.pageCnt && pager.pageCnt > 0 }">
+											<a class="btn btn-primary" href="#" onClick="fn_paging('${pager.nextPage}')">&raquo;</a>
+										</c:when>
+										<c:otherwise>
+											<a class="btn btn-primary disabled">&raquo;</a>
+										</c:otherwise>
+									</c:choose>
+									<c:choose>
+										<c:when test="${pager.nowPage ne pager.pageCnt }">
+											<a class="btn btn-primary" href="#" onClick="fn_paging('${pager.pageCnt}')">끝</a>
+										</c:when>
+										<c:otherwise>
+											<a class="btn btn-primary disabled">끝</a>
+										</c:otherwise>
+									</c:choose>
+								</div>
 							</div>
-						</div>
-						<!-- 파싱 모달창으로 이동하는 부분 -->
-						<div>
-							<div style="position: relative; float: right; z-index: 10;">
-								<button id="btn_insertXML" type="button" class="btn btn-primary">XML추가</button>
+							<!-- 파싱 모달창으로 이동하는 부분 -->
+							<div>
+								<div style="position: relative; float: right; z-index: 10;">
+									<button id="btn_insertXML" type="button" class="btn btn-primary">XML추가</button>
+								</div>
 							</div>
 						</div>
 					</div>
+					<!-- 페이징 처리(종료) -->
 				</div>
-				<!-- 페이징 처리(종료) -->                             
-              </div>
-            </main>
-            </form>
-            </div>
-      </div>
-       <!-- [XML추가] 모달 -->
-		<div id="insertXML" class="modal">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content"></div>
-			</div>
+				</main>
+			</form>
 		</div>
-		<!-- / [XML추가] 모달 -->      
-<script src="/resources/js/scripts.js"></script>
-</body> 
+	</div>
+	<!-- [XML추가] 모달 -->
+	<div id="insertXML" class="modal">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content"></div>
+		</div>
+	</div>
+	<!-- / [XML추가] 모달 -->
+	<script src="/resources/js/scripts.js"></script>
+</body>
 </html>
 

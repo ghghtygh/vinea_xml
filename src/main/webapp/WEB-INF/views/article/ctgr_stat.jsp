@@ -63,7 +63,7 @@
 
 			/** 선택된 옵션에 따라 페이지를 업데이트 **/
 			var formObj = $("#frm");
-			formObj.attr("action", "/article/ctgrstat");
+			formObj.attr("action", "/stat/ctgr");
 			formObj.attr("method", "get");
 			formObj.submit();
 
@@ -80,7 +80,7 @@
 			$(input_tab).attr("value", $(".tab-pane.active").attr('id'));
 			formObj.append(input_tab);
 
-			formObj.attr("action", "/article/ctgrstat");
+			formObj.attr("action", "/stat/ctgr");
 			formObj.attr("method", "get");
 			formObj.submit();
 		});
@@ -96,7 +96,7 @@
 			$(input_tab).attr("value", $(".tab-pane.active").attr('id'));
 			formObj.append(input_tab);
 
-			formObj.attr("action", "/article/ctgrstat");
+			formObj.attr("action", "/stat/ctgr");
 			formObj.attr("method", "get");
 			formObj.submit();
 
@@ -115,7 +115,7 @@
 		$(input_page).attr("value", nowPage);
 		formObj.append(input_page);
 
-		formObj.attr("action", "/article/ctgrstat");
+		formObj.attr("action", "/stat/ctgr");
 		formObj.attr("method", "get");
 		formObj.submit();
 
@@ -215,25 +215,25 @@
 								논문보기
 							</a>
 						<div class="sb-sidenav-menu-heading" style="color: #fff">Statics</div>
-							<a class="nav-link" href="/article/yearstat">
+							<a class="nav-link" href="/stat/year">
 								<div class="sb-nav-link-icon">
 									<i class="fas fa-chart-bar"></i>
 								</div>
 								연도별 현황
 							</a>
-							<a class="nav-link" href="/article/orgnstat">
+							<a class="nav-link" href="/stat/orgn">
 								<div class="sb-nav-link-icon">
 									<i class="fa fa-table"></i>
 								</div>
 								소속기관별 현황
 							</a>
-							<a  style="font-weight: bold; color: #fff"  class="nav-link" href="/article/ctgrstat">
+							<a  style="font-weight: bold; color: #fff"  class="nav-link" href="/stat/ctgr">
 								<div  class="sb-nav-link-icon">
 									<i class="fas fa-chart-area"></i>
 								</div>
 								분야별 현황
 							</a>
-							<a class="nav-link" href="/article/kwrdstat">
+							<a class="nav-link" href="/stat/kwrd">
 								<div class="sb-nav-link-icon">
 									<i class="fa fa-cloud"></i>
 								</div>
@@ -353,7 +353,7 @@
 															</c:when>
 															<c:otherwise>
 																<tr>
-																	<td colspan="5" style="border-top: 1px solid #b4b4b4; border-bottom: 1px solid #b4b4b4; text-align: center">등록된 논문이 없습니다</td>
+																	<td colspan="7" style="border-top: 1px solid #b4b4b4; border-bottom: 1px solid #b4b4b4; text-align: center">등록된 논문이 없습니다</td>
 																</tr>
 															</c:otherwise>
 														</c:choose>

@@ -39,7 +39,7 @@ td{
 		/** 버튼, 파싱현황 세팅 **/
 		$.ajax({
 			type:"POST",
-			url:"/article/parsing/check",
+			url:"/parsing/check",
 			dataType:"json",
 			async:false,
 			success:function(data){
@@ -114,10 +114,10 @@ td{
 		
 		/* 파싱할 파일 선택 */
 		m_mode = $("input:checkbox[id='chk_auto']").is(":checked");
-		
+
 		$.ajax({			
 			type:"POST",
-			url:"/article/parsing/test2",
+			url:"/parsing/do",
 			data:{
 				"file_name":fileName,
 				"file_cnt":$("#file_cnt").val()
@@ -145,7 +145,7 @@ td{
 		
 		$.ajax({
 			type:"POST",
-			url:"/article/parsing/check",
+			url:"/parsing/check",
 			dataType:"json",
 			async:false,
 			success:function(data){
