@@ -268,7 +268,6 @@
 			,ORGN_ADDR_NO
 			,ORGN_FULL_NM
 			,ORGN_NM
-			,ORGN_PREF_NM
 			,ORGN_SUB_NM
 			,CITY
 			,STATE
@@ -281,7 +280,6 @@
 			,#{orgn_addr_no}
 			,#{orgn_full_nm}
 			,#{orgn_nm}
-			,#{orgn_pref_nm}
 			,#{orgn_sub_nm}
 			,#{city}
 			,#{state}
@@ -290,6 +288,22 @@
 	    )     
 	</insert>
 	
+	<insert id="insertOrgnPref" parameterType="com.vinea.dto.OrgnPrefVO">
+	<!-- 파싱한 세부기관명정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertOrgnPref -->
+		INSERT IGNORE
+			INTO TB_ORGN_PREF
+		(
+			 UID
+			,ORGN_ADDR_NO
+			,ORGN_PREF_NM
+		)
+		VALUES
+		(
+			 #{uid}
+			,#{orgn_addr_no}
+			,#{orgn_pref_nm}
+		)
+	</insert>
 	<insert id="insertPubl" parameterType="com.vinea.dto.PublVO">
 	<!-- 파싱한 발행기관정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertPubl -->
 	
@@ -667,7 +681,6 @@
 			,ORGN_ADDR_NO
 			,ORGN_FULL_NM
 			,ORGN_NM
-			,ORGN_PREF_NM
 			,ORGN_SUB_NM
 			,CITY
 			,STATE
@@ -682,7 +695,6 @@
 			,#{item.orgn_addr_no}
 			,#{item.orgn_full_nm}
 			,#{item.orgn_nm}
-			,#{item.orgn_pref_nm}
 			,#{item.orgn_sub_nm}
 			,#{item.city}
 			,#{item.state}
@@ -691,7 +703,25 @@
 		)
 		</foreach>
 	</insert>
-	
+	<insert id="insertOrgnPrefList" parameterType="java.util.List">
+	<!-- 파싱한 세부기관명정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertOrgnPrefList -->
+		INSERT IGNORE
+			INTO TB_ORGN_PREF
+		(
+			 UID
+			,ORGN_ADDR_NO
+			,ORGN_PREF_NM
+		)
+		VALUES
+		<foreach collection="list" item="item" separator=" , ">
+		<!-- 저자 세부기관명 정보 리스트 ',' 로 구분  (다중 insert)-->
+		(
+			 #{item.uid}
+			,#{item.orgn_addr_no}
+			,#{item.orgn_pref_nm}
+		)
+		</foreach>
+	</insert>
 	<insert id="insertPublList" parameterType="java.util.List">
 	<!-- 파싱한 발행기관정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertPublList -->
 		

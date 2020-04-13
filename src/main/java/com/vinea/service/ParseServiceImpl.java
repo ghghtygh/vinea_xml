@@ -214,6 +214,7 @@ public class ParseServiceImpl implements ParseService {
 				dao.insertGrntList(vo.getList_grnt());
 				dao.insertKwrdList(vo.getList_kwrd());
 				dao.insertOrgnList(vo.getList_orgn());
+				dao.insertOrgnPrefList(vo.getList_pref());
 				dao.insertPublList(vo.getList_publ());
 				dao.insertRefrList(vo.getList_refr());
 				

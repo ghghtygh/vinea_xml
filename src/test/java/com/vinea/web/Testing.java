@@ -10,6 +10,7 @@ import com.vinea.common.XmlParser;
 import com.vinea.dto.ArtiVO;
 import com.vinea.dto.AuthVO;
 import com.vinea.dto.GrntVO;
+import com.vinea.dto.OrgnPrefVO;
 import com.vinea.dto.OrgnVO;
 
 public class Testing {
@@ -125,11 +126,14 @@ public class Testing {
 		
 		for(OrgnVO orgnVO : artiVO.getList_orgn()){
 			System.out.println(orgnVO.toStringMultiline());
-		}*/
+		}
 		
 		for(GrntVO grntVO: artiVO.getList_grnt()){
 			System.out.println(grntVO.toStringMultiline());
 		}
-		
+		*/
+		for(OrgnPrefVO prefVO: artiVO.getList_pref()){
+			System.out.println(prefVO.toStringMultiline());
+		}
 	}
 }

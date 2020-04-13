@@ -17,6 +17,7 @@ public interface ParseService {
 	/** 논문 정보 리스트 DB에 저장 **/
 	public void insertVOList(List<ArtiVO> list) throws Exception;
 	
+	/*사용X*/
 	public void createListVO(String filePath) throws Exception;
 	
 	/** XML파일의 REC 태그 한개 불러오기 **/

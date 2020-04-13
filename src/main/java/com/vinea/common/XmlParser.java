@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -26,10 +25,10 @@ import com.vinea.dto.CtgryVO;
 import com.vinea.dto.DtypeVO;
 import com.vinea.dto.GrntVO;
 import com.vinea.dto.KwrdVO;
+import com.vinea.dto.OrgnPrefVO;
 import com.vinea.dto.OrgnVO;
 import com.vinea.dto.PublVO;
 import com.vinea.dto.RefrVO;
-import com.vinea.dto.XmlFileVO;
 
 
 public class XmlParser {
@@ -512,6 +511,8 @@ public class XmlParser {
 		/** TB_ORGN(연구기관) 테이블에 저장할 내용 파싱  시작 **/
 		List<OrgnVO> list_orgn = new ArrayList<OrgnVO>();
 
+		List<OrgnPrefVO> list_pref = new ArrayList<OrgnPrefVO>();
+		
 		NodeList nodelist10 = (NodeList) xpath.evaluate(
 				"./static_data/fullrecord_metadata/addresses/address_name/address_spec", rec, XPathConstants.NODESET);
 
@@ -529,33 +530,35 @@ public class XmlParser {
 			/* 기관명 */
 			
 			// 속성 없는 노드 - 기관명
-			orgnVO.setOrgn_nm(
-					(String) xpath.evaluate("./organizations/organization[count(@*)=0]", node, XPathConstants.STRING));
+			String orgn_nm = (String) xpath.evaluate("./organizations/organization[count(@*)=0]", node, XPathConstants.STRING);
+			orgn_nm = orgn_nm.toUpperCase();
+			orgnVO.setOrgn_nm(orgn_nm);
 			
 			/* 기관명 풀네임 */
 			orgnVO.setOrgn_full_nm((String) xpath.evaluate("./full_address", node, XPathConstants.STRING));
 			
-			/* 세부 기관명 (파싱 코드 수정_200325) */
-			String pref_names = "";
 
 			NodeList prefList = (NodeList) xpath.evaluate("./organizations/organization[@pref='Y']", node,
 					XPathConstants.NODESET);
 
 			for (int i1 = 0, n1 = prefList.getLength(); i1 < n1; i1++) {
+
+				OrgnPrefVO prefVO = new OrgnPrefVO();
+				
 				Node prefNode = prefList.item(i1);
-				String pref_name = (String) xpath.evaluate("./text()", prefNode, XPathConstants.STRING);
+				String orgn_pref_nm = (String) xpath.evaluate("./text()", prefNode, XPathConstants.STRING);
 
 				//큰따옴표 제거
-				pref_name = pref_name.replaceAll("\\\"", "");
-
-				//logger.info(pref_name);
+				orgn_pref_nm = orgn_pref_nm.replaceAll("\\\"", "");
+				orgn_pref_nm = orgn_pref_nm.toUpperCase();
 				
-				pref_names += pref_name;
-				pref_names += "|";
+				prefVO.setOrgn_pref_nm(orgn_pref_nm);
+				prefVO.setOrgn_addr_no(orgnVO.getOrgn_addr_no());
+				prefVO.setUid(vo.getUid());
 				
+				list_pref.add(prefVO);
 			}
 
-			orgnVO.setOrgn_pref_nm(pref_names);
 			/* 기관 주소정보_도시명 */
 			orgnVO.setCity((String) xpath.evaluate("./city", node, XPathConstants.STRING));
 			/* 기관 주소정보_국가명 */
@@ -568,10 +571,10 @@ public class XmlParser {
 			orgnVO.setOrgn_sub_nm((String) xpath.evaluate("./suborganizations/suborganization", node, XPathConstants.STRING));
 
 			list_orgn.add(orgnVO);
-
 		}
-
+		
 		vo.setList_orgn(list_orgn);
+		vo.setList_pref(list_pref);
 		/** TB_ORGN(연구기관) 테이블에 저장할 내용 파싱  종료 **/
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

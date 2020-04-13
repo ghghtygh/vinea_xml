@@ -86,13 +86,24 @@
 		<result property="orgn_addr_no"			column="ORGN_ADDR_NO"/>
 		<result property="orgn_full_nm"			column="ORGN_FULL_NM"/>
 		<result property="orgn_nm"			    column="ORGN_NM"/>
-		<result property="orgn_pref_nm"			column="ORGN_PREF_NM"/>
 		<result property="orgn_sub_nm"			column="ORGN_SUB_NM"/>
 		<result property="city"					column="CITY"/>
 		<result property="state"				column="STATE"/>
 		<result property="country"				column="COUNTRY"/>
 		<result property="street"				column="STREET"/>		
 	</resultMap>
+	
+	<resultMap id="orgnPrefMap" type="com.vinea.dto.OrgnPrefVO">
+	<!-- artiMapper.xml -> resultMap(id:orgnPrefMap) 저자 세부기관명 테이블의 컬럼 -->
+	
+		<result property="orgn_pref_pk"			column="ORGN_PREF_PK"/>
+		<result property="uid"					column="UID"/>
+		<result property="orgn_addr_no"			column="ORGN_ADDR_NO"/>
+		<result property="orgn_pref_nm"			column="ORGN_PREF_NM"/>
+	
+	</resultMap>
+	
+	
 	
 	<resultMap id="publMap" type="com.vinea.dto.PublVO">
 	<!-- artiMapper.xml -> resultMap(id:publMap) 발행기관 정보 테이블의 컬럼 -->	
@@ -404,6 +415,21 @@
       WHERE
          UID = #{uid}   
    </select>   
+   
+   <select id ="selectOrgnPrefList" parameterType="java.lang.String" resultMap="authOrgnMap">
+   <!-- 세부 기관명 정보 조회  *path: src/main/resources/mappers/artiMapper.xml *id: selectOrgnPrefList -->
+     
+      SELECT DISTINCT
+          UID
+         ,ORGN_ADDR_NO
+         ,ORGN_PREF_NM
+      FROM
+         TB_ORGN_PREF        
+      WHERE
+         UID = #{uid}
+         
+   </select>   
+   
    
    <select id ="selectPublList" parameterType="java.lang.String" resultMap="publMap">
    <!-- 논문 상세페이지에서 조회되는 발행기관정보  *path: src/main/resources/mappers/artiMapper.xml *id: selectPublList -->

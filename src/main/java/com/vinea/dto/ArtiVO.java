@@ -77,6 +77,8 @@ public class ArtiVO {
 	private List<CtgryVO> list_ctgry;
 	//기관 정보 VO객체 리스트로 저장
 	private List<OrgnVO> list_orgn;
+	//상세기관명 정보 VO객체 리스트로 저장
+	private List<OrgnPrefVO> list_pref;
 	//저자 정보 VO객체 리스트로 저장
 	private List<AuthVO> list_auth;
 	//도서기록 정보 VO객체 리스트로 저장
@@ -350,6 +352,14 @@ public class ArtiVO {
 
 	public void setList_orgn(List<OrgnVO> list_orgn) {
 		this.list_orgn = list_orgn;
+	}
+
+	public List<OrgnPrefVO> getList_pref() {
+		return list_pref;
+	}
+
+	public void setList_pref(List<OrgnPrefVO> list_pref) {
+		this.list_pref = list_pref;
 	}
 
 	public List<AuthVO> getList_auth() {

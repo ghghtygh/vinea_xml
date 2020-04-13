@@ -18,6 +18,7 @@ import com.vinea.dto.CtgryVO;
 import com.vinea.dto.DtypeVO;
 import com.vinea.dto.GrntVO;
 import com.vinea.dto.KwrdVO;
+import com.vinea.dto.OrgnPrefVO;
 import com.vinea.dto.OrgnVO;
 import com.vinea.dto.PublVO;
 import com.vinea.dto.RefrVO;
@@ -77,7 +78,10 @@ public class ParseDAO {
 	public void insertOrgn(OrgnVO vo) {
 		sqlSession.insert(Namespace + ".insertOrgn", vo);
 	}
-
+	/** 저자 세부 기관명 정보 DB 저장 **/
+	public void insertOrgnPref(OrgnPrefVO vo){
+		sqlSession.insert(Namespace + ".insertOrgnPref", vo);
+	}
 	/** 발행기관 정보 DB 저장 **/
 	public void insertPubl(PublVO vo) {
 		sqlSession.insert(Namespace + ".insertPubl", vo);
@@ -154,7 +158,12 @@ public class ParseDAO {
 			return;
 		sqlSession.insert(Namespace+".insertOrgnList", list);
 	}
-	
+	/** 저자 세부 기관명 정보리스트 DB 저장 **/
+	public void insertOrgnPrefList(List<OrgnPrefVO> list){
+		if(list.isEmpty())
+			return;
+		sqlSession.insert(Namespace + ".insertOrgnPrefList", list);
+	}
 	/** 발행기관 정보리스트 DB 저장 **/
 	public void insertPublList(List<PublVO> list){
 		if(list.isEmpty())
