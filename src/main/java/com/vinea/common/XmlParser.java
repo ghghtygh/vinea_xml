@@ -527,9 +527,11 @@ public class XmlParser {
 			/* 기관의 주소번호_저자의 주소번호 매칭시 필요 */
 			orgnVO.setOrgn_addr_no((String) xpath.evaluate("./@addr_no", node, XPathConstants.STRING));
 			/* 기관명 */
-			/** 속성이 없는 노드의 정보를 가져오기 위한 정규표현 **/
+			
+			// 속성 없는 노드 - 기관명
 			orgnVO.setOrgn_nm(
 					(String) xpath.evaluate("./organizations/organization[count(@*)=0]", node, XPathConstants.STRING));
+			
 			/* 기관명 풀네임 */
 			orgnVO.setOrgn_full_nm((String) xpath.evaluate("./full_address", node, XPathConstants.STRING));
 			
@@ -541,12 +543,16 @@ public class XmlParser {
 
 			for (int i1 = 0, n1 = prefList.getLength(); i1 < n1; i1++) {
 				Node prefNode = prefList.item(i1);
-
 				String pref_name = (String) xpath.evaluate("./text()", prefNode, XPathConstants.STRING);
 
-				pref_names += pref_name;
+				//큰따옴표 제거
+				pref_name = pref_name.replaceAll("\\\"", "");
 
+				//logger.info(pref_name);
+				
+				pref_names += pref_name;
 				pref_names += "|";
+				
 			}
 
 			orgnVO.setOrgn_pref_nm(pref_names);
