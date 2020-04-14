@@ -32,13 +32,16 @@
 	position: relative;
 	width: 500px;
 	border: 1px solid #999;
-	z-index=1;
+	z-index
+	=1;
 }
+
 #cnt_option {
 	position: relative;
 	width: 150px;
 	border: 1px solid #999;
-	z-index=1
+	z-index
+	=1
 }
 </style>
 <script>
@@ -82,121 +85,116 @@
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
 		<a class="navbar-brand" href="/">XML Statics</a>
-			<button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#">
-				<i class="fas fa-bars"></i>
-			</button>
-			<!-- 홈버튼-->
-			<div style="margin-left: 1600px">
-				<ul class="navbar-nav ml-auto ml-md-0">
-				<li class="nav-item dropdown">
-					<a class="nav-link" id="userDropdown" href="/" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-home"></i></a>
-				</li>
-				</ul>
-			</div>
+		<button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#">
+			<i class="fas fa-bars"></i>
+		</button>
+		<!-- 홈버튼-->
+		<div style="margin-left: 1600px">
+			<ul class="navbar-nav ml-auto ml-md-0">
+				<li class="nav-item dropdown"><a class="nav-link" id="userDropdown" href="/" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-home"></i></a></li>
+			</ul>
+		</div>
 	</nav>
 	<div id="layoutSidenav">
-			<div id="layoutSidenav_nav">
+		<div id="layoutSidenav_nav">
 			<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
 				<div class="sb-sidenav-menu">
 					<div class="nav">
 						<div class="sb-sidenav-menu-heading" style="color: #fff">MainPage</div>
-							<a  class="nav-link" href="/">
-								<div class="sb-nav-link-icon">
-									<i class="far fa-sticky-note"></i>
-								</div>
-								논문보기
-							</a>
+						<a class="nav-link" href="/">
+							<div class="sb-nav-link-icon">
+								<i class="far fa-sticky-note"></i>
+							</div> 논문보기
+						</a>
 						<div class="sb-sidenav-menu-heading" style="color: #fff">Statics</div>
-							<a class="nav-link" href="/stat/year">
-								<div class="sb-nav-link-icon">
-									<i class="fas fa-chart-bar"></i>
-								</div>
-								연도별 현황
-							</a>
-							<a class="nav-link" href="/stat/orgn">
+						<a class="nav-link" href="/stat/year">
+							<div class="sb-nav-link-icon">
+								<i class="fas fa-chart-bar"></i>
+							</div> 연도별 현황
+						</a>
+							<!-- <a class="nav-link" href="/stat/orgn">
 								<div class="sb-nav-link-icon">
 									<i class="fa fa-table"></i>
 								</div>
 								소속기관별 현황
-							</a>
-							<a class="nav-link" href="/stat/ctgr">
-								<div class="sb-nav-link-icon">
-									<i class="fas fa-chart-area"></i>
-								</div>
-								분야별 현황
-							</a>
-							<a style="font-weight: bold; color: #fff" class="nav-link" href="/stat/kwrd">
-								<div class="sb-nav-link-icon">
-									<i class="fa fa-cloud"></i>
-								</div>
-								키워드 현황
-							</a>	                          
+							</a> -->
+
+						<!-- 추가 -->
+						<a class="nav-link" href="/stat/orgn2">
+							<div class="sb-nav-link-icon">
+								<i class="fa fa-table"></i>
+							</div> 소속기관별 현황(test)
+						</a> <a class="nav-link" href="/stat/ctgr">
+							<div class="sb-nav-link-icon">
+								<i class="fas fa-chart-area"></i>
+							</div> 분야별 현황
+						</a> <a style="font-weight: bold; color: #fff" class="nav-link" href="/stat/kwrd">
+							<div class="sb-nav-link-icon">
+								<i class="fa fa-cloud"></i>
+							</div> 키워드 현황
+						</a>
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
 					<div class="small">Made with by NJH&SMJ</div>
-						<a href="https://github.com/ghghtygh/vinea_xml.git" style="font-size: 12px" target="_blank"> 
-							<i class="fab fa-github"></i>
-							View Source
-							<i class="fab fa-github"></i>
-							=> Click
-						</a>
+					<a href="https://github.com/ghghtygh/vinea_xml.git" style="font-size: 12px" target="_blank"> <i class="fab fa-github"></i> View Source <i class="fab fa-github"></i> => Click
+					</a>
 				</div>
 			</nav>
-			</div>
-			<div id="layoutSidenav_content">
-				<form id="frm">
+		</div>
+		<div id="layoutSidenav_content">
+			<form id="frm">
 				<main>
-					<div class="container-fluid"> 
+					<div class="container-fluid">
 						<div style="margin-top: 45px"></div>
-							<p style="font-size: 25px; font-weight: bold; color: #000069; margin-top: 50px">분야별 키워드 빈도수</p>
-							<hr>
-							<ol class="breadcrumb">
-								<!--분야 선택-->
-								<li class="breadcrumb-item">
-									<p style="font-size: 15px; font-weight: bold; margin-right: 10px; color: #000">분야</p>
-								</li>
-								<!-- 분야정보가 들어간 리스트가 비어있지 않은 경우 -->
-								<c:if test="${!empty ctgrList}">
+						<p style="font-size: 25px; font-weight: bold; color: #000069; margin-top: 50px">분야별 키워드 빈도수</p>
+						<hr>
+						<ol class="breadcrumb">
+							<!--분야 선택-->
+							<li class="breadcrumb-item">
+								<p style="font-size: 15px; font-weight: bold; margin-right: 10px; color: #000">분야</p>
+							</li>
+							<!-- 분야정보가 들어간 리스트가 비어있지 않은 경우 -->
+							<c:if test="${!empty ctgrList}">
 								<select class="form-control" id="ctgrnm" name="ctgrnm">
 									<!-- 전체 -->
 									<option value="">ALL</option>
 									<!-- 분야 리스트 데이터 -->
 									<c:forEach var="list" items="${ctgrList}" varStatus="c">
-											<option value="${list}">${list}</option>
+										<option value="${list}">${list}</option>
 									</c:forEach>
 								</select>
-								</c:if>
-								<li class="breadcrumb-item">
-									<p style="font-size: 15px; font-weight: bold; margin-left: 20px; margin-right: 10px; color: #000">주제</p>
-								</li>
-								<!-- 주제명 리스트 데이터 -->
-								<select class="form-control" name="subjnm" id="subjnm">
-										<c:forEach var="sub" items= "${subList}" varStatus = "c">
-											<option value = "${sub}">${sub}</option>
-										</c:forEach>
-								</select>
-								<li class="breadcrumb-item">
-									<p style="font-size: 15px; font-weight: bold; margin-left: 20px; margin-right: 10px; color: #000">키워드수</p>
-								</li>
-								<!-- 주제명 리스트 데이터 -->
-								<select class="form-control" id="cnt_option" name="cnt_option">
-										<option value="10">10개</option>
-										<option value="30">30개</option>
-										<option value="50">50개</option>
-								</select>	
-							</ol>
-							<!-- 분야별 키워드 빈도를 나타낼 워드클라우드  -->
-							<div align="center">
-								 <div id="kwrdcloud" style="width: 1000px; height: 700px;">
-								 	<div style="margin-top: 350px" id="loading" class="text-center">
-										<div class="spinner-border text-dark" style="width: 5rem; height: 5rem;" role="status">
-											<span class="sr-only">Loading...</span>
-								  		</div>
-								 	</div>
+							</c:if>
+							<li class="breadcrumb-item">
+								<p style="font-size: 15px; font-weight: bold; margin-left: 20px; margin-right: 10px; color: #000">주제</p>
+							</li>
+							<!-- 주제명 리스트 데이터 -->
+							<select class="form-control" name="subjnm" id="subjnm">
+								<c:forEach var="sub" items="${subList}" varStatus="c">
+									<option value="${sub}">${sub}</option>
+								</c:forEach>
+							</select>
+							<li class="breadcrumb-item">
+								<p style="font-size: 15px; font-weight: bold; margin-left: 20px; margin-right: 10px; color: #000">키워드수</p>
+							</li>
+							<!-- 주제명 리스트 데이터 -->
+							<select class="form-control" id="cnt_option" name="cnt_option">
+								<option value="10">10개</option>
+								<option value="30">30개</option>
+								<option value="50">50개</option>
+							</select>
+						</ol>
+						<!-- 분야별 키워드 빈도를 나타낼 워드클라우드  -->
+						<div align="center">
+							<div id="kwrdcloud" style="width: 1000px; height: 700px;">
+								<div style="margin-top: 350px" id="loading" class="text-center">
+									<div class="spinner-border text-dark" style="width: 5rem; height: 5rem;" role="status">
+										<span class="sr-only">Loading...</span>
+									</div>
 								</div>
 							</div>
-							<script>
+						</div>
+						<script>
 								/* 키워드명 */
 								var chartLabels = [];
 								/* 키워드 빈도수 */
@@ -259,11 +257,11 @@
 										});							
 									}						
 							</script>
-						</div> 
-					</main>
-				</form>
-			</div>
+					</div>
+				</main>
+			</form>
 		</div>
-<script src="/resources/js/scripts.js"></script>	
+	</div>
+	<script src="/resources/js/scripts.js"></script>
 </body>
 </html>

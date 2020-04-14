@@ -29,21 +29,21 @@
 	position: relative;
 	width: 130px;
 	border: 1px solid #999;
-	z-index:1;
+	z-index: 1;
 }
 /** 기관 선택 SelectBox **/
 #orgnselect {
 	position: relative;
 	width: 170px;
 	border: 1px solid #999;
-	z-index:1;
+	z-index: 1;
 }
 /** 정렬기준(한페이지에 보여줄 목록수) SelectBox **/
 #objectCnt {
 	position: relative;
 	width: 170px;
 	border: 1px solid #999;
-	z-index:1;
+	z-index: 1;
 }
 /** a태그에 해당하는 부분 마우스를 올려놓았을 경우 글씨 색깔 변하도록 함 **/
 a:hover {
@@ -61,24 +61,14 @@ a:hover {
 		$("input[name='search']").val(searchs);
 		$("#input_search").val(searchs);
 		
-		/* 국가명 선택 및 정렬 */
-		$('#country option[value="${country}"]').attr("selected",true);
 		$('#cnt_option option[value="${cnt_option}"]').attr("selected",true);
 		
-		$("#country").change(function() {
-			
-			var formObj = $("#frm");
-			formObj.attr("action", "/stat/orgn");
-			formObj.attr("method", "get");
-			formObj.submit();
-				
-		});
 				
 		$("#cnt_option").change(function(){
 						
 			/** 선택된 옵션에 따라 페이지를 업데이트 **/
 			var formObj = $("#frm");
-			formObj.attr("action", "/stat/orgn");
+			formObj.attr("action", "/stat/orgn2");
 			formObj.attr("method", "get");
 			formObj.submit();
 			
@@ -93,7 +83,7 @@ a:hover {
 			$("input[name='search']").val(search);
 			
 			var formObj = $("#frm");
-			formObj.attr("action", "/stat/orgn");
+			formObj.attr("action", "/stat/orgn2");
 			formObj.attr("method", "get");
 			formObj.submit();
 		});		
@@ -126,7 +116,7 @@ a:hover {
 			$("input[name='search']").val(search);
 			
 			var formObj = $("#frm");
-			formObj.attr("action", "/stat/orgn");
+			formObj.attr("action", "/stat/orgn2");
 			formObj.attr("method", "get");
 			formObj.submit();
 		}else{
@@ -159,70 +149,65 @@ a:hover {
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
 		<a class="navbar-brand" href="/">XML Statics</a>
-			<button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#">
-				<i class="fas fa-bars"></i>
-			</button>
-			<!-- 홈버튼-->
-			<div style="margin-left: 1600px">
-				<ul class="navbar-nav ml-auto ml-md-0">
-				<li class="nav-item dropdown">
-					<a class="nav-link" id="userDropdown" href="/" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-home"></i></a>
-				</li>
-				</ul>
-			</div>
+		<button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#">
+			<i class="fas fa-bars"></i>
+		</button>
+		<!-- 홈버튼-->
+		<div style="margin-left: 1600px">
+			<ul class="navbar-nav ml-auto ml-md-0">
+				<li class="nav-item dropdown"><a class="nav-link" id="userDropdown" href="/" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-home"></i></a></li>
+			</ul>
+		</div>
 	</nav>
 	<div id="layoutSidenav">
-			<div id="layoutSidenav_nav">
+		<div id="layoutSidenav_nav">
 			<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
 				<div class="sb-sidenav-menu">
 					<div class="nav">
 						<div class="sb-sidenav-menu-heading" style="color: #fff">MainPage</div>
-							<a class="nav-link" href="/">
-								<div class="sb-nav-link-icon">
-									<i class="far fa-sticky-note"></i>
-								</div>
-								논문보기
-							</a>
+						<a class="nav-link" href="/">
+							<div class="sb-nav-link-icon">
+								<i class="far fa-sticky-note"></i>
+							</div> 논문보기
+						</a>
 						<div class="sb-sidenav-menu-heading" style="color: #fff">Statics</div>
-							<a class="nav-link" href="/stat/year">
-								<div class="sb-nav-link-icon">
-									<i class="fas fa-chart-bar"></i>
-								</div>
-								연도별 현황
-							</a>
-							<a style="font-weight: bold; color: #fff" class="nav-link" href="/stat/orgn">
+						<a class="nav-link" href="/stat/year">
+							<div class="sb-nav-link-icon">
+								<i class="fas fa-chart-bar"></i>
+							</div> 연도별 현황
+						</a>
+							<!-- <a style="font-weight: bold; color: #fff" class="nav-link" href="/stat/orgn">
 								<div class="sb-nav-link-icon">
 									<i class="fa fa-table"></i>
 								</div>
 								소속기관별 현황
-							</a>
-							<a class="nav-link" href="/stat/ctgr">
+							</a> -->
+						<!-- 추가 -->
+						<a style="font-weight: bold; color: #fff" class="nav-link" href="/stat/orgn2">
 								<div class="sb-nav-link-icon">
-									<i class="fas fa-chart-area"></i>
+									<i style="color: #fff"  class="fa fa-table"></i>
 								</div>
-								분야별 현황
-							</a>
-							<a class="nav-link" href="/stat/kwrd">
-								<div class="sb-nav-link-icon">
-									<i class="fa fa-cloud"></i>
-								</div>
-								키워드 현황
-							</a>	                          
+								소속기관별 현황(test)
+							</a> <a class="nav-link" href="/stat/ctgr">
+							<div class="sb-nav-link-icon">
+								<i class="fas fa-chart-area"></i>
+							</div> 분야별 현황
+						</a> <a class="nav-link" href="/stat/kwrd">
+							<div class="sb-nav-link-icon">
+								<i class="fa fa-cloud"></i>
+							</div> 키워드 현황
+						</a>
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
 					<div class="small">Made with by NJH&SMJ</div>
-						<a href="https://github.com/ghghtygh/vinea_xml.git" style="font-size: 12px" target="_blank"> 
-							<i class="fab fa-github"></i>
-							View Source
-							<i class="fab fa-github"></i>
-							=> Click
-						</a>
+					<a href="https://github.com/ghghtygh/vinea_xml.git" style="font-size: 12px" target="_blank"> <i class="fab fa-github"></i> View Source <i class="fab fa-github"></i> => Click
+					</a>
 				</div>
 			</nav>
-			</div>
-			<div id="layoutSidenav_content">
-				<form id="frm">
+		</div>
+		<div id="layoutSidenav_content">
+			<form id="frm">
 				<main>
 					<div class="container-fluid">
 						<div style="margin-top: 45px"></div>
@@ -232,93 +217,79 @@ a:hover {
 							<div class="col-sm-12">
 								<ol class="breadcrumb">
 									<input type="hidden" name="search" value="">
-									<div class="row" style="width:100%;">
-										<div class="col-lg-8">
+									<div class="row" style="width: 100%;">
+										<div class="col-lg-10">
 											<div class="form-inline">
 												<p style="font-size: 15px; font-weight: bold; margin-right: 15px">기관명</p>
-												<input class="form-control" id="input_search" type="text" placeholder="기관명 검색.."
-												 style="margin-right: 10px; width: 350px" onKeyDown="return inputKey()" onsubmit="return false" value="" maxlength="50">
+												<input class="form-control" id="input_search" type="text" placeholder="기관명 검색.." style="margin-right: 10px; width: 350px" onKeyDown="return inputKey()" onsubmit="return false" value="" maxlength="50">
 												<button class="form-control btn btn-primary" type="button" id="btn_search">검색</button>
 											</div>
 										</div>
-										<div class="col-lg-4" style="margin_left: 20pxs">
-										<div class="form-inline">
-										<!-- 추가 -->
-										<c:if test="${!empty ctryList}">
-											<p style="font-size: 15px; font-weight: bold; margin-right: 15px">국가</p>
-											<select style="width:150px; margin-right: 10px" class="form-control" id="country" name="country">
-												<!-- 전체 -->
-												<option value="">ALL</option>
-												<!-- 국가명 데이터 -->
-												<c:forEach var="list" items="${ctryList}" varStatus="c">
-													<option value="${list}">${list}</option>
-												</c:forEach>
-											</select>
-										</c:if>
-										<!-- 추가 끝 -->
-											<p style="font-size: 15px; font-weight: bold; margin-right: 15px">정렬</p>
-											<select style="width:150px;"class="form-control" id="cnt_option" name="cnt_option">
-												<option value="10">10개</option>
-												<option value="20">20개</option>
-												<option value="30">30개</option>
-												<option value="50">50개</option>
-												<option value="100">100개</option>
-											</select>
+										<div class="col-lg-2" style="margin_left: 20pxs">
+											<div class="form-inline">
+												<p style="font-size: 15px; font-weight: bold; margin-right: 15px">정렬</p>
+												<select style="width: 150px;" class="form-control" id="cnt_option" name="cnt_option">
+													<option value="10">10개</option>
+													<option value="20">20개</option>
+													<option value="30">30개</option>
+													<option value="50">50개</option>
+													<option value="100">100개</option>
+												</select>
+											</div>
 										</div>
-										</div>
-									</div>																
+									</div>
 								</ol>
-							</div>							
+							</div>
 						</div>
 						<c:choose>
 							<c:when test="${search ne ''}">
 								<div>
 									<div style="">
-										<p>총 건수 :<strong style="margin-left: 15px"><fmt:formatNumber value="${cnt}" pattern="#,###,###"/>건</strong></p>
+										<p>
+											총 건수 :<strong style="margin-left: 15px"><fmt:formatNumber value="${cnt}" pattern="#,###,###" />건</strong>
+										</p>
 									</div>
 								</div>
 							</c:when>
 							<c:otherwise>
-								<p>총 기관 수 :<strong style="margin-left: 15px"><fmt:formatNumber value="${cnt}" pattern="#,###,###"/></strong>개</p>
-							</c:otherwise> 
+								<p>
+									총 기관 수 :<strong style="margin-left: 15px"><fmt:formatNumber value="${cnt}" pattern="#,###,###" /></strong>개
+								</p>
+							</c:otherwise>
 						</c:choose>
 						<!-- 소속기관별 논문수, 인용수 목록형 통계 부분 -->
 						<div class="row">
 							<div class="col-sm-12">
 								<table style="text-align: center;" class="table table-hover">
 									<thead>
-										<colgroup>
-											<col width="20%;">
-											<col width="*">
-											<col width="20%;">
-											<col width="20%;">
-										</colgroup>
+									<colgroup>
+										<col width="20%;">
+										<col width="*">
+										<col width="20%;">
+										<col width="20%;">
+									</colgroup>
 									</thead>
 									<tbody>
 										<th style="border-top: 2px solid #000069">순번</th>
-										<th style="border-top: 2px solid #000069;text-align:center">소속기관명</th>
+										<th style="border-top: 2px solid #000069; text-align: center">소속기관명</th>
 										<th style="border-top: 2px solid #000069">논문수</th>
 										<th style="border-top: 2px solid #000069">인용수</th>
 										<c:choose>
 											<c:when test="${not empty orgList}">
 												<c:forEach items="${orgList }" var="orgnVO" varStatus="g">
 													<tr>
-														<td>
-															${pager.prevPage*pager.pageSize + (g.count)}
-														</td>
-														<td style="text-align:left;padding-left:5%">
+														<td>${pager.prevPage*pager.pageSize + (g.count)}</td>
+														<td style="text-align: left; padding-left: 5%">
 															<!-- 소속기관명 -->
-															<a class="mb-0" href="#"  onClick="search_orgn('${orgnVO.orgn_nm}')">
-															${orgnVO.orgn_nm}
-															</a>
+															<a class="mb-0" href="#" onClick="search_orgn('${orgnVO.orgn_nm}')"> ${orgnVO.orgn_nm} </a>
 														</td>
 														<td>
 															<!-- 논문수 -->
-															<fmt:formatNumber value="${orgnVO.arti_cnt}" pattern="#,###,###"/>
+															<fmt:formatNumber value="${orgnVO.arti_cnt}" pattern="#,###,###" />
 														</td>
 														<td>
 															<!-- 인용수 -->
-															<fmt:formatNumber value="${orgnVO.cite_cnt}" pattern="#,###,###"/>
+															<fmt:formatNumber value="${orgnVO.cite_cnt}" pattern="#,###,###" />
 														</td>
 													</tr>
 												</c:forEach>
@@ -387,11 +358,11 @@ a:hover {
 						</div>
 						<!-- 페이징 처리(종료) -->
 					</div>
-				</div>
-			</main>
-			</form>
 		</div>
+		</main>
+		</form>
 	</div>
-<script src="/resources/js/scripts.js"></script>
+	</div>
+	<script src="/resources/js/scripts.js"></script>
 </body>
 </html>

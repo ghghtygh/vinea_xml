@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mappers.parseMapper">
 
-
 	<resultMap id="xmlFileMap" type="com.vinea.dto.XmlFileVO">
 	<!-- xmlMapper.xml -> resultMap(id:xmlFileMap) XML 파일 테이블의 컬럼 -->	
 	
@@ -20,8 +19,9 @@
 	<insert id="insertArti"   parameterType="com.vinea.dto.ArtiVO">
 	<!-- 파싱한 논문정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertArti -->
 	
-		INSERT IGNORE
-			INTO TB_ARTI
+		INSERT 
+		<!-- IGNORE -->
+		INTO TB_ARTI
 		(
 			 UID
 			,ARTI_NO
@@ -89,13 +89,19 @@
 			,#{modify_date}
 			,#{modify_id}
 		)
-		ON DUPLICATE KEY UPDATE
-			REGIST_DATE = NOW()		
+		<!-- 
+			ON 
+				DUPLICATE KEY 
+			UPDATE
+				REGIST_DATE = NOW() 
+		-->		
 	</insert>
+	
 	<insert id="insertCtgry" parameterType="com.vinea.dto.CtgryVO">
 	<!-- 파싱한 카테고리정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertCtgry -->
+	
 		INSERT IGNORE
-			INTO TB_CTGRY
+		INTO TB_CTGRY
 		(
 			 UID
 			,CTGRY_NM
@@ -117,7 +123,7 @@
 	<!-- 파싱한 저자정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertAuth -->
 	
 		INSERT IGNORE
-	    	INTO TB_AUTH
+	    INTO TB_AUTH
 	    (
 	    	 AUTH_PK
 			,AUTH_ID
@@ -157,7 +163,7 @@
 	<!-- 파싱한 도서기록정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertBooknote -->
 	
 		INSERT IGNORE
-	    	INTO TB_BOOK_NOTE
+	    INTO TB_BOOK_NOTE
 	    (
 			 UID
 			,NOTE_NM
@@ -173,9 +179,9 @@
 	<!-- 파싱한 학회정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertConf -->
 	
 		INSERT IGNORE
-	    	INTO TB_CONF
+	    INTO TB_CONF
 	    (
-			CONF_ID  
+			 CONF_ID  
 			,UID  
 			,CONF_TITLE  
 			,CONF_DATE  
@@ -205,17 +211,15 @@
 	<!-- 파싱한 문서유형정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertDtype -->
 	
 		INSERT IGNORE
-	    	INTO TB_DTYPE
+	    INTO TB_DTYPE
 	    (
 			 UID
-			,DTYPE_NM
-			
+			,DTYPE_NM			
 	    )
 	    VALUES
 	    (
 			 #{uid}
-			,#{dtype_nm}
-		
+			,#{dtype_nm}	
 	    )
 	</insert>
 	
@@ -223,7 +227,7 @@
 	<!-- 파싱한 보조금정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertGrnt -->
 		
 		INSERT IGNORE
-	    	INTO TB_GRNT
+	    INTO TB_GRNT
 	    (
 	    	 UID
 			,GRNT_GID
@@ -243,7 +247,7 @@
 	<!-- 파싱한 키워드정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertKwrd -->
 	
 		INSERT IGNORE
-			INTO TB_KWRD
+		INTO TB_KWRD
 		(
 			 UID
 			,KWRD_NM
@@ -262,7 +266,7 @@
 	<!-- 파싱한 저자기관정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertOrgn -->
 	
 		INSERT IGNORE
-			INTO TB_AUTH_ORGN
+		INTO TB_AUTH_ORGN
 		(
 			 UID
 			,ORGN_ADDR_NO
@@ -290,8 +294,9 @@
 	
 	<insert id="insertOrgnPref" parameterType="com.vinea.dto.OrgnPrefVO">
 	<!-- 파싱한 세부기관명정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertOrgnPref -->
+	
 		INSERT IGNORE
-			INTO TB_ORGN_PREF
+		INTO TB_ORGN_PREF
 		(
 			 UID
 			,ORGN_ADDR_NO
@@ -304,11 +309,12 @@
 			,#{orgn_pref_nm}
 		)
 	</insert>
+	
 	<insert id="insertPubl" parameterType="com.vinea.dto.PublVO">
 	<!-- 파싱한 발행기관정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertPubl -->
 	
 		INSERT IGNORE
-			INTO TB_PUBL
+		INTO TB_PUBL
 		(
 			 UID
 			,PUBL_ADDR
@@ -334,7 +340,7 @@
 	<!-- 파싱한 참고문헌정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertRefr -->
 	
 		INSERT
-	    	INTO TB_REFR
+	    INTO TB_REFR
 	    (
 			 REFR_ID
 			,REFR_UID
@@ -374,15 +380,19 @@
 			,#{modify_date}
 		    ,#{modify_id}   
 	    )
-	    ON DUPLICATE KEY UPDATE
-			REGIST_DATE = NOW()
+	 	<!-- 
+			ON 
+				DUPLICATE KEY 
+			UPDATE
+				REGIST_DATE = NOW() 
+		-->	
 	</insert>
 	
 	<insert id="insertXmlFile" parameterType="com.vinea.dto.XmlFileVO">
 	<!-- 원본 데이터   *path: src/main/resources/mappers/parseMapper.xml *id: insertXmlFile -->
 	
 		INSERT IGNORE
-			INTO TB_XML_FILE
+		INTO TB_XML_FILE
 		(
 			 UID
 			,CONTENT
@@ -407,8 +417,8 @@
 	<insert id="insertArtiList"   parameterType="java.util.List">
 	<!-- 파싱한 논문정보리스트 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertArtiList -->
 	
-		INSERT IGNORE
-			INTO TB_ARTI
+		INSERT
+		INTO TB_ARTI
 		(
 			 UID
 			,ARTI_NO
@@ -485,15 +495,14 @@
 			,#{item.modify_id}		
 		
 		)
-		</foreach>
-		ON DUPLICATE KEY UPDATE
-			REGIST_DATE = NOW()			
+		</foreach>	
 	</insert>
+	
 	<insert id="insertCtgryList" parameterType="java.util.List">
 	<!-- 파싱한 키워드정보리스트 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertKwrdList -->
 	
 		INSERT IGNORE
-			INTO TB_CTGRY
+		INTO TB_CTGRY
 		(
 			 UID
 			,CTGRY_NM
@@ -512,11 +521,12 @@
 		)
 		</foreach>
 	</insert>
+	
 	<insert id="insertAuthList" parameterType="java.util.List">
 	<!-- 중복 제거하고 저자 정보 리스트 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertAuthList  -->
 	
 		INSERT IGNORE
-	    	INTO TB_AUTH
+	    INTO TB_AUTH
 	    (
 			 AUTH_ID
 			,AUTH_SEQ
@@ -557,7 +567,7 @@
 	<!-- 파싱한 도서기록정보리스트 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertBooknoteList -->
 	
 		INSERT IGNORE
-	    	INTO TB_BOOK_NOTE
+	    INTO TB_BOOK_NOTE
 	    (
 			 UID
 			,NOTE_NM
@@ -576,7 +586,7 @@
 	<!-- 파싱한 학회정보리스트 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertConfList -->
 		
 		INSERT IGNORE
-	    	INTO TB_CONF
+	    INTO TB_CONF
 	    (
 			 CONF_ID  
 			,UID  
@@ -611,7 +621,7 @@
 	<!-- 파싱한 문서유형정보리스트 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertDtypeList -->
 		
 		INSERT IGNORE
-	    	INTO TB_DTYPE
+	    INTO TB_DTYPE
 	    (
 			 UID
 			,DTYPE_NM
@@ -631,7 +641,7 @@
 	<!-- 파싱한 보조금정보리스트 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertGrntList -->
 	
 		INSERT IGNORE
-	    	INTO TB_GRNT
+	    INTO TB_GRNT
 	    (
 	    	 UID
 			,GRNT_GID
@@ -654,7 +664,7 @@
 	<!-- 파싱한 키워드정보리스트 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertKwrdList -->
 	
 		INSERT IGNORE
-			INTO TB_KWRD
+		INTO TB_KWRD
 		(
 			 UID
 			,KWRD_NM
@@ -675,7 +685,7 @@
 	<!-- 파싱한 저자기관정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertOrgnList -->
 	
 		INSERT IGNORE
-			INTO TB_AUTH_ORGN
+		INTO TB_AUTH_ORGN
 		(
 			 UID
 			,ORGN_ADDR_NO
@@ -703,10 +713,12 @@
 		)
 		</foreach>
 	</insert>
+	
 	<insert id="insertOrgnPrefList" parameterType="java.util.List">
 	<!-- 파싱한 세부기관명정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertOrgnPrefList -->
+	
 		INSERT IGNORE
-			INTO TB_ORGN_PREF
+		INTO TB_ORGN_PREF
 		(
 			 UID
 			,ORGN_ADDR_NO
@@ -722,11 +734,12 @@
 		)
 		</foreach>
 	</insert>
+	
 	<insert id="insertPublList" parameterType="java.util.List">
 	<!-- 파싱한 발행기관정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertPublList -->
 		
 		INSERT IGNORE
-			INTO TB_PUBL
+		INTO TB_PUBL
 		(
 			 UID
 			,PUBL_ADDR
@@ -755,7 +768,7 @@
 	<!-- 파싱한 참고문헌정보리스트 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertRefrList -->
 	
 		INSERT
-	    	INTO TB_REFR
+	    INTO TB_REFR
 	    (
 			 REFR_ID
 			,REFR_UID
@@ -846,6 +859,7 @@
 			(ERROR_YN != 'Y' OR ERROR_YN IS NULL)		
 		LIMIT #{file_cnt}		
 	</select>
+	
 	<select id="selectXmlFileCount" resultMap="xmlFileMap">
 	<!-- XML 파싱 현황 목록  *path: src/main/resources/mappers/xmlMapper.xml *id: selectXmlFileList -->
 	
@@ -857,6 +871,7 @@
 			FILE_STAT
 			
 	</select>
+	
 	<select id="selectParseYN" resultMap="xmlFileMap">
 	<!-- XML 파싱 완료 현황  *path: src/main/resources/mappers/xmlMapper.xml *id: selectParseYN -->
 	
@@ -870,4 +885,5 @@
 		GROUP BY
 			FILE_NAME	
 	</select>
+	
 </mapper>

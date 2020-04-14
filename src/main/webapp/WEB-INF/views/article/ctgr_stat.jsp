@@ -135,27 +135,28 @@
 	position: relative;
 	width: 170px;
 	border: 1px solid #999;
-	z-index:1;
+	z-index: 1;
 }
+
 #cnt_option {
 	position: relative;
 	width: 120px;
 	border: 1px solid #999;
-	z-index:1;
+	z-index: 1;
 }
 /** 주제별 상위 통계 분류기준 SelectBox **/
 #cnt3 {
 	position: relative;
 	width: 170px;
 	border: 1px solid #999;
-	z-index:1;
+	z-index: 1;
 }
 /** 주제별 상위통계 연구분야 선택 SelectBox **/
 #ctgrselect2 {
 	position: relative;
 	width: 250px;
 	border: 1px solid #999;
-	z-index:1;
+	z-index: 1;
 }
 /** 처음 들어갔을 때, 표시 되지 않는 layer **/
 .layer2, .artiStat, .jrnlStat, .refrStat {
@@ -190,73 +191,68 @@
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
 		<a class="navbar-brand" href="/">XML Statics</a>
-			<button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#">
-				<i class="fas fa-bars"></i>
-			</button>
-			<!-- 홈버튼-->
-			<div style="margin-left: 1600px">
-				<ul class="navbar-nav ml-auto ml-md-0">
-				<li class="nav-item dropdown">
-					<a class="nav-link" id="userDropdown" href="/" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-home"></i></a>
-				</li>
-				</ul>
-			</div>
+		<button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#">
+			<i class="fas fa-bars"></i>
+		</button>
+		<!-- 홈버튼-->
+		<div style="margin-left: 1600px">
+			<ul class="navbar-nav ml-auto ml-md-0">
+				<li class="nav-item dropdown"><a class="nav-link" id="userDropdown" href="/" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-home"></i></a></li>
+			</ul>
+		</div>
 	</nav>
 	<div id="layoutSidenav">
-			<div id="layoutSidenav_nav">
+		<div id="layoutSidenav_nav">
 			<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
 				<div class="sb-sidenav-menu">
 					<div class="nav">
 						<div class="sb-sidenav-menu-heading" style="color: #fff">MainPage</div>
-							<a class="nav-link" href="/">
-								<div class="sb-nav-link-icon">
-									<i class="far fa-sticky-note"></i>
-								</div>
-								논문보기
-							</a>
+						<a class="nav-link" href="/">
+							<div class="sb-nav-link-icon">
+								<i class="far fa-sticky-note"></i>
+							</div> 논문보기
+						</a>
 						<div class="sb-sidenav-menu-heading" style="color: #fff">Statics</div>
-							<a class="nav-link" href="/stat/year">
-								<div class="sb-nav-link-icon">
-									<i class="fas fa-chart-bar"></i>
-								</div>
-								연도별 현황
-							</a>
-							<a class="nav-link" href="/stat/orgn">
+						<a class="nav-link" href="/stat/year">
+							<div class="sb-nav-link-icon">
+								<i class="fas fa-chart-bar"></i>
+							</div> 연도별 현황
+						</a>
+							<!-- <a class="nav-link" href="/stat/orgn">
 								<div class="sb-nav-link-icon">
 									<i class="fa fa-table"></i>
 								</div>
 								소속기관별 현황
 							</a>
-							<a  style="font-weight: bold; color: #fff"  class="nav-link" href="/stat/ctgr">
-								<div  class="sb-nav-link-icon">
-									<i class="fas fa-chart-area"></i>
-								</div>
-								분야별 현황
-							</a>
-							<a class="nav-link" href="/stat/kwrd">
-								<div class="sb-nav-link-icon">
-									<i class="fa fa-cloud"></i>
-								</div>
-								키워드 현황
-							</a>	                          
+ -->
+						<!-- 추가 -->
+						<a class="nav-link" href="/stat/orgn2">
+							<div class="sb-nav-link-icon">
+								<i class="fa fa-table"></i>
+							</div> 소속기관별 현황(test)
+						</a> <a style="font-weight: bold; color: #fff" class="nav-link" href="/stat/ctgr">
+							<div class="sb-nav-link-icon">
+								<i class="fas fa-chart-area"></i>
+							</div> 분야별 현황
+						</a> <a class="nav-link" href="/stat/kwrd">
+							<div class="sb-nav-link-icon">
+								<i class="fa fa-cloud"></i>
+							</div> 키워드 현황
+						</a>
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
 					<div class="small">Made with by NJH&SMJ</div>
-						<a href="https://github.com/ghghtygh/vinea_xml.git" style="font-size: 12px" target="_blank"> 
-							<i class="fab fa-github"></i>
-							View Source
-							<i class="fab fa-github"></i>
-							=> Click
-						</a>
+					<a href="https://github.com/ghghtygh/vinea_xml.git" style="font-size: 12px" target="_blank"> <i class="fab fa-github"></i> View Source <i class="fab fa-github"></i> => Click
+					</a>
 				</div>
 			</nav>
-			</div>
-			<div id="layoutSidenav_content">
-				<form id="frm">
+		</div>
+		<div id="layoutSidenav_content">
+			<form id="frm">
 				<main>
-					<div class="container-fluid"> 
-						<div style="margin-top: 45px"></div>  
+					<div class="container-fluid">
+						<div style="margin-top: 45px"></div>
 						<!-- tab 정의 -->
 						<ul class="nav nav-tabs">
 							<!-- 연구분야별 통계 -->
@@ -266,47 +262,47 @@
 						</ul>
 						<div class="tab-content">
 							<p style="font-size: 20px; font-weight: bold; color: #000069; margin-top: 20px">연구분야별 데이터 통계</p>
-								<div class="row">
-									<div class="col-sm-12">
-										<ol class="breadcrumb">
-											<!-- 연구분야별로 검색 -->
-											<li class="breadcrumb-item">
-												<p style="font-size: 15px; font-weight: bold; margin-right: 10px; margin-left: 15px">연구분야</p>
-											</li>
-											<!-- 연구분야 선택옵션 -->
-											<select class="form-control" id="ctgrselect" name="ctgr_option">
-												<option value="1">전체</option>
-												<option value="2">Science & Technology</option>
-												<option value="3">Arts & Humanities</option>
-												<option value="4">Social Sciences</option>
-											</select>
-											<!-- 정렬 기준 선택 -->
-											<li class="breadcrumb-item">
-												<p style="font-size: 15px; font-weight: bold; margin-left: 20px; margin-right: 10px;">정렬</p>
-											</li>
-											<select class="form-control" name="sort_option" id="sort_option">
-												<option value="1">전체</option>
-												<option value="2">저자</option>
-												<option value="3">논문</option>
-												<option value="4">학술지</option>
-												<option value="5">참고문헌</option>
-											</select>
-											<!-- 정렬 기준 선택 -->
-											<li class="breadcrumb-item">
-												<p style="font-size: 15px; font-weight: bold; margin-left: 20px; margin-right: 10px;">&nbsp;</p>
-											</li>
-											<select class="form-control" name="cnt_option" id="cnt_option">
-												<option value="10">10개</option>
-												<option value="20">20개</option>
-												<option value="30">30개</option>
-												<option value="50">50개</option>
-												<option value="100">100개</option>
-											</select>
-											<p style="margin-left: 15px"></p>
-										</ol>
-									</div>
+							<div class="row">
+								<div class="col-sm-12">
+									<ol class="breadcrumb">
+										<!-- 연구분야별로 검색 -->
+										<li class="breadcrumb-item">
+											<p style="font-size: 15px; font-weight: bold; margin-right: 10px; margin-left: 15px">연구분야</p>
+										</li>
+										<!-- 연구분야 선택옵션 -->
+										<select class="form-control" id="ctgrselect" name="ctgr_option">
+											<option value="1">전체</option>
+											<option value="2">Science & Technology</option>
+											<option value="3">Arts & Humanities</option>
+											<option value="4">Social Sciences</option>
+										</select>
+										<!-- 정렬 기준 선택 -->
+										<li class="breadcrumb-item">
+											<p style="font-size: 15px; font-weight: bold; margin-left: 20px; margin-right: 10px;">정렬</p>
+										</li>
+										<select class="form-control" name="sort_option" id="sort_option">
+											<option value="1">전체</option>
+											<option value="2">저자</option>
+											<option value="3">논문</option>
+											<option value="4">학술지</option>
+											<option value="5">참고문헌</option>
+										</select>
+										<!-- 정렬 기준 선택 -->
+										<li class="breadcrumb-item">
+											<p style="font-size: 15px; font-weight: bold; margin-left: 20px; margin-right: 10px;">&nbsp;</p>
+										</li>
+										<select class="form-control" name="cnt_option" id="cnt_option">
+											<option value="10">10개</option>
+											<option value="20">20개</option>
+											<option value="30">30개</option>
+											<option value="50">50개</option>
+											<option value="100">100개</option>
+										</select>
+										<p style="margin-left: 15px"></p>
+									</ol>
 								</div>
-								<!-- 첫번째 tab에 들어갈 내용(시작) -->
+							</div>
+							<!-- 첫번째 tab에 들어갈 내용(시작) -->
 							<!-- tab 정의 부분에서의 href 속성과 동일하게 id를 각각 지정 -->
 							<div class="tab-pane" id="ctgr1">
 								<!-- 연구분야별 데이터 통계 : 테이블 -->
@@ -344,10 +340,18 @@
 																		<td style="border-top: 1px solid #b4b4b4">${vo.num}</td>
 																		<td style="border-top: 1px solid #b4b4b4; text-align: left;">${vo.ctgr_nm}</td>
 																		<td style="border-top: 1px solid #b4b4b4; text-align: left;">${vo.subj_nm}</td>
-																		<td style="border-top: 1px solid #b4b4b4"><fmt:formatNumber value="${vo.auth_cnt}" pattern="#,###,###"/></td>
-																		<td style="border-top: 1px solid #b4b4b4"><fmt:formatNumber value="${vo.arti_cnt}" pattern="#,###,###"/></td>
-																		<td style="border-top: 1px solid #b4b4b4"><fmt:formatNumber value="${vo.jrnl_cnt}" pattern="#,###,###"/></td>
-																		<td style="border-top: 1px solid #b4b4b4"><fmt:formatNumber value="${vo.refr_cnt}" pattern="#,###,###"/></td>
+																		<td style="border-top: 1px solid #b4b4b4">
+																			<fmt:formatNumber value="${vo.auth_cnt}" pattern="#,###,###" />
+																		</td>
+																		<td style="border-top: 1px solid #b4b4b4">
+																			<fmt:formatNumber value="${vo.arti_cnt}" pattern="#,###,###" />
+																		</td>
+																		<td style="border-top: 1px solid #b4b4b4">
+																			<fmt:formatNumber value="${vo.jrnl_cnt}" pattern="#,###,###" />
+																		</td>
+																		<td style="border-top: 1px solid #b4b4b4">
+																			<fmt:formatNumber value="${vo.refr_cnt}" pattern="#,###,###" />
+																		</td>
 																	</tr>
 																</c:forEach>
 															</c:when>
@@ -441,23 +445,23 @@
 																<td style="border-top: 1px solid #b4b4b4">
 																	<c:choose>
 																		<c:when test='${sort_option==1 }'>
-                                                         					<fmt:formatNumber value="${vo.arti_cnt}" pattern="#,###,###"/>
-                                                         				</c:when>
+																			<fmt:formatNumber value="${vo.arti_cnt}" pattern="#,###,###" />
+																		</c:when>
 																		<c:when test='${sort_option==2 }'>
-                                                         					<fmt:formatNumber value="${vo.auth_cnt}" pattern="#,###,###"/>
-                                                         				</c:when>
+																			<fmt:formatNumber value="${vo.auth_cnt}" pattern="#,###,###" />
+																		</c:when>
 																		<c:when test='${sort_option==3 }'>
-                                                         					<fmt:formatNumber value="${vo.arti_cnt}" pattern="#,###,###"/>
-                                                        				 </c:when>
+																			<fmt:formatNumber value="${vo.arti_cnt}" pattern="#,###,###" />
+																		</c:when>
 																		<c:when test='${sort_option==4 }'>
-                                                         					<fmt:formatNumber value="${vo.jrnl_cnt}" pattern="#,###,###"/>
-                                                         				</c:when>
+																			<fmt:formatNumber value="${vo.jrnl_cnt}" pattern="#,###,###" />
+																		</c:when>
 																		<c:when test='${sort_option==5 }'>
-                                                         					<fmt:formatNumber value="${vo.refr_cnt}" pattern="#,###,###"/>
-                                                         				</c:when>
+																			<fmt:formatNumber value="${vo.refr_cnt}" pattern="#,###,###" />
+																		</c:when>
 																		<c:otherwise>
-                                                         					<fmt:formatNumber value="${vo.arti_cnt}" pattern="#,###,###"/>
-                                                         				</c:otherwise>
+																			<fmt:formatNumber value="${vo.arti_cnt}" pattern="#,###,###" />
+																		</c:otherwise>
 																	</c:choose>
 																</td>
 															</tr>
@@ -608,14 +612,14 @@
 												(params.data, {});
 									}
 								</script>
+							</div>
+							<!-- 두번째 tab에 들어갈 내용(종료) -->
 						</div>
-						<!-- 두번째 tab에 들어갈 내용(종료) -->
 					</div>
-				</div>
-			</main>
-		</form>			
+				</main>
+			</form>
+		</div>
 	</div>
-</div>
-<script src="/resources/js/scripts.js"></script>	
+	<script src="/resources/js/scripts.js"></script>
 </body>
 </html>
