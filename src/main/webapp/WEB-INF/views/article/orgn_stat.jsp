@@ -176,12 +176,12 @@ a:hover {
 								<i class="fas fa-chart-bar"></i>
 							</div> 연도별 현황
 						</a>
-							<!-- <a style="font-weight: bold; color: #fff" class="nav-link" href="/stat/orgn">
+						<!-- <a style="font-weight: bold; color: #fff" class="nav-link" href="/stat/orgn">
 								<div class="sb-nav-link-icon">
 									<i class="fa fa-table"></i>
 								</div>
 								소속기관별 현황
-							</a> -->
+						</a> -->
 						<!-- 추가 -->
 						<a style="font-weight: bold; color: #fff" class="nav-link" href="/stat/orgn2">
 								<div class="sb-nav-link-icon">
