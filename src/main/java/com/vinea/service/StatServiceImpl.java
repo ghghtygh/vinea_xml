@@ -42,16 +42,16 @@ public class StatServiceImpl implements StatService {
 		return dao.getYearCnt();
 	}
 
-	/** 소속기관별 데이터 통계(기관수) **/
+	/** 소속기관별 데이터 통계(기관수)_수정 **/
 	@Override
-	public int countOrg(Map<String, Object> map) throws Exception {
-		return dao.countOrg(map);
+	public int countOrg2(Map<String, Object> map) throws Exception {
+		return dao.countOrg2(map);
 	}
 
-	/** 소속기관별 데이터 통계(기관목록) **/
+	/** 소속기관별 데이터 통계(기관목록)_수정 **/
 	@Override
-	public List<OrgnVO> selectOrgList(Map<String, Object> map) throws Exception {
-		return dao.selectOrgList(map);
+	public List<OrgnVO> selectOrgList2(Map<String, Object> map) throws Exception {
+		return dao.selectOrgList2(map);
 	}
 
 	/** 연구분야별 저자수, 논문수, 학술지, 참고문헌수 **/

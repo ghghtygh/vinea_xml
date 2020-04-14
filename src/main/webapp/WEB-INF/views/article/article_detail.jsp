@@ -72,23 +72,13 @@ a:hover.tip span {
 			if (target.hasClass("open")) {
 				target.slideUp(200);
 				target.removeClass("open");
-				image.attr(
-						"src",
-						imgName.replace("/resources/image/up.png",
-								"/resources/image/down.png")).attr(
-						"alt", "open");
+				image.attr("src", imgName.replace("/resources/image/up.png", "/resources/image/down.png")).attr("alt", "open");
 			} else {
 				target.slideDown(200);
 				target.addClass("open")
-				image.attr(
-						"src",
-						imgName.replace("/resources/image/down.png",
-								"/resources/image/up.png")).attr("alt",
-						"close");
+				image.attr("src", imgName.replace("/resources/image/down.png", "/resources/image/up.png")).attr("alt", "close");
 			}
-
-		});
-		
+		});		
 	});
 	
 	function sectionToggle() {
@@ -99,21 +89,13 @@ a:hover.tip span {
 		if (target.hasClass("open")) {
 			target.slideUp(200);
 			target.removeClass("open");
-			image.attr(
-					"src",
-					imgName.replace("/resources/image/up.png",
-							"/resources/image/down.png")).attr("alt",
+			image.attr("src", imgName.replace("/resources/image/up.png", "/resources/image/down.png")).attr("alt",
 					"open");
 		} else {
 			target.slideDown(200);
 			target.addClass("open");
-			image.attr(
-					"src",
-					imgName.replace("/resources/image/down.png",
-							"/resources/image/up.png"))
-					.attr("alt", "close");
+			image.attr("src", imgName.replace("/resources/image/down.png", "/resources/image/up.png")).attr("alt", "close");
 		}
-
 	}
 	
 	/** 상세보기 페이지에서 학술지명을 클릭하였을 때, 학술지명에 해당하는 논문 목록페이지로 이동 **/
@@ -182,11 +164,18 @@ a:hover.tip span {
 								</div>
 								연도별 현황
 							</a>
-							<a class="nav-link" href="/stat/orgn">
+							<!-- <a class="nav-link" href="/stat/orgn">
 								<div class="sb-nav-link-icon">
 									<i class="fa fa-table"></i>
 								</div>
 								소속기관별 현황
+							</a> -->
+							<!-- 추가 -->
+							<a class="nav-link" href="/stat/orgn2">
+								<div class="sb-nav-link-icon">
+									<i class="fa fa-table"></i>
+								</div>
+								소속기관별 현황(test)
 							</a>
 							<a class="nav-link" href="/stat/ctgr">
 								<div class="sb-nav-link-icon">
@@ -234,7 +223,9 @@ a:hover.tip span {
 						,(${ArtiVO.page_cnt} pages)
 					</p>
 					<!-- DOI -->
+					<c:if test="${ArtiVO.doi != ''}">
 					<p style="font-size: 13px; font-style: oblique;">DOI: ${ArtiVO.doi}</p>
+					</c:if>
 					<!-- 발행기관 -->
 					<p style="font-size: 13px; font-style: oblique;">
 						발행기관: <c:forEach var="pub" items="${ArtiVO.list_publ}" varStatus="a">
@@ -307,7 +298,12 @@ a:hover.tip span {
 								</div>
 							</h2>
 							<div class="innerBox open" style="display: block;">
-								<p style="white-space: pre-line;">${ArtiVO.abstr}</p>
+								<c:if test="${ArtiVO.abstr != ''}">
+									<p style="white-space: pre-line;">${ArtiVO.abstr}</p>
+								</c:if>
+								<c:if test="${ArtiVO.abstr == ''}">
+									<p style="text-align: center; font-size: 13px">데이터가 없습니다</p>
+								</c:if>
 							</div>
 						</div>
 						<hr style="border-bottom: 0.5px dotted #b4b4b4">
@@ -366,7 +362,7 @@ a:hover.tip span {
 			                                       / ${refr.volume} : 
 			                                    </c:if>
 											<c:if test="${refr.issue != '' and refr.volume != ''}">
-			                                       / ${refr.volume} (${refr.issue}) :
+			                                        ${refr.volume} (${refr.issue}) :
 			                                    </c:if>
 											<c:if test="${refr.page == '' and refr.orgn_nm != ''}">
 			                                       ${refr.orgn_nm}
