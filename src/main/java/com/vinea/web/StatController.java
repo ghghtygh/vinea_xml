@@ -64,7 +64,6 @@ public class StatController {
 	@RequestMapping(value = "/orgn")
 	public ModelAndView orgnChart(@RequestParam(defaultValue = "1") int page,
 			@RequestParam(defaultValue="") String search,
-			@RequestParam(defaultValue = "") String country, //추가 부분(국가선택)
 			@RequestParam(defaultValue="10")String cnt_option,
 			@RequestParam(defaultValue="2017")String year) throws Exception {
 		
@@ -88,12 +87,6 @@ public class StatController {
 		map.put("search_list", searchList);
 		map.put("search_year", year);
 		
-		
-		
-		/* 국가 추가 */ 		
-		map.put("country", country);
-		/* 국가 추가(끝) */
-		
 		/* 기관 목록의 건수 */
 		int orgCnt = service.countOrg(map);
 		
@@ -110,20 +103,57 @@ public class StatController {
 		mav.addObject("search", search);
 		mav.addObject("cnt_option",cnt_option);
 		
-		List<String> strList = new ArrayList<String>();
-		for(OrgnVO vo: orgList)
-		{
-			strList.add(vo.getCountry());
-		}
-		HashSet<String> hashset = new HashSet<String>(strList);
-		
-		mav.addObject("ctryList", new ArrayList<String>(hashset));
-		
-		mav.addObject("country", country);
-		/* 국가 추가 끝 */
-		
 		return mav;
 	}
+	
+	/* 소속기관별 데이터 통계(페이지)_수정 */
+	/** 소속기관별 데이터 통계(페이지)_수정 **/
+	@RequestMapping(value = "/orgn2")
+	public ModelAndView orgnChart2(@RequestParam(defaultValue = "1") int page,
+			@RequestParam(defaultValue="") String search,
+			@RequestParam(defaultValue="10")String cnt_option,
+			@RequestParam(defaultValue="2017")String year) throws Exception {
+
+		/* 소속기관별 통계: 논문수, 인용수, 소속기관별 연구분야 비율 */
+		ModelAndView mav = new ModelAndView("article/orgn_stat2");
+
+
+		/* 한페이지에 보여질 요소 개수 */
+		int pageSize = Integer.parseInt(cnt_option);
+
+		Map<String,Object> map = new HashMap<String,Object>();
+
+		search = search.trim();
+		String[] searchs = search.split("\\s+");
+		ArrayList<String> searchList = new ArrayList<String>();
+
+		for(String s:searchs){
+			searchList.add(s);
+		}
+		map.put("search", search);
+		map.put("search_list", searchList);
+		map.put("search_year", year);
+
+
+		/* 기관 목록의 건수 */
+		int orgCnt = service.countOrg2(map);
+
+		PostPager pager = new PostPager(orgCnt, page, pageSize);
+
+		map.put("start_index", pager.getStartIndex());
+		map.put("page_size", pageSize);
+
+		List<OrgnVO> orgList = service.selectOrgList2(map);
+
+		mav.addObject("orgList", orgList);
+		mav.addObject("pager", pager);
+		mav.addObject("cnt", orgCnt);
+		mav.addObject("search", search);
+		mav.addObject("cnt_option",cnt_option);
+
+		return mav;
+	}
+	
 	
 	/** 연구분야별 저자수, 논문수, 학술지, 참고문헌수 **/
 	@RequestMapping(value = "/ctgr")

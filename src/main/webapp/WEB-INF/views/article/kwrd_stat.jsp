@@ -119,6 +119,14 @@
 								</div>
 								소속기관별 현황
 							</a>
+							
+							<!-- 추가 -->
+							<a class="nav-link" href="/stat/orgn2">
+								<div class="sb-nav-link-icon">
+									<i class="fa fa-table"></i>
+								</div> 소속기관별 현황(test)
+							</a> 
+							
 							<a class="nav-link" href="/stat/ctgr">
 								<div class="sb-nav-link-icon">
 									<i class="fas fa-chart-area"></i>

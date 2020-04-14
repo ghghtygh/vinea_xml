@@ -94,6 +94,103 @@
 		</choose>
 	</sql>
 
+
+
+	<!-- 테스트0 -->
+	<sql id="searchOrg2">
+		<choose>
+			<when test='search!=null and search!=""'>
+				WHERE
+				KOR_ORGN_NM IN (
+				SELECT
+				MASTER_NM
+				FROM
+				TB_ORGN_NM
+				WHERE
+				PREF_NM LIKE CONCAT(#{search}, '%')
+				)
+			</when>
+		</choose>
+	</sql>
+	<!-- 테스트1-1 -->
+	<select id="countOrg2" resultType="java.lang.Integer"
+		parameterType="hashMap">
+		<!-- 기관 검색 테스트(기관 개수 카운트) *path: src/main/resources/mappers/xmlMapper.xml 
+			*id: countOrg2 -->
+
+		SELECT
+		COUNT(*)
+		FROM
+		KOR_ORGN_STAT
+		<!-- 소속기관명 검색하기 -->
+		<include refid="searchOrg2"></include>
+	</select>
+
+	<!-- 테스트1-2 -->
+	<select id="selectOrgList2" parameterType="hashMap" resultType="com.vinea.dto.OrgnVO">
+		<!-- 기관 검색 기능(기관목록 조회) -SELECT *path: src/main/resources/mappers/xmlMapper.xml 
+			*id: selectOrgList2 -->
+
+		SELECT
+		@ROWNUM:=@ROWNUM+1 AS NUM
+		,A.KOR_ORGN_NM AS ORGN_NM
+		,A.ARTI_CNT
+		,A.CITE_CNT
+		FROM
+		(
+		SELECT
+		@ROWNUM:=#{start_index}
+		) R
+		,KOR_ORGN_STAT AS A
+		LEFT JOIN TB_ORGN_NM AS B
+		ON A.KOR_ORGN_NM = B.MASTER_NM
+		<!--소속기관명 검색하기 -->
+		<include refid="searchOrg2"></include>
+		GROUP BY
+		A.KOR_ORGN_NM
+		ORDER BY
+		ARTI_CNT
+		DESC
+		LIMIT
+		#{start_index}
+		,#{page_size}
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	<select id="countCtgrStat" parameterType="hashMap" resultType="java.lang.Integer">
 		<!-- 연구분야별 통계 데이터 카운팅 *path: src/main/resources/mappers/xmlMapper.xml *id: 
 			countCtgrStat -->

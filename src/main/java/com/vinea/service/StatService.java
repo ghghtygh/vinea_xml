@@ -37,5 +37,13 @@ public interface StatService {
 	/** 연구분야별 저자수, 논문수, 학술지, 참고문헌수 통계2 **/
 	public List<CtgrStatVO> selectCtgrStatList(Map<String, Object> map);
 	
-	
+
+
+
+	/** 소속기관별 데이터 통계(기관수)_수정 **/
+	public int countOrg2(Map<String, Object> map) throws Exception;
+
+	/** 소속기관별 데이터 통계(기관목록)_수정 **/
+	public List<OrgnVO> selectOrgList2(Map<String, Object> map) throws Exception;
+
 }
