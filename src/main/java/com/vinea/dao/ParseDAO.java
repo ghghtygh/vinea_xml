@@ -37,6 +37,7 @@ public class ParseDAO {
 	
 	/** 논문 정보 DB 저장 **/
 	public void insertArti(ArtiVO vo) {
+		logger.info(vo.getUid());
 		sqlSession.insert(Namespace + ".insertArti", vo);
 	}
 	
@@ -100,9 +101,9 @@ public class ParseDAO {
 		
 	/** 논문 정보리스트 DB 저장 **/
 	public void insertArtiList(List<ArtiVO> list){
+		
 		if(list.isEmpty())
 			return;
-		
 		sqlSession.insert(Namespace+".insertArtiList", list);
 		
 	}

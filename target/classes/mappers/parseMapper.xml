@@ -20,7 +20,7 @@
 	<insert id="insertArti"   parameterType="com.vinea.dto.ArtiVO">
 	<!-- 파싱한 논문정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertArti -->
 	
-		INSERT IGNORE
+		INSERT
 			INTO TB_ARTI
 		(
 			 UID
@@ -88,9 +88,7 @@
 			,#{registr_id}
 			,#{modify_date}
 			,#{modify_id}
-		)
-		ON DUPLICATE KEY UPDATE
-			REGIST_DATE = NOW()		
+		)	
 	</insert>
 	<insert id="insertCtgry" parameterType="com.vinea.dto.CtgryVO">
 	<!-- 파싱한 카테고리정보 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertCtgry -->
@@ -515,7 +513,7 @@
 	<insert id="insertAuthList" parameterType="java.util.List">
 	<!-- 중복 제거하고 저자 정보 리스트 DB에 저장 *path: src/main/resources/mappers/parseMapper.xml *id: insertAuthList  -->
 	
-		INSERT IGNORE
+		INSERT
 	    	INTO TB_AUTH
 	    (
 			 AUTH_ID
@@ -810,7 +808,7 @@
 		SET
 			ERROR_YN = 'Y'
 		WHERE
-			UID = #{uid}	
+			UID = #{uid}
 	</update>
 
 	<select id="selectOneXmlFile" parameterType="java.lang.String" resultMap="xmlFileMap">

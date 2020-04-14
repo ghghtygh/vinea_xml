@@ -163,20 +163,21 @@ public class ParseServiceImpl implements ParseService {
 		List<ArtiVO> list = new ArrayList<ArtiVO>();
 
 		for (XmlFileVO vo : dao.selectXmlFileList(map)) {
-
+			
 			try {
-
+				
 				list.add(parser.parseRecStr(vo.getContent()));
-
+				
 			} catch (Exception e) {
 				// 파싱 에러 발생
-
+				
+				logger.info("Error - parseXmlList : "+vo.getUid());
 				updateError(vo.getUid());
 				
 			}
 		}
 		
-		//
+		
 		insertVOList(list);
 	}
 
@@ -192,7 +193,9 @@ public class ParseServiceImpl implements ParseService {
 		}
 		
 		try{
+			
 			dao.insertArtiList(list);
+			
 		} catch (Exception e) {
 			// INSERT 에러
 			m_err = true;
@@ -203,6 +206,7 @@ public class ParseServiceImpl implements ParseService {
 			try {
 				
 				if(m_err){
+					
 					dao.insertArti(vo);
 				}
 				
@@ -221,6 +225,7 @@ public class ParseServiceImpl implements ParseService {
 			} catch (Exception e) {
 				// INSERT 에러
 				updateError(vo.getUid());
+				logger.info("Error - insertVOList : "+ vo.getUid());
 			}
 		}
 

@@ -265,7 +265,7 @@
 						<when test='search_option.equals("6")'>
 						<!-- search_option "6" : 소속기관 해당 논문목록 (소속기관 현황페이지: orgn_stat.jsp) -->
 							FROM
-								(SELECT * FROM TB_ARTI WHERE SUBSTRING_INDEX(SUBSTRING_INDEX(PUB_DATE, '-', 2), '-', -1) >= '05' and PUB_YEAR='2017') TB_ARTI
+								TB_ARTI
 							INNER JOIN
 								TB_AUTH_ORGN AS B
 							ON
@@ -276,7 +276,7 @@
 						<when test='search_option.equals("7")'>
 						<!-- search_option "7" : 키워드 해당 논문목록 (분야별 키워드 빈도: kwrd_stat.jsp) -->
 							FROM
-								(SELECT * FROM TB_ARTI WHERE SUBSTRING_INDEX(SUBSTRING_INDEX(PUB_DATE, '-', 2), '-', -1) >= '05' and PUB_YEAR='2017') TB_ARTI
+								TB_ARTI
 							INNER JOIN
 								TB_KWRD AS B
 							ON

@@ -35,12 +35,13 @@ public class ParseController{
 	/** XML 파일명에 따라 파싱 **/
 	@RequestMapping(value="/do")
 	@ResponseBody
-	public Boolean xmlParsingTest2(@RequestParam(defaultValue="") String file_name,
+	public Boolean parsingDo(@RequestParam(defaultValue="") String file_name,
 			@RequestParam(defaultValue="1")int file_cnt) throws Exception{
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("file_name",file_name);
 		map.put("file_cnt", file_cnt);
+		
 		
 		service.parseXmlList(map);
 		
@@ -54,4 +55,13 @@ public class ParseController{
 		
 		return service.selectXmlFileCount();
 	}
+	
+	/** XML 파일 파싱 페이지 **/
+	@RequestMapping(value="/xml")
+	public String parsingXml(){
+		
+		return "xml/xml_file";
+	}
+	
+	
 }

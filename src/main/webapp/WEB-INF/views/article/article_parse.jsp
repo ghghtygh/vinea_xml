@@ -114,7 +114,7 @@ td{
 		
 		/* 파싱할 파일 선택 */
 		m_mode = $("input:checkbox[id='chk_auto']").is(":checked");
-
+		console.log(fileName);
 		$.ajax({			
 			type:"POST",
 			url:"/parsing/do",
