@@ -59,11 +59,10 @@ public class StatController {
 		return gson.toJson(list);
 
 	}	
-	
 		
-	/** 소속기관별 데이터 통계(페이지)_수정 **/
-	@RequestMapping(value = "/orgn2")
-	public ModelAndView orgnChart2(@RequestParam(defaultValue = "1") int page,
+	/** 소속기관별 데이터 통계(페이지) **/
+	@RequestMapping(value = "/orgn")
+	public ModelAndView orgnChart(@RequestParam(defaultValue = "1") int page,
 			@RequestParam(defaultValue="") String search,
 			@RequestParam(defaultValue = "") String country, //추가 부분(국가선택)
 			@RequestParam(defaultValue="10")String cnt_option,
@@ -90,21 +89,38 @@ public class StatController {
 		map.put("search_year", year);
 		
 		
+		
+		/* 국가 추가 */ 		
+		map.put("country", country);
+		/* 국가 추가(끝) */
+		
 		/* 기관 목록의 건수 */
-		int orgCnt = service.countOrg2(map);
+		int orgCnt = service.countOrg(map);
 		
 		PostPager pager = new PostPager(orgCnt, page, pageSize);
 
 		map.put("start_index", pager.getStartIndex());
 		map.put("page_size", pageSize);
 		
-		List<OrgnVO> orgList = service.selectOrgList2(map);
+		List<OrgnVO> orgList = service.selectOrgList(map);
 		
 		mav.addObject("orgList", orgList);
 		mav.addObject("pager", pager);
 		mav.addObject("cnt", orgCnt);
 		mav.addObject("search", search);
 		mav.addObject("cnt_option",cnt_option);
+		
+		List<String> strList = new ArrayList<String>();
+		for(OrgnVO vo: orgList)
+		{
+			strList.add(vo.getCountry());
+		}
+		HashSet<String> hashset = new HashSet<String>(strList);
+		
+		mav.addObject("ctryList", new ArrayList<String>(hashset));
+		
+		mav.addObject("country", country);
+		/* 국가 추가 끝 */
 		
 		return mav;
 	}

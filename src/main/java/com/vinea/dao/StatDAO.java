@@ -39,14 +39,14 @@ public class StatDAO {
 		return sqlSession.selectList(Namespace + ".getYearCnt");
 	}
 	
-	/** 소속기관별 데이터 통계(기관수)_수정 **/
-	public int countOrg2(Map<String,Object> map) throws Exception{
-		return sqlSession.selectOne(Namespace + ".countOrg2", map);
+	/** 소속기관별 데이터 통계(기관수) **/
+	public int countOrg(Map<String,Object> map) throws Exception{
+		return sqlSession.selectOne(Namespace + ".countOrg", map);
 	}
 	
-	/** 소속기관별 데이터 통계(기관목록)_수정 **/
-	public List<OrgnVO> selectOrgList2(Map<String,Object> map){
-		return sqlSession.selectList(Namespace + ".selectOrgList2", map);
+	/** 소속기관별 데이터 통계(기관목록) **/
+	public List<OrgnVO> selectOrgList(Map<String,Object> map){
+		return sqlSession.selectList(Namespace + ".selectOrgList", map);
 	}
 	
 	/** 연구분야별 저자수, 논문수, 학술지, 참고문헌수 **/

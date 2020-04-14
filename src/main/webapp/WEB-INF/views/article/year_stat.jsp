@@ -17,7 +17,7 @@
 <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
 <link href="/resources/css/_bootswatch.scss" rel="stylesheet">
 <link href="/resources/css/_variables.scss" rel="stylesheet">
-
+	
 <!-- JAVSCRIPT, JQUERY -->
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
@@ -27,188 +27,167 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
 </head>
 <form>
-	<body class="sb-nav-fixed">
-		<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-			<a class="navbar-brand" href="/">XML Statics</a>
+<body class="sb-nav-fixed">
+	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+		<a class="navbar-brand" href="/">XML Statics</a>
 			<button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#">
 				<i class="fas fa-bars"></i>
-			</button>
+			</button>			
 			<!-- 홈버튼-->
 			<div style="margin-left: 1600px">
 				<ul class="navbar-nav ml-auto ml-md-0">
-					<li class="nav-item dropdown"><a class="nav-link" id="userDropdown" href="/" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-home"></i></a></li>
+				<li class="nav-item dropdown">
+					<a class="nav-link" id="userDropdown" href="/" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-home"></i></a>
+				</li>
 				</ul>
 			</div>
-		</nav>
-		<div id="layoutSidenav">
-			<div id="layoutSidenav_nav">
-				<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-					<div class="sb-sidenav-menu">
-						<div class="nav">
-							<div class="sb-sidenav-menu-heading" style="color: #fff">MainPage</div>
+	</nav>
+	<div id="layoutSidenav">
+		<div id="layoutSidenav_nav">
+			<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+				<div class="sb-sidenav-menu">
+					<div class="nav">
+						<div class="sb-sidenav-menu-heading" style="color: #fff">MainPage</div>
 							<a class="nav-link" href="/">
 								<div class="sb-nav-link-icon">
 									<i class="far fa-sticky-note"></i>
-								</div> 논문보기
+								</div>
+								논문보기
 							</a>
-							<div class="sb-sidenav-menu-heading" style="color: #fff">Statics</div>
+						<div class="sb-sidenav-menu-heading" style="color: #fff">Statics</div>
 							<a style="font-weight: bold; color: #fff" class="nav-link" href="/stat/year">
 								<div class="sb-nav-link-icon">
 									<i class="fas fa-chart-bar"></i>
-								</div> 연도별 현황
+								</div>
+								연도별 현황
 							</a>
-								<!-- <a class="nav-link" href="/stat/orgn">
+							<a class="nav-link" href="/stat/orgn">
 								<div class="sb-nav-link-icon">
 									<i class="fa fa-table"></i>
 								</div>
 								소속기관별 현황
-							</a> -->
-							<!-- 추가 -->
-								<a class="nav-link" href="/stat/orgn2">
-								<div class="sb-nav-link-icon">
-									<i class="fa fa-table"></i>
-								</div>
-								소속기관별 현황(test)
-							</a> <a class="nav-link" href="/stat/ctgr">
+							</a>
+							<a class="nav-link" href="/stat/ctgr">
 								<div class="sb-nav-link-icon">
 									<i class="fas fa-chart-area"></i>
-								</div> 분야별 현황
-							</a> <a class="nav-link" href="/stat/kwrd">
+								</div>
+								분야별 현황
+							</a>
+							<a class="nav-link" href="/stat/kwrd">
 								<div class="sb-nav-link-icon">
 									<i class="fa fa-cloud"></i>
-								</div> 키워드 현황
-							</a>
-						</div>
+								</div>
+								키워드 현황
+							</a>	                          
 					</div>
-					<div class="sb-sidenav-footer">
-						<div class="small">Made with by NJH&SMJ</div>
-						<a href="https://github.com/ghghtygh/vinea_xml.git" style="font-size: 12px" target="_blank"> <i class="fab fa-github"></i> View Source <i class="fab fa-github"></i> => Click
+				</div>
+				<div class="sb-sidenav-footer">
+					<div class="small">Made with by NJH&SMJ</div>
+						<a href="https://github.com/ghghtygh/vinea_xml.git" style="font-size: 12px" target="_blank"> 
+							<i class="fab fa-github"></i>
+							View Source
+							<i class="fab fa-github"></i>
+							=> Click
 						</a>
-					</div>
-				</nav>
-			</div>
-			<div id="layoutSidenav_content">
-				<main>
-					<div class="container-fluid">
-						<div style="margin-top: 45px"></div>
-						<!--  연도별 통계: 테이블, 차트 -->
+				</div>
+			</nav>
+		</div>
+		<div id="layoutSidenav_content">
+			<main>
+				<div class="container-fluid"> 
+					<div style="margin-top: 45px"></div>
+					<!--  연도별 통계: 테이블, 차트 -->
 						<div class="row">
-							<div class="col-sm-10">
-								<p style="font-size: 25px; font-weight: bold; color: #000069">연도별 데이터 통계</p>
-							</div>
-							<div class="col-sm-2">
-								<!-- 수정 SelectBox(연도 선택) -->
-								<p style="font-size: 15px; font-weight: bold">
-									논문 발행연도
-									<select class="form-control" id="yearOption">
-										<option value="0">전체</option>
-										<option value="1">2013</option>
-										<option value="2">2014</option>
-										<option value="3">2015</option>
-										<option value="4">2016</option>
-										<option value="5">2017</option>
-									</select>
-								</p>
-							</div>
+						<div class="col-sm-10">
+						<p style="font-size: 25px; font-weight: bold; color: #000069">연도별 데이터 통계</p>
+						</div>
+						<div class="col-sm-2">
+						<!-- 수정 SelectBox(연도 선택) -->
+						<p style="font-size: 15px; font-weight: bold">논문 발행연도
+						<select class="form-control" id="yearOption">
+							<option value="0">전체</option>
+							<option value="1">2015</option>
+							<option value="2">2016</option>
+							<option value="3">2017</option>
+							<option value="4">2018</option>
+						</select>
+						</p>
+						</div>
 						</div>
 						<div class="row">
-							<div class="col-sm-12">
-								<table id="table1" style="text-align: center;" class="table table-hover">
-									<tbody>
-										<th style="border-top: 2px solid #000069">구분</th>
-										<c:choose>
-											<c:when test="${not empty yearVOList}">
-												<c:forEach items="${yearVOList}" var="vo" varStatus="g">
-													<!-- 구분: 발행연도 -->
-													<th style="border-top: 2px solid #000069">${vo.pub_year}</th>
-												</c:forEach>
-											</c:when>
-										</c:choose>
-										<!-- 논문수, 도서수, 학술지수, 참고문헌수 각각 합계 나타낼 부분 -->
-										<th style="border-top: 2px solid #000069;"><font color="#000069">합계</font></th>
-										<tr>
-											<!-- 논문수 통계 -->
-											<td style="border-top: 1px solid #b4b4b4">
-												<strong>논문</strong>
-											</td>
-											<c:choose>
-												<c:when test="${not empty yearVOList}">
-													<c:set var="sum" value="0" />
-													<c:forEach items="${yearVOList}" var="vo" varStatus="g">
-														<td style="border-top: 1px solid #b4b4b4">
-															<fmt:formatNumber value="${vo.arti_cnt}" pattern="#,###,###" />
-														</td>
-														<c:set var="sum" value="${sum+vo.arti_cnt}" />
-													</c:forEach>
-													<td style="border-top: 1px solid #b4b4b4">
-														<font color="#28288C"><strong><fmt:formatNumber value="${sum}" pattern="#,###,###" /></strong></font>
-													</td>
-												</c:when>
-											</c:choose>
-										</tr>
-										<tr>
-											<!-- 도서수 통계 -->
-											<td style="">
-												<strong>도서</strong>
-											</td>
-											<c:choose>
-												<c:when test="${not empty yearVOList}">
-													<c:set var="sum" value="0" />
-													<c:forEach items="${yearVOList}" var="vo" varStatus="g">
-														<td style="">
-															<fmt:formatNumber value="${vo.book_cnt}" pattern="#,###,###" />
-														</td>
-														<c:set var="sum" value="${sum+vo.book_cnt}" />
-													</c:forEach>
-													<td style="">
-														<font color="#28288C"><strong><fmt:formatNumber value="${sum}" pattern="#,###,###" /></strong></font>
-													</td>
-												</c:when>
-											</c:choose>
-										</tr>
-										<tr>
-											<!-- 학술지수 통계 -->
-											<td style="">
-												<strong>학술지</strong>
-											</td>
-											<c:choose>
-												<c:when test="${not empty yearVOList}">
-													<c:set var="sum" value="0" />
-													<c:forEach items="${yearVOList}" var="vo" varStatus="g">
-														<td style="">
-															<fmt:formatNumber value="${vo.jrnl_cnt}" pattern="#,###,###" />
-														</td>
-														<c:set var="sum" value="${sum+vo.jrnl_cnt}" />
-													</c:forEach>
-													<td style="">
-														<font color="#28288C"><strong><fmt:formatNumber value="${sum}" pattern="#,###,###" /></strong></font>
-													</td>
-												</c:when>
-											</c:choose>
-										</tr>
-										<tr>
-											<!-- 참고문헌수 통계 -->
-											<td style="">
-												<strong>참고문헌</strong>
-											</td>
-											<c:choose>
-												<c:when test="${not empty yearVOList}">
-													<c:set var="sum" value="0" />
-													<c:forEach items="${yearVOList}" var="vo" varStatus="g">
-														<td style="">
-															<fmt:formatNumber value="${vo.refr_cnt}" pattern="#,###,###" />
-														</td>
-														<c:set var="sum" value="${sum+vo.refr_cnt}" />
-													</c:forEach>
-													<td style="">
-														<font color="#28288C"><strong><fmt:formatNumber value="${sum}" pattern="#,###,###" /></strong></font>
-													</td>
-												</c:when>
-											</c:choose>
-										</tr>
-									</tbody>
-								</table>
-							</div>
+						<div class="col-sm-12">
+						<table id="table1" style="text-align: center;" class="table table-hover">
+							<tbody>
+								<th style="border-top: 2px solid #000069">구분</th>
+								<c:choose>
+									<c:when test="${not empty yearVOList}">
+										<c:forEach items="${yearVOList}" var="vo" varStatus="g">
+											<!-- 구분: 발행연도 -->
+											<th style="border-top: 2px solid #000069">${vo.pub_year}</th>
+										</c:forEach>
+									</c:when>
+								</c:choose>
+								<!-- 논문수, 도서수, 학술지수, 참고문헌수 각각 합계 나타낼 부분 -->
+								<th style="border-top: 2px solid #000069;"><font color="#000069">합계</font></th>				
+								<tr>
+									<!-- 논문수 통계 -->
+									<td style="border-top: 1px solid #b4b4b4"><strong>논문</strong></td>
+									<c:choose>
+										<c:when test="${not empty yearVOList}">
+											<c:set var = "sum" value = "0" />
+											<c:forEach items="${yearVOList}" var="vo" varStatus="g">
+												<td style="border-top: 1px solid #b4b4b4"><fmt:formatNumber value="${vo.arti_cnt}" pattern="#,###,###"/></td>
+												<c:set var="sum" value="${sum+vo.arti_cnt}" />
+											</c:forEach>
+											<td style="border-top: 1px solid #b4b4b4"><font color="#28288C"><strong><fmt:formatNumber value="${sum}" pattern="#,###,###"/></strong></font></td>
+										</c:when>
+									</c:choose>
+								</tr>		
+								<tr>
+									<!-- 도서수 통계 -->
+									<td style=""><strong>도서</strong></td>
+									<c:choose>
+										<c:when test="${not empty yearVOList}">
+											<c:set var = "sum" value = "0" />
+											<c:forEach items="${yearVOList}" var="vo" varStatus="g">
+												<td style=""><fmt:formatNumber value="${vo.book_cnt}" pattern="#,###,###"/></td>
+												<c:set var="sum" value="${sum+vo.book_cnt}" />
+											</c:forEach>
+											<td style=""><font color="#28288C"><strong><fmt:formatNumber value="${sum}" pattern="#,###,###"/></strong></font></td>
+										</c:when>
+									</c:choose>
+								</tr>
+								<tr>
+									<!-- 학술지수 통계 -->
+									<td style=""><strong>학술지</strong></td>
+									<c:choose>
+										<c:when test="${not empty yearVOList}">
+											<c:set var = "sum" value = "0" />
+											<c:forEach items="${yearVOList}" var="vo" varStatus="g">
+												<td style=""><fmt:formatNumber value="${vo.jrnl_cnt}" pattern="#,###,###"/></td>
+												<c:set var="sum" value="${sum+vo.jrnl_cnt}" />
+											</c:forEach>
+											<td style=""><font color="#28288C"><strong><fmt:formatNumber value="${sum}" pattern="#,###,###"/></strong></font></td>
+										</c:when>
+									</c:choose>
+								</tr>						
+								<tr>
+									<!-- 참고문헌수 통계 -->
+									<td style=""><strong>참고문헌</strong></td>
+									<c:choose>
+										<c:when test="${not empty yearVOList}">
+											<c:set var = "sum" value = "0" />
+											<c:forEach items="${yearVOList}" var="vo" varStatus="g">
+												<td style=""><fmt:formatNumber value="${vo.refr_cnt}" pattern="#,###,###"/></td>
+												<c:set var="sum" value="${sum+vo.refr_cnt}" />
+											</c:forEach>
+											<td style=""><font color="#28288C"><strong><fmt:formatNumber value="${sum}" pattern="#,###,###"/></strong></font></td>
+										</c:when>
+									</c:choose>
+								</tr>
+							</tbody>
+						</table>
+						</div>
 						</div>
 						<!-- 차트를 그릴 canvas 정의 -->
 						<div class="row" align="center" style="margin-top: 15px">
@@ -339,7 +318,7 @@
 						        		                    if(parseInt(value) >= 1000){
 						        		                               return  value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "건";
 						        		                            } else {
-						        		                                return  value.toString() + "건";
+						        		                               return  value;
 						        		                            }
 						        		                }
 						        		          } 
@@ -357,8 +336,12 @@
 										/* 총 합계 차트는 업데이트 */
 										a.update();
 										totalChart.destroy();
+										b.destroy();
+										c.destroy();
+										d.destroy();
+										e.destroy();
 									}							
-									/* 선택된 옵션이 '2013년' 일때(2013년 해당 논문수, 도서수, 학술지수, 참고문헌수 차트) */
+									/* 선택된 옵션이 '2015년' 일때(2015년 해당 논문수, 도서수, 학술지수, 참고문헌수 차트) */
 									else if($(this).val() == '1')
 									{
 										var b = new Chart(document.getElementById("yearStats"), {
@@ -385,7 +368,7 @@
 						        		                    if(parseInt(value) >= 1000){
 						        		                               return  value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "건";
 						        		                            } else {
-						        		                               return  value.toString() + "건";
+						        		                               return  value;
 						        		                            }
 						        		                }
 						        		          } 
@@ -400,11 +383,15 @@
 						        		      }
 						        		    }
 						        		});
-										/* 2013년 차트 업데이트 */
+										/* 2015년 차트 업데이트 */
 										b.update();
+										totalChart.destroy();
 										a.destroy();
+										c.destroy();
+										d.destroy();
+										e.destroy();
 									}
-									/* 선택된 옵션이 '2014년' 일때(2014년 해당 논문수, 도서수, 학술지수, 참고문헌수 차트) */
+									/* 선택된 옵션이 '2016년' 일때(2016년 해당 논문수, 도서수, 학술지수, 참고문헌수 차트) */
 									else if($(this).val() == '2')
 									{
 										var c = new Chart(document.getElementById("yearStats"), {
@@ -431,7 +418,7 @@
 						        		                    if(parseInt(value) >= 1000){
 						        		                               return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "건";
 						        		                            } else {
-						        		                               return value.toString() + "건";
+						        		                               return value;
 						        		                            }
 						        		                }
 						        		          } 
@@ -446,11 +433,15 @@
 						        		      }
 						        		    }
 						        		});
-										/* 2014년 차트 업데이트 */
-										c.update();	
+										/* 2016년 차트 업데이트 */
+										c.update();		
+										totalChart.destroy();
 										b.destroy();
+										a.destroy();
+										d.destroy();
+										e.destroy();
 									}
-									/* 선택된 옵션이 '2015년' 일때(2015년 해당 논문수, 도서수, 학술지수, 참고문헌수 차트) */
+									/* 선택된 옵션이 '2017년' 일때(2017년 해당 논문수, 도서수, 학술지수, 참고문헌수 차트) */
 									else if($(this).val() == '3')
 									{
 										var d = new Chart(document.getElementById("yearStats"), {
@@ -477,7 +468,7 @@
 						        		                    if(parseInt(value) >= 1000){
 						        		                               return  value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "건";
 						        		                            } else {
-						        		                               return   value.toString() + "건";
+						        		                               return  value;
 						        		                            }
 						        		                }
 						        		          } 
@@ -492,11 +483,15 @@
 						        		      }
 						        		    }
 						        		}); 
-										/* 2015년 차트 업데이트 */
+										/* 2017년 차트 업데이트 */
 										d.update();
+										totalChart.destroy();
+										b.destroy();
 										c.destroy();
+										a.destroy();
+										e.destroy();
 									}
-									/* 선택된 옵션이 '2016년' 일때(2016년 해당 논문수, 도서수, 학술지수, 참고문헌수 차트) */
+									/* 선택된 옵션이 '2018년' 일때(2018년 해당 논문수, 도서수, 학술지수, 참고문헌수 차트) */
 									else if($(this).val() == '4')
 									{
 										var e = new Chart(document.getElementById("yearStats"), {
@@ -521,9 +516,9 @@
 						        		                label: function(tooltipItem, data) {
 						        		                    var value = data.datasets[0].data[tooltipItem.index];
 						        		                    if(parseInt(value) >= 1000){
-						        		                               return  value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "건";
+						        		                               return '$' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "건";
 						        		                            } else {
-						        		                               return  value.toString() + "건";
+						        		                               return '$' + value;
 						        		                            }
 						        		                }
 						        		          } 
@@ -538,56 +533,12 @@
 						        		      }
 						        		    }
 						        		}); 
-										/* 2016년 차트 업데이트 */
+										/* 2018년 차트 업데이트 */
 										e.update();
+										totalChart.destroy();
+										b.destroy();
+										c.destroy();
 										d.destroy();
-									}
-									
-									/* 선택된 옵션이 '2017년' 일때(2017년 해당 논문수, 도서수, 학술지수, 참고문헌수 차트) */
-									else if($(this).val() == '5')
-									{
-										var f = new Chart(document.getElementById("yearStats"), {
-						        		    type: 'horizontalBar',
-						        		    data: {
-						        		      labels: ["논문", "도서", "학술지", "참고문헌"],
-						        		      datasets: [
-						        		        {
-						        		          label: chartLabels[3]+"년",
-						        		          backgroundColor : "rgba(102,153,255,0.5)",
-						        		          data: [artiCnt[4], bookCnt[4], jrnlCnt[4], refrCnt[4]]
-						        		        }
-						        		      ]
-						        		    },
-						        		    options: {
-						        		      responsive: true,
-						        		      legend: { 
-						        		    	  display: false 
-						        		      },
-						        		      tooltips: {
-						        		          callbacks: {
-						        		                label: function(tooltipItem, data) {
-						        		                    var value = data.datasets[0].data[tooltipItem.index];
-						        		                    if(parseInt(value) >= 1000){
-						        		                               return  value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "건";
-						        		                            } else {
-						        		                               return  value.toString() + "건";
-						        		                            }
-						        		                }
-						        		          } 
-						        		      },
-						        		      scales: {
-						        		    	  xAxes: [{
-						        		    		  ticks: {
-						        		    			  beginAtZero: true, 
-						        		    			  fontSize: 14          
-						        		    		  }
-						        		    	  }]
-						        		      }
-						        		    }
-						        		}); 
-										/* 2017년 차트 업데이트 */
-										f.update();
-										e.destroy();
 									}
 								});
 			        	   
@@ -746,9 +697,9 @@
 						</script>
 					</div>
 				</main>
-			</div>
 		</div>
-		<script src="/resources/js/scripts.js"></script>
-	</body>
+	</div>
+<script src="/resources/js/scripts.js"></script>
+</body>
 </form>
 </html>

@@ -21,12 +21,13 @@ public interface StatService {
 	/** 연도별 논문수, 도서수, 참고문헌수, 학술지수 통계 **/
 	public List<YearVO> getYearCnt() throws Exception;
 
-	/** 소속기관별 데이터 통계(기관수)_수정 **/
-	public int countOrg2(Map<String, Object> map) throws Exception;
+	/** 소속기관별 데이터 통계(기관수) **/
+	public int countOrg(Map<String, Object> map) throws Exception;
 
-	/** 소속기관별 데이터 통계(기관목록)_수정 **/
-	public List<OrgnVO> selectOrgList2(Map<String, Object> map) throws Exception;
+	/** 소속기관별 데이터 통계(기관목록) **/
+	public List<OrgnVO> selectOrgList(Map<String, Object> map) throws Exception;
 	
+
 	/** 연구분야별 저자수, 논문수, 학술지, 참고문헌수 **/
 	public int countCtgrStat(Map<String, Object> map);
 	
