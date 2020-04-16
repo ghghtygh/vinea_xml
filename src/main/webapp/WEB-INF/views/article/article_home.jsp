@@ -454,13 +454,6 @@ input:read-only {
 										</div>
 										<div class="form-group col-sm-5">
 											<div class="form-group">
-											
-												<!-- <div style="font-size:70%;font-style: oblique">Elastic Search</div>
-												<div class="custom-control custom-switch">
-													<input type="checkbox" class="custom-control-input" id="customSwitch" checked="">
-													<label class="custom-control-label" for="customSwitch"></label>
-												</div> -->
-												
 												<!-- div 가운데 수직 정렬 수정필요 -->
 												<div class="custom-control custom-switch" style="margin-top:6px;">
 													<input type="checkbox" class="custom-control-input" id="customSwitch1" checked="" onclick="fn_switch();">
@@ -545,8 +538,9 @@ input:read-only {
 													<blockquote class="" style="font-size: 130%;">
 														<!-- 논문 제목 클릭시, 논문상세페이지로 이동 -->
 														<a class="mb-0" style="color: black;" href='article/article_detail?uid=${ArtiVO.uid}'>${ArtiVO.arti_title}</a>
+														<p style="font-size:13px; color: #000069; font-weight: bold; font-style: oblique">(참고문헌수: ${ArtiVO.cite_cnt}건)</p>
 														<footer style="font-size: 70%; vertical-align: bottom;">
-															<div align="left" class="text-secondary" style="margin-top: 10px;">
+															<div align="left" class="text-secondary">
 																&nbsp;
 																<!-- 저자정보(주저자 외에 '외 ~명' 으로 표시) -->
 																<c:forEach var="auth" items="${ArtiVO.list_auth}" varStatus="a">
@@ -559,11 +553,11 @@ input:read-only {
 																${ArtiVO.jrnl_title}
 																<!-- 호번호가 공백이 아닐때 권(호)로 표시 -->
 																<c:if test="${ArtiVO.issue != '' and AriVO.volume != ''}">
-																| ${ArtiVO.volume}(${ArtiVO.issue}) |
+																| Vol.${ArtiVO.volume}(No.${ArtiVO.issue}) |
 															</c:if>
 																<!-- 호번호가 공백일 때 권으로 표시 -->
 																<c:if test="${ArtiVO.issue == '' and ArtiVO.volume != ''}">
-																 | ${ArtiVO.volume} |
+																 | Vol.${ArtiVO.volume} |
 															</c:if>
 																<!-- 시작페이지와 끝페이지가 공백이 아닐때 '시작페이지~끝페이지'로 표시 -->
 																<c:if test="${ArtiVO.begin_page != '' and ArtiVO.end_page != '' and ArtiVO.issue == '' and ArtiVO.volume == ''}">

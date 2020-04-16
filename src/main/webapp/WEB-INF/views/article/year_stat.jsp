@@ -238,11 +238,6 @@
                            refrCnt.push(obj.refr_cnt);
                         });
                          createChart();
-                         /**
-                        //option이 변경될때마다 차트 업데이트 
-                           $('#yearOption').on('change', updateChart)
-                           updateChart();
-                           **/
                      }); 
       
                         /* 연도 선택에 따른 차트 생성 */
@@ -329,6 +324,7 @@
                                     },
                                     options: {
                                       responsive: true,
+                                      maintainAspectRatio: false,
                                       legend: { 
                                          display: false 
                                       },
@@ -354,9 +350,14 @@
                                       }
                                     }
                                 });
+                              d.destroy();
+                              b.destroy();
+                              c.destroy();
+                              f.destroy();
+                              e.destroy();
+                              totalChart.destroy();
                               /* 총 합계 차트는 업데이트 */
                               a.update();
-                              totalChart.destroy();
                            }                     
                            /* 선택된 옵션이 '2013년' 일때(2013년 해당 논문수, 도서수, 학술지수, 참고문헌수 차트) */
                            else if($(this).val() == '1')
@@ -375,6 +376,7 @@
                                     },
                                     options: {
                                       responsive: true,
+                                      maintainAspectRatio: false,
                                       legend: { 
                                          display: false 
                                       },
@@ -400,9 +402,14 @@
                                       }
                                     }
                                 });
+                              a.destroy();
+                              d.destroy();
+                              c.destroy();
+                              f.destroy();
+                              e.destroy();
+                              totalChart.destroy();
                               /* 2013년 차트 업데이트 */
                               b.update();
-                              a.destroy();
                            }
                            /* 선택된 옵션이 '2014년' 일때(2014년 해당 논문수, 도서수, 학술지수, 참고문헌수 차트) */
                            else if($(this).val() == '2')
@@ -421,6 +428,7 @@
                                     },
                                     options: {
                                       responsive: true,
+                                      maintainAspectRatio: false,
                                       legend: { 
                                          display: false 
                                       },
@@ -446,9 +454,14 @@
                                       }
                                     }
                                 });
+                              a.destroy();
+                              b.destroy();
+                              d.destroy();
+                              f.destroy();
+                              e.destroy();
+                              totalChart.destroy();
                               /* 2014년 차트 업데이트 */
                               c.update();   
-                              b.destroy();
                            }
                            /* 선택된 옵션이 '2015년' 일때(2015년 해당 논문수, 도서수, 학술지수, 참고문헌수 차트) */
                            else if($(this).val() == '3')
@@ -467,6 +480,7 @@
                                     },
                                     options: {
                                       responsive: true,
+                                      maintainAspectRatio: false,
                                       legend: { 
                                          display: false 
                                       },
@@ -491,10 +505,15 @@
                                          }]
                                       }
                                     }
-                                }); 
+                                });
+                              a.destroy();
+                              b.destroy();
+                              c.destroy();
+                              f.destroy();
+                              e.destroy();
+                              totalChart.destroy();
                               /* 2015년 차트 업데이트 */
                               d.update();
-                              c.destroy();
                            }
                            /* 선택된 옵션이 '2016년' 일때(2016년 해당 논문수, 도서수, 학술지수, 참고문헌수 차트) */
                            else if($(this).val() == '4')
@@ -513,6 +532,7 @@
                                     },
                                     options: {
                                       responsive: true,
+                                      maintainAspectRatio: false,
                                       legend: { 
                                          display: false 
                                       },
@@ -537,10 +557,15 @@
                                          }]
                                       }
                                     }
-                                }); 
+                                });
+                              a.destroy();
+                              b.destroy();
+                              c.destroy();
+                              d.destroy();
+                              f.destroy();
+                              totalChart.destroy();
                               /* 2016년 차트 업데이트 */
                               e.update();
-                              d.destroy();
                            }
                            
                            /* 선택된 옵션이 '2017년' 일때(2017년 해당 논문수, 도서수, 학술지수, 참고문헌수 차트) */
@@ -560,6 +585,7 @@
                                     },
                                     options: {
                                       responsive: true,
+                                      maintainAspectRatio: false,
                                       legend: { 
                                          display: false 
                                       },
@@ -585,164 +611,18 @@
                                       }
                                     }
                                 }); 
+                              a.destroy();
+                              b.destroy();
+                              c.destroy();
+                              d.destroy();
+                              e.destroy();
+                              totalChart.destroy();
                               /* 2017년 차트 업데이트 */
                               f.update();
-                              e.destroy();
                            }
                         });
                        
                      }
-                          
-         
-                     /**
-                            //이전 Chart 생성(논문, 도서, 학술지, 참고문헌 선택에 따른 bar차트 변경)_시작 
-                            //위에 생성한 SelectBox의 옵션에 따른 차트 변경 
-                            var dataMap = {
-                                 //논문 선택  
-                                  'arti' : {
-                                          type : 'Bar',
-                                          data : {
-                                            //연도  
-                                             labels : chartLabels,
-                                             //논문 수 데이터가 들어갈 부분  
-                                             datasets : [ {
-                                                label : "논문수",
-                                                fillColor : "rgba(102,153,255,0.5)",
-                                                strokeColor : "rgba(000,051,153,0.8)",
-                                                highlightStroke : "rgba(220,220,220,1)",
-                                                data : artiCnt
-                                             }],
-                                          },
-                                          //차트 옵션 정하는 부분(클릭 이벤트, 차트 제목 등..여러가지 기능) 
-                                          options : {
-                                             responsive: true,
-                                             title : {
-                                                display : true,
-                                                text : '연도별 논문(건)수'
-                                             },
-                                             tooltips: {
-                                                mode: 'index',
-                                                intersect: false,
-                                             },
-                                             hover: {
-                                                mode: 'nearest',
-                                                intersect: true
-                                             },
-                                             scales: {
-                                                 xAxes: [{
-                                                     display: true,
-                                                     scaleLabel: {
-                                                         display: true,
-                                                         labelString: '논문건수'
-                                                     },
-                                                 }],
-                                                 yAxes: [{
-                                                     display: true,
-                                                     ticks: {
-                                                         autoSkip: false
-                                                     },
-                                                     scaleLabel: function(label) {
-                                                         display: true,
-                                                         labelString: '발행연도',
-                                                     }
-                                                 }]
-                                             } 
-                                          }
-                                       },
-                                       //도서 선택  
-                                       'book' : {
-                                         type : 'Bar',
-                                          data : {
-                                            //연도  
-                                             labels : chartLabels,
-                                             //도서 수 데이터가 들어갈 부분  
-                                             datasets : [ {
-                                                label : "도서수",
-                                                fillColor : "rgba(102,153,255,0.5)",
-                                                strokeColor : "rgba(000,051,153,0.8)",
-                                                highlightFill : "rgba(220,220,220,0.75)",
-                                                highlightStroke : "rgba(220,220,220,1)",
-                                                data : bookCnt
-                                             } ],
-                                          },
-                                          //차트 옵션 정하는 부분(클릭 이벤트, 차트 제목 등..여러가지 기능)  
-                                          options : {
-                                             title : {
-                                                display : true,
-                                                text : '연도별 도서(권)수'
-                                             }
-                                          }
-                                       },
-                                      //학술지 선택  
-                                       'jrnl' : {
-                                         type : 'Bar',
-                                          data : {
-                                            //연도  
-                                             labels : chartLabels,
-                                             //학술지 수 데이터가 들어갈 부분 
-                                             datasets : [ {
-                                                label : "학술지",
-                                                fillColor : "rgba(102,153,255,0.5)",
-                                                strokeColor : "rgba(000,051,153,0.8)",
-                                                highlightFill : "rgba(220,220,220,0.75)",
-                                                highlightStroke : "rgba(220,220,220,1)",
-                                                data : jrnlCnt
-                                             } ],
-                                          },
-                                          //차트 옵션 정하는 부분(클릭 이벤트, 차트 제목 등..여러가지 기능) 
-                                          options : {
-                                             title : {
-                                                display : true,
-                                                text : '연도별 학술지(종)수'
-                                             }
-                                          }
-                                       },
-                                      //참고문헌 선택 
-                                       'refr' : {
-                                          type : 'Bar',
-                                          data : {
-                                            //연도  
-                                             labels : chartLabels,
-                                             //참고문헌 수 데이터가 들어갈 부분 
-                                             datasets : [ {
-                                                label : "yearly statistics of reference",
-                                                fillColor : "rgba(102,153,255,0.5)",
-                                                strokeColor : "rgba(000,051,153,0.8)",
-                                                highlightFill : "rgba(220,220,220,0.75)",
-                                                highlightStroke : "rgba(220,220,220,1)",
-                                                data : refrCnt
-                                             } ]
-                                          },
-                                          //차트 옵션 정하는 부분(클릭 이벤트, 차트 제목 등..여러가지 기능) 
-                                          options : {
-                                             title : {
-                                                display : true,
-                                                text : '연도별 참고문헌수'
-                                             }
-                                          }
-                                       }
-                                    };
-                           
-                       //SelectBox 옵션에 따른 차트업데이트
-                          function updateChart() {
-                             
-                             //현재 차트를 정의
-                             var currentChart;   
-                             
-                             //선택 사항에 따라, 이전 차트는 지움
-                              if (currentChart) {
-                                 currentChart.destroy();
-                               }
-            
-                             //selectBox에서 선택된 value값(논문,도서,학술지,참고문헌)
-                               var determineChart = $("#yearOption").val();
-                             //지정한 dataMap안의 value값 밑에 지정한 chart 옵션들을 사용하겠다는 정의
-                             var params = dataMap[determineChart]
-                             //차트 생성(정의한 차트 옵션들을 적용하여 차트를 생성)
-                             currentChart = new Chart(ctx)[params.type](params.data, {});
-                          }                  
-                          //이전 Chart 생성(논문, 도서, 학술지, 참고문헌 선택에 따른 bar차트 변경)_종료 
-                          **/
                   </script>
                </div>
             </main>

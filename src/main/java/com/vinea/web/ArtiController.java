@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vinea.dto.ArtiVO;
+import com.vinea.dto.RefrVO;
 import com.vinea.service.ArtiService;
 import com.vinea.service.PostPager;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -188,8 +189,9 @@ public class ArtiController {
 	public ModelAndView article_detail(@RequestParam("uid")String uid) throws Exception{
 		
 		ModelAndView mav = new ModelAndView("article/article_detail");
+		ArtiVO artiVO = service.article_detail(uid);
 		
-		mav.addObject("ArtiVO", service.article_detail(uid));
+		mav.addObject("ArtiVO", artiVO);
 		
 		return mav;
 		
