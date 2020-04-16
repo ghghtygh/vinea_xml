@@ -171,7 +171,7 @@ a:hover.tip span {
 						<div class="sb-sidenav-menu-heading" style="color: #fff">MainPage</div>
 							<a style="font-weight: bold; color: #fff" class="nav-link" href="/">
 								<div class="sb-nav-link-icon">
-									<i class="far fa-sticky-note"></i>
+									<i style="color: #fff" class="far fa-sticky-note"></i>
 								</div>
 								논문보기
 							</a>
