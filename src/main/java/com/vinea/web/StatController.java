@@ -155,6 +155,7 @@ public class StatController {
 	}
 	
 	
+	
 	/** 연구분야별 저자수, 논문수, 학술지, 참고문헌수 **/
 	@RequestMapping(value = "/ctgr")
 	public ModelAndView ctgrChart(@RequestParam(defaultValue = "1") int page
