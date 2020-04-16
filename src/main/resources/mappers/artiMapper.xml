@@ -131,7 +131,7 @@
 		<result property="arti_title"			column="ARTI_TITLE"/>
 		<result property="doi"					column="DOI"/>
 		<result property="page"					column="PAGE"/>
-		<result property="orgn_nm"				column="ORGN_NM"/>
+<!-- 		<result property="orgn_nm"				column="ORGN_NM"/> -->
 		<result property="jrnl_title"			column="JRNL_TITLE"/>
 		<result property="del_yn"				column="DEL_YN"/>
 		<result property="regist_date"			column="REGIST_DATE"/>
@@ -156,7 +156,8 @@
 			,PUB_YEAR
 			,BEGIN_PAGE
 			,END_PAGE
-			,PAGE_CNT			
+			,PAGE_CNT
+			,CITE_CNT			
 			FROM (SELECT @ROWNUM:=#{start_index}) R			
 			,(
 				SELECT TB_ARTI.UID
@@ -369,7 +370,7 @@
 	<select id ="selectRefrList" parameterType="java.lang.String" resultMap="refrMap">
 	<!-- 논문 상세페이지에서 조회되는 참고문헌 목록  *path: src/main/resources/mappers/artiMapper.xml *id: selectRefrList -->
 	
-		SELECT DISTINCT
+		SELECT
 			 AUTHOR
 			,ARTI_TITLE
 			,PUB_YEAR
@@ -377,11 +378,13 @@
 			,ISSUE
 			,DOI
 			,PAGE
-			,ORGN_NM
+			,JRNL_TITLE
 		FROM
 			TB_REFR			
 		WHERE
 			UID = #{uid}
+		GROUP BY
+			REFR_UID
 		ORDER BY
 			REFR_ID
 		ASC			

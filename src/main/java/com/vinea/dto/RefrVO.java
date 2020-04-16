@@ -27,7 +27,7 @@ public class RefrVO {
 	//참고(인용) 페이지
 	private String page;
 	//연구기관명
-	private String orgn_nm;
+	//private String orgn_nm;
 	//저널명(학술지명)
 	private String jrnl_title;
 	//(참고문헌) 삭제 여부
@@ -101,13 +101,13 @@ public class RefrVO {
 	}
 	public void setPage(String page) {
 		this.page = page;
-	}
-	public String getOrgn_nm() {
+	}	
+	/*public String getOrgn_nm() {
 		return orgn_nm;
 	}
 	public void setOrgn_nm(String orgn_nm) {
 		this.orgn_nm = orgn_nm;
-	}
+	}*/
 	public String getJrnl_title() {
 		return jrnl_title;
 	}

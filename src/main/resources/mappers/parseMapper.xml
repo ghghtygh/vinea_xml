@@ -344,7 +344,7 @@
 			,ARTI_TITLE
 			,DOI
 			,PAGE
-			,ORGN_NM
+<!-- 			,ORGN_NM -->
 			,JRNL_TITLE
 			,DEL_YN
 			,REGIST_DATE
@@ -364,7 +364,7 @@
 			,#{arti_title}
 			,#{doi}
 			,#{page}
-			,#{orgn_nm}
+<!-- 			,#{orgn_nm} -->
 			,#{jrnl_title}
 			,#{del_yn}
 			,NOW()
@@ -765,7 +765,7 @@
 			,ARTI_TITLE
 			,DOI
 			,PAGE
-			,ORGN_NM
+<!-- 			,ORGN_NM -->
 			,JRNL_TITLE
 			,DEL_YN
 			,REGIST_DATE
@@ -787,7 +787,7 @@
 			,#{item.arti_title}
 			,#{item.doi}
 			,#{item.page}
-			,#{item.orgn_nm}
+<!-- 			,#{item.orgn_nm} -->
 			,#{item.jrnl_title}
 			,#{item.del_yn}
 			,NOW()

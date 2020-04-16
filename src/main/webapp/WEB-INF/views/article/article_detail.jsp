@@ -238,7 +238,9 @@ a:hover.tip span {
 						,(${ArtiVO.page_cnt} pages)
 					</p>
 					<!-- DOI -->
+					<c:if test="${ArtiVO.doi != ''}">
 					<p style="font-size: 13px; font-style: oblique;">DOI: ${ArtiVO.doi}</p>
+					</c:if>
 					<!-- 발행기관 -->
 					<p style="font-size: 13px; font-style: oblique;">
 						발행기관: <c:forEach var="pub" items="${ArtiVO.list_publ}" varStatus="a">
@@ -311,7 +313,12 @@ a:hover.tip span {
 								</div>
 							</h2>
 							<div class="innerBox open" style="display: block;">
+								<c:if test="${empty ArtiVO.abstr}">
+									<p style="text-align: center; font-size:13px">데이터가 없습니다</p>
+								</c:if>
+								<c:if test="${not empty ArtiVO.abstr}">
 								<p style="white-space: pre-line;">${ArtiVO.abstr}</p>
+								</c:if>
 							</div>
 						</div>
 						<hr style="border-bottom: 0.5px dotted #b4b4b4">
@@ -357,33 +364,62 @@ a:hover.tip span {
 							</h2>
 							<!-- 참고문헌 목록 -->
 							<div class="innerBox" style="display: none;">
-								<div>
-									<p style="font-size: 13px; font-style: oblique;">
-										<!-- 참고문헌 데이터가 없는 경우 -->
-										<c:if test="${empty ArtiVO.list_refr}">
-											<p style="text-align: center; font-size: 13px">데이터가 없습니다</p>
-										</c:if>
-										<!-- 참고문헌 나타낼 정보 : 순번. 저자 / 발행연도 / 논문제목 / 권(호) / 소속기관명 / 인용페이지 -->
-										<c:forEach var="refr" items="${ArtiVO.list_refr}" varStatus="rf">
-			                                    ${rf.count}. &nbsp; ${refr.author} / ${refr.pub_year} / ${refr.arti_title} 
-			                                    <c:if test="${refr.issue == '' and refr.volume != ''}">
-			                                       / ${refr.volume} : 
-			                                    </c:if>
-											<c:if test="${refr.issue != '' and refr.volume != ''}">
-			                                       / ${refr.volume} (${refr.issue}) :
-			                                    </c:if>
-											<c:if test="${refr.page == '' and refr.orgn_nm != ''}">
-			                                       ${refr.orgn_nm}
-			                                    </c:if>
-											<c:if test="${refr.page != ''}">
-			                                       ${refr.page} / ${refr.orgn_nm}
-			                                    </c:if>
-											<br>
-										</c:forEach>
-									</p>
+								<div style="margin-top: 20px">
+								<table id="table1" style="text-align: center;" class="table table-hover">
+								<caption></caption>
+								<colgroup>
+									<col width="3px"> <!-- 순번 -->
+									<col width="7px"> <!-- 저자 -->
+									<col width="7px"> <!-- 발행연도 -->
+									<col width="3px"> <!-- 권 -->
+									<col width="3px"> <!-- 호 -->
+									<col width="25px"> <!-- 논문제목 -->
+									<col width="20px"> <!-- DOI -->
+									<col width="7px"> <!-- 페이지 -->
+									<col width="20px">  <!-- 저널명 -->
+								</colgroup>
+									<thead>
+										<tr>
+											<th style="font-size: 13px; border-top: 2px solid #000069; border-right: 1px solid #b4b4b4; border-bottom: 1px solid #b4b4b4; border-left: 2px solid #b4b4b4">순번</th>
+											<th style="font-size: 13px;border-top: 2px solid #000069; border-right: 1px solid #b4b4b4; border-bottom: 1px solid #b4b4b4">저자</th>
+											<th style="font-size: 13px;border-top: 2px solid #000069; border-right: 1px solid #b4b4b4; border-bottom: 1px solid #b4b4b4">발행연도</th>
+											<th style="font-size: 13px;border-top: 2px solid #000069; border-right: 1px solid #b4b4b4; border-bottom: 1px solid #b4b4b4">권</th>
+											<th style="font-size: 13px;border-top: 2px solid #000069; border-right: 1px solid #b4b4b4; border-bottom: 1px solid #b4b4b4">호</th>
+											<th style="font-size: 13px;border-top: 2px solid #000069; border-right: 1px solid #b4b4b4; border-bottom: 1px solid #b4b4b4">논문제목</th>
+											<th style="font-size: 13px;border-top: 2px solid #000069; border-right: 1px solid #b4b4b4; border-bottom: 1px solid #b4b4b4">DOI</th>
+											<th style="font-size: 13px;border-top: 2px solid #000069; border-right: 1px solid #b4b4b4; border-bottom: 1px solid #b4b4b4">페이지</th>
+											<th style="font-size: 13px;border-top: 2px solid #000069; border-bottom: 1px solid #b4b4b4; border-right: 2px solid #b4b4b4">저널명</th>
+										</tr>
+									</thead>
+									<c:choose>
+										<c:when test="${not empty ArtiVO.list_refr}">
+											<c:forEach var="refr" items="${ArtiVO.list_refr}" varStatus="rf">
+												<tbody>
+												<tr>
+													<td style="font-size: 13px; border-right: 1px solid #b4b4b4; border-bottom: 1px solid #b4b4b4; border-left: 2px solid #b4b4b4"><c:out value="${rf.count}"/></td>
+													<td style="font-size: 13px;border-right: 1px solid #b4b4b4; border-bottom: 1px solid #b4b4b4"><c:out value="${refr.author}"/></td>
+													<td style="font-size: 13px;border-right: 1px solid #b4b4b4; border-bottom: 1px solid #b4b4b4"><c:out value="${refr.pub_year}"/></td>
+													<td style="font-size: 13px;border-right: 1px solid #b4b4b4; border-bottom: 1px solid #b4b4b4"><c:out value="${refr.volume}"/></td>
+													<td style="font-size: 13px;border-right: 1px solid #b4b4b4; border-bottom: 1px solid #b4b4b4"><c:out value="${refr.issue}"/></td>
+													<td style="font-size: 13px;border-right: 1px solid #b4b4b4; border-bottom: 1px solid #b4b4b4"><c:out value="${refr.arti_title}"/></td>
+													<td style="font-size: 13px;border-right: 1px solid #b4b4b4; border-bottom: 1px solid #b4b4b4"><c:out value="${refr.doi}"/></td>
+													<td style="font-size: 13px;border-right: 1px solid #b4b4b4; border-bottom: 1px solid #b4b4b4"><c:out value="${refr.page}"/></td>
+													<td style="font-size: 13px; border-bottom: 1px solid #b4b4b4; border-right: 2px solid #b4b4b4"><c:out value="${refr.jrnl_title}"/></td>
+												</tr>
+												</tbody>
+											</c:forEach>
+										</c:when>
+										<c:otherwise>
+											<tbody>
+											<tr>
+												<td style="font-size: 13px; font-stlye: oblique" colspan="10">데이터가 없습니다</td>
+											</tr>
+											</tbody>
+										</c:otherwise>
+									</c:choose>
+								</table>
 								</div>
 							</div>
-							<hr style="border-bottom: 0.5px dotted #b4b4b4">
 						</div>
 					</div>
 				</div>

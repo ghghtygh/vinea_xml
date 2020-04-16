@@ -1,5 +1,7 @@
 package com.vinea.service;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -221,6 +223,7 @@ public class ParseServiceImpl implements ParseService {
 				dao.insertOrgnPrefList(vo.getList_pref());
 				dao.insertPublList(vo.getList_publ());
 				dao.insertRefrList(vo.getList_refr());
+				
 				
 			} catch (Exception e) {
 				// INSERT 에러
