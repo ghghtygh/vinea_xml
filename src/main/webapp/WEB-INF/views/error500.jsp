@@ -16,6 +16,6 @@ response.setStatus(200);
 <title>Insert title here</title>
 </head>
 <body>
-에러500
+<h2>에러500</h2>
 </body>
 </html>
