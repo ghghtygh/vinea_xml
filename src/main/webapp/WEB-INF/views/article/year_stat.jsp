@@ -27,196 +27,193 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
 </head>
 <form>
-   <body class="sb-nav-fixed">
-      <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-         <a class="navbar-brand" href="/">XML Statics</a>
-         <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#">
-            <i class="fas fa-bars"></i>
-         </button>
-         <!-- 홈버튼-->
-         <div style="margin-left: 1600px">
-            <ul class="navbar-nav ml-auto ml-md-0">
-               <li class="nav-item dropdown"><a class="nav-link" id="userDropdown" href="/" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-home"></i></a></li>
-            </ul>
-         </div>
-      </nav>
-      <div id="layoutSidenav">
-         <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-               <div class="sb-sidenav-menu">
-                  <div class="nav">
-                     <div class="sb-sidenav-menu-heading" style="color: #fff">MainPage</div>
-                     <a class="nav-link" href="/">
-                        <div class="sb-nav-link-icon">
-                           <i class="far fa-sticky-note"></i>
-                        </div> 논문보기
-                     </a>
-                     <div class="sb-sidenav-menu-heading" style="color: #fff">Statics</div>
-                     <a style="font-weight: bold; color: #fff" class="nav-link" href="/stat/year">
-                        <div class="sb-nav-link-icon">
-                           <i class="fas fa-chart-bar"></i>
-                        </div> 연도별 현황
-                     </a>
-                        <a class="nav-link" href="/stat/orgn">
-                        <div class="sb-nav-link-icon">
-                           <i class="fa fa-table"></i>
-                        </div>
-                        소속기관별 현황
-                     </a> 
-                     <!-- 추가 -->
-                        <a class="nav-link" href="/stat/orgn2">
-                        <div class="sb-nav-link-icon">
-                           <i class="fa fa-table"></i>
-                        </div>
-                        소속기관별 현황(test)
-                     </a> <a class="nav-link" href="/stat/ctgr">
-                        <div class="sb-nav-link-icon">
-                           <i class="fas fa-chart-area"></i>
-                        </div> 분야별 현황
-                     </a> <a class="nav-link" href="/stat/kwrd">
-                        <div class="sb-nav-link-icon">
-                           <i class="fa fa-cloud"></i>
-                        </div> 키워드 현황
-                     </a>
-                  </div>
-               </div>
-               <div class="sb-sidenav-footer">
-                  <div class="small">Made with by NJH&SMJ</div>
-                  <a href="https://github.com/ghghtygh/vinea_xml.git" style="font-size: 12px" target="_blank"> <i class="fab fa-github"></i> View Source <i class="fab fa-github"></i> => Click
-                  </a>
-               </div>
-            </nav>
-         </div>
-         <div id="layoutSidenav_content">
-            <main>
-               <div class="container-fluid">
-                  <div style="margin-top: 45px"></div>
-                  <!--  연도별 통계: 테이블, 차트 -->
-                  <div class="row">
-                     <div class="col-sm-10">
-                        <p style="font-size: 25px; font-weight: bold; color: #000069">연도별 데이터 통계</p>
-                     </div>
-                     <div class="col-sm-2">
-                        <!-- 수정 SelectBox(연도 선택) -->
-                        <p style="font-size: 15px; font-weight: bold">
-                           논문 발행연도
-                           <select class="form-control" id="yearOption">
-                              <option value="0">전체</option>
-                              <option value="1">2013</option>
-                              <option value="2">2014</option>
-                              <option value="3">2015</option>
-                              <option value="4">2016</option>
-                              <option value="5">2017</option>
-                           </select>
-                        </p>
-                     </div>
-                  </div>
-                  <div class="row">
-                     <div class="col-sm-12">
-                        <table id="table1" style="text-align: center;" class="table table-hover">
-                           <tbody>
-                              <th style="border-top: 2px solid #000069">구분</th>
-                              <c:choose>
-                                 <c:when test="${not empty yearVOList}">
-                                    <c:forEach items="${yearVOList}" var="vo" varStatus="g">
-                                       <!-- 구분: 발행연도 -->
-                                       <th style="border-top: 2px solid #000069">${vo.pub_year}</th>
-                                    </c:forEach>
-                                 </c:when>
-                              </c:choose>
-                              <!-- 논문수, 도서수, 학술지수, 참고문헌수 각각 합계 나타낼 부분 -->
-                              <th style="border-top: 2px solid #000069;"><font color="#000069">합계</font></th>
-                              <tr>
-                                 <!-- 논문수 통계 -->
-                                 <td style="border-top: 1px solid #b4b4b4">
-                                    <strong>논문</strong>
-                                 </td>
-                                 <c:choose>
-                                    <c:when test="${not empty yearVOList}">
-                                       <c:set var="sum" value="0" />
-                                       <c:forEach items="${yearVOList}" var="vo" varStatus="g">
-                                          <td style="border-top: 1px solid #b4b4b4">
-                                             <fmt:formatNumber value="${vo.arti_cnt}" pattern="#,###,###" />
-                                          </td>
-                                          <c:set var="sum" value="${sum+vo.arti_cnt}" />
-                                       </c:forEach>
-                                       <td style="border-top: 1px solid #b4b4b4">
-                                          <font color="#28288C"><strong><fmt:formatNumber value="${sum}" pattern="#,###,###" /></strong></font>
-                                       </td>
-                                    </c:when>
-                                 </c:choose>
-                              </tr>
-                              <tr>
-                                 <!-- 도서수 통계 -->
-                                 <td style="">
-                                    <strong>도서</strong>
-                                 </td>
-                                 <c:choose>
-                                    <c:when test="${not empty yearVOList}">
-                                       <c:set var="sum" value="0" />
-                                       <c:forEach items="${yearVOList}" var="vo" varStatus="g">
-                                          <td style="">
-                                             <fmt:formatNumber value="${vo.book_cnt}" pattern="#,###,###" />
-                                          </td>
-                                          <c:set var="sum" value="${sum+vo.book_cnt}" />
-                                       </c:forEach>
-                                       <td style="">
-                                          <font color="#28288C"><strong><fmt:formatNumber value="${sum}" pattern="#,###,###" /></strong></font>
-                                       </td>
-                                    </c:when>
-                                 </c:choose>
-                              </tr>
-                              <tr>
-                                 <!-- 학술지수 통계 -->
-                                 <td style="">
-                                    <strong>학술지</strong>
-                                 </td>
-                                 <c:choose>
-                                    <c:when test="${not empty yearVOList}">
-                                       <c:set var="sum" value="0" />
-                                       <c:forEach items="${yearVOList}" var="vo" varStatus="g">
-                                          <td style="">
-                                             <fmt:formatNumber value="${vo.jrnl_cnt}" pattern="#,###,###" />
-                                          </td>
-                                          <c:set var="sum" value="${sum+vo.jrnl_cnt}" />
-                                       </c:forEach>
-                                       <td style="">
-                                          <font color="#28288C"><strong><fmt:formatNumber value="${sum}" pattern="#,###,###" /></strong></font>
-                                       </td>
-                                    </c:when>
-                                 </c:choose>
-                              </tr>
-                              <tr>
-                                 <!-- 참고문헌수 통계 -->
-                                 <td style="">
-                                    <strong>참고문헌</strong>
-                                 </td>
-                                 <c:choose>
-                                    <c:when test="${not empty yearVOList}">
-                                       <c:set var="sum" value="0" />
-                                       <c:forEach items="${yearVOList}" var="vo" varStatus="g">
-                                          <td style="">
-                                             <fmt:formatNumber value="${vo.refr_cnt}" pattern="#,###,###" />
-                                          </td>
-                                          <c:set var="sum" value="${sum+vo.refr_cnt}" />
-                                       </c:forEach>
-                                       <td style="">
-                                          <font color="#28288C"><strong><fmt:formatNumber value="${sum}" pattern="#,###,###" /></strong></font>
-                                       </td>
-                                    </c:when>
-                                 </c:choose>
-                              </tr>
-                           </tbody>
-                        </table>
-                     </div>
-                  </div>
-                  <!-- 차트를 그릴 canvas 정의 -->
-                  <div class="row" align="center" style="margin-top: 15px">
-                     <div class="col-sm-12">
-                        <canvas id="yearStats" width="700" height="200"></canvas>
-                     </div>
-                  </div>
-                  <script>
+	<body class="sb-nav-fixed">
+		<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+			<a class="navbar-brand" href="/">XML Statics</a>
+			<button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#">
+				<i class="fas fa-bars"></i>
+			</button>
+			<!-- 홈버튼-->
+			<div style="margin-left: 1600px">
+				<ul class="navbar-nav ml-auto ml-md-0">
+					<li class="nav-item dropdown"><a class="nav-link" id="userDropdown" href="/" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-home"></i></a></li>
+				</ul>
+			</div>
+		</nav>
+		<div id="layoutSidenav">
+			<div id="layoutSidenav_nav">
+				<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+					<div class="sb-sidenav-menu">
+						<div class="nav">
+							<div class="sb-sidenav-menu-heading" style="color: #fff">MainPage</div>
+							<a class="nav-link" href="/">
+								<div class="sb-nav-link-icon">
+									<i class="far fa-sticky-note"></i>
+								</div> 논문보기
+							</a>
+							<div class="sb-sidenav-menu-heading" style="color: #fff">Statics</div>
+							<a style="font-weight: bold; color: #fff" class="nav-link" href="/stat/year">
+								<div class="sb-nav-link-icon">
+									<i class="fas fa-chart-bar"></i>
+								</div> 연도별 현황
+							</a> <a class="nav-link" href="/stat/orgn">
+								<div class="sb-nav-link-icon">
+									<i class="fa fa-table"></i>
+								</div> 소속기관별 현황
+							</a>
+							<!-- 추가 -->
+							<a class="nav-link" href="/stat/orgn2">
+								<div class="sb-nav-link-icon">
+									<i class="fa fa-table"></i>
+								</div> 소속기관별 현황(test)
+							</a> <a class="nav-link" href="/stat/ctgr">
+								<div class="sb-nav-link-icon">
+									<i class="fas fa-chart-area"></i>
+								</div> 분야별 현황
+							</a> <a class="nav-link" href="/stat/kwrd">
+								<div class="sb-nav-link-icon">
+									<i class="fa fa-cloud"></i>
+								</div> 키워드 현황
+							</a>
+						</div>
+					</div>
+					<div class="sb-sidenav-footer">
+						<div class="small">Made with by NJH&SMJ</div>
+						<a href="https://github.com/ghghtygh/vinea_xml.git" style="font-size: 12px" target="_blank"> <i class="fab fa-github"></i> View Source <i class="fab fa-github"></i> => Click
+						</a>
+					</div>
+				</nav>
+			</div>
+			<div id="layoutSidenav_content">
+				<main>
+					<div class="container-fluid">
+						<div style="margin-top: 45px"></div>
+						<!--  연도별 통계: 테이블, 차트 -->
+						<div class="row">
+							<div class="col-sm-10">
+								<p style="font-size: 25px; font-weight: bold; color: #000069">연도별 데이터 통계</p>
+							</div>
+							<div class="col-sm-2">
+								<!-- 수정 SelectBox(연도 선택) -->
+								<p style="font-size: 15px; font-weight: bold">
+									논문 발행연도
+									<select class="form-control" id="yearOption">
+										<option value="0">전체</option>
+										<option value="1">2013</option>
+										<option value="2">2014</option>
+										<option value="3">2015</option>
+										<option value="4">2016</option>
+										<option value="5">2017</option>
+									</select>
+								</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<table id="table1" style="text-align: center;" class="table table-hover">
+									<tbody>
+										<th style="border-top: 2px solid #000069">구분</th>
+										<c:choose>
+											<c:when test="${not empty yearVOList}">
+												<c:forEach items="${yearVOList}" var="vo" varStatus="g">
+													<!-- 구분: 발행연도 -->
+													<th style="border-top: 2px solid #000069">${vo.pub_year}</th>
+												</c:forEach>
+											</c:when>
+										</c:choose>
+										<!-- 논문수, 도서수, 학술지수, 참고문헌수 각각 합계 나타낼 부분 -->
+										<th style="border-top: 2px solid #000069;"><font color="#000069">합계</font></th>
+										<tr>
+											<!-- 논문수 통계 -->
+											<td style="border-top: 1px solid #b4b4b4">
+												<strong>논문</strong>
+											</td>
+											<c:choose>
+												<c:when test="${not empty yearVOList}">
+													<c:set var="sum" value="0" />
+													<c:forEach items="${yearVOList}" var="vo" varStatus="g">
+														<td style="border-top: 1px solid #b4b4b4">
+															<fmt:formatNumber value="${vo.arti_cnt}" pattern="#,###,###" />
+														</td>
+														<c:set var="sum" value="${sum+vo.arti_cnt}" />
+													</c:forEach>
+													<td style="border-top: 1px solid #b4b4b4">
+														<font color="#28288C"><strong><fmt:formatNumber value="${sum}" pattern="#,###,###" /></strong></font>
+													</td>
+												</c:when>
+											</c:choose>
+										</tr>
+										<tr>
+											<!-- 도서수 통계 -->
+											<td style="">
+												<strong>도서</strong>
+											</td>
+											<c:choose>
+												<c:when test="${not empty yearVOList}">
+													<c:set var="sum" value="0" />
+													<c:forEach items="${yearVOList}" var="vo" varStatus="g">
+														<td style="">
+															<fmt:formatNumber value="${vo.book_cnt}" pattern="#,###,###" />
+														</td>
+														<c:set var="sum" value="${sum+vo.book_cnt}" />
+													</c:forEach>
+													<td style="">
+														<font color="#28288C"><strong><fmt:formatNumber value="${sum}" pattern="#,###,###" /></strong></font>
+													</td>
+												</c:when>
+											</c:choose>
+										</tr>
+										<tr>
+											<!-- 학술지수 통계 -->
+											<td style="">
+												<strong>학술지</strong>
+											</td>
+											<c:choose>
+												<c:when test="${not empty yearVOList}">
+													<c:set var="sum" value="0" />
+													<c:forEach items="${yearVOList}" var="vo" varStatus="g">
+														<td style="">
+															<fmt:formatNumber value="${vo.jrnl_cnt}" pattern="#,###,###" />
+														</td>
+														<c:set var="sum" value="${sum+vo.jrnl_cnt}" />
+													</c:forEach>
+													<td style="">
+														<font color="#28288C"><strong><fmt:formatNumber value="${sum}" pattern="#,###,###" /></strong></font>
+													</td>
+												</c:when>
+											</c:choose>
+										</tr>
+										<tr>
+											<!-- 참고문헌수 통계 -->
+											<td style="">
+												<strong>참고문헌</strong>
+											</td>
+											<c:choose>
+												<c:when test="${not empty yearVOList}">
+													<c:set var="sum" value="0" />
+													<c:forEach items="${yearVOList}" var="vo" varStatus="g">
+														<td style="">
+															<fmt:formatNumber value="${vo.refr_cnt}" pattern="#,###,###" />
+														</td>
+														<c:set var="sum" value="${sum+vo.refr_cnt}" />
+													</c:forEach>
+													<td style="">
+														<font color="#28288C"><strong><fmt:formatNumber value="${sum}" pattern="#,###,###" /></strong></font>
+													</td>
+												</c:when>
+											</c:choose>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<!-- 차트를 그릴 canvas 정의 -->
+						<div class="row" align="center" style="margin-top: 15px">
+							<div class="col-sm-12">
+								<canvas id="yearStats" width="700" height="200"></canvas>
+							</div>
+						</div>
+						<script>
                         /** x축에 들어갈 발행연도 데이터  **/
                         var chartLabels = [];
                         /** 논문수 데이터  **/
@@ -624,11 +621,11 @@
                        
                      }
                   </script>
-               </div>
-            </main>
-         </div>
-      </div>
-      <script src="/resources/js/scripts.js"></script>
-   </body>
+					</div>
+				</main>
+			</div>
+		</div>
+		<script src="/resources/js/scripts.js"></script>
+	</body>
 </form>
 </html>

@@ -9,7 +9,6 @@ import com.vinea.dto.OrgnVO;
 import com.vinea.dto.YearVO;
 
 public interface StatService {
-
 	
 	/* 파싱된 결과 통계 부분 */
 	/** 분야별 키워드 빈도 수 (워드클라우드 생성) **/
@@ -27,7 +26,6 @@ public interface StatService {
 	/** 소속기관별 데이터 통계(기관목록) **/
 	public List<OrgnVO> selectOrgList(Map<String, Object> map) throws Exception;
 	
-
 	/** 연구분야별 저자수, 논문수, 학술지, 참고문헌수 **/
 	public int countCtgrStat(Map<String, Object> map);
 	
@@ -37,9 +35,6 @@ public interface StatService {
 	/** 연구분야별 저자수, 논문수, 학술지, 참고문헌수 통계2 **/
 	public List<CtgrStatVO> selectCtgrStatList(Map<String, Object> map);
 	
-
-
-
 	/** 소속기관별 데이터 통계(기관수)_수정 **/
 	public int countOrg2(Map<String, Object> map) throws Exception;
 

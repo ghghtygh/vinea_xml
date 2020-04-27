@@ -98,30 +98,28 @@ public class ArtiController {
 			xmlList = service.selectXmlList(map);
 			
 			
-		}else{
-		// 엘라스틱서치 검색	
-			
-			//String aliasName = "logstash_leftjoin_mysql";
+		}
+		/** ElasticSearch 검색  **/
+		else {
+		
 			String aliasName = "logstash_mysql_test04";
 			
 			RestHighLevelClient client = createConnection();
 			SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-			
-			
+						
 			String[] fields = null;
 			
 			if(search_option.equals("1")){
-				// 제목검색
+				/* 논문제목 검색 */
 				fields = new String[]{"arti_title"};
 			}else if(search_option.equals("2")){
-				// 기관검색
+				/* 소속기관 검색 */
 				fields = new String[]{"orgn_nm","orgn_pref_nm"};
 			}
 			
 			searchSourceBuilder.query(QueryBuilders.multiMatchQuery(search, fields));
 			
-			// 정렬하기
-			
+			/* 정렬 기준 */			
 			if(sort_option.equals("1")){
 				searchSourceBuilder.sort(new FieldSortBuilder("_score").order(SortOrder.DESC));
 			}else if(sort_option.equals("2")){
@@ -176,6 +174,7 @@ public class ArtiController {
 		return mav;
 	}
 	
+	/* ElasticSearch 클라이언트(서버) 연결 */
 	public RestHighLevelClient createConnection() {
 
 		RestClientBuilder builder = RestClient.builder(new HttpHost("127.0.0.1", 9200, "http"));

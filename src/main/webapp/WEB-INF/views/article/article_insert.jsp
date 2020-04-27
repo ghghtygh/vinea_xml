@@ -19,7 +19,7 @@
 <link href="resources/css/_bootswatch.scss" rel="stylesheet">
 <link href="/resources/css/_variables.scss" rel="stylesheet">
 
-<!-- STYLE 지정 -->
+<!-- STYLE 적용 -->
 <style>
  	html, body, #container {
  	  width: 100%;
@@ -77,46 +77,5 @@
 			</div>
 		</div>
 	</div>	
-	<div id="container"></div>
-	<script>
-		/** 키워드별 워드클라우드 테스트 **/
-	    anychart.onDocumentReady(function() {
-	    	  /* 워드클라우드로 나타낼 키워드명, 빈도수를 데이터로 정의 */
-			  var data = [
-			    {"x": "Mandarin chinese", "value": 1090000000, category: "Sino-Tibetan"},
-			    {"x": "English", "value": 983000000, category: "Indo-European"},
-			    {"x": "Hindustani", "value": 544000000, category: "Indo-European"},
-			    {"x": "Spanish", "value": 527000000, category: "Indo-European"},
-			    {"x": "Arabic", "value": 422000000, category: "Afro-Asiatic"},
-			    {"x": "Malay", "value": 281000000, category: "Austronesian"},
-			    {"x": "Russian", "value": 267000000, category: "Indo-European"},
-			    {"x": "Bengali", "value": 261000000, category: "Indo-European"},
-			    {"x": "Portuguese", "value": 229000000, category: "Indo-European"},
-			    {"x": "French", "value": 229000000, category: "Indo-European"},
-			    {"x": "Hausa", "value": 150000000, category: "Afro-Asiatic"},
-			    {"x": "Punjabi", "value": 148000000, category: "Indo-European"},
-			    {"x": "Japanese", "value": 129000000, category: "Japonic"},
-			    {"x": "German", "value": 129000000, category: "Indo-European"},
-			    {"x": "Persian", "value": 121000000, category: "Indo-European"}
-			  ];
-	
-	    	  /* anychart의 tagCloud 메소드로 워드클라우드를 그릴수 있도록 데이터 정의 */
-			  var chart = anychart.tagCloud(data);
-			 
-	    	  /* 워드클라우드의 옵션 정의 */
-			  chart.title('15 most spoken languages')
-			  chart.angles([0])
-			  chart.colorRange(true);
-			  chart.colorRange().length('80%');
-	
-			  chart.container("container");
-			  
-			  var formatter = "{%value}{scale:(1)(1000)(1000)(1000)|( dozen)( thousand)( million)( billion)}";
-			  var tooltip = chart.tooltip();
-			  tooltip.format(formatter);
-			  			  
-			  chart.draw();
-			});	
-	</script>
 </body>
 </html>

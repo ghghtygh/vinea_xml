@@ -27,7 +27,6 @@ import com.vinea.dto.XmlFileVO;
 @Repository
 public class ParseDAO {
 
-
 	@Inject
 	private SqlSession sqlSession;
 
@@ -104,13 +103,14 @@ public class ParseDAO {
 		
 		if(list.isEmpty())
 			return;
-		sqlSession.insert(Namespace+".insertArtiList", list);
-		
+		sqlSession.insert(Namespace+".insertArtiList", list);		
 	}
+	
 	/** 카테고리 정보 DB 저장 **/
 	public void insertCtgryList(List<CtgryVO> list){
 		sqlSession.insert(Namespace+".insertCtgryList", list);
 	}
+	
 	/** 저자 정보리스트 DB 저장 **/
 	public void insertAuthList(List<AuthVO> list){
 		if(list.isEmpty())
@@ -159,6 +159,7 @@ public class ParseDAO {
 			return;
 		sqlSession.insert(Namespace+".insertOrgnList", list);
 	}
+	
 	/** 저자 세부 기관명 정보리스트 DB 저장 **/
 	public void insertOrgnPrefList(List<OrgnPrefVO> list){
 		if(list.isEmpty())

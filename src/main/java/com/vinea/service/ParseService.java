@@ -7,10 +7,8 @@ import com.vinea.dto.ArtiVO;
 import com.vinea.dto.XmlFileVO;
 
 public interface ParseService {
-
 	
-	/* 파싱된 정보 DB 저장 */
-	
+	/* 파싱된 정보 DB 저장 */	
 	/** 논문 정보 VO 객체 DB 에 저장**/
 	public void createVO(ArtiVO vo) throws Exception;
 	
@@ -31,7 +29,5 @@ public interface ParseService {
 	public List<XmlFileVO> selectXmlFileCount() throws Exception;
 
 	public List<XmlFileVO> selectParseYN() throws Exception;
-
-	
 	
 }

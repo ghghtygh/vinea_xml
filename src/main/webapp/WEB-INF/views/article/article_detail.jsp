@@ -22,32 +22,6 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
-<style>
-/** tootip 스타일 적용 **/
-a.tip {
-	position: relative;
-}
-a.tip span {
-	display: none;
-	position: absolute;
-	top: 20px;
-	left: -10px;
-	width: 125px;
-	padding: 5px;
-	z-index: 100;
-	background: #464646;
-	text-align: center; 
-	color : #fff;
-	font-style: oblique;
-	-moz-border-radius: 7px; 
-	-webkit-border-radius: 5px;
-}
-
-/** 마우스를 올려놓았을 때, tooltip이 나타남 **/
-a:hover.tip span {
-	display: block;
-}
-</style>
 <script>
 	/** 초록, 키워드, 참고문헌  요약보기, 상세보기 기능 **/	
 	$(document).ready(function() {
@@ -91,6 +65,7 @@ a:hover.tip span {
 		
 	});
 	
+	/** 초록, 키워드, 참고문헌 요약보기 및 전체 보기 **/
 	function sectionToggle() {
 		
 		var target = $(this).parents(".box").find(".innerBox");
@@ -113,7 +88,6 @@ a:hover.tip span {
 							"/resources/image/up.png"))
 					.attr("alt", "close");
 		}
-
 	}
 	
 	/** 상세보기 페이지에서 학술지명을 클릭하였을 때, 학술지명에 해당하는 논문 목록페이지로 이동 **/
@@ -143,6 +117,34 @@ a:hover.tip span {
 		formObj.submit();
 	}
 </script>
+
+<!-- STYLE 적용 -->
+<style>
+/** tootip 스타일 적용 **/
+a.tip {
+	position: relative;
+}
+a.tip span {
+	display: none;
+	position: absolute;
+	top: 20px;
+	left: -10px;
+	width: 125px;
+	padding: 5px;
+	z-index: 100;
+	background: #464646;
+	text-align: center; 
+	color : #fff;
+	font-style: oblique;
+	-moz-border-radius: 7px; 
+	-webkit-border-radius: 5px;
+}
+
+/** 마우스를 올려놓았을 때, tooltip이 나타남 **/
+a:hover.tip span {
+	display: block;
+}
+</style>
 </head>
 <form id="frm">
 <body class="sb-nav-fixed">
@@ -158,7 +160,9 @@ a:hover.tip span {
 			<div style="margin-left: 1600px">
 				<ul class="navbar-nav ml-auto ml-md-0">
 				<li class="nav-item dropdown">
-					<a class="nav-link" id="userDropdown" href="/" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-home"></i></a>
+					<a class="nav-link" id="userDropdown" href="/" role="button" aria-haspopup="true" aria-expanded="false">
+						<i class="fa fa-home"></i>
+					</a>
 				</li>
 				</ul>
 			</div>
@@ -181,24 +185,27 @@ a:hover.tip span {
 									<i class="fas fa-chart-bar"></i>
 								</div>
 								연도별 현황
-							</a> <a class="nav-link" href="/stat/orgn">
-								<div class="sb-nav-link-icon">
-									<i class="fa fa-table"></i>
-								</div> 소속기관별 현황
-							</a>
-							
-							<!-- 추가 -->
-							<a class="nav-link" href="/stat/orgn2">
-								<div class="sb-nav-link-icon">
-									<i class="fa fa-table"></i>
-								</div> 소속기관별 현황(test)
 							</a> 
-							
+							<a class="nav-link" href="/stat/orgn">
+								<div class="sb-nav-link-icon">
+									<i class="fa fa-table"></i>
+								</div> 
+								소속기관별 현황
+							</a>							
+							<!-- 저자 소속기관 검색_테스트용 -->
+							<a class="nav-link" href="/stat/orgn2">							
+								<div class="sb-nav-link-icon">
+									<i class="fa fa-table"></i>
+								</div> 
+								소속기관별 현황(test)
+							</a> 						
 							<a class="nav-link" href="/stat/ctgr">
 								<div class="sb-nav-link-icon">
 									<i class="fas fa-chart-area"></i>
-								</div> 분야별 현황
-							</a> <a class="nav-link" href="/stat/kwrd">
+								</div> 
+								분야별 현황
+							</a> 
+							<a class="nav-link" href="/stat/kwrd">
 								<div class="sb-nav-link-icon">
 									<i class="fa fa-cloud"></i>
 								</div>
@@ -210,9 +217,9 @@ a:hover.tip span {
 					<div class="small">Made with by NJH&SMJ</div>
 						<a href="https://github.com/ghghtygh/vinea_xml.git" style="font-size: 12px" target="_blank"> 
 							<i class="fab fa-github"></i>
-							View Source
+								View Source
 							<i class="fab fa-github"></i>
-							=> Click
+								=> Click
 						</a>
 				</div>
 			</nav>
@@ -226,37 +233,42 @@ a:hover.tip span {
 					<hr style="border-bottom: 0.5px dotted #b4b4b4">
 					<!-- 학술지 명 -->
 					<p style="font-size: 13px; font-style: oblique;">
-						<a href="#" class="tip" onClick="search_jrnl('${ArtiVO.jrnl_title}')"> ${ArtiVO.jrnl_title}
-							<span>해당 학술지 논문<br>Click</span>
+						<a href="#" class="tip" onClick="search_jrnl('${ArtiVO.jrnl_title}')"> 
+							${ArtiVO.jrnl_title}
+						<span>해당 학술지 논문<br>Click</span>
 						</a>
 					</p>
 					<!-- 발행정보: 발행연도, 권(호), 시작~종료페이지, 페이지수 -->
 					<p style="font-size: 13px; font-style: oblique;">
 						${ArtiVO.pub_year},vol.${ArtiVO.volume}
-						<c:if test="${ArtiVO.issue !=''}">, no.${ArtiVO.issue}</c:if>
-						<c:if test="${ArtiVO.begin_page != '' && ArtiVO.end_page != ''}">, pp.${ArtiVO.begin_page}~${ArtiVO.end_page}</c:if>
+					<c:if test="${ArtiVO.issue !=''}">
+						, no.${ArtiVO.issue}
+					</c:if>
+					<c:if test="${ArtiVO.begin_page != '' && ArtiVO.end_page != ''}">
+						, pp.${ArtiVO.begin_page}~${ArtiVO.end_page}
+					</c:if>
 						,(${ArtiVO.page_cnt} pages)
 					</p>
 					<!-- DOI -->
 					<c:if test="${ArtiVO.doi != ''}">
-					<p style="font-size: 13px; font-style: oblique;">DOI: ${ArtiVO.doi}</p>
+						<p style="font-size: 13px; font-style: oblique;">DOI: ${ArtiVO.doi}</p>
 					</c:if>
 					<!-- 발행기관 -->
 					<p style="font-size: 13px; font-style: oblique;">
-						발행기관: <c:forEach var="pub" items="${ArtiVO.list_publ}" varStatus="a">
-									 ${pub.publ_nm}
-								</c:forEach>
+					발행기관: 
+						<c:forEach var="pub" items="${ArtiVO.list_publ}" varStatus="a">
+							${pub.publ_nm}
+						</c:forEach>
 					</p>
 					<!-- 연구분야 -->
 					<p style="font-size: 13px; font-style: oblique;">
-						연구분야:
-						
+						연구분야:						
 						<c:forEach var="ctgry" items="${ArtiVO.list_ctgry}" varStatus="a">
 							<c:choose>
 								<c:when test="${a.count==1}">
 									<!-- 연구분야: 주제목 -->	
 									<a href="/stat/ctgr" class="tip"> ${ctgry.ctgry_nm}
-											<span>연구분야 동향<br>Click</span>
+										<span>연구분야 동향<br>Click</span>
 									</a>
 									<!-- 연구분야: 소제목 -->
 									<c:if test="${not empty ctgry.ctgry_sub_title}">
@@ -278,27 +290,37 @@ a:hover.tip span {
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
-					</p>
-					
+					</p>					
 					<hr style="border-bottom: 0.5px dotted #b4b4b4">
 					<!-- 저자정보 -->
 					<p style="font-size: 13px; font-style: oblique;">
 					<c:forEach var="auth" items="${ArtiVO.list_auth}" varStatus="a">
-						<a href="#" class="tip" onClick="search_auth('${auth.auth_full_nm}')"> ${auth.auth_full_nm}
+						<a href="#" class="tip" onClick="search_auth('${auth.auth_full_nm}')"> 
+							${auth.auth_full_nm}
 							<!-- 1번째 오는 저자가 제1(주 저자) 임을 표시함 -->
 							<!-- 교신 여부를 파악하여 교신 저자인경우는 교신이라 표시해줌 -->
-							<c:if test="${auth.corres_yn == 'Y' and a.count == 1}">(주저자, 교신)</c:if> 
-							<c:if test="${auth.corres_yn != 'Y' and a.count == 1}">(주저자)</c:if> 
-							<c:if test="${auth.corres_yn == 'Y' and a.count > 1}">(교신)</c:if> 
-							<c:if test="${auth.corres_yn != 'Y' and a.count > 1}"></c:if>
+							<c:if test="${auth.corres_yn == 'Y' and a.count == 1}">
+								(주저자, 교신)
+							</c:if> 
+							<c:if test="${auth.corres_yn != 'Y' and a.count == 1}">
+								(주저자)
+							</c:if> 
+							<c:if test="${auth.corres_yn == 'Y' and a.count > 1}">
+								(교신)
+							</c:if> 
+							<c:if test="${auth.corres_yn != 'Y' and a.count > 1}">
+							</c:if>
 							<span>해당 저자 논문<br>Click</span>
-						</a>&nbsp;
+						</a>
+						&nbsp;
                      </c:forEach>
 					 <br>
 					 <!-- 소속기관 정보 -->
 					 <c:forEach var="orgn" items="${ArtiVO.list_orgn}" varStatus="o">
                          ${orgn.orgn_nm}
-                         <c:if test="${(o.count != fn:length(ArtiVO.list_orgn))and fn:length(ArtiVO.list_orgn)!=0}">/</c:if>
+                         <c:if test="${(o.count != fn:length(ArtiVO.list_orgn))and fn:length(ArtiVO.list_orgn)!=0}">
+                         	/
+                         </c:if>
 					 </c:forEach>
 					</p>
 					<hr style="border-bottom: 0.5px dotted #b4b4b4">
@@ -314,10 +336,14 @@ a:hover.tip span {
 							</h2>
 							<div class="innerBox open" style="display: block;">
 								<c:if test="${empty ArtiVO.abstr}">
-									<p style="text-align: center; font-size:13px">데이터가 없습니다</p>
+									<p style="text-align: center; font-size:13px">
+										데이터가 없습니다
+									</p>
 								</c:if>
 								<c:if test="${not empty ArtiVO.abstr}">
-								<p style="white-space: pre-line;">${ArtiVO.abstr}</p>
+								<p style="white-space: pre-line;">
+									${ArtiVO.abstr}
+								</p>
 								</c:if>
 							</div>
 						</div>

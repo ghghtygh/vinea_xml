@@ -16,8 +16,6 @@ import com.vinea.dto.YearVO;
 @Service
 public class StatServiceImpl implements StatService {
 
-	
-	
 	@Inject
 	private StatDAO dao;
 	
@@ -71,10 +69,6 @@ public class StatServiceImpl implements StatService {
 	public List<CtgrStatVO> selectCtgrStatList(Map<String, Object> map) {
 		return dao.selectCtgrStatList(map);
 	}
-	
-	
-	
-
 
 	/** 소속기관별 데이터 통계(기관수)_수정 **/
 	@Override

@@ -31,14 +31,11 @@
 		<property name="password" value="qwe123" />
 	</bean>
 
-
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:/mybatis-config.xml" />
 		<property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml" />
-
 	</bean>
-
 
 	<!-- mybatis -->
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate"
@@ -51,6 +48,5 @@
 	<context:component-scan base-package="com.vinea.model" />
 	<context:component-scan base-package="com.vinea.dao" />
 	<context:component-scan base-package="com.vinea.service" />
-
 
 </beans>

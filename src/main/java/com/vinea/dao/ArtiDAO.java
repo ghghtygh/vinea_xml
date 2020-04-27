@@ -21,7 +21,6 @@ import com.vinea.dto.RefrVO;
 
 @Repository
 public class ArtiDAO {
-
 	
 	@Inject
 	private SqlSession sqlSession;
@@ -87,7 +86,5 @@ public class ArtiDAO {
 	public List<PublVO> selectPublList(String uid){
 		
 		return sqlSession.selectList(Namespace +".selectPublList", uid);
-	}
-	
-	
+	}	
 }

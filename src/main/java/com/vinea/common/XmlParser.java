@@ -30,7 +30,6 @@ import com.vinea.dto.OrgnVO;
 import com.vinea.dto.PublVO;
 import com.vinea.dto.RefrVO;
 
-
 public class XmlParser {
 
 	Logger logger = LoggerFactory.getLogger(XmlParser.class);
@@ -318,11 +317,6 @@ public class XmlParser {
 
 			Node node = (Node) nodelist5.item(i);
 
-			
-
-			/* TB_ARTI의 논문 UID를 가져와 DB 저장 */
-			
-
 			String dtype_names = "";
 
 			NodeList doctypeList = (NodeList) xpath.evaluate("./doctype", node, XPathConstants.NODESET);
@@ -331,6 +325,7 @@ public class XmlParser {
 				
 				DtypeVO dtypeVO = new DtypeVO();
 				
+				/* TB_ARTI의 논문 UID를 가져와 DB 저장 */
 				dtypeVO.setUid(vo.getUid());
 				
 				Node doctypeNode = doctypeList.item(i1);
@@ -342,10 +337,8 @@ public class XmlParser {
 				list_dtype.add(dtypeVO);
 
 			}
-
 			
-		}
-		
+		}		
 
 		vo.setList_dtype(list_dtype);
 		/** TB_DTYPE(문서유형) 테이블에 저장할 내용 파싱  종료 **/
@@ -426,8 +419,7 @@ public class XmlParser {
 			kwrdVO.setKw_plus_yn("Y");
 			
 			list_kwrd.add(kwrdVO);
-		}
-		
+		}	
 		
 		vo.setList_kwrd(list_kwrd);
 		/** TB_KWRD(논문 키워드) 테이블에 저장할 내용 파싱  종료 **/
@@ -497,7 +489,6 @@ public class XmlParser {
 
 			/* 생략 */
 			booknoteVO.setNote_nm(node.getTextContent());
-
 			
 			list_booknote.add(booknoteVO);
 
@@ -537,7 +528,6 @@ public class XmlParser {
 			/* 기관명 풀네임 */
 			orgnVO.setOrgn_full_nm((String) xpath.evaluate("./full_address", node, XPathConstants.STRING));
 			
-
 			NodeList prefList = (NodeList) xpath.evaluate("./organizations/organization[@pref='Y']", node,
 					XPathConstants.NODESET);
 
@@ -615,7 +605,6 @@ public class XmlParser {
 
 		vo.setList_publ(list_publ);
 
-
 		return vo;
 	}
 	/** TB_PUBL(출판사 정보) 테이블에 저장할 내용 파싱  종료 **/
@@ -639,6 +628,7 @@ public class XmlParser {
 	public List<ArtiVO> returnList() {
 
 		return listvo;
+		
 	}
 
 }

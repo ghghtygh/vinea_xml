@@ -41,8 +41,7 @@ public class ParseController{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("file_name",file_name);
 		map.put("file_cnt", file_cnt);
-		
-		
+				
 		service.parseXmlList(map);
 		
 		return true;
@@ -62,6 +61,5 @@ public class ParseController{
 		
 		return "xml/xml_file";
 	}
-	
-	
+		
 }

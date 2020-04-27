@@ -75,12 +75,11 @@
 			formObj.submit();
 			
 		});
+		
 		/** 검색하기 **/
 		$("#btn_search").on("click", function(e){
 			e.preventDefault();
-			
-			
-			
+		
 			/** 선택한 검색 옵션 **/
 			var search = $("#input_search").val();
 			
@@ -131,8 +130,7 @@
 			input_chk();
 	
 			$("#insertXML").modal({remote:"/parsing"});
-			
-			
+						
 		});
 	
 		/** 파싱모달 - [저장] 버튼 : insertXML - 파싱 후, xml(논문데이터) DB 저장  **/
@@ -141,7 +139,6 @@
 			e.preventDefault();
 	
 			var filePath = $("#filePath").val();
-	
 	
 			/** 파일 경로가 일치하지 않거나, 파일이 없을 때(validation 처리) **/
 			if (!m_chk) {
@@ -255,14 +252,11 @@
 		m_chk = false;
 		
 	}
-	
-	
+		
 	function clear_input() {
 		
 		$("#div_parse").html("");
-		
-		
-		
+				
 	}
 	
 	/** input 태그에서 엔터 눌렀을 때 새로고침 방지 및 제출하기 **/
@@ -292,6 +286,8 @@
 		console.log("es : "+$("input[name='es']").val());
 	}
 </script>
+
+<!-- STYLE 적용 -->
 <style>
 /** 모달 창 백그라운드를 흐리게 함 **/
 .modal-backdrop {
@@ -322,9 +318,6 @@ input:read-only {
 .list-unstyled.show.collapsing {
 	visibility: hidden
 }
-
-
-
 </style>
 </head>
 <body class="sb-nav-fixed">
@@ -336,7 +329,11 @@ input:read-only {
 		<!-- 홈버튼-->
 		<div style="margin-left: 1600px">
 			<ul class="navbar-nav ml-auto ml-md-0">
-				<li class="nav-item dropdown"><a class="nav-link" id="userDropdown" href="/" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-home"></i></a></li>
+				<li class="nav-item dropdown">
+					<a class="nav-link" id="userDropdown" href="/" role="button" aria-haspopup="true" aria-expanded="false">
+						<i class="fa fa-home"></i>
+					</a>
+				</li>
 			</ul>
 		</div>
 	</nav>
@@ -346,42 +343,54 @@ input:read-only {
 				<div class="sb-sidenav-menu">
 					<div class="nav">
 						<div class="sb-sidenav-menu-heading" style="color: #fff">MainPage</div>
-						<a style="font-weight: bold; color: #fff" class="nav-link" href="/article">
-							<div class="sb-nav-link-icon">
-								<i class="far fa-sticky-note"></i>
-							</div> 논문보기
-						</a>
+							<a style="font-weight: bold; color: #fff" class="nav-link" href="/article">
+								<div class="sb-nav-link-icon">
+									<i class="far fa-sticky-note"></i>
+								</div> 
+								논문보기
+							</a>
 						<div class="sb-sidenav-menu-heading" style="color: #fff">Statics</div>
-						<a class="nav-link" href="/stat/year">
-							<div class="sb-nav-link-icon">
-								<i class="fas fa-chart-bar"></i>
-							</div> 연도별 현황
-						</a>
-						<a class="nav-link" href="/stat/orgn">
-							<div class="sb-nav-link-icon">
-								<i class="fa fa-table"></i>
-							</div> 소속기관별 현황
-						</a>
-						<!-- 추가 -->
-						<a class="nav-link" href="/stat/orgn2">
-							<div class="sb-nav-link-icon">
-								<i class="fa fa-table"></i>
-							</div> 소속기관별 현황(test)
-						</a> <a class="nav-link" href="/stat/ctgr">
-							<div class="sb-nav-link-icon">
-								<i class="fas fa-chart-area"></i>
-							</div> 분야별 현황
-						</a> <a class="nav-link" href="/stat/kwrd">
-							<div class="sb-nav-link-icon">
-								<i class="fa fa-cloud"></i>
-							</div> 키워드 현황
-						</a>
+							<a class="nav-link" href="/stat/year">
+								<div class="sb-nav-link-icon">
+									<i class="fas fa-chart-bar"></i>
+								</div> 
+								연도별 현황
+							</a>
+							<a class="nav-link" href="/stat/orgn">
+								<div class="sb-nav-link-icon">
+									<i class="fa fa-table"></i>
+								</div> 
+								소속기관별 현황
+							</a>
+							<!-- 저자 소속기관 검색_테스트용 -->
+							<a class="nav-link" href="/stat/orgn2">
+								<div class="sb-nav-link-icon">
+									<i class="fa fa-table"></i>
+								</div> 
+								소속기관별 현황(test)
+							</a> 
+							<a class="nav-link" href="/stat/ctgr">
+								<div class="sb-nav-link-icon">
+									<i class="fas fa-chart-area"></i>
+								</div> 
+								분야별 현황
+							</a> 
+							<a class="nav-link" href="/stat/kwrd">
+								<div class="sb-nav-link-icon">
+									<i class="fa fa-cloud"></i>
+								</div> 
+								키워드 현황
+							</a>
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
 					<div class="small">Made with by NJH&SMJ</div>
-					<a href="https://github.com/ghghtygh/vinea_xml.git" style="font-size: 12px" target="_blank"> <i class="fab fa-github"></i> View Source <i class="fab fa-github"></i> => Click
-					</a>
+						<a href="https://github.com/ghghtygh/vinea_xml.git" style="font-size: 12px" target="_blank"> 
+							<i class="fab fa-github"></i> 
+								View Source 
+							<i class="fab fa-github"></i> 
+								=> Click
+						</a>
 				</div>
 			</nav>
 		</div>
@@ -419,7 +428,10 @@ input:read-only {
 									</c:choose>
 								</div>
 								<div style="margin-bottom: 20px">
-									&nbsp;총 &nbsp;<strong><fmt:formatNumber value="${cnt}" pattern="#,###,###" /></strong>&nbsp;건&nbsp;&nbsp; <a href="/">전체보기</a>
+									&nbsp;총 &nbsp;
+									<strong><fmt:formatNumber value="${cnt}" pattern="#,###,###" /></strong>
+										&nbsp;건&nbsp;&nbsp; 
+									<a href="/">전체보기</a>
 									<select class="form-control" style="float: right; width: 150px;" id="cnt_option" name="cnt_option">
 										<option value="10">10건</option>
 										<option value="20">20건</option>
@@ -448,9 +460,7 @@ input:read-only {
 												<div class="input-group-append">
 													<button class="btn btn-primary" type="button" id="btn_search">검색</button>
 												</div>
-
-											</div>
-											
+											</div>											
 										</div>
 										<div class="form-group col-sm-5">
 											<div class="form-group">
@@ -538,13 +548,17 @@ input:read-only {
 													<blockquote class="" style="font-size: 130%;">
 														<!-- 논문 제목 클릭시, 논문상세페이지로 이동 -->
 														<a class="mb-0" style="color: black;" href='article/article_detail?uid=${ArtiVO.uid}'>${ArtiVO.arti_title}</a>
-														<p style="font-size:13px; color: #000069; font-weight: bold; font-style: oblique">(참고문헌수: ${ArtiVO.cite_cnt}건)</p>
+														<p style="font-size:13px; color: #000069; font-weight: bold; font-style: oblique">
+															(참고문헌수: ${ArtiVO.cite_cnt}건)
+														</p>
 														<footer style="font-size: 70%; vertical-align: bottom;">
 															<div align="left" class="text-secondary">
 																&nbsp;
 																<!-- 저자정보(주저자 외에 '외 ~명' 으로 표시) -->
 																<c:forEach var="auth" items="${ArtiVO.list_auth}" varStatus="a">
-																	<c:if test="${a.count==1 }">${auth.auth_full_nm}</c:if>
+																	<c:if test="${a.count==1 }">
+																		${auth.auth_full_nm}
+																	</c:if>
 																</c:forEach>
 																<c:if test="${fn:length(ArtiVO.list_auth)>1}">
 																	<c:out value="  외  ${fn:length(ArtiVO.list_auth)-1}명 |"></c:out>
@@ -554,15 +568,15 @@ input:read-only {
 																<!-- 호번호가 공백이 아닐때 권(호)로 표시 -->
 																<c:if test="${ArtiVO.issue != '' and AriVO.volume != ''}">
 																| Vol.${ArtiVO.volume}(No.${ArtiVO.issue}) |
-															</c:if>
+																</c:if>
 																<!-- 호번호가 공백일 때 권으로 표시 -->
 																<c:if test="${ArtiVO.issue == '' and ArtiVO.volume != ''}">
 																 | Vol.${ArtiVO.volume} |
-															</c:if>
+																</c:if>
 																<!-- 시작페이지와 끝페이지가 공백이 아닐때 '시작페이지~끝페이지'로 표시 -->
 																<c:if test="${ArtiVO.begin_page != '' and ArtiVO.end_page != '' and ArtiVO.issue == '' and ArtiVO.volume == ''}">
 																| pp.${ArtiVO.begin_page}~${ArtiVO.end_page} |
-															</c:if>
+																</c:if>
 																<c:if test="${ArtiVO.begin_page == '' and ArtiVO.end_page == ''}">
 																</c:if>
 																<!-- 년-월-일로 표시되있는 pub_date 데이터를 '-'로 구분하여 데이터 표기  -->
@@ -659,4 +673,3 @@ input:read-only {
 	<script src="/resources/js/scripts.js"></script>
 </body>
 </html>
-

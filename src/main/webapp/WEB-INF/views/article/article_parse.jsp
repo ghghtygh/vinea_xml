@@ -7,14 +7,13 @@
 <head>
 <meta charset="UTF-8">
 <title>파싱 페이지</title>
-<!-- STYLE 지정 -->
+<!-- STYLE 적용 -->
 <style>
 td{
 	text-overflow:ellipsis;
 	overflow:hidden;
 	white-space:nowrap;
 }
-
 </style>
 </head>
 <script>
@@ -95,8 +94,7 @@ td{
 			parsing_check();
 			
 		});
-		
-		
+			
 		/* [파싱] 동작 */
 		$("button[name='btn_parse']").click(function(e){
 			
@@ -107,7 +105,6 @@ td{
 				
 	});
 	/** document 로딩 종료 **/
-	
 	
 	/** 파싱 시작 **/
 	function parsing_do(fileName){

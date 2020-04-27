@@ -27,7 +27,6 @@ import com.vinea.dto.YearVO;
 import com.vinea.service.PostPager;
 import com.vinea.service.StatService;
 
-
 @Controller
 @RequestMapping("/stat")
 public class StatController {
@@ -155,7 +154,6 @@ public class StatController {
 	}
 	
 	
-	
 	/** 연구분야별 저자수, 논문수, 학술지, 참고문헌수 **/
 	@RequestMapping(value = "/ctgr")
 	public ModelAndView ctgrChart(@RequestParam(defaultValue = "1") int page
@@ -179,8 +177,7 @@ public class StatController {
 		
 		map.put("start_index", pager.getStartIndex());
 		map.put("page_size", pageSize);
-		
-		
+				
 		List<CtgrStatVO> ctgrList = service.selectCtgrStatList(map);
 		
 		mav.addObject("ctgrList", ctgrList);
@@ -193,7 +190,6 @@ public class StatController {
 		
 		return mav;
 	}
-	
 	
 	/** 연구분야별 논문, 저자, 학술지, 참고문헌수 통계에 따른 현황->차트 **/
 	@RequestMapping(value = "/subjcnt", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
