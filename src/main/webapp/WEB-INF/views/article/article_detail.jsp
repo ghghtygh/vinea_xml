@@ -117,6 +117,7 @@
 		formObj.submit();
 	}
 	
+	/** 상세보기 페이지에서 참고문헌 목록에서 저자 클릭했을 때, 그 저자에 해당하는 논문 목록페이지로 이동 **/
 	function search_refr(author){
 		
 		$("input[name='search']").val(author);
@@ -129,7 +130,7 @@
 		formObj.submit();
 	}
 	
-	
+	/** 상세보기 페이지에서 참고문헌 목록에서 저널명 클릭했을 때, 그 저널명에 해당하는 논문 목록페이지로 이동 **/
 	function search_rfJrnl(jrnl){
 		
 		$("input[name='search']").val(jrnl);
