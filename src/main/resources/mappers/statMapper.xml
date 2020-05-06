@@ -112,8 +112,8 @@
 			ARTI_CNT 
 		DESC
 		LIMIT
-			 #{start_index}..
-			,#{page_siz
+			 #{start_index}
+			,#{page_size}
 	</select>
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->	
 <!-- 저자 소속기관 검색_연구중.. -->	
@@ -162,25 +162,25 @@
 		<!-- 테스트 쿼리 02 -->	
 		SELECT 
 			 @ROWNUM:=@ROWNUM+1 AS NUM
-			,A.MASTER_NM 
-			,B.ARTI_CNT
-			,B.CITE_CNT
+			,B.MASTER_NM 
+			,A.ARTI_CNT
+			,A.CITE_CNT
 		FROM
 		(
 			SELECT
 				@ROWNUM:=#{start_index}
 		) R
-		,TEST_ORGN_NM AS A
-		INNER JOIN 
-			ORGN_STAT AS B
+		,ORGN_STAT AS A
+		LEFT JOIN 
+			TEST_ORGN_NM AS B
 		ON 
-			A.ORGN_NM = B.ORGN_NM
+			B.ORGN_NM = A.ORGN_NM
 		<!-- 소속기관명 검색하기 -->
 		<include refid="searchOrg2"></include>
 		GROUP BY
-			A.MASTER_NM
+			B.MASTER_NM
 		ORDER BY
-			B.ARTI_CNT
+			A.ARTI_CNT
 		DESC
 		LIMIT
 			 #{start_index}  
@@ -206,7 +206,7 @@
 			-->
 			<!-- 테스트 쿼리 02 -->
 				WHERE
-					A.MASTER_NM IN 
+					MASTER_NM IN 
 					(
 						SELECT
 							MASTER_NM

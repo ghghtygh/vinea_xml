@@ -116,6 +116,31 @@
 		formObj.attr("method", "get");
 		formObj.submit();
 	}
+	
+	function search_refr(author){
+		
+		$("input[name='search']").val(author);
+		$("input[name='search_option']").val(8);
+		
+		var formObj = $("#frm");
+		
+		formObj.attr("action", "/article");
+		formObj.attr("method", "get");
+		formObj.submit();
+	}
+	
+	
+	function search_rfJrnl(jrnl){
+		
+		$("input[name='search']").val(jrnl);
+		$("input[name='search_option']").val(9);
+		
+		var formObj = $("#frm");
+		
+		formObj.attr("action", "/article");
+		formObj.attr("method", "get");
+		formObj.submit();
+	}
 </script>
 
 <!-- STYLE 적용 -->
@@ -423,14 +448,22 @@ a:hover.tip span {
 												<tbody>
 												<tr>
 													<td style="font-size: 13px; border-right: 1px solid #b4b4b4; border-bottom: 1px solid #b4b4b4; border-left: 2px solid #b4b4b4"><c:out value="${rf.count}"/></td>
-													<td style="font-size: 13px;border-right: 1px solid #b4b4b4; border-bottom: 1px solid #b4b4b4"><c:out value="${refr.author}"/></td>
+													<td style="font-size: 13px;border-right: 1px solid #b4b4b4; border-bottom: 1px solid #b4b4b4">
+														<a href="#" onClick="search_refr('${refr.author}')">  
+															<c:out value="${refr.author}"/>
+														</a>
+													</td>
 													<td style="font-size: 13px;border-right: 1px solid #b4b4b4; border-bottom: 1px solid #b4b4b4"><c:out value="${refr.pub_year}"/></td>
 													<td style="font-size: 13px;border-right: 1px solid #b4b4b4; border-bottom: 1px solid #b4b4b4"><c:out value="${refr.volume}"/></td>
 													<td style="font-size: 13px;border-right: 1px solid #b4b4b4; border-bottom: 1px solid #b4b4b4"><c:out value="${refr.issue}"/></td>
 													<td style="font-size: 13px;border-right: 1px solid #b4b4b4; border-bottom: 1px solid #b4b4b4"><c:out value="${refr.arti_title}"/></td>
 													<td style="font-size: 13px;border-right: 1px solid #b4b4b4; border-bottom: 1px solid #b4b4b4"><c:out value="${refr.doi}"/></td>
 													<td style="font-size: 13px;border-right: 1px solid #b4b4b4; border-bottom: 1px solid #b4b4b4"><c:out value="${refr.page}"/></td>
-													<td style="font-size: 13px; border-bottom: 1px solid #b4b4b4; border-right: 2px solid #b4b4b4"><c:out value="${refr.jrnl_title}"/></td>
+													<td style="font-size: 13px; border-bottom: 1px solid #b4b4b4; border-right: 2px solid #b4b4b4">
+														<a href="#" onClick="search_rfJrnl('${refr.jrnl_title}')"> 
+															<c:out value="${refr.jrnl_title}"/>
+														</a>
+													</td>
 												</tr>
 												</tbody>
 											</c:forEach>

@@ -297,6 +297,28 @@
 							WHERE
 								B.KWRD_NM = #{search}
 						</when>
+						<when test='search_option.equals("8")'>
+						<!-- search_option "8" : (참고문헌)저자 해당 논문목록 (상세페이지: article_detail.jsp) -->
+							FROM
+								TB_ARTI
+							INNER JOIN
+								TB_REFR AS B
+							ON
+								TB_ARTI.UID = B.UID
+							WHERE
+								B.AUTHOR = #{search}
+						</when>
+						<when test='search_option.equals("9")'>
+						<!-- search_option "9" : (참고문헌)학술지 해당 논문목록 (상세페이지: article_detail.jsp) -->
+							FROM
+								TB_ARTI
+							INNER JOIN
+								TB_REFR AS B
+							ON
+								TB_ARTI.UID = B.UID
+							WHERE
+								B.JRNL_TITLE = #{search}
+						</when>
 						<otherwise>
 						<!-- 검색어 없음 -->
 						FROM
