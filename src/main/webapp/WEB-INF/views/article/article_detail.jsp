@@ -259,6 +259,7 @@ a:hover.tip span {
 					<hr style="border-bottom: 0.5px dotted #b4b4b4">
 					<!-- 학술지 명 -->
 					<p style="font-size: 13px; font-style: oblique;">
+					학술지명:
 						<a href="#" class="tip" onClick="search_jrnl('${ArtiVO.jrnl_title}')"> 
 							${ArtiVO.jrnl_title}
 						<span>해당 학술지 논문<br>Click</span>
@@ -266,7 +267,7 @@ a:hover.tip span {
 					</p>
 					<!-- 발행정보: 발행연도, 권(호), 시작~종료페이지, 페이지수 -->
 					<p style="font-size: 13px; font-style: oblique;">
-						${ArtiVO.pub_year},vol.${ArtiVO.volume}
+						발행정보: ${ArtiVO.pub_year},vol.${ArtiVO.volume}
 					<c:if test="${ArtiVO.issue !=''}">
 						, no.${ArtiVO.issue}
 					</c:if>
@@ -320,6 +321,7 @@ a:hover.tip span {
 					<hr style="border-bottom: 0.5px dotted #b4b4b4">
 					<!-- 저자정보 -->
 					<p style="font-size: 13px; font-style: oblique;">
+					저자명:
 					<c:forEach var="auth" items="${ArtiVO.list_auth}" varStatus="a">
 						<a href="#" class="tip" onClick="search_auth('${auth.auth_full_nm}')"> 
 							${auth.auth_full_nm}
@@ -343,7 +345,7 @@ a:hover.tip span {
 					 <br>
 					 <!-- 소속기관 정보 -->
 					 <c:forEach var="orgn" items="${ArtiVO.list_orgn}" varStatus="o">
-                         ${orgn.orgn_nm}
+                         	소속기관: ${orgn.orgn_nm}
                          <c:if test="${(o.count != fn:length(ArtiVO.list_orgn))and fn:length(ArtiVO.list_orgn)!=0}">
                          	/
                          </c:if>
