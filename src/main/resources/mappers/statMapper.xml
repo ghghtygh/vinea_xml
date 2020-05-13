@@ -123,7 +123,11 @@
 		SELECT
 			COUNT(*)
 		FROM
-			TEST_ORGN_NM
+			TEST_ORGN_NM AS A
+		LEFT JOIN
+			ORGN_STAT AS B
+		ON
+			B.ORGN_NM = A.ORGN_NM
 		<!-- 소속기관명 검색하기 -->
 		<include refid="searchOrg2"></include>
 	</select>
@@ -160,9 +164,9 @@
 	    -->
 	    
 		<!-- 테스트 쿼리 02 -->	
-		SELECT 
+		SELECT
 			 @ROWNUM:=@ROWNUM+1 AS NUM
-			,B.MASTER_NM 
+			,B.MASTER_NM
 			,A.ARTI_CNT
 			,A.CITE_CNT
 		FROM
@@ -171,14 +175,14 @@
 				@ROWNUM:=#{start_index}
 		) R
 		,ORGN_STAT AS A
-		LEFT JOIN 
+		 LEFT JOIN 
 			TEST_ORGN_NM AS B
 		ON 
-			B.ORGN_NM = A.ORGN_NM
+			A.ORGN_NM = B.ORGN_NM
 		<!-- 소속기관명 검색하기 -->
 		<include refid="searchOrg2"></include>
 		GROUP BY
-			B.MASTER_NM
+			A.ORGN_NM
 		ORDER BY
 			A.ARTI_CNT
 		DESC

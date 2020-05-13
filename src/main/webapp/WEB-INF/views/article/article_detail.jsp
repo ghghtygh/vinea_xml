@@ -344,8 +344,9 @@ a:hover.tip span {
                      </c:forEach>
 					 <br>
 					 <!-- 소속기관 정보 -->
+					 소속기관:					 
 					 <c:forEach var="orgn" items="${ArtiVO.list_orgn}" varStatus="o">
-                         	소속기관: ${orgn.orgn_nm}
+                         	 ${orgn.orgn_nm}
                          <c:if test="${(o.count != fn:length(ArtiVO.list_orgn))and fn:length(ArtiVO.list_orgn)!=0}">
                          	/
                          </c:if>
